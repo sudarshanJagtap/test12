@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HomeCartTableViewCell" rowHeight="120" id="KGk-i7-Jjw" customClass="HomeCartTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Lm-bh-Z4z" customClass="AsyncImageView">
+                        <rect key="frame" x="5" y="19" width="75" height="75"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="75" id="jca-3t-GFO"/>
+                            <constraint firstAttribute="height" constant="75" id="xAg-Gh-RHL"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXF-zy-dfD">
+                        <rect key="frame" x="88" y="0.0" width="224" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="34" id="qzh-Ub-KBL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.67747372630000002" green="0.085360245900000006" blue="0.097923216499999993" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZx-OU-k4X">
+                        <rect key="frame" x="88" y="37" width="224" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="y36-e5-uZV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcR-2i-sXs">
+                        <rect key="frame" x="88" y="58" width="224" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="Q3Z-1g-xDU"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8KS-bb-mVH">
+                        <rect key="frame" x="88" y="80" width="126" height="34"/>
+                        <color key="backgroundColor" red="0.076804028730000001" green="0.6705882353" blue="0.099937478969999993" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="126" id="0aQ-kF-5Sh"/>
+                            <constraint firstAttribute="height" constant="34" id="2T7-A1-9UG"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="113" id="edm-A7-EFy"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="Go to Restuarant">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXJ-uO-ulu">
+                        <rect key="frame" x="222" y="80" width="90" height="34"/>
+                        <color key="backgroundColor" red="0.67747372630000002" green="0.085360245900000006" blue="0.097923216499999993" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="90" id="qHm-O6-AnL"/>
+                            <constraint firstAttribute="height" constant="34" id="w0c-9O-Qh5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="Empty Cart">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="fXJ-uO-ulu" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="1R9-tz-MQd"/>
+                    <constraint firstItem="KZx-OU-k4X" firstAttribute="leading" secondItem="3Lm-bh-Z4z" secondAttribute="trailing" constant="8" id="5YI-cW-ZR9"/>
+                    <constraint firstItem="KZx-OU-k4X" firstAttribute="top" secondItem="EXF-zy-dfD" secondAttribute="bottom" constant="3" id="CIh-bG-n2T"/>
+                    <constraint firstItem="8KS-bb-mVH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="80" id="EUD-j3-Tmc"/>
+                    <constraint firstItem="fXJ-uO-ulu" firstAttribute="leading" secondItem="8KS-bb-mVH" secondAttribute="trailing" constant="8" id="HwR-is-BRY"/>
+                    <constraint firstItem="wcR-2i-sXs" firstAttribute="top" secondItem="KZx-OU-k4X" secondAttribute="bottom" constant="6" id="MfE-6R-sXC"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="wcR-2i-sXs" secondAttribute="trailing" id="Sab-il-j5T"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="KZx-OU-k4X" secondAttribute="trailing" id="ZQb-N9-EHr"/>
+                    <constraint firstItem="8KS-bb-mVH" firstAttribute="top" secondItem="wcR-2i-sXs" secondAttribute="bottom" constant="7" id="ZcC-l7-8Sw"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="EXF-zy-dfD" secondAttribute="trailing" id="a2c-WY-GLn"/>
+                    <constraint firstItem="EXF-zy-dfD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="fnp-k9-8MX"/>
+                    <constraint firstItem="wcR-2i-sXs" firstAttribute="leading" secondItem="3Lm-bh-Z4z" secondAttribute="trailing" constant="8" id="j0u-QB-zW0"/>
+                    <constraint firstItem="fXJ-uO-ulu" firstAttribute="top" secondItem="wcR-2i-sXs" secondAttribute="bottom" constant="7" id="mCB-6Y-kWp"/>
+                    <constraint firstItem="3Lm-bh-Z4z" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="11" id="nvl-Dw-wDW"/>
+                    <constraint firstItem="EXF-zy-dfD" firstAttribute="leading" secondItem="3Lm-bh-Z4z" secondAttribute="trailing" constant="8" id="pJs-aP-ePe"/>
+                    <constraint firstItem="3Lm-bh-Z4z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-3" id="pai-BA-fD1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="emptyCartBtn" destination="fXJ-uO-ulu" id="Jm8-fR-WuI"/>
+                <outlet property="goToResoBtn" destination="8KS-bb-mVH" id="bc8-5k-u5y"/>
+                <outlet property="imgVw" destination="3Lm-bh-Z4z" id="jt7-G6-c3f"/>
+                <outlet property="noOfProds" destination="KZx-OU-k4X" id="PKw-D2-gAM"/>
+                <outlet property="orderType" destination="wcR-2i-sXs" id="wWJ-7I-wTP"/>
+                <outlet property="restName" destination="EXF-zy-dfD" id="MBA-3G-6uD"/>
+            </connections>
+            <point key="canvasLocation" x="278" y="236"/>
+        </tableViewCell>
+    </objects>
+</document>

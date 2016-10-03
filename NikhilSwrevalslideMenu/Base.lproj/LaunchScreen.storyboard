@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" initialViewController="01J-lp-oVM">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="5KX-Ai-QgC">
+                                <rect key="frame" x="13" y="95" width="294" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="soy-e5-jTI"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Order food online from the best restaurants near you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9m0-Sj-G7i">
+                                <rect key="frame" x="22" y="414" width="292" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="5bP-6a-enz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5KX-Ai-QgC" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="75" id="3mM-MN-4OR"/>
+                            <constraint firstItem="5KX-Ai-QgC" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" constant="3" id="cFj-k6-FJO"/>
+                            <constraint firstItem="9m0-Sj-G7i" firstAttribute="leading" secondItem="5KX-Ai-QgC" secondAttribute="leading" constant="5" id="g2U-qm-hEy"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="9m0-Sj-G7i" secondAttribute="bottom" constant="107" id="gpX-Dx-heB"/>
+                            <constraint firstItem="5KX-Ai-QgC" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-3" id="iHH-vg-UU0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9m0-Sj-G7i" secondAttribute="trailing" constant="-10" id="kzC-6U-f4k"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="133" y="373"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Launch" width="180" height="180"/>
+    </resources>
+</document>
