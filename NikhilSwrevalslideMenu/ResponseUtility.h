@@ -163,3 +163,25 @@
 
 @end
 
+
+@interface ViewOrderDetailsData : NSObject
+@property(nonatomic,strong)NSString *cart_id;
+@property(nonatomic,strong)NSString *cust_string;
+@property(nonatomic,strong)NSString *dish_price;
+@property(nonatomic,strong)NSString *dish_total;
+@property(nonatomic,strong)NSString *quantity;
+@property(nonatomic,strong)NSString *sub_category;
+@end
+
+@interface ViewOrderDetails : NSObject
+@property(nonatomic,strong)NSString *coupon_amount;
+@property(nonatomic,strong)NSString *delivery_fee;
+@property(nonatomic,strong)NSString *order_amount;
+@property(nonatomic,strong)NSString *tax_amount;
+@property(nonatomic,strong)NSString *total_amount;
+@property(nonatomic,strong)NSString *transaction_id;
+@property(nonatomic,strong)NSMutableArray *viewOrderDetailsDataArray;
+
+
+@end
+

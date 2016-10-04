@@ -351,6 +351,7 @@ dismissViewController:(UIViewController *)viewController {
 }
 
 - (IBAction)forgotPasswordBtnClick:(id)sender {
+//  [self performSegueWithIdentifier:@"ForgetPwd" sender:nil];
 }
 
 -(BOOL) NSStringIsValidEmail:(NSString *)checkString

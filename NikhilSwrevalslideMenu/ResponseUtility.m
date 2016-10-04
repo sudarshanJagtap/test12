@@ -53,3 +53,11 @@
 @implementation UserReviews
 
 @end
+
+@implementation ViewOrderDetails
+
+@end
+
+@implementation ViewOrderDetailsData
+
+@end

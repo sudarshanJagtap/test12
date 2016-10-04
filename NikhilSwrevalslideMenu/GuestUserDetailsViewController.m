@@ -10,6 +10,8 @@
 #import "RequestUtility.h"
 #import "AppDelegate.h"
 #import "SWRevealViewController.h"
+#import "DBManager.h"
+#import "CartViewController.h"
 @interface GuestUserDetailsViewController (){
   AppDelegate *appDelegate;
 }
@@ -124,8 +126,33 @@
 -(void)parseUserResponse:(NSDictionary*)ResponseDictionary{
   if (ResponseDictionary) {
      NSString *code = [ResponseDictionary valueForKey:@"code"];
-    if ([code isEqualToString:@"1"]) {
+    if ([code intValue] == 1) {
       NSLog(@"login successfull");
+      NSString *ud = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"user_name"];
+      if ( ud.length>0) {
+        if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
+          [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+          [appDelegate hideLoadingView];
+          NSString * storyboardName = @"Main";
+          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+          UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+          UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+          [navController setViewControllers: @[vc] animated: NO ];
+          [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+        }else{
+          [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+          
+          [appDelegate hideLoadingView];
+          NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+          for (UIViewController *aViewController in allViewControllers) {
+            if ([aViewController isKindOfClass:[CartViewController class]]) {
+              [self.navigationController popToViewController:aViewController animated:NO];
+            }
+          }
+        }
+      }else{
+        [appDelegate hideLoadingView];
+      }
     }
     dispatch_async(dispatch_get_main_queue(), ^{
       [appDelegate hideLoadingView];

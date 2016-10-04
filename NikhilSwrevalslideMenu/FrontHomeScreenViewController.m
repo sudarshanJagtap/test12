@@ -134,6 +134,18 @@
             forControlEvents:UIControlEventValueChanged];
   
   
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  CGFloat screenHeight = screenRect.size.height;
+  CGFloat screenWidth = screenRect.size.width;
+  CartButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  [CartButton addTarget:self
+                 action:@selector(showCartView)
+       forControlEvents:UIControlEventTouchUpInside];
+  [CartButton setTitle:@"1" forState:UIControlStateNormal];
+  [CartButton setBackgroundImage:[UIImage imageNamed:@"added_cart_img.png"] forState:UIControlStateNormal];
+  CartButton.frame = CGRectMake(screenWidth-70, screenHeight-70, 50,50 );
+  [self.view addSubview:CartButton];
+  
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -178,19 +190,7 @@
   self.navigationController.navigationBarHidden = YES;
   tempArray = [[NSMutableArray alloc]init];
   [tempArray addObjectsFromArray:respoUtility.UserFiltersResponseArray];
-  
-  
-  CGRect screenRect = [[UIScreen mainScreen] bounds];
-  CGFloat screenHeight = screenRect.size.height;
-  CGFloat screenWidth = screenRect.size.width;
-  CartButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  [CartButton addTarget:self
-                 action:@selector(showCartView)
-       forControlEvents:UIControlEventTouchUpInside];
-  [CartButton setTitle:@"1" forState:UIControlStateNormal];
-  [CartButton setBackgroundImage:[UIImage imageNamed:@"added_cart_img.png"] forState:UIControlStateNormal];
-  CartButton.frame = CGRectMake(screenWidth-70, screenHeight-70, 50,50 );
-  
+
   NSDictionary*rDict = [[DBManager getSharedInstance] getALlRestuarants];
   NSArray *rArr = [rDict allValues];
   //  NSArray *rKeys = [rDict allKeys];
@@ -202,7 +202,7 @@
     CartButton.hidden = YES;
   }
   
-  [self.view addSubview:CartButton];
+
 }
 
 -(void)showCartView{
@@ -796,6 +796,20 @@
   NSLog(@"%ld",(long)btn.tag);
   [self RemovecartPpUp];
   USerSelectedCartData *data = (USerSelectedCartData*)[popRestArray objectAtIndex:btn.tag];
+  if ([data.ordertype isEqualToString:@"PickUp"]) {
+    reqUtility.selectedOrderType = @"PickUp";
+    reqUtility.delivery_status = 0;
+  }else if([data.ordertype isEqualToString:@"Delivery"]){
+    reqUtility.selectedOrderType = @"Delivery";
+    reqUtility.delivery_status = 1;
+  }else{
+    if ([data.ordertype isEqualToString:@"PickUp"]) {
+      reqUtility.delivery_status = 0;
+    }else{
+      reqUtility.delivery_status = 1;
+    }
+    reqUtility.selectedOrderType  = @"ASAP";
+  }
   NSString *ID = [NSString stringWithFormat:@"%ld",(long)data.restaurant_Id];
   UserFiltersResponse *frsp = [[DBManager getSharedInstance]getUserFilterData:ID];
   DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
