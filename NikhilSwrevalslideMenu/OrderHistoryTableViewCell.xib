@@ -30,7 +30,7 @@
                             <constraint firstAttribute="height" constant="21" id="jYu-Un-exh"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TotalAmount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDD-8E-3cA">
@@ -39,7 +39,7 @@
                             <constraint firstAttribute="height" constant="21" id="rku-4y-PJD"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OrderDate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ywh-Fh-S9B">
@@ -48,7 +48,7 @@
                             <constraint firstAttribute="height" constant="21" id="NCd-zU-D7g"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DeliveryDate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vua-hj-sKd">
@@ -57,7 +57,7 @@
                             <constraint firstAttribute="height" constant="21" id="uFx-Sp-ICl"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delivered" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z4o-1A-XDi">
@@ -82,6 +82,32 @@
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3WH-VY-ur5">
+                        <rect key="frame" x="18" y="140" width="127" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="127" id="ID2-Fo-v0a"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="Mjw-9Q-LBc"/>
+                            <constraint firstAttribute="width" constant="127" id="T7i-ar-geq"/>
+                            <constraint firstAttribute="height" constant="25" id="qJk-A4-e4R"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                        <state key="normal" title="Order Details">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAn-kQ-bFj">
+                        <rect key="frame" x="175" y="140" width="127" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="127" id="0gT-B2-Cyo"/>
+                            <constraint firstAttribute="height" constant="25" id="68C-Ir-4tr"/>
+                            <constraint firstAttribute="width" constant="127" id="AzF-OO-Rha"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="hcN-AQ-tTy"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                        <state key="normal" title="REVIEW">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="7WF-0y-FkK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="01h-Mu-YEz"/>
@@ -94,16 +120,20 @@
                     <constraint firstItem="hgO-6g-AZP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="JJi-a3-DWK"/>
                     <constraint firstItem="Ywh-Fh-S9B" firstAttribute="top" secondItem="jDD-8E-3cA" secondAttribute="bottom" constant="5" id="KAJ-27-ewJ"/>
                     <constraint firstItem="7WF-0y-FkK" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="PaZ-rA-Vgw"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="TAn-kQ-bFj" secondAttribute="bottom" constant="1.5" id="RdB-ey-wBb"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Vua-hj-sKd" secondAttribute="bottom" constant="29.5" id="UnK-rD-9W0"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="3WH-VY-ur5" secondAttribute="bottom" constant="1.5" id="Z2a-BH-fRX"/>
                     <constraint firstItem="Z4o-1A-XDi" firstAttribute="leading" secondItem="hgO-6g-AZP" secondAttribute="trailing" constant="13" id="bfr-LA-SVf"/>
                     <constraint firstItem="jDD-8E-3cA" firstAttribute="top" secondItem="7WF-0y-FkK" secondAttribute="bottom" constant="5" id="gD2-US-9Gc"/>
                     <constraint firstItem="Z4o-1A-XDi" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="gkS-s0-vHo"/>
                     <constraint firstItem="Ywh-Fh-S9B" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="hvi-n3-WLI"/>
+                    <constraint firstItem="TAn-kQ-bFj" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="78.5" id="lGH-Bw-mO8"/>
                     <constraint firstItem="Ywh-Fh-S9B" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="nZb-n2-c11"/>
                     <constraint firstItem="QN6-4X-gFp" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="qWt-qD-jkU"/>
                     <constraint firstItem="jDD-8E-3cA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="sAG-aC-Ufz"/>
                     <constraint firstItem="Vua-hj-sKd" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="uxp-dj-Wmd"/>
                     <constraint firstItem="jDD-8E-3cA" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="xHV-CZ-2Ok"/>
+                    <constraint firstItem="3WH-VY-ur5" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="-78.5" id="ziY-ip-Ay2"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -112,8 +142,10 @@
                 <outlet property="isDeliverdLbl" destination="Z4o-1A-XDi" id="VKo-aJ-6P1"/>
                 <outlet property="nameLbl" destination="hgO-6g-AZP" id="2Tm-rk-Z3d"/>
                 <outlet property="orderDateLbl" destination="Ywh-Fh-S9B" id="pcF-N1-sWe"/>
+                <outlet property="orderDetails1" destination="3WH-VY-ur5" id="JGO-ma-Bho"/>
                 <outlet property="orderDetailsBtn" destination="QN6-4X-gFp" id="kKA-z1-jhx"/>
                 <outlet property="orderIdLbl" destination="7WF-0y-FkK" id="qYV-zy-Ss9"/>
+                <outlet property="review1" destination="TAn-kQ-bFj" id="bW9-et-MVl"/>
                 <outlet property="totalAmtLbl" destination="jDD-8E-3cA" id="Wvt-TR-ndH"/>
             </connections>
         </tableViewCell>

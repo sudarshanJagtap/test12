@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		45B202CA9BA8340A2F05E51A /* libPods-NikhilSwrevalslideMenu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3186AC28CEEC4EEACB576BD /* libPods-NikhilSwrevalslideMenu.a */; };
+		6519ACC61DA44EB50094F9B5 /* AddReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6519ACC51DA44EB50094F9B5 /* AddReviewsViewController.m */; };
 		65753C891D43DC0A00069C54 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65753C881D43DC0A00069C54 /* DetailViewController.m */; };
 		65753C8D1D43F20300069C54 /* DetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65753C8B1D43F20300069C54 /* DetailTableViewCell.m */; };
 		65753C8E1D43F20300069C54 /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65753C8C1D43F20300069C54 /* DetailTableViewCell.xib */; };
@@ -98,6 +99,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6519ACC41DA44EB50094F9B5 /* AddReviewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddReviewsViewController.h; sourceTree = "<group>"; };
+		6519ACC51DA44EB50094F9B5 /* AddReviewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddReviewsViewController.m; sourceTree = "<group>"; };
 		65753C871D43DC0A00069C54 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		65753C881D43DC0A00069C54 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		65753C8A1D43F20300069C54 /* DetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewCell.h; sourceTree = "<group>"; };
@@ -464,6 +467,8 @@
 				65849DB91D9A7E0300105977 /* DisplayRatingTableViewCell.h */,
 				65849DBA1D9A7E0300105977 /* DisplayRatingTableViewCell.m */,
 				65849DBB1D9A7E0300105977 /* DisplayRatingTableViewCell.xib */,
+				6519ACC41DA44EB50094F9B5 /* AddReviewsViewController.h */,
+				6519ACC51DA44EB50094F9B5 /* AddReviewsViewController.m */,
 			);
 			name = HomeScreen;
 			sourceTree = "<group>";
@@ -699,6 +704,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6519ACC61DA44EB50094F9B5 /* AddReviewsViewController.m in Sources */,
 				65753CF61D47FAC500069C54 /* CustomizeOptionTableViewCell.m in Sources */,
 				657DEC6D1D4E7AD400A1B512 /* AddressListViewController.m in Sources */,
 				65753CA31D464E0300069C54 /* SKSTableViewCell.m in Sources */,

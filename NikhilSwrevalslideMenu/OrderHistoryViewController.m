@@ -14,8 +14,10 @@
 #import "SWRevealViewController.h"
 #import "OrderHistoryTableViewCell.h"
 #import "ViewOrderViewController.h"
+#import "AddReviewsViewController.h"
 @interface OrderHistoryViewController ()<UITableViewDataSource,UITableViewDelegate>{
   AppDelegate *appDelegate;
+  NSString *userId;
 }
 
 @end
@@ -26,7 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
-  NSString *userId=[userdictionary valueForKey:@"user_id"];
+  userId=[userdictionary valueForKey:@"user_id"];
   NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
   [dict setValue:userId forKey:@"user_id"];
   [dict setValue:@"order_history" forKey:@"action"];
@@ -136,17 +138,30 @@
     cell.isDeliverdLbl.layer.cornerRadius =8.0;
     cell.orderDetailsBtn.tag = indexPath.row;
     [cell.orderDetailsBtn addTarget:self action:@selector(viewOrder:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.orderDetails1 addTarget:self action:@selector(viewOrder:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [cell.review1 addTarget:self action:@selector(addreviews:) forControlEvents:UIControlEventTouchUpInside];
     [[cell.orderDetailsBtn layer] setBorderWidth:2.0f];
     [cell.orderDetailsBtn layer].cornerRadius = 12.0;
     [[cell.orderDetailsBtn layer] setBorderColor:redClr.CGColor];
     
+    [[cell.review1 layer] setBorderWidth:2.0f];
+    [cell.review1 layer].cornerRadius = 12.0;
+    [[cell.review1 layer] setBorderColor:redClr.CGColor];
+    
+    [[cell.orderDetails1 layer] setBorderWidth:2.0f];
+    [cell.orderDetails1 layer].cornerRadius = 12.0;
+    [[cell.orderDetails1 layer] setBorderColor:redClr.CGColor];
+    
     NSString *rst = oData.review_status;
-    if (rst==0) {
-//      cell.orderDetailsBtn.hidden= NO;
-//            cell.bottomSpace.constant = 30;
+    if ([rst isEqual:@"0"]) {
+      cell.orderDetailsBtn.hidden = YES;
+      cell.orderDetails1.hidden = NO;
+      cell.review1.hidden = NO;
     }else{
-//      cell.orderDetailsBtn.hidden = YES;
-//      cell.bottomSpace.constant = 0;
+      cell.orderDetailsBtn.hidden = NO;
+      cell.orderDetails1.hidden = YES;
+      cell.review1.hidden = YES;
     }
   }
   return cell;
@@ -165,6 +180,17 @@
   ViewOrderViewController *obj_clvc  = (ViewOrderViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ViewOrderViewControllerId"];
   USerOrderHistory *oData = (USerOrderHistory*)[[ResponseUtility getSharedInstance].UserOrderArray objectAtIndex:btn.tag];
   obj_clvc.orderID =oData.order_id;
+  [self.navigationController pushViewController:obj_clvc animated:YES];
+}
+
+
+-(IBAction)addreviews:(id)sender{
+  UIButton *btn = (UIButton*)sender;
+  NSLog(@"%ld",(long)btn.tag);
+  AddReviewsViewController *obj_clvc  = (AddReviewsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddReviewsViewControllerId"];
+  USerOrderHistory *oData = (USerOrderHistory*)[[ResponseUtility getSharedInstance].UserOrderArray objectAtIndex:btn.tag];
+  obj_clvc.userId = userId;
+  obj_clvc.uData = oData;
   [self.navigationController pushViewController:obj_clvc animated:YES];
 }
 
