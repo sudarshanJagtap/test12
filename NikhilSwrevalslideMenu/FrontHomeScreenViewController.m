@@ -294,14 +294,29 @@
     trsnparentView.hidden = NO;
     [trsnparentView setFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
     
-    coverView.center = self.view.center;
-    popUpView.center = self.view.center;
+//    coverView.center = self.view.center;
+//    popUpView.center = self.view.center;
     [self.view addSubview:trsnparentView];
     [coverView addSubview:popUpView];
     [self.view addSubview:coverView];
     [self.view bringSubviewToFront:coverView];
     blankScreen.hidden =NO;
     [ppTableView reloadData];
+    
+    [UIView transitionWithView:coverView
+                      duration:0.5
+                       options:UIViewAnimationOptionTransitionNone
+                    animations:^{
+                      coverView.center = self.view.center;
+                    }
+                    completion:nil];
+    [UIView transitionWithView:popUpView
+                      duration:0.5
+                       options:UIViewAnimationOptionTransitionNone
+                    animations:^{
+                      popUpView.center = self.view.center;
+                    }
+                    completion:nil];
   }else{
     CartButton.hidden = YES;
     blankScreen.hidden =YES;
