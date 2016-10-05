@@ -35,7 +35,11 @@
   [GIDSignIn sharedInstance].uiDelegate = self;
   [GIDSignIn sharedInstance].delegate = self;
   
-  
+  if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
+    self.skipBtn.hidden = NO;
+  }else{
+    self.skipBtn.hidden = YES;;
+  }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -48,14 +52,6 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
   self.navigationController.navigationBarHidden = YES;
-}
-
--(void)viewDidAppear:(BOOL)animated{
-  self.skipLogin.userInteractionEnabled = YES;
-  UITapGestureRecognizer *tapGesture =
-  [[UITapGestureRecognizer alloc] initWithTarget:self
-                                          action:@selector(skipLoginTap)];
-  [self.skipLogin addGestureRecognizer:tapGesture];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -305,7 +301,6 @@ didDisconnectWithUser:(GIDGoogleUser *)user
   [alert show];
 }
 
-// Dismiss the "Sign in with Google" view
 - (void)signIn:(GIDSignIn *)signIn
 dismissViewController:(UIViewController *)viewController {
   [self dismissViewControllerAnimated:YES completion:nil];
@@ -323,5 +318,14 @@ dismissViewController:(UIViewController *)viewController {
   }else{
     [self.navigationController popViewControllerAnimated:YES];
   }
+}
+
+- (IBAction)skipLogin:(id)sender {
+    NSString * storyboardName = @"Main";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+    UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+    [navController setViewControllers: @[vc] animated: NO ];
+    [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
 }
 @end

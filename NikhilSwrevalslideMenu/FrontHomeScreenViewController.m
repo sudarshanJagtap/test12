@@ -48,7 +48,7 @@
   UserFiltersResponse *didSelectedFilterRespo;
   NIDropDown *dropDown;
   GMSAutocompleteFetcher* _fetcher;
-  
+  UILabel *fromLabel;
   UITextField *customTxtFld;
 }
 
@@ -58,7 +58,7 @@
 - (void)viewDidLoad {
   
   [super viewDidLoad];
-  
+  fromLabel = [[UILabel alloc]init];
   customTxtFld = [[UITextField alloc]init];
   customTxtFld.frame = self.addressBtn.frame;
   [self.view addSubview:customTxtFld];
@@ -390,7 +390,7 @@
 - (IBAction)resetFiltersCancelBtnClick:(id)sender {
   self.resetFiltersView.hidden = YES;
   self.addedFilterLabel.hidden = NO;
-  crossBtn.hidden = YES;
+  crossBtn.hidden = NO;
 }
 
 - (IBAction)resetFiltersResetBtnClick:(id)sender {
@@ -720,25 +720,26 @@
   
   
   alertView.backgroundColor = [UIColor whiteColor];
-  [alertView setFrame:CGRectMake(10, screenheight/2-100, screenWidth-20, 180)];
+  [alertView setFrame:CGRectMake(10, screenheight/2-100, screenWidth-20, 190)];
   UIImageView *imgView = [[UIImageView alloc]init];
   [imgView setFrame:CGRectMake(screenWidth/2-100, 10, 200, 40)];
   [imgView setImage: [UIImage imageNamed:@"ymoc_login_logo.png"]];
   [alertView addSubview:imgView];
   
   
-  UILabel *fromLabel = [[UILabel alloc]init];
-  [fromLabel setFrame:CGRectMake(0, 50, screenWidth-20, 65)];
-  fromLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+  
+  [fromLabel setFrame:CGRectMake(0, 50, screenWidth-20, 75)];
+  fromLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
   fromLabel.text = msgStr;
   fromLabel.numberOfLines = 4;
   fromLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
   fromLabel.adjustsFontSizeToFitWidth = YES;
   fromLabel.minimumScaleFactor = 10.0f/12.0f;
-  fromLabel.clipsToBounds = YES;
+  fromLabel.adjustsFontSizeToFitWidth = YES;
   fromLabel.backgroundColor = [UIColor clearColor];
   fromLabel.textColor = [UIColor blackColor];
   fromLabel.textAlignment = NSTextAlignmentCenter;
+  fromLabel.lineBreakMode = NSLineBreakByWordWrapping;
   [alertView addSubview:fromLabel];
   
   UIButton *deliveryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -746,7 +747,8 @@
              action:@selector(deliveryBtnClicked)
    forControlEvents:UIControlEventTouchUpInside];
   [deliveryBtn setTitle:@"Delivery" forState:UIControlStateNormal];
-  deliveryBtn.frame = CGRectMake(screenWidth/2-125, 120, 120, 40.0);
+  deliveryBtn.frame = CGRectMake(screenWidth/2-125, 130, 120, 40.0);
+  deliveryBtn.frame = CGRectMake(alertView.frame.size.width/2-135, 130, 120, 40.0);
   deliveryBtn.backgroundColor = [UIColor colorWithRed:71/255.0f green:202/255.0f blue:75/255.0f alpha:1.0f];
   [alertView addSubview:deliveryBtn];
   
@@ -755,7 +757,7 @@
              action:@selector(pickUpBtnClicked)
    forControlEvents:UIControlEventTouchUpInside];
   [pickUpBtn setTitle:@"Pickup" forState:UIControlStateNormal];
-  pickUpBtn.frame = CGRectMake(screenWidth/2+5, 120, 120, 40.0);
+  pickUpBtn.frame = CGRectMake(alertView.frame.size.width/2+5, 130, 130, 40.0);
   pickUpBtn.backgroundColor = [UIColor colorWithRed:101/255.0f green:220/255.0f blue:243/255.0f alpha:1.0f];
   [alertView addSubview:pickUpBtn];
   [self.view addSubview:alertView];
@@ -1012,27 +1014,9 @@
   //    self.addressBtn.text = respoUtility.enteredAddress;
   NSString *cityValueText = [NSString stringWithFormat:@" %@",respoUtility.enteredAddress];
   customTxtFld.text = cityValueText;
+  [dropDown hideDropDown:customTxtFld];
+  [self rel];
   [self delegateDelivery];
-//  [self.searchTxtFld becomeFirstResponder];
-//  self.searchTxtFld.text= @"";
-//  self.searchArea.hidden = NO;
-//  
-//}
-//  GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
-//  acController.delegate = self;
-//  [acController.view setFrame:CGRectMake(50, 50, 200, 200)];
-//  acController.view.backgroundColor = [UIColor blackColor ];
-//  
-//  [UIColor colorWithRed:(213/255.f) green:(213/255.f) blue:(213/255.f) alpha:1.0f];
-//  [UIColor colorWithRed:188.0/255.0 green:67.0/255.0 blue:67.0/255.0 alpha:1.0];
-//  [UIColor colorWithRed:112/255.0 green:170.0/255.0 blue:157.0/255.0 alpha:1.0];
-//  acController.tableCellBackgroundColor = [UIColor colorWithRed:112/255.0 green:170.0/255.0 blue:157.0/255.0 alpha:1.0];;
-//  acController.tableCellSeparatorColor = [UIColor whiteColor];
-//  acController.primaryTextColor = [UIColor whiteColor];
-//  acController.secondaryTextColor = [UIColor whiteColor];
-//  acController.primaryTextHighlightColor = [UIColor whiteColor];
-//  [self presentViewController:acController animated:YES completion:nil];
-  
 }
 
 // Handle the user's selection.

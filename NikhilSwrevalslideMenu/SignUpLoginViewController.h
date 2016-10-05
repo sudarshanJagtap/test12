@@ -15,10 +15,13 @@
 - (IBAction)signUpBtnClick:(id)sender;
 - (IBAction)loginBtnClick:(id)sender;
 - (IBAction)guestUserBtnClick:(id)sender;
-@property (weak, nonatomic) IBOutlet UILabel *skipLogin;
+//@property (weak, nonatomic) IBOutlet UIButton *skipLogin;
 @property(weak, nonatomic) IBOutlet GIDSignInButton *signInButton;
 - (IBAction)backNavBtnClick:(id)sender;
+//- (IBAction)skipBtn1click:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
+- (IBAction)skipLogin:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *skipBtn;
 
 @end
