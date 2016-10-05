@@ -32,21 +32,22 @@
   [super viewDidLoad];
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   self.title = @"Login";
-  [GIDSignIn sharedInstance].uiDelegate = self;
-  [GIDSignIn sharedInstance].delegate = self;
-  
   if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
     self.skipBtn.hidden = NO;
+    self.guestBtn.hidden = YES;
   }else{
-    self.skipBtn.hidden = YES;;
+    self.skipBtn.hidden = YES;
+    self.guestBtn.hidden = NO;
   }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+  [GIDSignIn sharedInstance].uiDelegate = self;
+  [GIDSignIn sharedInstance].delegate = self;
     if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
       self.navigationController.navigationBarHidden = YES;
     }else{
-      self.navigationController.navigationBarHidden = NO;
+      self.navigationController.navigationBarHidden = YES;
     }
 }
 

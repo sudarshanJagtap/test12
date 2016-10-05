@@ -24,7 +24,7 @@
 #import <GooglePlaces/GooglePlaces.h>
 #import "NIDropDown.h"
 
-@interface FrontHomeScreenViewController ()<RightMenuViewControllerDelegate,RateViewDelegate,GMSAutocompleteViewControllerDelegate,NIDropDownDelegate>{
+@interface FrontHomeScreenViewController ()<RightMenuViewControllerDelegate,GMSAutocompleteViewControllerDelegate,NIDropDownDelegate>{
   
   ResponseUtility *respoUtility;
   RequestUtility *reqUtility;
@@ -68,7 +68,7 @@
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   CGFloat screenHeight = screenRect.size.height;
   CGFloat screenWidth = screenRect.size.width;
-  [customTxtFld setFrame:CGRectMake(50, 65, screenWidth-80, self.addressBtn.frame.size.height)];
+  [customTxtFld setFrame:CGRectMake(30, 65, screenWidth-70, self.addressBtn.frame.size.height)];
   
   [self configureAutoCompleteView];
   fullscreenView = [[UIView alloc]init];
@@ -88,7 +88,7 @@
   self.tableView.contentInset = inset;
   NSString *cityValue = [[NSUserDefaults standardUserDefaults]
                          stringForKey:@"city"];
-//  self.titleLbl.text =cityValue;
+  //  self.titleLbl.text =cityValue;
   NSString *cityValueText = [NSString stringWithFormat:@" %@",cityValue];
   customTxtFld.text = cityValueText;
   [self.navigationController.navigationBar setTitleTextAttributes:
@@ -103,7 +103,7 @@
   UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(btnSearchMenu:)];
   [tapGestureRecognizer setNumberOfTapsRequired:1];
   [customTxtFld addGestureRecognizer:tapGestureRecognizer];
-
+  
   
   self.btnDelivery.layer.cornerRadius = 4;
   self.btnDelivery.layer.borderWidth = 1;
@@ -151,7 +151,7 @@
   [self.downPicker addTarget:self
                       action:@selector(dp_Selected:)
             forControlEvents:UIControlEventValueChanged];
-
+  
   CartButton = [UIButton buttonWithType:UIButtonTypeCustom];
   [CartButton addTarget:self
                  action:@selector(showCartView)
@@ -172,11 +172,11 @@
   self.navigationController.navigationBarHidden = YES;
   respoUtility = [ResponseUtility getSharedInstance];
   reqUtility = [RequestUtility sharedRequestUtility];
-//  self.titleLbl.text = respoUtility.enteredAddress;
+  //  self.titleLbl.text = respoUtility.enteredAddress;
   
   NSString *cityValueText = [NSString stringWithFormat:@" %@",respoUtility.enteredAddress];
   customTxtFld.text = cityValueText;
-//  self.addressBtn.text = respoUtility.enteredAddress;
+  //  self.addressBtn.text = respoUtility.enteredAddress;
   //  NSMutableArray* bandArray = [[NSMutableArray alloc] init];
   
   // add some sample data
@@ -207,7 +207,7 @@
   self.navigationController.navigationBarHidden = YES;
   tempArray = [[NSMutableArray alloc]init];
   [tempArray addObjectsFromArray:respoUtility.UserFiltersResponseArray];
-
+  
   NSDictionary*rDict = [[DBManager getSharedInstance] getALlRestuarants];
   NSArray *rArr = [rDict allValues];
   //  NSArray *rKeys = [rDict allKeys];
@@ -219,7 +219,7 @@
     CartButton.hidden = YES;
   }
   
-
+  
 }
 
 -(void)showCartView{
@@ -276,37 +276,37 @@
       
     }
     
-  
-  
-  CGRect screenRect = [[UIScreen mainScreen] bounds];
-  CGFloat screenHeight = screenRect.size.height;
-  CGFloat screenWidth = screenRect.size.width;
-  
-  [popUpView setFrame:CGRectMake(10, 70, screenWidth-20, screenHeight-90)];
-  [popUpView addSubview:ppTableView];
-  [self.view addGestureRecognizer:tap];
-  ppTableView.delegate = self;
-  ppTableView.dataSource = self;
-  
-  [ppTableView setFrame:CGRectMake(05, 05, screenWidth-30, screenHeight-100)];
-  popUpView.backgroundColor  = [UIColor blackColor];
-  popUpView.hidden = NO;
-  [popUpView addSubview:ppTableView];
-  [coverView setFrame:self.view.bounds];
-  popUpView.backgroundColor = [UIColor blackColor];
-  popUpView.layer.borderColor = [UIColor yellowColor].CGColor;
-  coverView.layer.borderWidth = 2.0f;
-  popUpView.backgroundColor = [UIColor grayColor];
-  coverView.hidden = NO;
-  trsnparentView.backgroundColor = [UIColor blackColor];
-  trsnparentView.alpha = 0/7;
-  trsnparentView.hidden = NO;
-  [trsnparentView setFrame:self.view.bounds];
-  [self.view addSubview:trsnparentView];
-  [coverView addSubview:popUpView];
-  [self.view addSubview:coverView];
-  [self.view bringSubviewToFront:coverView];
-  [ppTableView reloadData];
+    
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenHeight = screenRect.size.height;
+    CGFloat screenWidth = screenRect.size.width;
+    
+    [popUpView setFrame:CGRectMake(10, 70, screenWidth-20, screenHeight-90)];
+    [popUpView addSubview:ppTableView];
+    [self.view addGestureRecognizer:tap];
+    ppTableView.delegate = self;
+    ppTableView.dataSource = self;
+    
+    [ppTableView setFrame:CGRectMake(05, 05, screenWidth-30, screenHeight-100)];
+    popUpView.backgroundColor  = [UIColor blackColor];
+    popUpView.hidden = NO;
+    [popUpView addSubview:ppTableView];
+    [coverView setFrame:self.view.bounds];
+    popUpView.backgroundColor = [UIColor blackColor];
+    popUpView.layer.borderColor = [UIColor yellowColor].CGColor;
+    coverView.layer.borderWidth = 2.0f;
+    popUpView.backgroundColor = [UIColor grayColor];
+    coverView.hidden = NO;
+    trsnparentView.backgroundColor = [UIColor blackColor];
+    trsnparentView.alpha = 0/7;
+    trsnparentView.hidden = NO;
+    [trsnparentView setFrame:self.view.bounds];
+    [self.view addSubview:trsnparentView];
+    [coverView addSubview:popUpView];
+    [self.view addSubview:coverView];
+    [self.view bringSubviewToFront:coverView];
+    [ppTableView reloadData];
   }else{
     CartButton.hidden = YES;
     [self RemovecartPpUp];
@@ -489,17 +489,23 @@
       }
       tempArray = [[NSMutableArray alloc]init];
       [tempArray addObjectsFromArray:respoUtility.UserFiltersResponseArray];
-      [self.tableView reloadData];
-      self.tableView.hidden = NO;
-      noRestoLabel.hidden = YES;
-      [appDelegate hideLoadingView];//after compltion close progress bar
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        self.tableView.hidden = NO;
+        noRestoLabel.hidden = YES;
+        [appDelegate hideLoadingView];
+      });//after compltion close progress bar
     }else{
-      [self showNoReastuarant ];
-      self.tableView.hidden = YES;
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self showNoReastuarant ];
+        self.tableView.hidden = YES;
+        [appDelegate hideLoadingView];
+      });
     }
   } failure:^(BOOL failed, NSString *errorMessage) {
-    [appDelegate hideLoadingView];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [appDelegate hideLoadingView];
+    });
   }];
   
   
@@ -555,9 +561,9 @@
     USerSelectedCartData *cd = (USerSelectedCartData*)[popRestArray objectAtIndex:indexPath.row];
     NSString *imglogo=cd.Logo;
     NSString *stringURL=@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/ymoc_main/upload/logo/medium/";
-//    NSString *stringURL=@"http://ymoc.mobisofttech.co.in/ymoc_main/upload/logo/thumbnail/";
+    //    NSString *stringURL=@"http://ymoc.mobisofttech.co.in/ymoc_main/upload/logo/thumbnail/";
     
-
+    
     NSString *url_Img_FULL = [stringURL stringByAppendingPathComponent:imglogo];
     if (imglogo) {
       cell.imgVw.showActivityIndicator = YES;
@@ -578,11 +584,11 @@
     cell.lblOrder.text =orderValue;
     NSString *feeValue = ufpRespo.fee;
     NSString *distanceValue = ufpRespo.pkDistance;
-//    if (ufpRespo.cuisine_string.length>60) {
-//      cell.cuisineStringHeightConstraint.constant = 48;
-//    }else
-      if(ufpRespo.cuisine_string.length>40) {
-    cell.cuisineStringHeightConstraint.constant = 32;
+    //    if (ufpRespo.cuisine_string.length>60) {
+    //      cell.cuisineStringHeightConstraint.constant = 48;
+    //    }else
+    if(ufpRespo.cuisine_string.length>40) {
+      cell.cuisineStringHeightConstraint.constant = 32;
     }else{
       cell.cuisineStringHeightConstraint.constant = 16;
     }
@@ -620,7 +626,7 @@
     timeValue = [timeValue stringByAppendingString:@" Minutes"];
     cell.lbldeliveritime.text =timeValue;
     NSString *imglogo=ufpRespo.logo;
-
+    
     
     NSString *stringURL=@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/ymoc_main/upload/logo/medium/";
     //    NSString *stringURL=@"http://ymoc.mobisofttech.co.in/ymoc_main/upload/logo/thumbnail/";
@@ -663,19 +669,19 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UserFiltersResponse *ufpRespo = (UserFiltersResponse*)[respoUtility.UserFiltersResponseArray objectAtIndex:indexPath.row];
+  UserFiltersResponse *ufpRespo = (UserFiltersResponse*)[respoUtility.UserFiltersResponseArray objectAtIndex:indexPath.row];
   didSelectedFilterRespo = ufpRespo;
   NSString *orderType = [[DBManager getSharedInstance]getOrderTypeForRestaurantID:[ufpRespo.ufp_id intValue]];
   
   if ([orderType isEqualToString:@"Delivery"]) {
     if ([self.btnPickup isEnabled]) {
-        DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
+      DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
       
-        obj_clvc.selectedUfrespo = ufpRespo;
-        [self.navigationController pushViewController:obj_clvc animated:YES];
+      obj_clvc.selectedUfrespo = ufpRespo;
+      [self.navigationController pushViewController:obj_clvc animated:YES];
     }else{
       //update ordertype and changeBtnType
-       [self showOrderModeChangeAlertForRestID:ufpRespo andMsg:@"  You have cart filled with Delivery order mode and you have selected Pickup order mode. Please select order mode with you want to continue  "];
+      [self showOrderModeChangeAlertForRestID:ufpRespo andMsg:@"  You have cart filled with Delivery order mode and you have selected Pickup order mode. Please select order mode with you want to continue  "];
       
     }
     
@@ -688,22 +694,22 @@
       [self.navigationController pushViewController:obj_clvc animated:YES];
     }else{
       //update ordertype and changeBtnType
-     [self showOrderModeChangeAlertForRestID:ufpRespo andMsg:@"  You have cart filled with Pickup order mode and you have selected Delivery order mode. Please select order mode with you want to continue  "];
+      [self showOrderModeChangeAlertForRestID:ufpRespo andMsg:@"  You have cart filled with Pickup order mode and you have selected Delivery order mode. Please select order mode with you want to continue  "];
     }
-  
+    
   }else{
     DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
     
     obj_clvc.selectedUfrespo = ufpRespo;
     [self.navigationController pushViewController:obj_clvc animated:YES];
-  
+    
   }
   
-
+  
 }
 
 -(void)showOrderModeChangeAlertForRestID:(UserFiltersResponse*)ufrespo andMsg:(NSString*)msgStr{
-
+  
   float screenWidth = [[UIScreen mainScreen] bounds].size.width;
   float screenheight = [[UIScreen mainScreen] bounds].size.height;
   fullscreenView.frame = self.view.bounds;
@@ -744,8 +750,8 @@
   
   UIButton *deliveryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
   [deliveryBtn addTarget:self
-             action:@selector(deliveryBtnClicked)
-   forControlEvents:UIControlEventTouchUpInside];
+                  action:@selector(deliveryBtnClicked)
+        forControlEvents:UIControlEventTouchUpInside];
   [deliveryBtn setTitle:@"Delivery" forState:UIControlStateNormal];
   deliveryBtn.frame = CGRectMake(screenWidth/2-125, 130, 120, 40.0);
   deliveryBtn.frame = CGRectMake(alertView.frame.size.width/2-135, 130, 120, 40.0);
@@ -754,8 +760,8 @@
   
   UIButton *pickUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
   [pickUpBtn addTarget:self
-             action:@selector(pickUpBtnClicked)
-   forControlEvents:UIControlEventTouchUpInside];
+                action:@selector(pickUpBtnClicked)
+      forControlEvents:UIControlEventTouchUpInside];
   [pickUpBtn setTitle:@"Pickup" forState:UIControlStateNormal];
   pickUpBtn.frame = CGRectMake(alertView.frame.size.width/2+5, 130, 130, 40.0);
   pickUpBtn.backgroundColor = [UIColor colorWithRed:101/255.0f green:220/255.0f blue:243/255.0f alpha:1.0f];
@@ -771,12 +777,12 @@
   
   BOOL retval = [[DBManager getSharedInstance]updateOrderModeIntoDB:didSelectedFilterRespo.ufp_id andOrderMode:@"Delivery"];
   if (retval) {
-//    [self btndelivery:self];
+    //    [self btndelivery:self];
     DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
     obj_clvc.selectedUfrespo = didSelectedFilterRespo;
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }else{
-  //Failed to update order mode
+    //Failed to update order mode
   }
   
 }
@@ -788,7 +794,7 @@
   
   BOOL retval = [[DBManager getSharedInstance]updateOrderModeIntoDB:didSelectedFilterRespo.ufp_id andOrderMode:@"PickUp"];
   if (retval) {
-//    [self btnpickup:self];
+    //    [self btnpickup:self];
     DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
     obj_clvc.selectedUfrespo = didSelectedFilterRespo;
     [self.navigationController pushViewController:obj_clvc animated:YES];
@@ -906,17 +912,23 @@
       }
       tempArray = [[NSMutableArray alloc]init];
       [tempArray addObjectsFromArray:respoUtility.UserFiltersResponseArray];
-      [self.tableView reloadData];
-      self.tableView.hidden = NO;
-      noRestoLabel.hidden = YES;
-      [appDelegate hideLoadingView];//after compltion close progress bar
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        self.tableView.hidden = NO;
+        noRestoLabel.hidden = YES;
+        [appDelegate hideLoadingView];
+      });//after compltion close progress bar
     }else{
-      [self showNoReastuarant ];
-      self.tableView.hidden = YES;
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self showNoReastuarant ];
+        self.tableView.hidden = YES;
+        [appDelegate hideLoadingView];
+      });
     }
   } failure:^(BOOL failed, NSString *errorMessage) {
-    [appDelegate hideLoadingView];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [appDelegate hideLoadingView];
+    });
   }];
   
 }
@@ -981,17 +993,23 @@
       }
       tempArray = [[NSMutableArray alloc]init];
       [tempArray addObjectsFromArray:respoUtility.UserFiltersResponseArray];
-      [self.tableView reloadData];
-      self.tableView.hidden = NO;
-      noRestoLabel.hidden = YES;
-      [appDelegate hideLoadingView];//after compltion close progress bar
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        self.tableView.hidden = NO;
+        noRestoLabel.hidden = YES;
+        [appDelegate hideLoadingView];
+      });//after compltion close progress bar
     }else{
-      [self showNoReastuarant ];
-      self.tableView.hidden = YES;
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self showNoReastuarant ];
+        self.tableView.hidden = YES;
+        [appDelegate hideLoadingView];
+      });
     }
   } failure:^(BOOL failed, NSString *errorMessage) {
-    [appDelegate hideLoadingView];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [appDelegate hideLoadingView];
+    });
   }];
   
 }
@@ -1028,8 +1046,8 @@ didAutocompleteWithPlace:(GMSPlace *)place {
   NSLog(@"Place address %@", place.formattedAddress);
   NSLog(@"Place attributions %@", place.attributions.string);
   respoUtility.enteredAddress = place.formattedAddress;
-//  self.titleLbl.text = respoUtility.enteredAddress;
-//    self.addressBtn.text = respoUtility.enteredAddress;
+  //  self.titleLbl.text = respoUtility.enteredAddress;
+  //    self.addressBtn.text = respoUtility.enteredAddress;
   NSString *cityValueText = [NSString stringWithFormat:@" %@",respoUtility.enteredAddress];
   customTxtFld.text = cityValueText;
   [self delegateDelivery];
@@ -1144,18 +1162,24 @@ didFailAutocompleteWithError:(NSError *)error {
       }
       tempArray = [[NSMutableArray alloc]init];
       [tempArray addObjectsFromArray:respoUtility.UserFiltersResponseArray];
-      [self.tableView reloadData];
-      self.tableView.hidden = NO;
-      noRestoLabel.hidden = YES;
-      [appDelegate hideLoadingView];//after compltion close progress bar
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        self.tableView.hidden = NO;
+        noRestoLabel.hidden = YES;
+        [appDelegate hideLoadingView];
+      });//after compltion close progress bar
     }else{
-      [self showNoReastuarant ];
-      self.tableView.hidden = YES;
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self showNoReastuarant ];
+        self.tableView.hidden = YES;
+        [appDelegate hideLoadingView];
+      });
     }
     
   } failure:^(BOOL failed, NSString *errorMessage) {
-    [appDelegate hideLoadingView];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [appDelegate hideLoadingView];
+    });
   }];
   
 }
@@ -1182,11 +1206,11 @@ didFailAutocompleteWithError:(NSError *)error {
   
   popUpView.hidden = YES;
   coverView.hidden = YES;
-    trsnparentView.hidden = YES;
+  trsnparentView.hidden = YES;
   [trsnparentView removeFromSuperview];
   [coverView removeFromSuperview];
   [popUpView removeFromSuperview];
-
+  
   [self.view removeGestureRecognizer:tap];
   
 }
@@ -1213,14 +1237,14 @@ didFailAutocompleteWithError:(NSError *)error {
                                                      filter:filter];
   _fetcher.delegate = self;
   [customTxtFld addTarget:self
-                                  action:@selector(textFieldDidChange:)
-                        forControlEvents:UIControlEventEditingChanged];
+                   action:@selector(textFieldDidChange:)
+         forControlEvents:UIControlEventEditingChanged];
   
-//  imgView.userInteractionEnabled = YES;
-//  UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapGesture:)];
-//  tapGesture1.numberOfTapsRequired = 1;
-//  //  [tapGesture1 setDelegate:self];
-//  [imgView addGestureRecognizer:tapGesture1];
+  //  imgView.userInteractionEnabled = YES;
+  //  UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapGesture:)];
+  //  tapGesture1.numberOfTapsRequired = 1;
+  //  //  [tapGesture1 setDelegate:self];
+  //  [imgView addGestureRecognizer:tapGesture1];
 }
 
 //- (void) tapGesture: (id)sender
@@ -1248,8 +1272,8 @@ didFailAutocompleteWithError:(NSError *)error {
   if(dropDown == nil) {
     CGFloat f = 200;
     dropDown = [[NIDropDown alloc]showDropDown:customTxtFld :&f :passArray :nil :@"down"];
-//    [self.view bringSubviewToFront:self.topSuperView];
-//        [self.view bringSubviewToFront:dropDown];
+    //    [self.view bringSubviewToFront:self.topSuperView];
+    //        [self.view bringSubviewToFront:dropDown];
     dropDown.delegate = self;
   }
   else {
@@ -1282,7 +1306,7 @@ didFailAutocompleteWithError:(NSError *)error {
   [self delegateDelivery];
   
   
-//  [self btnFindFood:self];
+  //  [self btnFindFood:self];
   [self rel];
 }
 

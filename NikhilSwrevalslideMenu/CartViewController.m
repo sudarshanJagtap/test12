@@ -232,9 +232,9 @@
   //  [tableArray addObjectsFromArray:dbArray];
   if (tableArray.count>0) {
     if([RequestUtility sharedRequestUtility].delivery_status == 0){
-    self.deliveryFeePriceLbl .text = [NSString stringWithFormat:@"$ 0.00"];
+      self.deliveryFeePriceLbl .text = [NSString stringWithFormat:@"$ 0.00"];
     }else{
-    self.deliveryFeePriceLbl .text = [NSString stringWithFormat:@"$ %@",selectedUfrespo.fee];
+      self.deliveryFeePriceLbl .text = [NSString stringWithFormat:@"$ %@",selectedUfrespo.fee];
     }
   }else{
     self.deliveryFeePriceLbl .text = [NSString stringWithFormat:@"$ 0.00"];
@@ -258,11 +258,11 @@
   //200*(15/100)
   self.salesTaxPriceLbl.text = [NSString stringWithFormat:@"$ %.02f",tax ];
   float finalAmount;
-   if([RequestUtility sharedRequestUtility].delivery_status == 1){
-     finalAmount= subtotalAmountcalculated + tax + [selectedUfrespo.fee floatValue];
-   }else{
-     finalAmount= subtotalAmountcalculated + tax;
-   }
+  if([RequestUtility sharedRequestUtility].delivery_status == 1){
+    finalAmount= subtotalAmountcalculated + tax + [selectedUfrespo.fee floatValue];
+  }else{
+    finalAmount= subtotalAmountcalculated + tax;
+  }
   //  int qAmt = [cart.quantity intValue];
   //  finalAmount = finalAmount*qAmt;
   self.totalPriceLbl.text = [NSString stringWithFormat:@"$ %.02f",finalAmount ];
@@ -565,9 +565,13 @@
   [utility doPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseSearchDetailsInfoResponse:responseDictionary];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseSearchDetailsInfoResponse:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }
@@ -819,7 +823,7 @@
 -(void)confirmOrderBtnClick{
   
   USerSelectedCartData *cart = (USerSelectedCartData*)[tableArray objectAtIndex:selectedPopUpIndex];
-
+  
   float ttPrice = 0;
   float cPrice = cart.subCategoryPrice;
   ttPrice = cPrice;
@@ -936,9 +940,14 @@
   [utility doYMOCStringPostRequest:url withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseAddToCartUserResponse:responseDictionary];
+      
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseAddToCartUserResponse:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }
@@ -1018,9 +1027,13 @@
   [utility doYMOCStringPostRequest:url withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseUserResponseBeforePayment:responseDictionary];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseUserResponseBeforePayment:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }
@@ -1077,7 +1090,7 @@
   NSMutableArray *cArray = [[NSMutableArray alloc]init];
   //    for (int i =0; i<globalCartArray.count; i++) {
   USerSelectedCartData *uscd = (USerSelectedCartData*)[globalCartArray objectAtIndex:selectedPopUpIndex];
-//  NSString *AND_cart_id = [NSString stringWithFormat:@"%ld", (long)uscd.unique_id ];
+  //  NSString *AND_cart_id = [NSString stringWithFormat:@"%ld", (long)uscd.unique_id ];
   NSMutableDictionary *cartdictionary = [[NSMutableDictionary alloc]init];
   [cartdictionary setValue:uscd.randomCartID forKey:@"AND_cart_id"];
   
@@ -1136,26 +1149,30 @@
   [utility doYMOCStringPostRequest:url withParameters:addToCartString onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseUserResponseAfterUpdateCartQuantity:responseDictionary];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseUserResponseAfterUpdateCartQuantity:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }
 
 -(void)updateQuantiyDataToCartServer:(USerSelectedCartData*)cdata{
   
-//  {
-//    "action": "update_quantity",
-//    "user_id": "185",
-//    "app_status": "1",
-//    "cart_id": "13",
-//    "quantity": "6",
-//    "order_mode": "1",
-//    "order_schedule_status": "0",
-//    "order_schedule_date": "0000-00-00",
-//    "order_schedule_time": "00:00:00"
-//  }
+  //  {
+  //    "action": "update_quantity",
+  //    "user_id": "185",
+  //    "app_status": "1",
+  //    "cart_id": "13",
+  //    "quantity": "6",
+  //    "order_mode": "1",
+  //    "order_schedule_status": "0",
+  //    "order_schedule_date": "0000-00-00",
+  //    "order_schedule_time": "00:00:00"
+  //  }
   
   NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
   [dictionary setValue:cdata.serverCartID forKey:@"cart_id"];
@@ -1183,9 +1200,13 @@
   [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseUserResponseAfterUpdateCartQuantity:responseDictionary];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseUserResponseAfterUpdateCartQuantity:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }
@@ -1237,9 +1258,13 @@
   [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseUserResponseAfterDeleteCart:responseDictionary];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseUserResponseAfterDeleteCart:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }

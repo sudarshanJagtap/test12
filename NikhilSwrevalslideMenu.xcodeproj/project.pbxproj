@@ -899,7 +899,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.androapps.ymoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6da46964-322f-4b7a-9f48-599d0d77ddad";
+				PROVISIONING_PROFILE = "ec4707f9-6916-465e-bd7c-eeda402cba05";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -922,7 +922,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.androapps.ymoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6da46964-322f-4b7a-9f48-599d0d77ddad";
+				PROVISIONING_PROFILE = "ec4707f9-6916-465e-bd7c-eeda402cba05";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

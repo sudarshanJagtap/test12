@@ -24,4 +24,5 @@
 - (IBAction)skipLogin:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *skipBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *guestBtn;
 @end

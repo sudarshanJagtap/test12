@@ -68,15 +68,15 @@
                    }completion:^(BOOL finished){
                    }];
   
-
+  
   NSString *stringURL=@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/ymoc_main/upload/image/";
   //    NSString *stringURL=@"http://ymoc.mobisofttech.co.in/ymoc_main/upload/logo/thumbnail/";
   
   NSString *url_Img_FULL = [stringURL stringByAppendingPathComponent:selectedUfrespo.imageStr];
   if (selectedUfrespo.imageStr) {
-//    self.imgVw.showActivityIndicator = YES;
-//    self.imgVw.imageURL = [NSURL URLWithString:url_Img_FULL];
-//    self.imgVw.contentMode = UIViewContentModeScaleAspectFit;
+    //    self.imgVw.showActivityIndicator = YES;
+    //    self.imgVw.imageURL = [NSURL URLWithString:url_Img_FULL];
+    //    self.imgVw.contentMode = UIViewContentModeScaleAspectFit;
     NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url_Img_FULL]];
     self.imgVw.image = [UIImage imageWithData:imageData];
   }
@@ -101,7 +101,7 @@
   self.deliveryLbl.text = [NSString stringWithFormat:@"Delivery Fee: %@",selectedUfrespo.fee];
   self.waitTimeLbl.text = [NSString stringWithFormat:@"Est. Wait: %@ Minutes",selectedUfrespo.delivery_time];
   if ( [[RequestUtility sharedRequestUtility].selectedOrderType  isEqual: @"PickUp"]) {
-      self.deliveryLbl.text = [NSString stringWithFormat:@"Distance: %@",selectedUfrespo.pkDistance];
+    self.deliveryLbl.text = [NSString stringWithFormat:@"Distance: %@",selectedUfrespo.pkDistance];
   }
   cdOperation = [[CuisineDetailOperation alloc]init];
   cdOperation.selectedId = selectedUfrespo.ufp_id;
@@ -168,58 +168,64 @@
     NSLog(@"%@",response);
     NSDictionary *sectionDictionary = [response valueForKey:@"category_list"];
     if (sectionDictionary.count>0) {
-     
-    sectionArray = (NSMutableArray*)[sectionDictionary allKeys];
-    NSLog(@"%@",response);
-    int k =1;
-    if (sectionArray.count>0) {
-      for (int i =0; i<sectionArray.count; i++) {
-        NSArray *respo = [sectionDictionary valueForKey:[sectionArray objectAtIndex:i]];
-        NSDictionary *keyDict = [sectionDictionary valueForKey:[sectionArray objectAtIndex:i]];
-        NSArray *key = [keyDict allKeys];
-        NSMutableArray *cdArray = [[NSMutableArray alloc]init];
-        for (int i =0; i<respo.count; i++) {
-          CuisineDetailResponse *cdRespo = [[CuisineDetailResponse alloc]init];
-          cdRespo.customizable = [[respo valueForKey:[key objectAtIndex:i]]valueForKey:@"customizable"];
-          cdRespo.cdescription = [[respo valueForKey:[key objectAtIndex:i]]valueForKey:@"description"];
-          cdRespo.cuisine_id = [[respo valueForKey:[key objectAtIndex:i]]valueForKey:@"id"];
-          cdRespo.price = [[respo valueForKey:[key objectAtIndex:i]]valueForKey:@"price"];
-          cdRespo.sub_category = [[respo valueForKey:[key objectAtIndex:i]]valueForKey:@"sub_category"];
-          cdRespo.rest_id = [key objectAtIndex:i ];
-          [cdArray addObject:cdRespo];
-          k++;
+      
+      sectionArray = (NSMutableArray*)[sectionDictionary allKeys];
+      NSLog(@"%@",response);
+      int k =1;
+      if (sectionArray.count>0) {
+        for (int i =0; i<sectionArray.count; i++) {
+          NSArray *respo = [sectionDictionary valueForKey:[sectionArray objectAtIndex:i]];
+          NSDictionary *keyDict = [sectionDictionary valueForKey:[sectionArray objectAtIndex:i]];
+          NSArray *key = [keyDict allKeys];
+          NSMutableArray *cdArray = [[NSMutableArray alloc]init];
+          for (int i =0; i<respo.count; i++) {
+            CuisineDetailResponse *cdRespo = [[CuisineDetailResponse alloc]init];
+            cdRespo.customizable = [[respo valueForKey:[key objectAtIndex:i]]valueForKey:@"customizable"];
+            cdRespo.cdescription = [[respo valueForKey:[key objectAtIndex:i]]valueForKey:@"description"];
+            cdRespo.cuisine_id = [[respo valueForKey:[key objectAtIndex:i]]valueForKey:@"id"];
+            cdRespo.price = [[respo valueForKey:[key objectAtIndex:i]]valueForKey:@"price"];
+            cdRespo.sub_category = [[respo valueForKey:[key objectAtIndex:i]]valueForKey:@"sub_category"];
+            cdRespo.rest_id = [key objectAtIndex:i ];
+            [cdArray addObject:cdRespo];
+            k++;
+          }
+          [responseDict setObject:cdArray forKey:[sectionArray objectAtIndex:i]];
+          
+          NSLog(@"%@",responseDict);
         }
-        [responseDict setObject:cdArray forKey:[sectionArray objectAtIndex:i]];
-        
-        NSLog(@"%@",responseDict);
       }
-    }
-    NSMutableArray *outerArray = [[NSMutableArray alloc]init];
-    for (int i =0; i<responseDict.count; i++) {
-      NSMutableArray *innerArray = [[NSMutableArray alloc]init];
-      [innerArray addObject:[sectionArray objectAtIndex:i]];
-      [innerArray addObjectsFromArray:[responseDict valueForKey:[sectionArray objectAtIndex:i]]];
-      [outerArray addObject:innerArray];
-      NSLog(@"innerArray %@",innerArray);
-      NSLog(@"outer Array %@",outerArray);
-    }
-    
-    NSMutableArray *finalArr = [[NSMutableArray alloc]init];
-    [finalArr addObjectsFromArray:outerArray];
-    
-    self.contents  = [[NSMutableArray alloc]init];
-    [self.contents addObject:finalArr];
-    NSLog(@"content Array %@",self.contents);
-    [appDelegate hideLoadingView];
-    [self.tableVw reloadData];
-    self.tableVw.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+      NSMutableArray *outerArray = [[NSMutableArray alloc]init];
+      for (int i =0; i<responseDict.count; i++) {
+        NSMutableArray *innerArray = [[NSMutableArray alloc]init];
+        [innerArray addObject:[sectionArray objectAtIndex:i]];
+        [innerArray addObjectsFromArray:[responseDict valueForKey:[sectionArray objectAtIndex:i]]];
+        [outerArray addObject:innerArray];
+        NSLog(@"innerArray %@",innerArray);
+        NSLog(@"outer Array %@",outerArray);
+      }
+      
+      NSMutableArray *finalArr = [[NSMutableArray alloc]init];
+      [finalArr addObjectsFromArray:outerArray];
+      
+      self.contents  = [[NSMutableArray alloc]init];
+      [self.contents addObject:finalArr];
+      NSLog(@"content Array %@",self.contents);
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+        [self.tableVw reloadData];
+        self.tableVw.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+      });
     }else{
-      [appDelegate hideLoadingView];
-      [self.tableVw reloadData];
-      self.tableVw.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+        [self.tableVw reloadData];
+        self.tableVw.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+      });
     }
   } failure:^(BOOL failed, NSString *errorMessage) {
-    [appDelegate hideLoadingView];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [appDelegate hideLoadingView];
+    });
   }];
 }
 
@@ -312,7 +318,7 @@
     SKSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell)
-    cell = [[SKSTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+      cell = [[SKSTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
     cell.textLabel.text = self.contents[indexPath.section][indexPath.row][0];
     cell.expandable = YES;
@@ -423,7 +429,7 @@
 
 -(void)adPopUpMenu{
   
-
+   dispatch_async(dispatch_get_main_queue(), ^{
   
   [selectedCustomCuisineStringArray removeAllObjects];
   [selectedCustomCuisinePriceArray removeAllObjects];
@@ -438,8 +444,8 @@
   popVw=[[UIView alloc]initWithFrame:CGRectMake(20, 100, screenWidth-40, screenHeight/2+100)];
   [popVw setBackgroundColor:[UIColor whiteColor]];
   
-//  mainView =[[UIView alloc]initWithFrame:CGRectMake(20, 100, screenWidth-40, screenHeight/2+100)];
-//  [mainView setBackgroundColor:[UIColor whiteColor]];
+  //  mainView =[[UIView alloc]initWithFrame:CGRectMake(20, 100, screenWidth-40, screenHeight/2+100)];
+  //  [mainView setBackgroundColor:[UIColor whiteColor]];
   
   
   
@@ -566,18 +572,19 @@
   
   [popVw setFrame:CGRectMake(20, 100, screenWidth-40, extendedHeight+50)];
   popVw.layer.cornerRadius = 10.0;
-
   
-//    UIScrollView  *MyScrollVw= [[UIScrollView alloc]initWithFrame:CGRectMake(0 ,0 ,320 ,480)];
-//    coverView.delegate= self;
-    [coverView setShowsHorizontalScrollIndicator:NO];
-    [coverView setShowsVerticalScrollIndicator:YES];
-    coverView.scrollEnabled= YES;
-    coverView.userInteractionEnabled= YES;
-//    [yourView addSubview:MyScrollVw];
+  
+  //    UIScrollView  *MyScrollVw= [[UIScrollView alloc]initWithFrame:CGRectMake(0 ,0 ,320 ,480)];
+  //    coverView.delegate= self;
+  [coverView setShowsHorizontalScrollIndicator:NO];
+  [coverView setShowsVerticalScrollIndicator:YES];
+  coverView.scrollEnabled= YES;
+  coverView.userInteractionEnabled= YES;
+  //    [yourView addSubview:MyScrollVw];
   coverView.contentSize= CGSizeMake(320 ,extendedHeight+300);
   
   [coverView addSubview:popVw];
+   });
 }
 
 -(void)cancelOrderBtnClick{
@@ -606,9 +613,13 @@
   [utility doPostRequestfor:url withParameters:nil onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseUserResponse:responseDictionary];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseUserResponse:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
   
@@ -675,18 +686,23 @@
   NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/ajax_customization.php";
   [utility doPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
-      
-      NSLog(@"response:%@",responseDictionary);
-      [self parseSearchDetailsInfoResponse:responseDictionary];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"response:%@",responseDictionary);
+         [appDelegate hideLoadingView];
+        [self parseSearchDetailsInfoResponse:responseDictionary];
+      });
     }else{
-      isCustomizable = NO;
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        isCustomizable = NO;
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }
 
 
 -(void)parseSearchDetailsInfoResponse:(NSDictionary*)ResponseDictionary{
+  
   if (ResponseDictionary) {
     totalprice = 0;
     [ResponseUtility getSharedInstance].CustomizeMenuArray = [[NSMutableArray alloc]init];
@@ -737,12 +753,13 @@
         menuPrice = cMenu.price;
         [[ResponseUtility getSharedInstance].CustomizeMenuArray addObject:cMenu];
       }
-    }else{isCustomizable = NO;}
+    }else{
+      isCustomizable = NO;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
       [appDelegate hideLoadingView];
       [self adPopUpMenu];
     });
-    
   }
 }
 
@@ -785,7 +802,7 @@
     NSString *randStr = [utilityObj getRandomPINString];
     cart.serverCartID = @"0";
     cart.randomCartID = randStr;
-     cart.Logo = selectedUfrespo.logo;
+    cart.Logo = selectedUfrespo.logo;
   }else{
     cart.restaurant_Id = [selectedUfrespo.ufp_id integerValue];
     cart.reasturant_Name = selectedUfrespo.name;
@@ -912,6 +929,7 @@
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
   NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/add_cart.php";
   [utility doYMOCStringPostRequest:url withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
+    
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseAddToCartUserResponse:responseDictionary andUID:uid];
