@@ -15,11 +15,13 @@
 #import "FrontHomeScreenViewController.h"
 #import "ResponseUtility.h"
 #import <GooglePlaces/GooglePlaces.h>
-
-@interface LocationViewController ()<BSKeyboardControlsDelegate,GMSAutocompleteViewControllerDelegate,UISearchBarDelegate,UITextFieldDelegate,GMSAutocompleteFetcherDelegate>{
+#import "NIDropDown.h"
+@interface LocationViewController ()<BSKeyboardControlsDelegate,UITextFieldDelegate,GMSAutocompleteFetcherDelegate,NIDropDownDelegate>{
   
   ResponseUtility *respoUtility;
   UserFiltersResponse *ufpUtility;
+   NIDropDown *dropDown;
+  GMSAutocompleteFetcher* _fetcher;
 }
 
 @property (strong, nonatomic) NSArray *array;
@@ -30,10 +32,10 @@
 @end
 
 @implementation LocationViewController
-
+@synthesize imgView;
 - (void)viewDidLoad {
   [super viewDidLoad];
-//  [self placeAutocomplete];
+  [self configureAutoCompleteView];
   self.txtEntAddressCityState.text = @"";
   respoUtility = [ResponseUtility getSharedInstance];
   [self.navigationController.navigationBar setTranslucent:YES];
@@ -60,9 +62,7 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-  [self tap:self];
-//  [self.keyboardControls setActiveField:textField];
-//  [self animateTextField:textField up:YES withOffset:textField.frame.origin.y / 2];
+
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
@@ -106,53 +106,11 @@
 
   NSString *edtData=self.txtEntAddressCityState.text;
   if ([edtData length] > 0) {
-
-//    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//    [appDelegate showLoadingViewWithString:@"Loading..."];
     LocationViewOperation *operation = [[LocationViewOperation alloc] init];
     operation.blnShowAlertMsg = YES;
     operation.AddressCityState = self.txtEntAddressCityState.text;
     respoUtility.enteredAddress = self.txtEntAddressCityState.text;
      [self performSegueWithIdentifier:@"FromLocationHome" sender:nil];
-//    [operation  callAPIWithParamter:nil success:^(BOOL success, id response) {
-//      
-//      NSDictionary *dictionary = [[NSDictionary alloc]init];
-//      
-//      self.array = [response valueForKey:@"data"];
-//      respoUtility.UserFiltersResponseArray = [[NSMutableArray alloc]init];
-//      for (int i = 0 ; i < [self.array count]; i++)
-//      {
-//        dictionary = [self.array objectAtIndex:i];
-//        ufpUtility = [[UserFiltersResponse alloc]init];
-//        ufpUtility.address_search = [dictionary valueForKey:@"address_search"];
-//        ufpUtility.closing_time = [dictionary valueForKey:@"closing_time"];
-//        ufpUtility.cuisine_string = [dictionary valueForKey:@"cuisine_string"];
-//        ufpUtility.day = [dictionary valueForKey:@"day"];
-//        ufpUtility.delivery_facility = [dictionary valueForKey:@"delivery_facility"];
-//        ufpUtility.delivery_time = [dictionary valueForKey:@"delivery_time"];
-//        ufpUtility.end_dist = [dictionary valueForKey:@"end_dist"];
-//        ufpUtility.fee = [dictionary valueForKey:@"fee"];
-//        ufpUtility.ufp_id = [dictionary valueForKey:@"id"];
-//        ufpUtility.logo = [dictionary valueForKey:@"logo"];
-//        ufpUtility.min_order_amount = [dictionary valueForKey:@"min_order_amount"];
-//        ufpUtility.name = [dictionary valueForKey:@"name"];
-//        ufpUtility.opening_status = [dictionary valueForKey:@"opening_status"];
-//        ufpUtility.opening_time = [dictionary valueForKey:@"opening_time"];
-//        ufpUtility.rating = [dictionary valueForKey:@"rating"];
-//        ufpUtility.restaurant_status = [dictionary valueForKey:@"restaurant_status"];
-//        ufpUtility.start_dist = [dictionary valueForKey:@"start_dist"];        
-//        [respoUtility.UserFiltersResponseArray addObject:ufpUtility];
-//      }
-//
-//      [appDelegate hideLoadingView];
-//      [self dismissViewControllerAnimated:YES completion:NULL];
-//      NSString *cityValue = self.txtEntAddressCityState.text;
-//      [[NSUserDefaults standardUserDefaults] setObject:cityValue forKey:@"city"];
-//      [[NSUserDefaults standardUserDefaults] synchronize];
-//      [self performSegueWithIdentifier:@"FromLocationHome" sender:nil];
-//    } failure:^(BOOL failed, NSString *errorMessage) {
-//      [appDelegate hideLoadingView];
-//    }];
   }else{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Text field can not left blank"
                                                     message:@"Please enter zipcode/address/state/city"
@@ -163,146 +121,85 @@
   }
 }
 
-- (IBAction)tap:(id)sender {
-  GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
-  acController.delegate = self;
-  [acController.view setFrame:CGRectMake(50, 50, 200, 200)];
-  acController.view.backgroundColor = [UIColor blackColor ];
+#pragma mark Custom AutoComplete
 
-  [UIColor colorWithRed:(213/255.f) green:(213/255.f) blue:(213/255.f) alpha:1.0f];
-  [UIColor colorWithRed:188.0/255.0 green:67.0/255.0 blue:67.0/255.0 alpha:1.0];
-  [UIColor colorWithRed:112/255.0 green:170.0/255.0 blue:157.0/255.0 alpha:1.0];
-  acController.tableCellBackgroundColor = [UIColor colorWithRed:112/255.0 green:170.0/255.0 blue:157.0/255.0 alpha:1.0];;
-  acController.tableCellSeparatorColor = [UIColor whiteColor];
-  acController.primaryTextColor = [UIColor whiteColor];
-  acController.secondaryTextColor = [UIColor whiteColor];
-   acController.primaryTextHighlightColor = [UIColor whiteColor];
-  [self presentViewController:acController animated:YES completion:nil];
+-(void)configureAutoCompleteView{
+  // Set bounds to inner-west Sydney Australia.
+  CLLocationCoordinate2D neBoundsCorner = CLLocationCoordinate2DMake(-33.843366, 151.134002);
+  CLLocationCoordinate2D swBoundsCorner = CLLocationCoordinate2DMake(-33.875725, 151.200349);
+  GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:neBoundsCorner
+                                                                     coordinate:swBoundsCorner];
   
+  GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc] init];
+  filter.type = kGMSPlacesAutocompleteTypeFilterEstablishment;
+  _fetcher = [[GMSAutocompleteFetcher alloc] initWithBounds:bounds
+                                                     filter:filter];
+  _fetcher.delegate = self;
+  [self.txtEntAddressCityState addTarget:self
+                 action:@selector(textFieldDidChange:)
+       forControlEvents:UIControlEventEditingChanged];
+
+  imgView.userInteractionEnabled = YES;
+  UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapGesture:)];
+  tapGesture1.numberOfTapsRequired = 1;
+//  [tapGesture1 setDelegate:self];
+  [imgView addGestureRecognizer:tapGesture1];
 }
 
-// Handle the user's selection.
-- (void)viewController:(GMSAutocompleteViewController *)viewController
-didAutocompleteWithPlace:(GMSPlace *)place {
-  [self dismissViewControllerAnimated:NO completion:nil];
-  // Do something with the selected place.
-  NSLog(@"Place name %@", place.name);
-  NSLog(@"Place address %@", place.formattedAddress);
-  NSLog(@"Place attributions %@", place.attributions.string);
-  self.txtEntAddressCityState.text = place.formattedAddress;
-  [self btnFindFood:self];
-}
-
-- (void)viewController:(GMSAutocompleteViewController *)viewController
-didFailAutocompleteWithError:(NSError *)error {
-  [self dismissViewControllerAnimated:YES completion:nil];
-  // TODO: handle the error.
-  NSLog(@"Error: %@", [error description]);
-}
-
-// User canceled the operation.
-- (void)wasCancelled:(GMSAutocompleteViewController *)viewController {
-  [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-// Turn the network activity indicator on and off again.
-- (void)didRequestAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
-  [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-}
-
-- (void)didUpdateAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
-  [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+- (void) tapGesture: (id)sender
 {
-  [searchBar resignFirstResponder];
-  // Do the search...
+  [dropDown hideDropDown:self.txtEntAddressCityState];
+  [self rel];
+}
+
+- (void)textFieldDidChange:(UITextField *)textField {
+  NSLog(@"%@", textField.text);
+  [_fetcher sourceTextHasChanged:textField.text];
 }
 
 
-//- (void)placeAutocomplete {
-//  
-//  GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc] init];
-//  filter.type = kGMSPlacesAutocompleteTypeFilterEstablishment;
-//  GMSPlacesClient *_placesClient = [[GMSPlacesClient alloc]init];
-//  [_placesClient autocompleteQuery:@"pune"
-//                            bounds:nil
-//                            filter:filter
-//                          callback:^(NSArray *results, NSError *error) {
-//                            if (error != nil) {
-//                              NSLog(@"Autocomplete error %@", [error localizedDescription]);
-//                              return;
-//                            }
-//                            
-//                            for (GMSAutocompletePrediction* result in results) {
-//                              NSLog(@"\nResult '%@' ", result.attributedFullText.string);
-//                            }
-//                          }];
-//}
-//{
-//  UITextField *_textField;
-//  UITextView *_resultText;
-//  GMSAutocompleteFetcher* _fetcher;
-//}
-//
-//- (void)viewDidLoad {
-//  [super viewDidLoad];
-//  
-//  self.view.backgroundColor = [UIColor whiteColor];
-//  self.edgesForExtendedLayout = UIRectEdgeNone;
-//  
-//  // Set bounds to inner-west Sydney Australia.
-//  CLLocationCoordinate2D neBoundsCorner = CLLocationCoordinate2DMake(-33.843366, 151.134002);
-//  CLLocationCoordinate2D swBoundsCorner = CLLocationCoordinate2DMake(-33.875725, 151.200349);
-//  GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:neBoundsCorner
-//                                                                     coordinate:swBoundsCorner];
-//  
-//  // Set up the autocomplete filter.
-//  GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc] init];
-//  filter.type = kGMSPlacesAutocompleteTypeFilterEstablishment;
-//  
-//  // Create the fetcher.
-//  _fetcher = [[GMSAutocompleteFetcher alloc] initWithBounds:bounds
-//                                                     filter:filter];
-//  _fetcher.delegate = self;
-//  
-//  // Set up the UITextField and UITextView.
-//  _textField = [[UITextField alloc] initWithFrame:CGRectMake(5.0f,
-//                                                             0,
-//                                                             self.view.bounds.size.width - 5.0f,
-//                                                             44.0f)];
-//  _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//  [_textField addTarget:self
-//                 action:@selector(textFieldDidChange:)
-//       forControlEvents:UIControlEventEditingChanged];
-//  _resultText =[[UITextView alloc] initWithFrame:CGRectMake(0,
-//                                                            45.0f,
-//                                                            self.view.bounds.size.width,
-//                                                            self.view.bounds.size.height - 45.0f)];
-//  _resultText.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
-//  _resultText.text = @"No Results";
-//  _resultText.editable = NO;
-//  [self.view addSubview:_textField];
-//  [self.view addSubview:_resultText];
-//}
-//
-//- (void)textFieldDidChange:(UITextField *)textField {
-//  NSLog(@"%@", textField.text);
-//  [_fetcher sourceTextHasChanged:textField.text];
-//}
-//
-//#pragma mark - GMSAutocompleteFetcherDelegate
-//- (void)didAutocompleteWithPredictions:(NSArray *)predictions {
-//  NSMutableString *resultsStr = [NSMutableString string];
-//  for (GMSAutocompletePrediction *prediction in predictions) {
-//    [resultsStr appendFormat:@"%@\n", [prediction.attributedPrimaryText string]];
-//  }
-//  _resultText.text = resultsStr;
-//}
-//
-//- (void)didFailAutocompleteWithError:(NSError *)error {
-//  _resultText.text = [NSString stringWithFormat:@"%@", error.localizedDescription];
-//}
-//
+
+#pragma mark - GMSAutocompleteFetcherDelegate
+- (void)didAutocompleteWithPredictions:(NSArray *)predictions {
+  NSMutableString *resultsStr = [NSMutableString string];
+  NSMutableArray *autoArray = [[NSMutableArray alloc]init];
+  for (GMSAutocompletePrediction *prediction in predictions) {
+    [resultsStr appendFormat:@"%@\n", [prediction.attributedPrimaryText string]];
+    [autoArray addObject:[prediction.attributedPrimaryText string]];
+  }
+  NSArray *passArray = [NSArray arrayWithArray:autoArray];
+  if(dropDown == nil) {
+    CGFloat f = 200;
+    dropDown = [[NIDropDown alloc]showDropDown:self.txtEntAddressCityState :&f :passArray :nil :@"down"];
+    dropDown.delegate = self;
+  }
+  else {
+    [dropDown hideDropDown:self.txtEntAddressCityState];
+    [self rel];
+  }
+}
+
+- (void)didFailAutocompleteWithError:(NSError *)error {
+  if(dropDown == nil) {
+    CGFloat f = 200;
+    dropDown = [[NIDropDown alloc]showDropDown:self.txtEntAddressCityState :&f :nil :nil :@"down"];
+    dropDown.delegate = self;
+  }
+  else {
+    [dropDown hideDropDown:self.txtEntAddressCityState];
+    [self rel];
+  }
+}
+
+
+#pragma mark drop down
+- (void) niDropDownDelegateMethod: (NIDropDown *) sender {
+  [self btnFindFood:self];
+  [self rel];
+}
+
+-(void)rel{
+  dropDown = nil;
+}
+
 @end

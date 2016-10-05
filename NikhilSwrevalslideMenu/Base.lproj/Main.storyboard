@@ -419,6 +419,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="9IT-R0-dVn"/>
                     <connections>
+                        <outlet property="imgView" destination="DvD-ec-h58" id="mxA-Wg-m0u"/>
                         <outlet property="txtEntAddressCityState" destination="Ms6-bJ-uJP" id="Rh8-rc-mre"/>
                         <segue destination="BYZ-38-t0r" kind="modal" identifier="FromLocationHome" id="udq-FX-Q6m"/>
                     </connections>
