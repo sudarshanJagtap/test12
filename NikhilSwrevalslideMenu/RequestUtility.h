@@ -32,6 +32,8 @@
 @property(nonatomic,strong)NSString *afterPaymentResponseString;
 @property(nonatomic,strong)USerAddressData *selectedAddressDataObj;
 
+@property(nonatomic,strong)NSString *enteredCityOnLocationScreen;
+
 + (RequestUtility *)sharedRequestUtility;
 
 -(NSDictionary*)getParamsForUserFilters;

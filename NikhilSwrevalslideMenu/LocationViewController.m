@@ -16,6 +16,7 @@
 #import "ResponseUtility.h"
 #import <GooglePlaces/GooglePlaces.h>
 #import "NIDropDown.h"
+#import "RequestUtility.h"
 @interface LocationViewController ()<BSKeyboardControlsDelegate,UITextFieldDelegate,GMSAutocompleteFetcherDelegate,NIDropDownDelegate>{
   
   ResponseUtility *respoUtility;
@@ -106,6 +107,7 @@
 - (IBAction)btnFindFood:(id)sender {
 
   NSString *edtData=self.txtEntAddressCityState.text;
+  [RequestUtility sharedRequestUtility].enteredCityOnLocationScreen = edtData;
   if ([edtData length] > 0) {
     LocationViewOperation *operation = [[LocationViewOperation alloc] init];
     operation.blnShowAlertMsg = YES;
@@ -203,4 +205,15 @@
   dropDown = nil;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  // Make sure your segue name in storyboard is the same as this line
+//  if ([[segue identifier] isEqualToString:@"FromLocationHome"])
+//  {
+//    // Get reference to the destination view controller
+//    FrontHomeScreenViewController *vc = [segue destinationViewController];
+//    vc.enteredCity = self.txtEntAddressCityState.text;
+//  }
+}
+//FromLocationHome
 @end

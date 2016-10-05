@@ -63,6 +63,11 @@
   customTxtFld.frame = self.addressBtn.frame;
   [self.view addSubview:customTxtFld];
   [self.view bringSubviewToFront:customTxtFld];
+//  NSString *cityValue = [[NSUserDefaults standardUserDefaults]
+//                         stringForKey:@"city"];
+  //  self.titleLbl.text =cityValue;
+  NSString *cityValueText = [NSString stringWithFormat:@" %@",[RequestUtility sharedRequestUtility].enteredCityOnLocationScreen];
+  customTxtFld.text = cityValueText;
   self.addressBtn.hidden =YES;
   customTxtFld.backgroundColor = [UIColor whiteColor];
   CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -86,11 +91,7 @@
   fOperation = [FilterOperations getSharedInstance];
   UIEdgeInsets inset = UIEdgeInsetsMake(15, 0, 0, 0);
   self.tableView.contentInset = inset;
-  NSString *cityValue = [[NSUserDefaults standardUserDefaults]
-                         stringForKey:@"city"];
-  //  self.titleLbl.text =cityValue;
-  NSString *cityValueText = [NSString stringWithFormat:@" %@",cityValue];
-  customTxtFld.text = cityValueText;
+  
   [self.navigationController.navigationBar setTitleTextAttributes:
    @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
   
