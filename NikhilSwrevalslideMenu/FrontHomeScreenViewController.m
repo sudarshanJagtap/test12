@@ -22,7 +22,10 @@
 #import "DBManager.h"
 #import "HomeCartTableViewCell.h"
 #import <GooglePlaces/GooglePlaces.h>
-@interface FrontHomeScreenViewController ()<RightMenuViewControllerDelegate,RateViewDelegate,GMSAutocompleteViewControllerDelegate>{
+#import "NIDropDown.h"
+
+@interface FrontHomeScreenViewController ()<RightMenuViewControllerDelegate,RateViewDelegate,GMSAutocompleteViewControllerDelegate,NIDropDownDelegate>{
+  
   ResponseUtility *respoUtility;
   RequestUtility *reqUtility;
   UserFiltersResponse *ufpUtility;
@@ -33,7 +36,6 @@
   NSString *dropDownSelectedString;
   UILabel *noRestoLabel;
   UIButton *CartButton;
-  
   UIView *trsnparentView;
   UIView* coverView;
   UIView *popUpView;
@@ -44,6 +46,10 @@
   UIView *fullscreenView;
   UIView *alertView;
   UserFiltersResponse *didSelectedFilterRespo;
+  NIDropDown *dropDown;
+  GMSAutocompleteFetcher* _fetcher;
+  
+  UITextField *customTxtFld;
 }
 
 @end
@@ -52,6 +58,19 @@
 - (void)viewDidLoad {
   
   [super viewDidLoad];
+  
+  customTxtFld = [[UITextField alloc]init];
+  customTxtFld.frame = self.addressBtn.frame;
+  [self.view addSubview:customTxtFld];
+  [self.view bringSubviewToFront:customTxtFld];
+  self.addressBtn.hidden =YES;
+  customTxtFld.backgroundColor = [UIColor whiteColor];
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  CGFloat screenHeight = screenRect.size.height;
+  CGFloat screenWidth = screenRect.size.width;
+  [customTxtFld setFrame:CGRectMake(50, 65, screenWidth-80, self.addressBtn.frame.size.height)];
+  
+  [self configureAutoCompleteView];
   fullscreenView = [[UIView alloc]init];
   alertView = [[UIView alloc]init];
   tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(RemovecartPpUp)];
@@ -71,19 +90,19 @@
                          stringForKey:@"city"];
 //  self.titleLbl.text =cityValue;
   NSString *cityValueText = [NSString stringWithFormat:@" %@",cityValue];
-  self.addressBtn.text = cityValueText;
+  customTxtFld.text = cityValueText;
   [self.navigationController.navigationBar setTitleTextAttributes:
    @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
   
-  self.addressBtn.layer.cornerRadius = 14;
-  [[self.addressBtn layer] setBorderWidth:2.0f];
-  self.addressBtn.layer.borderColor = [UIColor colorWithRed:188.0/255.0 green:67.0/255.0 blue:67.0/255.0 alpha:1.0].CGColor;
-  self.addressBtn.clipsToBounds=YES;
+  customTxtFld.layer.cornerRadius = 10;
+  [[customTxtFld layer] setBorderWidth:2.0f];
+  customTxtFld.layer.borderColor = [UIColor colorWithRed:188.0/255.0 green:67.0/255.0 blue:67.0/255.0 alpha:1.0].CGColor;
+  customTxtFld.clipsToBounds=YES;
   
-  [self.addressBtn setUserInteractionEnabled:YES];
+  [customTxtFld setUserInteractionEnabled:YES];
   UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(btnSearchMenu:)];
   [tapGestureRecognizer setNumberOfTapsRequired:1];
-  [self.addressBtn addGestureRecognizer:tapGestureRecognizer];
+  [customTxtFld addGestureRecognizer:tapGestureRecognizer];
 
   
   self.btnDelivery.layer.cornerRadius = 4;
@@ -132,11 +151,7 @@
   [self.downPicker addTarget:self
                       action:@selector(dp_Selected:)
             forControlEvents:UIControlEventValueChanged];
-  
-  
-  CGRect screenRect = [[UIScreen mainScreen] bounds];
-  CGFloat screenHeight = screenRect.size.height;
-  CGFloat screenWidth = screenRect.size.width;
+
   CartButton = [UIButton buttonWithType:UIButtonTypeCustom];
   [CartButton addTarget:self
                  action:@selector(showCartView)
@@ -145,6 +160,8 @@
   [CartButton setBackgroundImage:[UIImage imageNamed:@"added_cart_img.png"] forState:UIControlStateNormal];
   CartButton.frame = CGRectMake(screenWidth-70, screenHeight-70, 50,50 );
   [self.view addSubview:CartButton];
+  
+  
   
 }
 
@@ -158,7 +175,7 @@
 //  self.titleLbl.text = respoUtility.enteredAddress;
   
   NSString *cityValueText = [NSString stringWithFormat:@" %@",respoUtility.enteredAddress];
-  self.addressBtn.text = cityValueText;
+  customTxtFld.text = cityValueText;
 //  self.addressBtn.text = respoUtility.enteredAddress;
   //  NSMutableArray* bandArray = [[NSMutableArray alloc] init];
   
@@ -989,25 +1006,32 @@
 }
 
 - (IBAction)btnSearchMenu:(id)sender {
+  
+  respoUtility.enteredAddress = customTxtFld.text;
+  //  self.titleLbl.text = respoUtility.enteredAddress;
+  //    self.addressBtn.text = respoUtility.enteredAddress;
+  NSString *cityValueText = [NSString stringWithFormat:@" %@",respoUtility.enteredAddress];
+  customTxtFld.text = cityValueText;
+  [self delegateDelivery];
 //  [self.searchTxtFld becomeFirstResponder];
 //  self.searchTxtFld.text= @"";
 //  self.searchArea.hidden = NO;
 //  
 //}
-  GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
-  acController.delegate = self;
-  [acController.view setFrame:CGRectMake(50, 50, 200, 200)];
-  acController.view.backgroundColor = [UIColor blackColor ];
-  
-  [UIColor colorWithRed:(213/255.f) green:(213/255.f) blue:(213/255.f) alpha:1.0f];
-  [UIColor colorWithRed:188.0/255.0 green:67.0/255.0 blue:67.0/255.0 alpha:1.0];
-  [UIColor colorWithRed:112/255.0 green:170.0/255.0 blue:157.0/255.0 alpha:1.0];
-  acController.tableCellBackgroundColor = [UIColor colorWithRed:112/255.0 green:170.0/255.0 blue:157.0/255.0 alpha:1.0];;
-  acController.tableCellSeparatorColor = [UIColor whiteColor];
-  acController.primaryTextColor = [UIColor whiteColor];
-  acController.secondaryTextColor = [UIColor whiteColor];
-  acController.primaryTextHighlightColor = [UIColor whiteColor];
-  [self presentViewController:acController animated:YES completion:nil];
+//  GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
+//  acController.delegate = self;
+//  [acController.view setFrame:CGRectMake(50, 50, 200, 200)];
+//  acController.view.backgroundColor = [UIColor blackColor ];
+//  
+//  [UIColor colorWithRed:(213/255.f) green:(213/255.f) blue:(213/255.f) alpha:1.0f];
+//  [UIColor colorWithRed:188.0/255.0 green:67.0/255.0 blue:67.0/255.0 alpha:1.0];
+//  [UIColor colorWithRed:112/255.0 green:170.0/255.0 blue:157.0/255.0 alpha:1.0];
+//  acController.tableCellBackgroundColor = [UIColor colorWithRed:112/255.0 green:170.0/255.0 blue:157.0/255.0 alpha:1.0];;
+//  acController.tableCellSeparatorColor = [UIColor whiteColor];
+//  acController.primaryTextColor = [UIColor whiteColor];
+//  acController.secondaryTextColor = [UIColor whiteColor];
+//  acController.primaryTextHighlightColor = [UIColor whiteColor];
+//  [self presentViewController:acController animated:YES completion:nil];
   
 }
 
@@ -1023,7 +1047,7 @@ didAutocompleteWithPlace:(GMSPlace *)place {
 //  self.titleLbl.text = respoUtility.enteredAddress;
 //    self.addressBtn.text = respoUtility.enteredAddress;
   NSString *cityValueText = [NSString stringWithFormat:@" %@",respoUtility.enteredAddress];
-  self.addressBtn.text = cityValueText;
+  customTxtFld.text = cityValueText;
   [self delegateDelivery];
 }
 
@@ -1183,6 +1207,104 @@ didFailAutocompleteWithError:(NSError *)error {
   
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  
+  [textField resignFirstResponder];
+  return true;
+}
+
+#pragma mark Custom AutoComplete
+
+-(void)configureAutoCompleteView{
+  // Set bounds to inner-west Sydney Australia.
+  CLLocationCoordinate2D neBoundsCorner = CLLocationCoordinate2DMake(-33.843366, 151.134002);
+  CLLocationCoordinate2D swBoundsCorner = CLLocationCoordinate2DMake(-33.875725, 151.200349);
+  GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:neBoundsCorner
+                                                                     coordinate:swBoundsCorner];
+  
+  GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc] init];
+  filter.type = kGMSPlacesAutocompleteTypeFilterEstablishment;
+  _fetcher = [[GMSAutocompleteFetcher alloc] initWithBounds:bounds
+                                                     filter:filter];
+  _fetcher.delegate = self;
+  [customTxtFld addTarget:self
+                                  action:@selector(textFieldDidChange:)
+                        forControlEvents:UIControlEventEditingChanged];
+  
+//  imgView.userInteractionEnabled = YES;
+//  UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapGesture:)];
+//  tapGesture1.numberOfTapsRequired = 1;
+//  //  [tapGesture1 setDelegate:self];
+//  [imgView addGestureRecognizer:tapGesture1];
+}
+
+//- (void) tapGesture: (id)sender
+//{
+//  [dropDown hideDropDown:self.addressBtn];
+//  [self rel];
+//}
+
+- (void)textFieldDidChange:(UITextField *)textField {
+  NSLog(@"%@", textField.text);
+  [_fetcher sourceTextHasChanged:textField.text];
+}
+
+
+
+#pragma mark - GMSAutocompleteFetcherDelegate
+- (void)didAutocompleteWithPredictions:(NSArray *)predictions {
+  NSMutableString *resultsStr = [NSMutableString string];
+  NSMutableArray *autoArray = [[NSMutableArray alloc]init];
+  for (GMSAutocompletePrediction *prediction in predictions) {
+    [resultsStr appendFormat:@"%@\n", [prediction.attributedPrimaryText string]];
+    [autoArray addObject:[prediction.attributedPrimaryText string]];
+  }
+  NSArray *passArray = [NSArray arrayWithArray:autoArray];
+  if(dropDown == nil) {
+    CGFloat f = 200;
+    dropDown = [[NIDropDown alloc]showDropDown:customTxtFld :&f :passArray :nil :@"down"];
+//    [self.view bringSubviewToFront:self.topSuperView];
+//        [self.view bringSubviewToFront:dropDown];
+    dropDown.delegate = self;
+  }
+  else {
+    [dropDown hideDropDown:customTxtFld];
+    [self rel];
+  }
+}
+
+- (void)didFailAutocompleteWithError:(NSError *)error {
+  if(dropDown == nil) {
+    CGFloat f = 200;
+    dropDown = [[NIDropDown alloc]showDropDown:customTxtFld :&f :nil :nil :@"down"];
+    dropDown.delegate = self;
+  }
+  else {
+    [dropDown hideDropDown:customTxtFld];
+    [self rel];
+  }
+}
+
+
+#pragma mark drop down
+- (void) niDropDownDelegateMethod: (NIDropDown *) sender {
+  
+  respoUtility.enteredAddress = customTxtFld.text;
+  //  self.titleLbl.text = respoUtility.enteredAddress;
+  //    self.addressBtn.text = respoUtility.enteredAddress;
+  NSString *cityValueText = [NSString stringWithFormat:@" %@",respoUtility.enteredAddress];
+  customTxtFld.text = cityValueText;
+  [self delegateDelivery];
+  
+  
+//  [self btnFindFood:self];
+  [self rel];
+}
+
+-(void)rel{
+  dropDown = nil;
+}
 
 
 

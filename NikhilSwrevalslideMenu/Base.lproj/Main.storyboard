@@ -759,16 +759,17 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXv-70-quX">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="le5-wI-LBR">
                                         <rect key="frame" x="56" y="45" width="230" height="30"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="hkL-Ih-aGT"/>
+                                            <constraint firstAttribute="height" constant="30" id="tPB-Ys-KEi"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vnS-Tb-31m" id="9lh-eJ-iXg"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.30588235289999999" green="0.6705882353" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -777,16 +778,16 @@
                                     <constraint firstItem="3uY-AT-t5g" firstAttribute="leading" secondItem="WYc-r2-mkI" secondAttribute="trailing" constant="27" id="9ON-gs-HtM"/>
                                     <constraint firstItem="WYc-r2-mkI" firstAttribute="top" secondItem="zkS-Gq-tkY" secondAttribute="top" constant="5" id="EUU-CJ-IvM"/>
                                     <constraint firstAttribute="bottom" secondItem="3uY-AT-t5g" secondAttribute="bottom" constant="18" id="FNu-Ug-XSC"/>
-                                    <constraint firstItem="OXv-70-quX" firstAttribute="leading" secondItem="zkS-Gq-tkY" secondAttribute="leading" constant="56" id="MXx-0b-3bO"/>
+                                    <constraint firstItem="le5-wI-LBR" firstAttribute="leading" secondItem="zkS-Gq-tkY" secondAttribute="leading" constant="56" id="MoZ-sY-wwZ"/>
                                     <constraint firstItem="Pqf-s0-EBH" firstAttribute="top" secondItem="zkS-Gq-tkY" secondAttribute="top" constant="13" id="NGq-1Y-j5d"/>
                                     <constraint firstItem="7cy-nV-faI" firstAttribute="top" secondItem="zkS-Gq-tkY" secondAttribute="top" constant="8" id="NoW-2g-MpU"/>
-                                    <constraint firstItem="OXv-70-quX" firstAttribute="top" secondItem="Gmc-XD-4fa" secondAttribute="bottom" constant="3" id="Ntp-lz-T2y"/>
+                                    <constraint firstItem="le5-wI-LBR" firstAttribute="top" secondItem="Gmc-XD-4fa" secondAttribute="bottom" constant="3" id="RWI-PI-FRC"/>
                                     <constraint firstAttribute="height" constant="88" id="UlN-ce-DBU"/>
                                     <constraint firstAttribute="bottom" secondItem="WYc-r2-mkI" secondAttribute="bottom" constant="47" id="UvD-Kd-c82"/>
                                     <constraint firstAttribute="trailing" secondItem="Pqf-s0-EBH" secondAttribute="trailing" constant="12" id="Xjl-Ee-sSO"/>
                                     <constraint firstItem="3uY-AT-t5g" firstAttribute="top" secondItem="zkS-Gq-tkY" secondAttribute="top" constant="50" id="Y3m-qD-mdu"/>
+                                    <constraint firstItem="3uY-AT-t5g" firstAttribute="leading" secondItem="le5-wI-LBR" secondAttribute="trailing" constant="8" id="dDh-5g-1aP"/>
                                     <constraint firstItem="Pqf-s0-EBH" firstAttribute="leading" secondItem="3uY-AT-t5g" secondAttribute="trailing" constant="-18" id="eWz-og-xq0"/>
-                                    <constraint firstItem="3uY-AT-t5g" firstAttribute="leading" secondItem="OXv-70-quX" secondAttribute="trailing" constant="8" id="gWc-1Z-1V6"/>
                                     <constraint firstItem="WYc-r2-mkI" firstAttribute="leading" secondItem="Gmc-XD-4fa" secondAttribute="trailing" constant="9" id="hVc-9g-vSk"/>
                                     <constraint firstItem="7cy-nV-faI" firstAttribute="leading" secondItem="zkS-Gq-tkY" secondAttribute="leading" constant="8" id="wXJ-2J-rr9"/>
                                 </constraints>
@@ -915,7 +916,7 @@
                     <connections>
                         <outlet property="BarButton" destination="7cy-nV-faI" id="Zgr-NG-WEb"/>
                         <outlet property="addedFilterLabel" destination="lx1-xZ-SUQ" id="8k7-c9-I1p"/>
-                        <outlet property="addressBtn" destination="OXv-70-quX" id="WOg-KE-Ve0"/>
+                        <outlet property="addressBtn" destination="le5-wI-LBR" id="c44-lj-gOc"/>
                         <outlet property="btnDelivery" destination="Qrj-R5-haS" id="tsO-BE-BDP"/>
                         <outlet property="btnPickup" destination="9TB-2W-DJd" id="AlA-b8-FDm"/>
                         <outlet property="btnSort" destination="p4A-iP-IEC" id="FZD-Mj-3At"/>
@@ -927,6 +928,7 @@
                         <outlet property="searchTxtFld" destination="wXx-FL-6gM" id="JpT-O5-xaf"/>
                         <outlet property="tableTopConstraint" destination="gWL-y9-2Tx" id="I6z-sd-nzS"/>
                         <outlet property="tableView" destination="MtA-rZ-t96" id="8tE-sP-RfC"/>
+                        <outlet property="topSuperView" destination="zkS-Gq-tkY" id="PQN-sA-Uxn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LmH-m8-OlC" userLabel="First Responder" sceneMemberID="firstResponder"/>

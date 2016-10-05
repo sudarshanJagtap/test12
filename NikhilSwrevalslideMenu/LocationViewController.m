@@ -87,14 +87,14 @@
 
 -(void)animateTextField:(UITextField*)textField up:(BOOL)up withOffset:(CGFloat)offset
 {
-  const int movementDistance = -offset;
-  const float movementDuration = 0.4f;
-  int movement = (up ? movementDistance : -movementDistance);
-  [UIView beginAnimations: @"animateTextField" context: nil];
-  [UIView setAnimationBeginsFromCurrentState: YES];
-  [UIView setAnimationDuration: movementDuration];
-  self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-  [UIView commitAnimations];
+//  const int movementDistance = -offset;
+//  const float movementDuration = 0.4f;
+//  int movement = (up ? movementDistance : -movementDistance);
+//  [UIView beginAnimations: @"animateTextField" context: nil];
+//  [UIView setAnimationBeginsFromCurrentState: YES];
+//  [UIView setAnimationDuration: movementDuration];
+//  self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+//  [UIView commitAnimations];
 }
 
 - (void)didReceiveMemoryWarning {

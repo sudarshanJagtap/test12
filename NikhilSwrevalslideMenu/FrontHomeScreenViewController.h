@@ -46,7 +46,9 @@
 @property (weak, nonatomic) IBOutlet UIView *resetFiltersView;
 - (IBAction)resetFiltersCancelBtnClick:(id)sender;
 - (IBAction)resetFiltersResetBtnClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *addressBtn;
 @property (weak, nonatomic) IBOutlet UILabel *resetFilterMsgLbl;
-@property (weak, nonatomic) IBOutlet UILabel *addressBtn;
+//@property (weak, nonatomic) IBOutlet UILabel *addressBtn;
+@property (weak, nonatomic) IBOutlet UIView *topSuperView;
 
 @end

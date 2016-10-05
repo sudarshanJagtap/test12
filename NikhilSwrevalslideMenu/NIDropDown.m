@@ -68,6 +68,7 @@
         [UIView commitAnimations];
         [b.superview addSubview:self];
         [self addSubview:table];
+//      [self bringSubviewToFront:table];
     }
     return self;
 }
