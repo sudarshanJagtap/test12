@@ -50,6 +50,8 @@
   GMSAutocompleteFetcher* _fetcher;
   UILabel *fromLabel;
   UITextField *customTxtFld;
+  
+  UIView *blankScreen;
 }
 
 @end
@@ -66,13 +68,20 @@
 //  NSString *cityValue = [[NSUserDefaults standardUserDefaults]
 //                         stringForKey:@"city"];
   //  self.titleLbl.text =cityValue;
+  
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  CGFloat screenHeight = screenRect.size.height;
+  CGFloat screenWidth = screenRect.size.width;
+  blankScreen = [[UIView alloc]init];
+  blankScreen.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+  blankScreen.backgroundColor = [UIColor blackColor];
+  blankScreen.alpha = 0.7;
+ 
   NSString *cityValueText = [NSString stringWithFormat:@" %@",[RequestUtility sharedRequestUtility].enteredCityOnLocationScreen];
   customTxtFld.text = cityValueText;
   self.addressBtn.hidden =YES;
   customTxtFld.backgroundColor = [UIColor whiteColor];
-  CGRect screenRect = [[UIScreen mainScreen] bounds];
-  CGFloat screenHeight = screenRect.size.height;
-  CGFloat screenWidth = screenRect.size.width;
+  
   [customTxtFld setFrame:CGRectMake(30, 65, screenWidth-70, self.addressBtn.frame.size.height)];
   
   [self configureAutoCompleteView];
@@ -161,38 +170,20 @@
   [CartButton setBackgroundImage:[UIImage imageNamed:@"added_cart_img.png"] forState:UIControlStateNormal];
   CartButton.frame = CGRectMake(screenWidth-70, screenHeight-70, 50,50 );
   [self.view addSubview:CartButton];
-  
-  
+  blankScreen.hidden =YES;
+  [self.view addSubview:blankScreen];
+  [self.view bringSubviewToFront:blankScreen];
   
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
   [super viewDidAppear:animated];
-  
   self.navigationController.navigationBarHidden = YES;
   respoUtility = [ResponseUtility getSharedInstance];
   reqUtility = [RequestUtility sharedRequestUtility];
-  //  self.titleLbl.text = respoUtility.enteredAddress;
-  
   NSString *cityValueText = [NSString stringWithFormat:@" %@",respoUtility.enteredAddress];
   customTxtFld.text = cityValueText;
-  //  self.addressBtn.text = respoUtility.enteredAddress;
-  //  NSMutableArray* bandArray = [[NSMutableArray alloc] init];
-  
-  // add some sample data
-  //  [bandArray addObject:@"Default"];
-  //  [bandArray addObject:@"Restaurant Name"];
-  //  [bandArray addObject:@"Price(Ascending)"];
-  //  [bandArray addObject:@"Price(Descending)"];
-  //  [bandArray addObject:@"Rating"];
-  //  [bandArray addObject:@"Delivery Estimate"];
-  //  [bandArray addObject:@"Delivery Minimum"];
-  //
-  //  self.downPicker = [[DownPicker alloc] initWithTextField:self.dropdown withData:bandArray];
-  //  [self.downPicker addTarget:self
-  //                      action:@selector(dp_Selected:)
-  //            forControlEvents:UIControlEventValueChanged];
   tempArray = [[NSMutableArray alloc]init];
   [tempArray addObjectsFromArray:respoUtility.UserFiltersResponseArray];
 }
@@ -283,13 +274,12 @@
     CGFloat screenHeight = screenRect.size.height;
     CGFloat screenWidth = screenRect.size.width;
     
-    [popUpView setFrame:CGRectMake(10, 70, screenWidth-20, screenHeight-90)];
+    [popUpView setFrame:CGRectMake(10, 60, screenWidth-20, allRestArray.count*120 +10)];
     [popUpView addSubview:ppTableView];
     [self.view addGestureRecognizer:tap];
     ppTableView.delegate = self;
     ppTableView.dataSource = self;
-    
-    [ppTableView setFrame:CGRectMake(05, 05, screenWidth-30, screenHeight-100)];
+    [ppTableView setFrame:CGRectMake(05, 05, screenWidth-30, allRestArray.count*120)];
     popUpView.backgroundColor  = [UIColor blackColor];
     popUpView.hidden = NO;
     [popUpView addSubview:ppTableView];
@@ -302,14 +292,19 @@
     trsnparentView.backgroundColor = [UIColor blackColor];
     trsnparentView.alpha = 0/7;
     trsnparentView.hidden = NO;
-    [trsnparentView setFrame:self.view.bounds];
+    [trsnparentView setFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+    
+    coverView.center = self.view.center;
+    popUpView.center = self.view.center;
     [self.view addSubview:trsnparentView];
     [coverView addSubview:popUpView];
     [self.view addSubview:coverView];
     [self.view bringSubviewToFront:coverView];
+    blankScreen.hidden =NO;
     [ppTableView reloadData];
   }else{
     CartButton.hidden = YES;
+    blankScreen.hidden =YES;
     [self RemovecartPpUp];
   }
 }
@@ -371,12 +366,14 @@
   if (addedFiltersText.length>0) {
     crossBtn.hidden = NO;
     self.addedFilterLabel.hidden = NO;
+     self.tableTopConstraint.constant = -5;
   }else{
     crossBtn.hidden = YES;
     self.addedFilterLabel.hidden = YES;
+     self.tableTopConstraint.constant = -40;
   }
   self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.bounds.size.width, 0.01f)];
-  self.tableTopConstraint.constant = -5;
+//  self.tableTopConstraint.constant = -5;
   
 }
 
@@ -385,6 +382,7 @@
   self.addedFilterLabel.hidden = YES;
   self.resetFiltersView.hidden = NO;
   crossBtn.hidden = YES;
+  self.tableTopConstraint.constant = -40;
   [self.view bringSubviewToFront:self.resetFiltersView];
 }
 
@@ -392,9 +390,11 @@
   self.resetFiltersView.hidden = YES;
   self.addedFilterLabel.hidden = NO;
   crossBtn.hidden = NO;
+   self.tableTopConstraint.constant = -5;
 }
 
 - (IBAction)resetFiltersResetBtnClick:(id)sender {
+   self.tableTopConstraint.constant = -40;
   self.resetFiltersView.hidden = YES;
   self.addedFilterLabel.hidden = NO;
   [reqUtility.selectedCusinesArray removeAllObjects];
@@ -408,6 +408,7 @@
   crossBtn.hidden = YES;
   self.lblHghtConstraint.constant = 0;
   [self delegateDelivery];
+  self.tableView.frame= CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y-20, self.tableView.frame.size.width, self.tableView.frame.size.height);//self.tableView.frame.origin.y-20;
 }
 
 -(CGFloat)heightForLabel:(UILabel *)label withText:(NSString *)text{
@@ -585,9 +586,6 @@
     cell.lblOrder.text =orderValue;
     NSString *feeValue = ufpRespo.fee;
     NSString *distanceValue = ufpRespo.pkDistance;
-    //    if (ufpRespo.cuisine_string.length>60) {
-    //      cell.cuisineStringHeightConstraint.constant = 48;
-    //    }else
     if(ufpRespo.cuisine_string.length>40) {
       cell.cuisineStringHeightConstraint.constant = 32;
     }else{
@@ -1204,7 +1202,7 @@ didFailAutocompleteWithError:(NSError *)error {
 }
 
 -(void)RemovecartPpUp{
-  
+  blankScreen.hidden =YES;
   popUpView.hidden = YES;
   coverView.hidden = YES;
   trsnparentView.hidden = YES;
