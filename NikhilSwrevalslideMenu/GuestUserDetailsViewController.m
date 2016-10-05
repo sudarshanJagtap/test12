@@ -124,6 +124,7 @@
 }
 
 -(void)parseUserResponse:(NSDictionary*)ResponseDictionary{
+  dispatch_async(dispatch_get_main_queue(), ^{
   if (ResponseDictionary) {
      NSString *code = [ResponseDictionary valueForKey:@"code"];
     if ([code intValue] == 1) {
@@ -154,13 +155,14 @@
         [appDelegate hideLoadingView];
       }
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
       [appDelegate hideLoadingView];
-      UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+      UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
       [alert show];
-    });
+//    });
     
   }
+    });
 }
 
 -(BOOL)doValidateUserTextFieldText:(NSMutableString*)message{
