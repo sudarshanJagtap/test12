@@ -22,6 +22,10 @@
 
 @interface BillSummaryViewController (){
   AppDelegate *appDelegate;
+   UIView *blankScreen;
+  UIView *alertView;
+  UILabel *fromLabel;
+  int tag;
 }
 @property(nonatomic, strong, readwrite) PayPalConfiguration *payPalConfig;
 @end
@@ -32,6 +36,19 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  tag=0;
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  CGFloat screenHeight = screenRect.size.height;
+  CGFloat screenWidth = screenRect.size.width;
+    alertView = [[UIView alloc]init];
+  fromLabel = [[UILabel alloc]init];
+  blankScreen = [[UIView alloc]init];
+  blankScreen.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+  blankScreen.backgroundColor = [UIColor blackColor];
+  blankScreen.alpha = 0.5;
+  blankScreen.hidden =YES;
+  [self.view addSubview:blankScreen];
+  [self.view bringSubviewToFront:blankScreen];
   // Set up payPalConfig
   _payPalConfig = [[PayPalConfiguration alloc] init];
 #if HAS_CARDIO
@@ -203,15 +220,16 @@
           int restID = [[bfPaymentDictionary valueForKey:@"restaurant_id"] intValue];
           [[DBManager getSharedInstance] deleteRecordAfterPayment:restID];
           NSString *msg = [RequestUtility sharedRequestUtility].afterPaymentResponseString;
-          UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-          [alert show];
-          
-          NSString * storyboardName = @"Main";
-          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-          UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
-          UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
-          [navController setViewControllers: @[vc] animated: NO ];
-          [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+//          UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//          [alert show];
+//          
+          [self showMsg:@"Payment Successful"];
+//          NSString * storyboardName = @"Main";
+//          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+//          UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+//          UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+//          [navController setViewControllers: @[vc] animated: NO ];
+//          [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
         }else{
           [self parseUserResponseBeforePayment:responseDictionary];
         }
@@ -235,15 +253,16 @@
         [appDelegate hideLoadingView];
         int restID = [[bfPaymentDictionary valueForKey:@"restaurant_id"] intValue];
         [[DBManager getSharedInstance] deleteRecordAfterPayment:restID];
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"Payment successfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        
-        NSString * storyboardName = @"Main";
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-        UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
-        UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
-        [navController setViewControllers: @[vc] animated: NO ];
-        [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+        [self showMsg:@"Payment Successful"];
+//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"Payment successfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [alert show];
+//        
+//        NSString * storyboardName = @"Main";
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+//        UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+//        UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+//        [navController setViewControllers: @[vc] animated: NO ];
+//        [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
         
       }else{
         [appDelegate hideLoadingView];
@@ -348,9 +367,8 @@
   [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)addAddressBtnClick:(id)sender {
-  [RequestUtility sharedRequestUtility].isThroughPaymentScreen = YES;
-  AddressListViewController *obj_clvc  = (AddressListViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddressListViewControllerId"];
-  [self.navigationController pushViewController:obj_clvc animated:YES];
+  [self showMsg:@"Delivery Fee will be changed as per your delivery address"];
+  
 }
 - (IBAction)payPalPaymentOptionBtnClick:(id)sender {
 }
@@ -427,5 +445,106 @@
                                                                                               configuration:self.payPalConfig
                                                                                                    delegate:self];
   [self presentViewController:paymentViewController animated:YES completion:nil];
+}
+
+
+-(void)showMsg:(NSString*)msgStr{
+  
+  
+  
+  float screenWidth = [[UIScreen mainScreen] bounds].size.width;
+  float screenheight = [[UIScreen mainScreen] bounds].size.height;
+//  fullscreenView.frame = self.view.bounds;
+//  fullscreenView.backgroundColor = [UIColor blackColor];
+  UITapGestureRecognizer *singleFingerTap =
+  [[UITapGestureRecognizer alloc] initWithTarget:self
+                                          action:@selector(handleSingleTap:)];
+  [blankScreen addGestureRecognizer:singleFingerTap];
+  blankScreen.hidden = NO;
+  alertView.hidden = NO;
+//  fullscreenView.alpha = 0.5;
+//  [self.view addSubview:fullscreenView];
+//  [self.view bringSubviewToFront:fullscreenView];
+  
+  
+  alertView.backgroundColor = [UIColor whiteColor];
+  [alertView setFrame:CGRectMake(20, screenheight, screenWidth-40, 155)];
+  UIImageView *imgView = [[UIImageView alloc]init];
+  [imgView setFrame:CGRectMake(screenWidth/2-85, 10, 170, 30)];
+  [imgView setImage: [UIImage imageNamed:@"ymoc_login_logo.png"]];
+  [alertView addSubview:imgView];
+  
+  UILabel *lineLbl = [[UILabel alloc]init];
+  [lineLbl setFrame:CGRectMake(0, 43, alertView.frame.size.width, 1)];
+  lineLbl.backgroundColor = [UIColor grayColor];
+  lineLbl.numberOfLines = 1;
+   [alertView addSubview:lineLbl];
+  
+  [fromLabel setFrame:CGRectMake(0, 50, screenWidth-60, 45)];
+  fromLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:18];
+  fromLabel.text = msgStr;
+  fromLabel.numberOfLines = 4;
+  fromLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
+  fromLabel.adjustsFontSizeToFitWidth = YES;
+  fromLabel.minimumScaleFactor = 10.0f/12.0f;
+  fromLabel.adjustsFontSizeToFitWidth = YES;
+  fromLabel.backgroundColor = [UIColor clearColor];
+  fromLabel.textColor = [UIColor colorWithRed:117.0/255.0 green:194.0/255.0 blue:48.0/255.0 alpha:1.0];;
+  fromLabel.textAlignment = NSTextAlignmentCenter;
+  fromLabel.lineBreakMode = NSLineBreakByWordWrapping;
+  [alertView addSubview:fromLabel];
+  
+  UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+  [okBtn addTarget:self
+            action:@selector(OKBtnClicked:)
+      forControlEvents:UIControlEventTouchUpInside];
+  [okBtn setTitle:@"OK" forState:UIControlStateNormal];
+  okBtn.frame = CGRectMake(alertView.frame.size.width/2-50, 105, 100, 40.0);
+  okBtn.backgroundColor = [UIColor colorWithRed:63/255.0f green:173/255.0f blue:232/255.0f alpha:1.0f];
+  
+  if ([msgStr isEqualToString:@"Delivery Fee will be changed as per your delivery address"]) {
+    tag=1;
+  }else{
+    tag=0;
+  }
+  blankScreen.hidden =NO;
+  [alertView addSubview:okBtn];
+  [self.view addSubview:alertView];
+  [self.view bringSubviewToFront:alertView];
+  
+  [UIView transitionWithView:alertView
+                    duration:0.5
+                     options:UIViewAnimationOptionTransitionNone
+                  animations:^{
+                    alertView.center = self.view.center;
+                  }
+                  completion:nil];
+
+}
+
+-(IBAction)OKBtnClicked:(id)sender{
+//  UIButton *btn = (UIButton*)sender;
+  blankScreen.hidden =YES;
+  alertView.hidden = YES;
+  [alertView removeFromSuperview];
+  if (tag==1) {
+    [RequestUtility sharedRequestUtility].isThroughPaymentScreen = YES;
+    AddressListViewController *obj_clvc  = (AddressListViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddressListViewControllerId"];
+    [self.navigationController pushViewController:obj_clvc animated:YES];
+  }else{
+    NSString * storyboardName = @"Main";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+    UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+    [navController setViewControllers: @[vc] animated: NO ];
+    [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+  }
+  
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+  blankScreen.hidden = YES;
+  alertView.hidden = YES;
+  [alertView removeFromSuperview];
 }
 @end

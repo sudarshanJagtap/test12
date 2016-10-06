@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "RequestUtility.h"
 #import "DBManager.h"
+ #import <QuartzCore/QuartzCore.h>
 @interface AddReviewsViewController ()<UITextViewDelegate>{
   AppDelegate *appDelegate;
 }
@@ -23,6 +24,12 @@
   NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
   self.titleTxtView.text = [userdictionary valueForKey:@"user_full_name"];
   [self configureRatingsandPricing];
+  [[self.titleTxtView layer] setBorderColor:[[UIColor grayColor] CGColor]];
+  [[self.titleTxtView layer] setBorderWidth:1.3];
+  [[self.titleTxtView layer] setCornerRadius:10];
+  [[self.commentTxtVw layer] setBorderColor:[[UIColor grayColor] CGColor]];
+  [[self.commentTxtVw layer] setBorderWidth:1.3];
+  [[self.commentTxtVw layer] setCornerRadius:10];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -135,6 +142,39 @@
   }
   
   return YES;
+}
+
+
+
+- (void)viewWillAppear:(BOOL)animated {
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+#pragma mark - keyboard movements
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+  CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+  
+  [UIView animateWithDuration:0.3 animations:^{
+    CGRect f = self.view.frame;
+    f.origin.y = -keyboardSize.height;
+    self.view.frame = f;
+  }];
+}
+
+-(void)keyboardWillHide:(NSNotification *)notification
+{
+  [UIView animateWithDuration:0.3 animations:^{
+    CGRect f = self.view.frame;
+    f.origin.y = 0.0f;
+    self.view.frame = f;
+  }];
 }
 
 @end

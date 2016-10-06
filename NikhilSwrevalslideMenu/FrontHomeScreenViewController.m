@@ -740,16 +740,21 @@
   
   
   alertView.backgroundColor = [UIColor whiteColor];
-  [alertView setFrame:CGRectMake(10, screenheight/2-100, screenWidth-20, 190)];
+  [alertView setFrame:CGRectMake(10, screenheight, screenWidth-20, 190)];
   UIImageView *imgView = [[UIImageView alloc]init];
   [imgView setFrame:CGRectMake(screenWidth/2-100, 10, 200, 40)];
   [imgView setImage: [UIImage imageNamed:@"ymoc_login_logo.png"]];
   [alertView addSubview:imgView];
   
+  UILabel *lineLbl = [[UILabel alloc]init];
+  [lineLbl setFrame:CGRectMake(0, 53, alertView.frame.size.width, 1)];
+  lineLbl.backgroundColor = [UIColor grayColor];
+  lineLbl.numberOfLines = 1;
+  [alertView addSubview:lineLbl];
   
   
-  [fromLabel setFrame:CGRectMake(0, 50, screenWidth-20, 75)];
-  fromLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+  [fromLabel setFrame:CGRectMake(0, 58, screenWidth-20, 75)];
+  fromLabel.font = [UIFont fontWithName:@"Helvetica" size:15];
   fromLabel.text = msgStr;
   fromLabel.numberOfLines = 4;
   fromLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
@@ -767,8 +772,8 @@
                   action:@selector(deliveryBtnClicked)
         forControlEvents:UIControlEventTouchUpInside];
   [deliveryBtn setTitle:@"Delivery" forState:UIControlStateNormal];
-  deliveryBtn.frame = CGRectMake(screenWidth/2-125, 130, 120, 40.0);
-  deliveryBtn.frame = CGRectMake(alertView.frame.size.width/2-135, 130, 120, 40.0);
+  deliveryBtn.frame = CGRectMake(screenWidth/2-125, 135, 120, 40.0);
+  deliveryBtn.frame = CGRectMake(alertView.frame.size.width/2-135, 135, 120, 40.0);
   deliveryBtn.backgroundColor = [UIColor colorWithRed:71/255.0f green:202/255.0f blue:75/255.0f alpha:1.0f];
   [alertView addSubview:deliveryBtn];
   
@@ -777,11 +782,19 @@
                 action:@selector(pickUpBtnClicked)
       forControlEvents:UIControlEventTouchUpInside];
   [pickUpBtn setTitle:@"Pickup" forState:UIControlStateNormal];
-  pickUpBtn.frame = CGRectMake(alertView.frame.size.width/2+5, 130, 130, 40.0);
+  pickUpBtn.frame = CGRectMake(alertView.frame.size.width/2+5, 135, 130, 40.0);
   pickUpBtn.backgroundColor = [UIColor colorWithRed:101/255.0f green:220/255.0f blue:243/255.0f alpha:1.0f];
   [alertView addSubview:pickUpBtn];
   [self.view addSubview:alertView];
   [self.view bringSubviewToFront:alertView];
+  
+  [UIView transitionWithView:alertView
+                    duration:0.5
+                     options:UIViewAnimationOptionTransitionNone
+                  animations:^{
+                    alertView.center = self.view.center;
+                  }
+                  completion:nil];
 }
 
 -(void)deliveryBtnClicked{

@@ -8,6 +8,7 @@
 
 #import "RequestUtility.h"
 #import "ResponseUtility.h"
+#import "Reachability.h"
 @implementation RequestUtility
 + (RequestUtility *)sharedRequestUtility {
   __strong static RequestUtility *httpRequestUtility = nil;
@@ -43,6 +44,7 @@
     NSURL *URL = [NSURL URLWithString:url];
     NSURLSessionConfiguration *configuration;
     configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.discretionary = NO;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
     NSMutableURLRequest *request1 = [NSMutableURLRequest requestWithURL:URL];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request1 completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -77,6 +79,7 @@
     url = [url stringByReplacingOccurrencesOfString:@"http://ymoc.mobisofttech.co.in/android_api/" withString:@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/"];
   if ([self isNetworkAvailable]) {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.discretionary = NO;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -127,21 +130,32 @@
 
 - (BOOL)isNetworkAvailable
 {
-  CFNetDiagnosticRef dReference;
-  dReference = CFNetDiagnosticCreateWithURL (kCFAllocatorDefault, (__bridge CFURLRef)[NSURL URLWithString:@"www.apple.com"]);
-  CFNetDiagnosticStatus status;
-  status = CFNetDiagnosticCopyNetworkStatusPassively (dReference, NULL);
-  CFRelease (dReference);
-  if ( status == kCFNetDiagnosticConnectionUp )
-  {
-    NSLog (@"Connection is Available");
-    return YES;
+//  CFNetDiagnosticRef dReference;
+//  dReference = CFNetDiagnosticCreateWithURL (kCFAllocatorDefault, (__bridge CFURLRef)[NSURL URLWithString:@"www.apple.com"]);
+//  CFNetDiagnosticStatus status;
+//  status = CFNetDiagnosticCopyNetworkStatusPassively (dReference, NULL);
+//  CFRelease (dReference);
+//  if ( status == kCFNetDiagnosticConnectionUp )
+//  {
+//    NSLog (@"Connection is Available");
+//    return YES;
+//  }
+//  else
+//  {
+//    NSLog (@"Connection is down");
+//    return NO;
+//  }
+  BOOL retval = NO;
+  Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+  NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+  if (networkStatus == NotReachable) {
+    NSLog(@"There IS NO internet connection");
+    retval = NO;
+  } else {
+    NSLog(@"There IS internet connection");
+    retval = YES;
   }
-  else
-  {
-    NSLog (@"Connection is down");
-    return NO;
-  }
+  return retval;
 }
 
 -(NSString*)getFeaturNamefromSelectedTag:(int)SelectedTag{
@@ -319,6 +333,7 @@
     url = [url stringByReplacingOccurrencesOfString:@"http://ymoc.mobisofttech.co.in/android_api/" withString:@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/"];
   if ([self isNetworkAvailable]) {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.discretionary = NO;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -375,6 +390,7 @@
     url = [url stringByReplacingOccurrencesOfString:@"http://ymoc.mobisofttech.co.in/android_api/" withString:@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/"];
   if ([self isNetworkAvailable]) {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.discretionary = NO;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy

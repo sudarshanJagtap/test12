@@ -27,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+  [ResponseUtility getSharedInstance].UserOrderArray = [[NSMutableArray alloc]init];
   NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
   userId=[userdictionary valueForKey:@"user_id"];
   NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];

@@ -21,6 +21,18 @@ static sqlite3_stmt *statement = nil;
   return sharedInstance;
 }
 
+
+
+//+(DBManager*)getSharedInstance{
+//  static dispatch_once_t onceToken1;
+//  dispatch_once(&onceToken1, ^{
+//    sharedInstance = [[self alloc] init];
+//    
+//  });
+//  
+//  return sharedInstance;
+//}
+
 -(BOOL)createDB{
   NSString *docsDir;
   NSArray *dirPaths;

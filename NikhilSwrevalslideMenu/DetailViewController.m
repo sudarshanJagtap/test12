@@ -68,18 +68,19 @@
                    }completion:^(BOOL finished){
                    }];
   
-  
+  dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+
   NSString *stringURL=@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/ymoc_main/upload/image/";
   //    NSString *stringURL=@"http://ymoc.mobisofttech.co.in/ymoc_main/upload/logo/thumbnail/";
   
   NSString *url_Img_FULL = [stringURL stringByAppendingPathComponent:selectedUfrespo.imageStr];
   if (selectedUfrespo.imageStr) {
-    //    self.imgVw.showActivityIndicator = YES;
-    //    self.imgVw.imageURL = [NSURL URLWithString:url_Img_FULL];
-    //    self.imgVw.contentMode = UIViewContentModeScaleAspectFit;
     NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url_Img_FULL]];
-    self.imgVw.image = [UIImage imageWithData:imageData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.imgVw.image = [UIImage imageWithData:imageData];
+    });
   }
+  });
   
   
 }
@@ -117,7 +118,7 @@
     CartButton.hidden = YES;
   }
   
-  [self getDetailCuisine];
+
 }
 
 -(void)configureRatingsandPricing{
@@ -130,6 +131,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    [self getDetailCuisine];
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   CGFloat screenHeight = screenRect.size.height;
   CGFloat screenWidth = screenRect.size.width;
