@@ -28,6 +28,7 @@
 @property(nonatomic,assign)BOOL isAsap;
 @property(nonatomic,strong)NSString *selectedOrderType;
 @property(nonatomic,assign)BOOL isThroughPaymentScreen;
+@property(nonatomic,assign)BOOL backFromPaypalScreen;
 @property(nonatomic,strong)NSString *selectedAddressId;
 @property(nonatomic,strong)NSString *afterPaymentResponseString;
 @property(nonatomic,strong)USerAddressData *selectedAddressDataObj;

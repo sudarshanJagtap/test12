@@ -10,6 +10,9 @@
 		45B202CA9BA8340A2F05E51A /* libPods-NikhilSwrevalslideMenu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3186AC28CEEC4EEACB576BD /* libPods-NikhilSwrevalslideMenu.a */; };
 		6519ACC61DA44EB50094F9B5 /* AddReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6519ACC51DA44EB50094F9B5 /* AddReviewsViewController.m */; };
 		6545A1F11DA6B39C00A6693C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6545A1F01DA6B39C00A6693C /* SystemConfiguration.framework */; };
+		6545A1F51DA6BAE200A6693C /* helveticaneuelight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6545A1F21DA6BAE200A6693C /* helveticaneuelight.ttf */; };
+		6545A1F61DA6BAE200A6693C /* Sansation-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6545A1F31DA6BAE200A6693C /* Sansation-Bold.ttf */; };
+		6545A1F71DA6BAE200A6693C /* Sansation-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6545A1F41DA6BAE200A6693C /* Sansation-Light.ttf */; };
 		655A54721DA4F6E700267B12 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 655A54711DA4F6E700267B12 /* NIDropDown.m */; };
 		65753C891D43DC0A00069C54 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65753C881D43DC0A00069C54 /* DetailViewController.m */; };
 		65753C8D1D43F20300069C54 /* DetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65753C8B1D43F20300069C54 /* DetailTableViewCell.m */; };
@@ -105,6 +108,9 @@
 		6519ACC41DA44EB50094F9B5 /* AddReviewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddReviewsViewController.h; sourceTree = "<group>"; };
 		6519ACC51DA44EB50094F9B5 /* AddReviewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddReviewsViewController.m; sourceTree = "<group>"; };
 		6545A1F01DA6B39C00A6693C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6545A1F21DA6BAE200A6693C /* helveticaneuelight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = helveticaneuelight.ttf; sourceTree = "<group>"; };
+		6545A1F31DA6BAE200A6693C /* Sansation-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sansation-Bold.ttf"; sourceTree = "<group>"; };
+		6545A1F41DA6BAE200A6693C /* Sansation-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sansation-Light.ttf"; sourceTree = "<group>"; };
 		655A54701DA4F6E700267B12 /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
 		655A54711DA4F6E700267B12 /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
 		65753C871D43DC0A00069C54 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -527,6 +533,9 @@
 				65753D0A1D4A81CE00069C54 /* Utility.m */,
 				655A54701DA4F6E700267B12 /* NIDropDown.h */,
 				655A54711DA4F6E700267B12 /* NIDropDown.m */,
+				6545A1F21DA6BAE200A6693C /* helveticaneuelight.ttf */,
+				6545A1F31DA6BAE200A6693C /* Sansation-Bold.ttf */,
+				6545A1F41DA6BAE200A6693C /* Sansation-Light.ttf */,
 			);
 			name = Operation;
 			sourceTree = "<group>";
@@ -598,7 +607,7 @@
 				TargetAttributes = {
 					8F32F7971D33701A0013AD6E = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 4J2T9U43K8;
+						DevelopmentTeam = HZZJ7646E4;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -634,6 +643,8 @@
 				657ED34B1D79FB550079ACEA /* OrderTrackingTableViewCell.xib in Resources */,
 				657DEC721D4E816A00A1B512 /* expandableImage.png in Resources */,
 				65814FCA1D73548D00246818 /* HomeCartTableViewCell.xib in Resources */,
+				6545A1F61DA6BAE200A6693C /* Sansation-Bold.ttf in Resources */,
+				6545A1F51DA6BAE200A6693C /* helveticaneuelight.ttf in Resources */,
 				657F469A1D6255CA00F6B68A /* LeftPanelTableViewCell.xib in Resources */,
 				8F32F7AB1D33701A0013AD6E /* LaunchScreen.storyboard in Resources */,
 				657ED3401D79FB020079ACEA /* OrderHistoryTableViewCell.xib in Resources */,
@@ -644,6 +655,7 @@
 				8F32F7DF1D33C5B80013AD6E /* icon.png in Resources */,
 				8F32F7A81D33701A0013AD6E /* Assets.xcassets in Resources */,
 				8F32F7E01D33C5B80013AD6E /* Menu-Icon.png in Resources */,
+				6545A1F71DA6BAE200A6693C /* Sansation-Light.ttf in Resources */,
 				65753CA01D464E0300069C54 /* expandableImage1.png in Resources */,
 				657ED3561D7EF3D60079ACEA /* ViewOrderTableViewCell.xib in Resources */,
 				65B608E81D5892000055EBF2 /* GoogleService-Info.plist in Resources */,
@@ -902,8 +914,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NikhilSwrevalslideMenu/NikhilSwrevalslideMenu.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Prakash Salvi (Y8LMH76PR3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Prakash Salvi (Y8LMH76PR3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -913,9 +925,9 @@
 				INFOPLIST_FILE = NikhilSwrevalslideMenu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.uniken.relid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.androapps.ymoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e9b48bef-1921-41fe-8f4a-03909f540bcc";
+				PROVISIONING_PROFILE = "ec4707f9-6916-465e-bd7c-eeda402cba05";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -926,8 +938,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NikhilSwrevalslideMenu/NikhilSwrevalslideMenu.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Prakash Salvi (Y8LMH76PR3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Prakash Salvi (Y8LMH76PR3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -937,9 +949,9 @@
 				INFOPLIST_FILE = NikhilSwrevalslideMenu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.uniken.relid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.androapps.ymoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e9b48bef-1921-41fe-8f4a-03909f540bcc";
+				PROVISIONING_PROFILE = "ec4707f9-6916-465e-bd7c-eeda402cba05";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

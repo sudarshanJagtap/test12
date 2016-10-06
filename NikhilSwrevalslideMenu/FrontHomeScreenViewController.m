@@ -195,6 +195,7 @@
 -(void)viewWillAppear:(BOOL)animated{
   
   [RequestUtility sharedRequestUtility].isThroughLeftMenu = NO;
+  [RequestUtility sharedRequestUtility].isThroughPaymentScreen = NO;
   self.searchArea.hidden = YES;
   self.navigationController.navigationBarHidden = YES;
   tempArray = [[NSMutableArray alloc]init];
@@ -273,13 +274,22 @@
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenHeight = screenRect.size.height;
     CGFloat screenWidth = screenRect.size.width;
+
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(1, 50, 276, 30)];
+    headerView.backgroundColor = [UIColor colorWithRed:235/255.0f green:235/255.0f blue:235/255.0f alpha:1.0f];
+    UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(4, 5, 276, 24)];
+    labelView.textAlignment = NSTextAlignmentCenter;
+    labelView.text = @"Your Cart Details";
+    labelView.font = [UIFont fontWithName:@"Sansation-Bold" size:15];
+    [headerView addSubview:labelView];
+    ppTableView.tableHeaderView = headerView;
     
-    [popUpView setFrame:CGRectMake(10, 60, screenWidth-20, allRestArray.count*120 +10)];
+    [popUpView setFrame:CGRectMake(10, 60, screenWidth-20, allRestArray.count*120 +40)];
     [popUpView addSubview:ppTableView];
     [self.view addGestureRecognizer:tap];
     ppTableView.delegate = self;
     ppTableView.dataSource = self;
-    [ppTableView setFrame:CGRectMake(05, 05, screenWidth-30, allRestArray.count*120)];
+    [ppTableView setFrame:CGRectMake(05, 05, screenWidth-30, allRestArray.count*120 +30)];
     popUpView.backgroundColor  = [UIColor blackColor];
     popUpView.hidden = NO;
     [popUpView addSubview:ppTableView];
@@ -293,9 +303,7 @@
     trsnparentView.alpha = 0/7;
     trsnparentView.hidden = NO;
     [trsnparentView setFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
-    
-//    coverView.center = self.view.center;
-//    popUpView.center = self.view.center;
+
     [self.view addSubview:trsnparentView];
     [coverView addSubview:popUpView];
     [self.view addSubview:coverView];
@@ -740,21 +748,21 @@
   
   
   alertView.backgroundColor = [UIColor whiteColor];
-  [alertView setFrame:CGRectMake(10, screenheight, screenWidth-20, 190)];
+  [alertView setFrame:CGRectMake(10, screenheight, screenWidth-20, 200)];
   UIImageView *imgView = [[UIImageView alloc]init];
-  [imgView setFrame:CGRectMake(screenWidth/2-100, 10, 200, 40)];
+  [imgView setFrame:CGRectMake(screenWidth/2-85, 15, 170, 30)];
   [imgView setImage: [UIImage imageNamed:@"ymoc_login_logo.png"]];
   [alertView addSubview:imgView];
   
   UILabel *lineLbl = [[UILabel alloc]init];
   [lineLbl setFrame:CGRectMake(0, 53, alertView.frame.size.width, 1)];
-  lineLbl.backgroundColor = [UIColor grayColor];
+  lineLbl.backgroundColor = [UIColor lightGrayColor];
   lineLbl.numberOfLines = 1;
   [alertView addSubview:lineLbl];
   
   
   [fromLabel setFrame:CGRectMake(0, 58, screenWidth-20, 75)];
-  fromLabel.font = [UIFont fontWithName:@"Helvetica" size:15];
+  fromLabel.font = [UIFont fontWithName:@"Sansation-Bold" size:15];
   fromLabel.text = msgStr;
   fromLabel.numberOfLines = 4;
   fromLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
@@ -772,8 +780,8 @@
                   action:@selector(deliveryBtnClicked)
         forControlEvents:UIControlEventTouchUpInside];
   [deliveryBtn setTitle:@"Delivery" forState:UIControlStateNormal];
-  deliveryBtn.frame = CGRectMake(screenWidth/2-125, 135, 120, 40.0);
-  deliveryBtn.frame = CGRectMake(alertView.frame.size.width/2-135, 135, 120, 40.0);
+  deliveryBtn.titleLabel.font = [UIFont fontWithName:@"helveticaneuelight" size:16];
+  deliveryBtn.frame = CGRectMake(alertView.frame.size.width/2-122.5, 145, 120, 40.0);
   deliveryBtn.backgroundColor = [UIColor colorWithRed:71/255.0f green:202/255.0f blue:75/255.0f alpha:1.0f];
   [alertView addSubview:deliveryBtn];
   
@@ -782,8 +790,9 @@
                 action:@selector(pickUpBtnClicked)
       forControlEvents:UIControlEventTouchUpInside];
   [pickUpBtn setTitle:@"Pickup" forState:UIControlStateNormal];
-  pickUpBtn.frame = CGRectMake(alertView.frame.size.width/2+5, 135, 130, 40.0);
-  pickUpBtn.backgroundColor = [UIColor colorWithRed:101/255.0f green:220/255.0f blue:243/255.0f alpha:1.0f];
+  pickUpBtn.titleLabel.font = [UIFont fontWithName:@"helveticaneuelight" size:16];
+  pickUpBtn.frame = CGRectMake(alertView.frame.size.width/2+2.5, 145, 120, 40.0);
+  pickUpBtn.backgroundColor = [UIColor colorWithRed:41/255.0f green:170/255.0f blue:235/255.0f alpha:1.0f];
   [alertView addSubview:pickUpBtn];
   [self.view addSubview:alertView];
   [self.view bringSubviewToFront:alertView];

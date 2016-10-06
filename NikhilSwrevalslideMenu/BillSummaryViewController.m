@@ -26,6 +26,7 @@
   UIView *alertView;
   UILabel *fromLabel;
   int tag;
+  
 }
 @property(nonatomic, strong, readwrite) PayPalConfiguration *payPalConfig;
 @end
@@ -37,6 +38,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   tag=0;
+  [RequestUtility sharedRequestUtility].backFromPaypalScreen = NO;
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   CGFloat screenHeight = screenRect.size.height;
   CGFloat screenWidth = screenRect.size.width;
@@ -105,6 +107,10 @@
       self.addressLabel.numberOfLines = 6;
       self.addressLabel.text = addString;
       self.addHeightConstraint.constant = 110;
+   if ([RequestUtility sharedRequestUtility].backFromPaypalScreen == NO) {
+     [self getDeliveryFee:[RequestUtility sharedRequestUtility].selectedAddressId];
+   }
+   
     }else{
       self.paybtn.enabled = NO;
       self.paybtn.backgroundColor = [UIColor grayColor];
@@ -145,6 +151,74 @@
   self.totalAmount.text = [NSString stringWithFormat:@"%@",totalAmountPassed];
   [self setPayPalEnvironment:self.environment];
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+
+-(void)getDeliveryFee:(NSString*)AddID{
+  
+  
+  NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+  [dict setValue:[bfPaymentDictionary valueForKey:@"restaurant_id"] forKey:@"restaurant_id"];
+  [dict setValue:@"delivery_fee" forKey:@"action"];
+  [dict setValue:AddID forKey:@"delivery_address_id"];
+  appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+  [appDelegate showLoadingViewWithString:@"Loading..."];
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];
+  NSString *url = @"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/delivery_fee.php";
+  
+  NSError * err;
+  NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:&err];
+  NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+  NSLog(@"getDeliveryFee info string \n = %@",String);
+  
+  [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+    if (status) {
+//      NSLog(@"\n\n response of getDeliveryFee \n\n :%@",responseDictionary);
+      [appDelegate hideLoadingView];
+      [self parseGetDeliveryFeeInfoResponse:responseDictionary];
+    }else{
+      [appDelegate hideLoadingView];
+    }
+  }];
+}
+
+
+-(void)parseGetDeliveryFeeInfoResponse:(NSDictionary*)ResponseDictionary{
+  if (ResponseDictionary) {
+    NSString *code = [ResponseDictionary valueForKey:@"code"];
+    if ([code isEqualToString:@"1"]) {
+      
+      dispatch_async(dispatch_get_main_queue(), ^{
+        appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate hideLoadingView];
+        NSString *newfee = [ResponseDictionary valueForKey:@"data" ];
+        if ([newfee isEqualToString:[deliveryFeePassed substringFromIndex:2]]) {
+          
+        }else{
+        
+          deliveryFeePassed = [NSString stringWithFormat:@"$ %@",newfee];
+          float finalAmount;
+          if([RequestUtility sharedRequestUtility].delivery_status == 1){
+            finalAmount= [[subTotalPassed substringFromIndex:2] floatValue] + [[salesTaxPassed substringFromIndex:2] floatValue] + [[deliveryFeePassed substringFromIndex:2] floatValue];
+          }else{
+            finalAmount= [[subTotalPassed substringFromIndex:2] floatValue] + [[salesTaxPassed substringFromIndex:2] floatValue];
+          }
+          totalAmountPassed = [NSString stringWithFormat:@"$ %.02f",finalAmount];
+          self.subTotalAmount.text = [NSString stringWithFormat:@"%@",subTotalPassed];
+          self.salesTaxAmount.text = [NSString stringWithFormat:@"%@",salesTaxPassed];
+          self.deliveryFeeAmount.text = [NSString stringWithFormat:@"%@",deliveryFeePassed];
+          self.totalAmount.text = [NSString stringWithFormat:@"%@",totalAmountPassed];
+        }
+        
+      });
+      
+    }
+    
+  }else{
+    dispatch_async(dispatch_get_main_queue(), ^{
+      appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+      [appDelegate hideLoadingView];
+    });
+  }
 }
 
 - (BOOL)acceptCreditCards {
@@ -188,7 +262,6 @@
   [afterPaymentDictionary setValue:[bfPaymentDictionary valueForKey:@"order_schedule_status"] forKey:@"order_schedule_status"];
   [afterPaymentDictionary setValue:[bfPaymentDictionary valueForKey:@"order_schedule_date"] forKey:@"order_schedule_date"];
   [afterPaymentDictionary setValue:[bfPaymentDictionary valueForKey:@"order_schedule_time"] forKey:@"order_schedule_time"];
-  //  NSString *oamount = [subTotalPassed substringFromIndex:2];
   [afterPaymentDictionary setValue:[subTotalPassed substringFromIndex:2] forKey:@"order_amount"];
   [afterPaymentDictionary setValue:[ResponseUtility getSharedInstance].salesTaxValue forKey:@"tax_percent"];
   [afterPaymentDictionary setValue:[salesTaxPassed substringFromIndex:2] forKey:@"tax_amount"];
@@ -374,7 +447,7 @@
 }
 
 - (IBAction)payBtnClick:(id)sender {
-  
+  [RequestUtility sharedRequestUtility].backFromPaypalScreen = YES;
   // Remove our last completed payment, just for demo purposes.
   self.resultText = nil;
   
@@ -470,18 +543,18 @@
   alertView.backgroundColor = [UIColor whiteColor];
   [alertView setFrame:CGRectMake(20, screenheight, screenWidth-40, 155)];
   UIImageView *imgView = [[UIImageView alloc]init];
-  [imgView setFrame:CGRectMake(screenWidth/2-85, 10, 170, 30)];
+  [imgView setFrame:CGRectMake(alertView.frame.size.width/2-85, 10, 170, 30)];
   [imgView setImage: [UIImage imageNamed:@"ymoc_login_logo.png"]];
   [alertView addSubview:imgView];
   
   UILabel *lineLbl = [[UILabel alloc]init];
-  [lineLbl setFrame:CGRectMake(0, 43, alertView.frame.size.width, 1)];
-  lineLbl.backgroundColor = [UIColor grayColor];
+  [lineLbl setFrame:CGRectMake(0, 47, alertView.frame.size.width, 1)];
+  lineLbl.backgroundColor = [UIColor lightGrayColor];
   lineLbl.numberOfLines = 1;
    [alertView addSubview:lineLbl];
   
-  [fromLabel setFrame:CGRectMake(0, 50, screenWidth-60, 45)];
-  fromLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:18];
+  [fromLabel setFrame:CGRectMake(0, 50, screenWidth-40, 45)];
+  fromLabel.font = [UIFont fontWithName:@"Sansation-Bold" size:16];
   fromLabel.text = msgStr;
   fromLabel.numberOfLines = 4;
   fromLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
@@ -489,7 +562,7 @@
   fromLabel.minimumScaleFactor = 10.0f/12.0f;
   fromLabel.adjustsFontSizeToFitWidth = YES;
   fromLabel.backgroundColor = [UIColor clearColor];
-  fromLabel.textColor = [UIColor colorWithRed:117.0/255.0 green:194.0/255.0 blue:48.0/255.0 alpha:1.0];;
+  fromLabel.textColor = [UIColor colorWithRed:85.0/255.0 green:150.0/255.0 blue:28.0/255.0 alpha:1.0];;
   fromLabel.textAlignment = NSTextAlignmentCenter;
   fromLabel.lineBreakMode = NSLineBreakByWordWrapping;
   [alertView addSubview:fromLabel];

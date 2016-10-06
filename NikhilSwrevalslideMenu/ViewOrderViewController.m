@@ -28,6 +28,7 @@
   [dict setValue:userId forKey:@"user_id"];
   [dict setValue:self.orderID forKey:@"order_id"];
   [dict setValue:@"view_order" forKey:@"action"];
+  self.tableHeightConstraint.constant = 0;
   [self getAllOrderHistory:dict];
   
   if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ){
@@ -134,7 +135,7 @@
       dispatch_async(dispatch_get_main_queue(), ^{
         appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate hideLoadingView];
-        self.asubTotal.text = [NSString stringWithFormat:@"$ %@",vwData.total_amount];
+        self.asubTotal.text = [NSString stringWithFormat:@"$ %@",vwData.order_amount];
         self.asalesTax.text = [NSString stringWithFormat:@"$ %@",vwData.tax_amount];
         NSString *delvieryStr = [NSString stringWithFormat:@"$ %@",vwData.delivery_fee];
         self.aTotal.text = [NSString stringWithFormat:@"$ %@",vwData.total_amount];
