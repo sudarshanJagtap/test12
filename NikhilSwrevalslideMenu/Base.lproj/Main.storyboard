@@ -2375,7 +2375,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR Login using YMOC Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kd3-of-Snn">
-                                <rect key="frame" x="32" y="381" width="256" height="21"/>
+                                <rect key="frame" x="43" y="381" width="234" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="KFi-pU-Pib"/>
                                 </constraints>
@@ -2387,7 +2387,6 @@
                                 <rect key="frame" x="16" y="415" width="126" height="35"/>
                                 <color key="backgroundColor" red="0.67747372630000002" green="0.085360245900000006" blue="0.097923216499999993" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="126" id="UNc-Z9-IXg"/>
                                     <constraint firstAttribute="height" constant="35" id="thj-oC-c15"/>
                                 </constraints>
                                 <state key="normal" title="SIGNUP">
@@ -2402,7 +2401,6 @@
                                 <color key="backgroundColor" red="0.1883069851431568" green="0.59002221578752767" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="TZI-ig-Xc2"/>
-                                    <constraint firstAttribute="width" constant="125" id="r7k-cF-86f"/>
                                 </constraints>
                                 <state key="normal" title="LOGIN">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2417,14 +2415,16 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Y7S-nB-ahv" secondAttribute="trailing" constant="1" id="0a8-nQ-HRH"/>
                             <constraint firstItem="HPt-B5-Sb7" firstAttribute="leading" secondItem="Tfo-qa-ZeH" secondAttribute="leadingMargin" id="0p4-wi-643"/>
                             <constraint firstItem="fzk-ER-WT7" firstAttribute="top" secondItem="z6T-r7-iq2" secondAttribute="bottom" constant="-152" id="1Xq-P1-XMw"/>
+                            <constraint firstItem="nkF-jH-Ozc" firstAttribute="leading" secondItem="Kd3-of-Snn" secondAttribute="trailing" constant="2" id="60G-8a-B5d"/>
                             <constraint firstItem="MlR-bC-dwZ" firstAttribute="leading" secondItem="Tfo-qa-ZeH" secondAttribute="leadingMargin" constant="6" id="7Ti-fA-vLS"/>
                             <constraint firstItem="Y7S-nB-ahv" firstAttribute="top" secondItem="KFO-PG-WxH" secondAttribute="bottom" constant="11" id="7b7-yK-00X"/>
                             <constraint firstItem="06V-g1-mxq" firstAttribute="top" secondItem="W4b-16-OhI" secondAttribute="bottom" constant="9" id="8yi-TC-gDT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hyR-1r-8qj" secondAttribute="trailing" constant="-7" id="93V-t2-Kh0"/>
-                            <constraint firstItem="Kd3-of-Snn" firstAttribute="leading" secondItem="Tfo-qa-ZeH" secondAttribute="leadingMargin" constant="16" id="9PF-bo-pGt"/>
+                            <constraint firstItem="Kd3-of-Snn" firstAttribute="leading" secondItem="Tfo-qa-ZeH" secondAttribute="leadingMargin" constant="27" id="9PF-bo-pGt"/>
                             <constraint firstItem="fzk-ER-WT7" firstAttribute="leading" secondItem="Tfo-qa-ZeH" secondAttribute="leadingMargin" constant="-21" id="BFv-x7-hOH"/>
                             <constraint firstItem="Kd3-of-Snn" firstAttribute="top" secondItem="Y7S-nB-ahv" secondAttribute="bottom" constant="13" id="BKn-aq-DE5"/>
                             <constraint firstItem="6Bv-8t-Jhc" firstAttribute="leading" secondItem="Tfo-qa-ZeH" secondAttribute="leadingMargin" constant="-25" id="BS3-A7-eSM"/>
+                            <constraint firstItem="W4b-16-OhI" firstAttribute="leading" secondItem="HPt-B5-Sb7" secondAttribute="trailing" constant="35" id="CVZ-gb-2Ve"/>
                             <constraint firstItem="7hb-4T-SQd" firstAttribute="leading" secondItem="Tfo-qa-ZeH" secondAttribute="leadingMargin" constant="6" id="D8J-1l-8by"/>
                             <constraint firstItem="HPt-B5-Sb7" firstAttribute="top" secondItem="Kd3-of-Snn" secondAttribute="bottom" constant="13" id="Eu1-pr-eiW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="06V-g1-mxq" secondAttribute="trailing" constant="-18" id="FiM-hk-8Zd"/>
@@ -2439,7 +2439,8 @@
                             <constraint firstItem="scy-fv-u2t" firstAttribute="leading" secondItem="Tfo-qa-ZeH" secondAttribute="leadingMargin" constant="2" id="Qwq-Yw-xR3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KFO-PG-WxH" secondAttribute="trailing" constant="2" id="SCu-Oy-6ll"/>
                             <constraint firstItem="hyR-1r-8qj" firstAttribute="leading" secondItem="Tfo-qa-ZeH" secondAttribute="leadingMargin" constant="-7" id="SQT-JM-AyA"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Kd3-of-Snn" secondAttribute="trailing" constant="16" id="SyT-UD-fim"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Kd3-of-Snn" secondAttribute="trailing" constant="27" id="SyT-UD-fim"/>
+                            <constraint firstItem="Kd3-of-Snn" firstAttribute="leading" secondItem="l5J-Em-n7x" secondAttribute="trailing" constant="2" id="Ti5-oI-qfB"/>
                             <constraint firstItem="l5J-Em-n7x" firstAttribute="leading" secondItem="Tfo-qa-ZeH" secondAttribute="leadingMargin" constant="-15" id="UzM-yk-npB"/>
                             <constraint firstItem="9Gv-uG-CVw" firstAttribute="top" secondItem="scy-fv-u2t" secondAttribute="bottom" constant="14" id="V7o-69-F5F"/>
                             <constraint firstItem="Y7S-nB-ahv" firstAttribute="leading" secondItem="Tfo-qa-ZeH" secondAttribute="leadingMargin" constant="1" id="Vvo-nb-Rt6"/>
@@ -2451,6 +2452,7 @@
                             <constraint firstItem="scy-fv-u2t" firstAttribute="top" secondItem="hyR-1r-8qj" secondAttribute="bottom" constant="14" id="Zfm-3q-zAx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nkF-jH-Ozc" secondAttribute="trailing" constant="-15" id="dH4-Gw-b4K"/>
                             <constraint firstItem="O9P-ni-zBp" firstAttribute="leading" secondItem="Tfo-qa-ZeH" secondAttribute="leadingMargin" constant="97" id="fKM-I0-3u2"/>
+                            <constraint firstItem="HPt-B5-Sb7" firstAttribute="width" secondItem="W4b-16-OhI" secondAttribute="width" id="gD1-KI-bGS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="W4b-16-OhI" secondAttribute="trailing" constant="2" id="gbz-Eg-Uys"/>
                             <constraint firstItem="nkF-jH-Ozc" firstAttribute="top" secondItem="Y7S-nB-ahv" secondAttribute="bottom" constant="23" id="gwL-4o-HMY"/>
                             <constraint firstItem="O9P-ni-zBp" firstAttribute="top" secondItem="W4b-16-OhI" secondAttribute="bottom" constant="10" id="isw-Gc-egm"/>
