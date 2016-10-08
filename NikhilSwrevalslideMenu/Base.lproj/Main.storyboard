@@ -388,7 +388,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_imge.png" translatesAutoresizingMaskIntoConstraints="NO" id="DvD-ec-h58">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iosfront" translatesAutoresizingMaskIntoConstraints="NO" id="DvD-ec-h58">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5QE-vl-RZu">
@@ -889,7 +889,7 @@
                                     <action selector="btnRightMenu:" destination="vnS-Tb-31m" eventType="touchUpInside" id="e1b-dG-1R1"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="restaurant-cutlery" translatesAutoresizingMaskIntoConstraints="NO" id="gkz-Bk-Ub6">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter" translatesAutoresizingMaskIntoConstraints="NO" id="gkz-Bk-Ub6">
                                 <rect key="frame" x="222" y="128" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="0ev-BM-XOb"/>
@@ -1652,9 +1652,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVL-ex-70Z">
-                                        <rect key="frame" x="281" y="6" width="43" height="33"/>
+                                        <rect key="frame" x="289" y="6" width="35" height="33"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="43" id="Cb7-VD-D5Y"/>
+                                            <constraint firstAttribute="width" constant="35" id="Cb7-VD-D5Y"/>
                                             <constraint firstAttribute="height" constant="33" id="y1p-E4-eiq"/>
                                         </constraints>
                                         <state key="normal" backgroundImage="add_more_item"/>
@@ -4648,7 +4648,7 @@
     <resources>
         <image name="1d" width="41" height="18"/>
         <image name="Astar" width="10" height="10"/>
-        <image name="about" width="13" height="13"/>
+        <image name="about" width="40" height="40"/>
         <image name="addPlus" width="36" height="36"/>
         <image name="add_more_item" width="32" height="32"/>
         <image name="arraow_back" width="23" height="22"/>
@@ -4658,13 +4658,14 @@
         <image name="ch" width="94" height="94"/>
         <image name="checkBx" width="94" height="94"/>
         <image name="facebook" width="24" height="24"/>
+        <image name="filter" width="20" height="20"/>
         <image name="google_plus" width="24" height="24"/>
+        <image name="iosfront" width="1000" height="1200"/>
         <image name="restaurant" width="600" height="450"/>
         <image name="restaurant-cutlery" width="60" height="60"/>
         <image name="review" width="32" height="32"/>
         <image name="searchNew" width="225" height="225"/>
         <image name="search_1" width="60" height="60"/>
-        <image name="search_imge.png" width="700" height="875"/>
         <image name="settings_icon" width="20" height="20"/>
         <image name="twitter" width="24" height="24"/>
         <image name="uncheckBx" width="94" height="94"/>

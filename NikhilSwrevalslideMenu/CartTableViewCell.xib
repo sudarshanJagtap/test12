@@ -52,7 +52,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 30.0" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EcR-mB-LbI">
-                        <rect key="frame" x="343" y="9" width="73" height="31"/>
+                        <rect key="frame" x="343" y="10" width="73" height="31"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="73" id="LGW-Xl-UKL"/>
                             <constraint firstAttribute="height" constant="31" id="MgF-pV-X5Q"/>
@@ -101,7 +101,7 @@
                     <constraint firstItem="4RX-hq-wyo" firstAttribute="leading" secondItem="h3t-dm-e0X" secondAttribute="trailing" constant="10" id="lef-CE-e0E"/>
                     <constraint firstItem="k32-pf-qY4" firstAttribute="top" secondItem="1I3-Bz-9aR" secondAttribute="bottom" constant="8" id="oiR-YW-Rfr"/>
                     <constraint firstItem="h3t-dm-e0X" firstAttribute="leading" secondItem="k32-pf-qY4" secondAttribute="trailing" constant="13" id="rK6-QH-Av7"/>
-                    <constraint firstItem="EcR-mB-LbI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="1" id="u0h-Eu-OeH"/>
+                    <constraint firstItem="EcR-mB-LbI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="u0h-Eu-OeH"/>
                     <constraint firstAttribute="bottomMargin" secondItem="4RX-hq-wyo" secondAttribute="bottom" constant="3.5" id="uEJ-r3-zVO"/>
                     <constraint firstItem="LfD-Xm-odd" firstAttribute="leading" secondItem="1I3-Bz-9aR" secondAttribute="trailing" constant="22" id="x6j-3v-foa"/>
                 </constraints>
@@ -120,8 +120,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="delete_item" width="32" height="32"/>
-        <image name="edit_order" width="48" height="48"/>
+        <image name="delete_item" width="60" height="60"/>
+        <image name="edit_order" width="60" height="60"/>
         <image name="maynas" width="32" height="32"/>
         <image name="plus" width="32" height="32"/>
     </resources>
