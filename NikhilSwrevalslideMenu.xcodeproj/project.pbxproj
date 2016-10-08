@@ -73,6 +73,7 @@
 		6595CB5B1DA179B8008058BE /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6595CB5A1DA179B8008058BE /* ForgotPasswordViewController.m */; };
 		65B608C61D5666C40055EBF2 /* AddDeliveryAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B608C51D5666C40055EBF2 /* AddDeliveryAddressViewController.m */; };
 		65B608E81D5892000055EBF2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65B608E71D5892000055EBF2 /* GoogleService-Info.plist */; };
+		65C5442B1DA8FC3200A2553D /* PostForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C5442A1DA8FC3200A2553D /* PostForgotPasswordViewController.m */; };
 		65E8E97A1DA67CE1007CD1BF /* ch.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E8E9791DA67CE1007CD1BF /* ch.png */; };
 		8F32F79D1D33701A0013AD6E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F32F79C1D33701A0013AD6E /* main.m */; };
 		8F32F7A01D33701A0013AD6E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F32F79F1D33701A0013AD6E /* AppDelegate.m */; };
@@ -213,6 +214,8 @@
 		65B608C41D5666C40055EBF2 /* AddDeliveryAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDeliveryAddressViewController.h; sourceTree = "<group>"; };
 		65B608C51D5666C40055EBF2 /* AddDeliveryAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDeliveryAddressViewController.m; sourceTree = "<group>"; };
 		65B608E71D5892000055EBF2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		65C544291DA8FC3200A2553D /* PostForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostForgotPasswordViewController.h; sourceTree = "<group>"; };
+		65C5442A1DA8FC3200A2553D /* PostForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostForgotPasswordViewController.m; sourceTree = "<group>"; };
 		65E8E9781DA67283007CD1BF /* NikhilSwrevalslideMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NikhilSwrevalslideMenu.entitlements; sourceTree = "<group>"; };
 		65E8E9791DA67CE1007CD1BF /* ch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ch.png; path = NikhilSwrevalslideMenu/Assets.xcassets/checkBx.imageset/ch.png; sourceTree = "<group>"; };
 		80DB054F0AEB8563846D1036 /* Pods-NikhilSwrevalslideMenu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NikhilSwrevalslideMenu.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NikhilSwrevalslideMenu/Pods-NikhilSwrevalslideMenu.debug.xcconfig"; sourceTree = "<group>"; };
@@ -487,6 +490,8 @@
 				65849DBB1D9A7E0300105977 /* DisplayRatingTableViewCell.xib */,
 				6519ACC41DA44EB50094F9B5 /* AddReviewsViewController.h */,
 				6519ACC51DA44EB50094F9B5 /* AddReviewsViewController.m */,
+				65C544291DA8FC3200A2553D /* PostForgotPasswordViewController.h */,
+				65C5442A1DA8FC3200A2553D /* PostForgotPasswordViewController.m */,
 			);
 			name = HomeScreen;
 			sourceTree = "<group>";
@@ -798,6 +803,7 @@
 				657E5F821D41258500907FE3 /* FilterOperations.m in Sources */,
 				8F678D601D34F924002C06A6 /* LGViewHUD.m in Sources */,
 				657DEC611D4E7A7100A1B512 /* LoginViewController.m in Sources */,
+				65C5442B1DA8FC3200A2553D /* PostForgotPasswordViewController.m in Sources */,
 				65753CF21D47ECBE00069C54 /* ResponseUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -865,6 +871,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "ec4707f9-6916-465e-bd7c-eeda402cba05";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -903,6 +910,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "ec4707f9-6916-465e-bd7c-eeda402cba05";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -914,7 +922,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NikhilSwrevalslideMenu/NikhilSwrevalslideMenu.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -938,7 +946,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NikhilSwrevalslideMenu/NikhilSwrevalslideMenu.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

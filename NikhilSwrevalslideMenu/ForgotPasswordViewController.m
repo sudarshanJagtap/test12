@@ -21,6 +21,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view.
+  self.postForgetView.hidden = YES;
   
 }
 
@@ -44,6 +45,7 @@
 }
 
 - (IBAction)backNavBtnClick:(id)sender {
+  self.postForgetView.hidden = YES;
   [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -99,8 +101,12 @@
 
     dispatch_async(dispatch_get_main_queue(), ^{
       //      NSString *code = [ResponseDictionary valueForKey:@"code"];
-      if ([ResponseDictionary valueForKey:@"code"] == [NSNumber numberWithLong:1]) {
+      if (([ResponseDictionary valueForKey:@"code"] == [NSNumber numberWithLong:1])|| ([[ResponseDictionary valueForKey:@"code"]isEqualToString:@"1"])){
+        [appDelegate hideLoadingView];
+//        [self performSegueWithIdentifier:@"PostforgetPwd" sender:nil];
         NSLog(@"successfull");
+        self.postForgetView.hidden = NO;
+        [self.view bringSubviewToFront:self.postForgetView];
 //        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"Your password has changed successfully" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 //        [alert show];
         //        if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
