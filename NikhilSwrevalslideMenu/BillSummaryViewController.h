@@ -59,6 +59,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *hAddressChangeConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *addressConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *addAdressBtnHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalAmountViewConstraint;
 
 //@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addHeightConstraint;
 //@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addAddressBtnHeightConstraint;

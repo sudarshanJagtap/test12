@@ -91,8 +91,17 @@
   self.environment = kPayPalEnvironment;
   
   NSLog(@"PayPal iOS SDK version: %@", [PayPalMobile libraryVersion]);
+//  self.scrollView.contentSize = CGSizeMake(2000, 2000);
 }
 
+//-(void)viewDidLayoutSubviews
+//{
+//  // The scrollview needs to know the content size for it to work correctly
+//  self.scrollView.contentSize = CGSizeMake(
+//                                           self.scrollContent.frame.size.width,
+//                                           self.scrollContent.frame.size.height + 300
+//                                           );
+//}
 -(void)viewWillAppear:(BOOL)animated{
   
   if([RequestUtility sharedRequestUtility].delivery_status == 1){
@@ -159,6 +168,8 @@
 //    self.hCouponAmountConstraint.constant=0;
 //    self.couponAmountConstraint.constant=0;
 //  }
+  
+  self.totalAmountViewConstraint.constant = 41;
 
   self.totalAmount.text = [NSString stringWithFormat:@"%@",totalAmountPassed];
   [self setPayPalEnvironment:self.environment];
