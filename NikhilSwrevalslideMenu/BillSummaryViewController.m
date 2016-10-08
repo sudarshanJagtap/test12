@@ -106,7 +106,8 @@
       NSLog(@"Address string == %@",addString);
       self.addressLabel.numberOfLines = 6;
       self.addressLabel.text = addString;
-      self.addHeightConstraint.constant = 110;
+      self.addressConstraint.constant = 110;
+     self.hAddressChangeConstraint.constant = 30;
    if ([RequestUtility sharedRequestUtility].backFromPaypalScreen == NO) {
      [self getDeliveryFee:[RequestUtility sharedRequestUtility].selectedAddressId];
    }
@@ -114,10 +115,11 @@
     }else{
       self.paybtn.enabled = NO;
       self.paybtn.backgroundColor = [UIColor grayColor];
-      
+      self.addressConstraint.constant = 0;
+      self.hAddressChangeConstraint.constant = 0;
       self.addressLabel.hidden = YES;
     }
-    self.addAddressBtnHeightConstraint.constant = 41;
+    self.addAdressBtnHeightConstraint.constant = 41;
   }else{
     self.paybtn.enabled = YES;
     self.paybtn.backgroundColor =[UIColor colorWithRed:(80/255.f) green:(193/255.f) blue:(72/255.f) alpha:1.0f];
@@ -128,25 +130,35 @@
     NSLog(@"Address string == %@",addString);
     self.addressLabel.numberOfLines = 6;
     self.addressLabel.text = addString;
-    self.addHeightConstraint.constant = 0;
+    self.addressConstraint.constant = 0;
+    self.hAddressChangeConstraint.constant = 0;
     self.addAddressBtn.hidden = YES;
-    self.addAddressBtnHeightConstraint.constant = 0;
+    self.addAdressBtnHeightConstraint.constant = 0;
     
   }
   self.subTotalAmount.text = [NSString stringWithFormat:@"%@",subTotalPassed];
   self.salesTaxAmount.text = [NSString stringWithFormat:@"%@",salesTaxPassed];
     if([RequestUtility sharedRequestUtility].delivery_status == 0){
         self.deliveryFeeAmount.text = [NSString stringWithFormat:@"%@",deliveryFeePassed];
-      self.totalAmountTopConstraint.constant = 10;
-       self.deliveryFeeAmountHeightConstraint.constant = 0;
-      self.deliveryFeeLblHeightConstriant.constant = 0;
+      self.hDeliveryFeeConstriant.constant = 0;
+      self.deliveryFeeConstriant.constant = 0;
 
     }else{
-       self.totalAmountTopConstraint.constant = 6;
-      self.deliveryFeeAmountHeightConstraint.constant = 24;
-      self.deliveryFeeLblHeightConstriant.constant = 24;
+      self.hDeliveryFeeConstriant.constant = 40;
+      self.deliveryFeeConstriant.constant = 40;
       self.deliveryFeeAmount.text = [NSString stringWithFormat:@"%@",deliveryFeePassed];
     }
+  
+  
+      self.hCouponAmountConstraint.constant=0;
+      self.couponAmountConstraint.constant=0;
+//  if (![[bfPaymentDictionary valueForKey:@"couponAmount"] isEqual:@"0"]) {
+//    self.hCouponAmountConstraint.constant=40;
+//    self.couponAmountConstraint.constant=40;
+//  }else{
+//    self.hCouponAmountConstraint.constant=0;
+//    self.couponAmountConstraint.constant=0;
+//  }
 
   self.totalAmount.text = [NSString stringWithFormat:@"%@",totalAmountPassed];
   [self setPayPalEnvironment:self.environment];
@@ -172,7 +184,7 @@
   
   [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
-//      NSLog(@"\n\n response of getDeliveryFee \n\n :%@",responseDictionary);
+      NSLog(@"\n\n response of getDeliveryFee \n\n :%@",responseDictionary);
       [appDelegate hideLoadingView];
       [self parseGetDeliveryFeeInfoResponse:responseDictionary];
     }else{
