@@ -11,6 +11,7 @@
 #import "RequestUtility.h"
 #import "DBManager.h"
 #import "NIDropDown.h"
+#import "SWRevealViewController.h"
 #define kOFFSET_FOR_KEYBOARD 80.0
 @interface AddDeliveryAddressViewController ()<NIDropDownDelegate>{
   AppDelegate *appDelegate;
@@ -73,7 +74,7 @@
     }
     retval = NO;
   }else{
-    retval = NO;
+    retval = YES;
   }
   return retval;
 }
@@ -174,7 +175,25 @@
       if ([code isEqualToString:@"1"]) {
         NSLog(@"address add successfull");
         [appDelegate hideLoadingView];
-        [self.navigationController popViewControllerAnimated:YES];
+        
+        if ([RequestUtility sharedRequestUtility].isThroughPaymentScreen) {
+          NSString * storyboardName = @"Main";
+          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+          UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+          UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+          [navController setViewControllers: @[vc] animated: NO ];
+          [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+        }
+        else if ([RequestUtility sharedRequestUtility].isThroughLeftMenu){
+          [self.navigationController popViewControllerAnimated:YES];
+        }else{
+          NSString * storyboardName = @"Main";
+          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+          UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+          UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+          [navController setViewControllers: @[vc] animated: NO ];
+          [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+        }
         
       }else{
         

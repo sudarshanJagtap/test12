@@ -173,7 +173,8 @@
   blankScreen.hidden =YES;
   [self.view addSubview:blankScreen];
   [self.view bringSubviewToFront:blankScreen];
-  
+   [[NSNotificationCenter defaultCenter] removeObserver:self];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideCartButtonOnLogout) name:@"hideCartButtonOnLogout" object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -212,6 +213,12 @@
     CartButton.hidden = YES;
   }
   
+  
+}
+
+-(void)hideCartButtonOnLogout{
+
+  CartButton.hidden = YES;
   
 }
 

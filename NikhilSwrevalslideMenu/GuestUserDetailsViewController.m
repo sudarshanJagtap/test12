@@ -13,10 +13,13 @@
 #import "DBManager.h"
 #import "CartViewController.h"
 #import "NIDropDown.h"
+#import "AddDeliveryAddressViewController.h"
+#import "AddressListViewController.h"
 @interface GuestUserDetailsViewController ()<NIDropDownDelegate>{
   AppDelegate *appDelegate;
   NSArray *statesArray;
   NIDropDown *dropDown;
+  BOOL delAddress;
 }
 
 @end
@@ -25,7 +28,9 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  delAddress = true;
   [self getStates];
+  
   // Do any additional setup after loading the view.
 }
 
@@ -61,7 +66,7 @@
     }
     retval = NO;
   }else{
-    retval = NO;
+    retval = YES;
   }
   return retval;
 }
@@ -136,7 +141,11 @@
   [params setValue:self.emailTxtFld.text forKey:@"email"];
   [params setValue:self.nameTxtFld.text forKey:@"name"];
   [params setValue:self.stateTxtFld.text forKey:@"state"];
-  
+  if (delAddress) {
+    [params setValue:@"1" forKey:@"flag"];
+  }else{
+    [params setValue:@"0" forKey:@"flag"];
+  }
   [utility doPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
@@ -156,25 +165,41 @@
         NSLog(@"login successfull");
         NSString *ud = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"user_name"];
         if ( ud.length>0) {
-          if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
-            [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
-            [appDelegate hideLoadingView];
-            NSString * storyboardName = @"Main";
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-            UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
-            UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
-            [navController setViewControllers: @[vc] animated: NO ];
-            [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
-          }else{
-            [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+//          if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
+//            [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+//            [appDelegate hideLoadingView];
+//            NSString * storyboardName = @"Main";
+//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+//            UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+//            UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+//            [navController setViewControllers: @[vc] animated: NO ];
+//            [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+//          }else{
+//            [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+//            
+//            [appDelegate hideLoadingView];
+//            NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+//            for (UIViewController *aViewController in allViewControllers) {
+//              if ([aViewController isKindOfClass:[CartViewController class]]) {
+//                [self.navigationController popToViewController:aViewController animated:NO];
+//              }
+//            }
+//          }
+          
+          [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+                      [appDelegate hideLoadingView];
+          if (delAddress) {
             
-            [appDelegate hideLoadingView];
-            NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-            for (UIViewController *aViewController in allViewControllers) {
-              if ([aViewController isKindOfClass:[CartViewController class]]) {
-                [self.navigationController popToViewController:aViewController animated:NO];
-              }
-            }
+            AddressListViewController *obj_clvc  = (AddressListViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddressListViewControllerId"];
+            
+//            obj_clvc.selectedUfrespo = ufpRespo;
+            [self.navigationController pushViewController:obj_clvc animated:YES];
+          }else{
+            AddDeliveryAddressViewController *obj_clvc  = (AddDeliveryAddressViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddDeliveryAddressViewControllerId"];
+            
+//            obj_clvc.selectedUfrespo = ufpRespo;
+            [self.navigationController pushViewController:obj_clvc animated:YES];
+          
           }
         }else{
           [appDelegate hideLoadingView];
@@ -280,6 +305,16 @@
 }
 
 - (IBAction)deliveryAddressBtnClick:(id)sender {
+  if([self.deliveryAddressBtn.currentBackgroundImage isEqual:[UIImage imageNamed:@"uncheckBx.png"]])
+  {
+    delAddress = true;
+    [self.deliveryAddressBtn  setBackgroundImage:[UIImage imageNamed: @"checkBx.png"] forState:UIControlStateNormal];
+  }
+  else
+  {
+    delAddress = false;
+    [self.deliveryAddressBtn  setBackgroundImage:[UIImage imageNamed: @"uncheckBx.png"] forState:UIControlStateNormal];
+  }
 }
 
 - (IBAction)TBdoneClicked:(id)sender

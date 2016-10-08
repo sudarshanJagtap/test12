@@ -255,7 +255,11 @@
   self.salesTaxPriceLbl.text = [NSString stringWithFormat:@"$ %.02f",tax ];
   float finalAmount;
   if([RequestUtility sharedRequestUtility].delivery_status == 1){
+    if (tableArray.count==0) {
+      finalAmount= subtotalAmountcalculated + tax;
+    }else{
     finalAmount= subtotalAmountcalculated + tax + [selectedUfrespo.fee floatValue];
+    }
   }else{
     finalAmount= subtotalAmountcalculated + tax;
   }
@@ -459,6 +463,9 @@
     BOOL retval = [manager deleteRecord:(int)cart.unique_id];
     if (retval) {
       NSArray *dbArray = [[DBManager getSharedInstance]getALlCartData:[selectedUfrespo.ufp_id intValue]];
+      if (dbArray.count==0) {
+        
+      }
       tableArray  = [[NSMutableArray alloc]init];
       [tableArray addObjectsFromArray:dbArray] ;
       [self.tblVw reloadData];
@@ -471,6 +478,9 @@
     BOOL retval = [manager deleteRecord:(int)cart.unique_id];
     if (retval) {
       NSArray *dbArray = [[DBManager getSharedInstance]getALlCartData:[selectedUfrespo.ufp_id intValue]];
+      if (dbArray.count==0) {
+        
+      }
       tableArray  = [[NSMutableArray alloc]init];
       [tableArray addObjectsFromArray:dbArray] ;
       [self.tblVw reloadData];
@@ -1076,7 +1086,7 @@
     obj_clvc.bfPaymentDictionary = beforePaymentDictionary;
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }else{
-    
+//    [RequestUtility sharedRequestUtility].isThroughPaymentScreen = YES;
     SignUpLoginViewController *obj_clvc  = (SignUpLoginViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"SignUpLoginViewControllerId"];
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }

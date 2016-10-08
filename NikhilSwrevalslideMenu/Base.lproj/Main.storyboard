@@ -2080,7 +2080,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o73-J2-q3h">
                                                 <rect key="frame" x="0.0" y="518" width="328" height="41"/>
-                                                <color key="backgroundColor" red="0.076804028730000001" green="0.6705882353" blue="0.099937478969999993" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.18830698509999999" green="0.59002221580000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="41" id="Jwb-vs-eJs"/>
                                                 </constraints>
@@ -2964,7 +2964,7 @@
                                             <action selector="proceedFutherBtnClick:" destination="O6n-kz-ZJN" eventType="touchUpInside" id="hV1-Ni-mAM"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHc-vf-Wzd">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHc-vf-Wzd">
                                         <rect key="frame" x="30" y="600" width="33" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="33" id="o2h-cK-EYs"/>
@@ -3157,7 +3157,7 @@
                                     <action selector="singUpBtnClick:" destination="XRC-z8-Kdd" eventType="touchUpInside" id="nXH-O4-8sL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOg-2N-njU">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOg-2N-njU">
                                 <rect key="frame" x="13" y="405" width="294" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="htj-84-SFM"/>
