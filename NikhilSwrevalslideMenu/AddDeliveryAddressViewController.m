@@ -10,10 +10,13 @@
 #import "AppDelegate.h"
 #import "RequestUtility.h"
 #import "DBManager.h"
+#import "NIDropDown.h"
 #define kOFFSET_FOR_KEYBOARD 80.0
-@interface AddDeliveryAddressViewController (){
+@interface AddDeliveryAddressViewController ()<NIDropDownDelegate>{
   AppDelegate *appDelegate;
   BOOL isUpdate;
+  NSArray *statesArray;
+  NIDropDown *dropDown;
 }
 
 @end
@@ -22,6 +25,7 @@
 @synthesize data;
 - (void)viewDidLoad {
     [super viewDidLoad];
+  [self getStates];
   isUpdate = NO;
     // Do any additional setup after loading the view.
   if (data!=nil) {
@@ -55,7 +59,24 @@
   [self animateTextField:textField up:YES];
 }
 
-
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+  BOOL retval = NO;
+  if (textField == self.stateTxtFld) {
+    if(dropDown == nil) {
+      CGFloat f = 200;
+      dropDown = [[NIDropDown alloc]showDropDown:self.stateTxtFld :&f :statesArray :nil :@"down"];
+      dropDown.delegate = self;
+    }
+    else {
+      [dropDown hideDropDown:self.stateTxtFld];
+      [self rel];
+    }
+    retval = NO;
+  }else{
+    retval = NO;
+  }
+  return retval;
+}
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
   [self animateTextField:textField up:NO];
@@ -337,5 +358,89 @@
   }];
   
 }
+
+-(void)getStates{
+  
+  appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+  [appDelegate showLoadingViewWithString:@"Loading..."];
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];
+  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/states.php";
+  NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+  [params setValue:self.countryTxtFld.text forKey:@"country"];
+  NSError * err;
+  NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
+  NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+  NSLog(@"additional info string \n = %@",String);
+  
+  [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+    if (status) {
+      NSLog(@"response:%@",responseDictionary);
+      [appDelegate hideLoadingView];
+      [self parseStatesResponse:responseDictionary];
+    }else{
+      [appDelegate hideLoadingView];
+    }
+  }];
+}
+
+
+-(void)parseStatesResponse:(NSDictionary*)ResponseDictionary{
+  if (ResponseDictionary) {
+    NSString *code = [ResponseDictionary valueForKey:@"code"];
+    if ([code isEqualToString:@"1"]) {
+      
+      dispatch_async(dispatch_get_main_queue(), ^{
+        appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate hideLoadingView];
+        if ([[ResponseDictionary valueForKey:@"code"]isEqualToString:@"1"]) {
+          NSLog(@"login successfull");
+          NSMutableArray *listarray = [[NSMutableArray alloc]init];
+          NSArray *temp = [ResponseDictionary valueForKey:@"data"];
+          for (int i =0; i<temp.count; i++) {
+            NSString *stateStr = [[temp objectAtIndex:i]valueForKey:@"state"];
+            [listarray addObject:stateStr];
+          }
+          statesArray = [NSArray arrayWithArray:listarray];
+          NSLog(@"\n\n ListArray = %@",listarray);
+          if (statesArray.count>0) {
+            self.stateTxtFld.text = [statesArray objectAtIndex:0];
+          }
+          
+//          if(dropDown == nil) {
+//            CGFloat f = 200;
+//            dropDown = [[NIDropDown alloc]showDropDown:self.stateTxtFld :&f :statesArray :nil :@"down"];
+//            dropDown.delegate = self;
+//          }
+//          else {
+//            [dropDown hideDropDown:self.stateTxtFld];
+//            [self rel];
+//          }
+        }
+        
+      });
+      
+    }
+    
+  }else{
+    dispatch_async(dispatch_get_main_queue(), ^{
+      appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+      [appDelegate hideLoadingView];
+    });
+  }
+}
+
+
+
+
+#pragma mark drop down
+- (void) niDropDownDelegateMethod: (NIDropDown *) sender {
+  //  [self btnFindFood:self];
+  [self rel];
+}
+
+-(void)rel{
+  dropDown = nil;
+}
+
 
 @end

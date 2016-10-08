@@ -91,6 +91,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
   [super viewWillAppear:animated];
+  [RequestUtility sharedRequestUtility].selectedAddressId = @"-1";
   self.navigationController.navigationBarHidden = YES;
   selectedCustomCuisineStringArray = [[NSMutableArray alloc]init];
   selectedCustomCuisinePriceArray = [[NSMutableArray alloc]init];
