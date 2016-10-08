@@ -26,6 +26,7 @@
 //@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderModeBottomMarginConstraint;
 //@property (weak, nonatomic) IBOutlet NSLayoutConstraint *ordreModeVerticalSpacingConstraint;
 //@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderModeTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *coupOrderTop;
 @property (weak, nonatomic) IBOutlet UILabel *orderScheduleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *orderScheduleDateTimeLabel;
 

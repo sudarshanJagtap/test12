@@ -1749,7 +1749,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delivery Fee:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mzL-c6-aHa">
-                                        <rect key="frame" x="4" y="474" width="161" height="40"/>
+                                        <rect key="frame" x="4" y="474" width="171" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="exo-Qe-dDk"/>
                                         </constraints>
@@ -1764,7 +1764,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sales Tax:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ar-jP-AFq">
-                                        <rect key="frame" x="4" y="434" width="161" height="40"/>
+                                        <rect key="frame" x="4" y="434" width="171" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="k2M-7q-ln1"/>
                                         </constraints>
@@ -1779,7 +1779,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Total:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNz-BO-siD">
-                                        <rect key="frame" x="4" y="394" width="161" height="40"/>
+                                        <rect key="frame" x="4" y="394" width="171" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="zqz-B8-kgQ"/>
                                         </constraints>
@@ -1833,7 +1833,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order Mode:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6V-EH-ueu">
-                                        <rect key="frame" x="4" y="514" width="161" height="40"/>
+                                        <rect key="frame" x="4" y="514" width="171" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="HBj-ds-Gh5"/>
                                         </constraints>
@@ -1848,7 +1848,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order Schedule:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbs-D6-DKO">
-                                        <rect key="frame" x="4" y="554" width="161" height="40"/>
+                                        <rect key="frame" x="4" y="554" width="171" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="lsH-sJ-jvl"/>
                                         </constraints>
@@ -1901,6 +1901,7 @@
                                     <constraint firstItem="gRQ-k3-OCl" firstAttribute="firstBaseline" secondItem="i6V-EH-ueu" secondAttribute="firstBaseline" id="E6J-Dm-YPa"/>
                                     <constraint firstItem="Pwt-MH-mdB" firstAttribute="top" secondItem="KaP-Tq-ada" secondAttribute="bottom" constant="19" id="Gcs-12-Tp7"/>
                                     <constraint firstItem="9ar-jP-AFq" firstAttribute="baseline" secondItem="yXQ-OW-3dr" secondAttribute="baseline" id="HJS-Ln-lND"/>
+                                    <constraint firstItem="Xxi-dH-Ioz" firstAttribute="top" secondItem="i6V-EH-ueu" secondAttribute="bottom" constant="40" id="HOZ-ob-76Z"/>
                                     <constraint firstItem="mzL-c6-aHa" firstAttribute="leading" secondItem="9ar-jP-AFq" secondAttribute="leading" id="Hnd-Hz-MzE"/>
                                     <constraint firstItem="mzL-c6-aHa" firstAttribute="leading" secondItem="i6V-EH-ueu" secondAttribute="leading" id="HpV-TS-O1y"/>
                                     <constraint firstItem="gRQ-k3-OCl" firstAttribute="trailing" secondItem="jeS-wp-5n8" secondAttribute="trailing" id="IJ8-af-bEk"/>
@@ -1926,7 +1927,7 @@
                                     <constraint firstItem="Pwt-MH-mdB" firstAttribute="leading" secondItem="yTj-4G-6x4" secondAttribute="leading" id="XJo-kU-2EV"/>
                                     <constraint firstItem="kh1-e9-lmq" firstAttribute="top" secondItem="yXQ-OW-3dr" secondAttribute="bottom" id="YYB-og-dQU"/>
                                     <constraint firstItem="wbs-D6-DKO" firstAttribute="leading" secondItem="i6V-EH-ueu" secondAttribute="leading" id="ZGa-vV-aFr"/>
-                                    <constraint firstItem="Xxi-dH-Ioz" firstAttribute="trailing" secondItem="wbs-D6-DKO" secondAttribute="trailing" id="cJy-R6-vO9"/>
+                                    <constraint firstItem="Xxi-dH-Ioz" firstAttribute="trailing" secondItem="wbs-D6-DKO" secondAttribute="trailing" constant="-10" id="cJy-R6-vO9"/>
                                     <constraint firstAttribute="trailing" secondItem="1Ie-xW-s7w" secondAttribute="trailing" constant="11" id="ch0-Qm-dnP"/>
                                     <constraint firstItem="Zkk-Qj-x9P" firstAttribute="leading" secondItem="IMk-10-rhQ" secondAttribute="leading" constant="8" id="chg-71-QJh"/>
                                     <constraint firstItem="mzL-c6-aHa" firstAttribute="trailing" secondItem="i6V-EH-ueu" secondAttribute="trailing" id="dJT-vM-z6a"/>
@@ -1980,6 +1981,7 @@
                         <outlet property="constraintOrderModeHeight" destination="HBj-ds-Gh5" id="ugw-ck-wTb"/>
                         <outlet property="constriantOrderScheduleHeight" destination="lsH-sJ-jvl" id="hcR-s2-KQt"/>
                         <outlet property="cosntraintCouponAmountHeight" destination="yyh-4W-jPM" id="b6n-PW-Znd"/>
+                        <outlet property="coupOrderTop" destination="HOZ-ob-76Z" id="4M1-ne-THy"/>
                         <outlet property="couponAmountLbl" destination="fOH-LM-Ajg" id="Bwj-tR-UXy"/>
                         <outlet property="couponTextFld" destination="KaP-Tq-ada" id="ClZ-z9-bJv"/>
                         <outlet property="deliveryFeePriceLbl" destination="kh1-e9-lmq" id="fDt-NA-l5s"/>

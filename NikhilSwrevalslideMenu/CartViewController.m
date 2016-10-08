@@ -193,7 +193,7 @@
     self.orderScheduleLabel.hidden = YES;
     self.orderScheduleDateTimeLabel.hidden = YES;
     self.constriantOrderScheduleHeight.constant=40;
-      self.constraintHacktop.constant=-30;
+    self.constraintHacktop.constant=-30;
   }
   self.cosntraintCouponAmountHeight.constant=0;
 //  self.constraintHacktop.constant=-30;
@@ -799,7 +799,13 @@
   return YES;
 }
 - (IBAction)couponSubmitBtnClick:(id)sender {
+//    if([RequestUtility sharedRequestUtility].isAsap){
 //  self.cosntraintCouponAmountHeight.constant=40;
+//    }else{
+//    self.cosntraintCouponAmountHeight.constant=40;
+//      self.constraintHacktop.constant=10;
+//      self.coupOrderTop.constant = 0;
+//    }
 }
 - (IBAction)proceedToCheckoutBtnClick:(id)sender {
   if (userId.length>0) {
