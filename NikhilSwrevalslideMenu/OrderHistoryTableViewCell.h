@@ -19,4 +19,5 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomSpace;
 @property (weak, nonatomic) IBOutlet UIButton *orderDetails1;
 @property (weak, nonatomic) IBOutlet UIButton *review1;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *OrderDetailsBtnTopconstraint;
 @end

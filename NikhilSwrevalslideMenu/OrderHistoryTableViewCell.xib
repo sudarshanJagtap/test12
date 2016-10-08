@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -15,12 +15,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="174.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgO-6g-AZP">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hgO-6g-AZP">
                         <rect key="frame" x="8" y="9" width="203" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="paL-oe-H3i"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                         <color key="textColor" red="0.67747372630000002" green="0.085360245900000006" blue="0.097923216499999993" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -122,7 +122,7 @@
                     <constraint firstItem="7WF-0y-FkK" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="PaZ-rA-Vgw"/>
                     <constraint firstAttribute="bottomMargin" secondItem="TAn-kQ-bFj" secondAttribute="bottom" constant="1.5" id="RdB-ey-wBb"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Vua-hj-sKd" secondAttribute="bottom" constant="29.5" id="UnK-rD-9W0"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="3WH-VY-ur5" secondAttribute="bottom" constant="1.5" id="Z2a-BH-fRX"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="3WH-VY-ur5" secondAttribute="bottom" constant="2" id="Z2a-BH-fRX"/>
                     <constraint firstItem="Z4o-1A-XDi" firstAttribute="leading" secondItem="hgO-6g-AZP" secondAttribute="trailing" constant="13" id="bfr-LA-SVf"/>
                     <constraint firstItem="jDD-8E-3cA" firstAttribute="top" secondItem="7WF-0y-FkK" secondAttribute="bottom" constant="5" id="gD2-US-9Gc"/>
                     <constraint firstItem="Z4o-1A-XDi" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="gkS-s0-vHo"/>
@@ -137,6 +137,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="OrderDetailsBtnTopconstraint" destination="9A2-1y-htP" id="5ZW-RP-vFf"/>
                 <outlet property="bottomSpace" destination="UnK-rD-9W0" id="fS1-0H-TqJ"/>
                 <outlet property="deliveryDateLbl" destination="Vua-hj-sKd" id="0NG-ab-qoy"/>
                 <outlet property="isDeliverdLbl" destination="Z4o-1A-XDi" id="VKo-aJ-6P1"/>
