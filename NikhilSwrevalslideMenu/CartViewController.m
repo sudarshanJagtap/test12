@@ -51,6 +51,7 @@
   NSMutableDictionary *beforePaymentDictionary;
   NSMutableArray *temporayUniqueID;
   UITextView *myTextView;
+
 }
 
 @end
@@ -60,7 +61,6 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.navigationController.navigationBarHidden = YES;
-  
 }
 
 //-(void)getDisplayCartData{
@@ -166,12 +166,6 @@
   selectedCustomCuisineStringArray = [[NSMutableArray alloc]init];
   selectedCustomCuisinePriceArray = [[NSMutableArray alloc]init];
   selectedCustomCuisineIdArray = [[NSMutableArray alloc]init];
-  
-  //  if (userId.length>0) {
-  //    [self getDisplayCartData];
-  //  }
-  //  else{
-  //
   NSArray *dbArray = [[DBManager getSharedInstance] getALlCartData:[selectedUfrespo.ufp_id intValue]];
   tableArray  = [[NSMutableArray alloc]init];
   [tableArray removeAllObjects];
@@ -181,26 +175,28 @@
   self.tableHeightConstraint.constant = countt*90;
   [self calculateAllDetails];
   if([RequestUtility sharedRequestUtility].delivery_status == 0){
-    self.deliveryFeeLabelHeightConstraint.constant = 0;
-    self.orderModeTopConstraint.constant = -5;
+    self.constraintDeliveryFeeHeight.constant=0;
+    self.constraintOrderModeHeight.constant=40;
+    
   }else{
-    self.deliveryFeeLabelHeightConstraint.constant = 24;
-    self.ordreModeVerticalSpacingConstraint.constant = 40;
-    self.orderModeTopConstraint.constant = 5;
+    self.constraintDeliveryFeeHeight.constant=40;
+    self.constraintOrderModeHeight.constant=40;
   }
-  //  }
   if([RequestUtility sharedRequestUtility].isAsap){
     self.orderScheduleLabel.hidden = NO;
     self.orderScheduleDateTimeLabel.hidden = NO;
     Utility *utilityObj = [[Utility alloc]init];
     NSString *dateStr = [NSString stringWithFormat:@"%@ : %@", [utilityObj getCurrentAsapDate],[utilityObj getCurrentTime]];
     self.orderScheduleDateTimeLabel.text = dateStr;
-    self.orderModeBottomMarginConstraint.constant = 39;
+    self.constriantOrderScheduleHeight.constant=40;
   }else{
     self.orderScheduleLabel.hidden = YES;
     self.orderScheduleDateTimeLabel.hidden = YES;
-    self.orderModeBottomMarginConstraint.constant = 5;
+    self.constriantOrderScheduleHeight.constant=40;
+      self.constraintHacktop.constant=-30;
   }
+  self.cosntraintCouponAmountHeight.constant=0;
+//  self.constraintHacktop.constant=-30;
 }
 
 
@@ -803,6 +799,7 @@
   return YES;
 }
 - (IBAction)couponSubmitBtnClick:(id)sender {
+//  self.cosntraintCouponAmountHeight.constant=40;
 }
 - (IBAction)proceedToCheckoutBtnClick:(id)sender {
   if (userId.length>0) {
@@ -1337,5 +1334,80 @@
   return YES;
 }
 
+
+-(void)designView{
+
+  float yAxis = self.tblVw.frame.size.height+self.tblVw.frame.origin.y+40;
+  
+  UILabel *fsubtotalLabel = [self getLabelWithMsg:@"SubTotal:" andColor:@"Black"andYcord:yAxis andAllignt:@"left"];
+  UILabel *asubtotalLabel = [self getLabelWithMsg:@"ASubTotal:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:fsubtotalLabel];
+  [self.fscrollView addSubview:asubtotalLabel];
+  
+  yAxis = yAxis+50;
+  UILabel *fsalesTaxLabel = [self getLabelWithMsg:@"SalesTax:" andColor:@"Black" andYcord:yAxis andAllignt:@"left"];
+  UILabel *asalesTaxLabel = [self getLabelWithMsg:@"ASalesTax:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:fsalesTaxLabel];
+  [self.fscrollView addSubview:asalesTaxLabel];
+  
+  yAxis = yAxis+50;
+  UILabel *fdeliveryfeeLabel = [self getLabelWithMsg:@"DeliveryFee:" andColor:@"Black" andYcord:yAxis andAllignt:@"left"];
+  UILabel *adeliveryfeeLabel = [self getLabelWithMsg:@"ADeliveryFee:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:fdeliveryfeeLabel];
+  [self.fscrollView addSubview:adeliveryfeeLabel];
+  
+  yAxis = yAxis+50;
+  UILabel *fordermodeLabel = [self getLabelWithMsg:@"Order Mode:" andColor:@"Black" andYcord:yAxis andAllignt:@"left"];
+  UILabel *aordermodeLabel = [self getLabelWithMsg:@"AOrder Mode:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:fordermodeLabel];
+  [self.fscrollView addSubview:aordermodeLabel];
+  
+  yAxis = yAxis+50;
+  UILabel *forderScheduleLabel = [self getLabelWithMsg:@"Order Schedule:" andColor:@"Black" andYcord:yAxis andAllignt:@"left"];
+  UILabel *aorderScheduleLabel = [self getLabelWithMsg:@"AOrder Schedule:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:forderScheduleLabel];
+  [self.fscrollView addSubview:aorderScheduleLabel];
+  
+  yAxis = yAxis+50;
+  UILabel *fcouponCodeLabel = [self getLabelWithMsg:@"Coupon Amount:" andColor:@"Black" andYcord:yAxis andAllignt:@"left"];
+  UILabel *acouponCodeLabel = [self getLabelWithMsg:@"ACoupon Amount:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:fcouponCodeLabel];
+  [self.fscrollView addSubview:acouponCodeLabel];
+  
+  yAxis = yAxis+50;
+  UILabel *ftotalLabel = [self getLabelWithMsg:@"Total:" andColor:@"Black" andYcord:yAxis andAllignt:@"left"];
+  UILabel *atotalLabel = [self getLabelWithMsg:@"ATotal:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:ftotalLabel];
+  [self.fscrollView addSubview:atotalLabel];
+
+}
+
+-(UILabel*)getLabelWithMsg:(NSString*)msgStr andColor:(NSString*)color andYcord:(float)yCord andAllignt:(NSString*)align{
+  
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  CGFloat screenHeight = screenRect.size.height;
+  CGFloat screenWidth = screenRect.size.width;
+  
+  UILabel *lbl = [[UILabel alloc]init];
+  if ([align isEqualToString:@"left"]) {
+    [lbl setFrame:CGRectMake(0, yCord, screenWidth/2, 45)];
+    lbl.textAlignment = 0;
+      lbl.textColor = [UIColor blackColor];
+  }else{
+    [lbl setFrame:CGRectMake(screenWidth/2, yCord, screenWidth/2, 45)];
+      lbl.textColor = [UIColor colorWithRed:85.0/255.0 green:150.0/255.0 blue:28.0/255.0 alpha:1.0];
+    lbl.textAlignment = 1;
+  }
+  lbl.font = [UIFont fontWithName:@"Sansation-Bold" size:16];
+  lbl.text = msgStr;
+  lbl.numberOfLines = 1;
+  lbl.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
+  lbl.adjustsFontSizeToFitWidth = YES;
+  lbl.minimumScaleFactor = 10.0f/12.0f;
+  lbl.adjustsFontSizeToFitWidth = YES;
+  lbl.backgroundColor = [UIColor clearColor];
+  lbl.lineBreakMode = NSLineBreakByWordWrapping;
+  return lbl;
+}
 
 @end

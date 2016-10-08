@@ -20,10 +20,21 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalPriceLbl;
 @property (weak, nonatomic) IBOutlet UITextField *couponTextFld;
 @property (weak, nonatomic) IBOutlet UIButton *checkOutBtn;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *deliveryFeeLabelHeightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderModeBottomMarginConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *ordreModeVerticalSpacingConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *couponAmountLbl;
+@property (weak, nonatomic) IBOutlet UIScrollView *fscrollView;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *deliveryFeeLabelHeightConstraint;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderModeBottomMarginConstraint;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *ordreModeVerticalSpacingConstraint;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderModeTopConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *orderScheduleLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderModeTopConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *orderScheduleDateTimeLabel;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintDeliveryFeeHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintOrderModeHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constriantOrderScheduleHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cosntraintCouponAmountHeight;
+
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintHacktop;
+
 @end

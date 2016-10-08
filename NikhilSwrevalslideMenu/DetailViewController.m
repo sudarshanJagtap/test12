@@ -55,7 +55,11 @@
   [super viewDidLoad];
   label=[[UILabel alloc]init];
   label.text=selectedUfrespo.name;
-  [label setFont:[UIFont systemFontOfSize:20]];
+//  if (label.text.length>17) {
+//    [label setFont:[UIFont systemFontOfSize:15]];
+//  }else{
+//  [label setFont:[UIFont systemFontOfSize:17]];
+//  }
   label.textColor = [UIColor whiteColor];
   label.frame=CGRectMake(321, 10, 300, 30);
   UIFont* boldFont = [UIFont boldSystemFontOfSize:20];
@@ -92,7 +96,13 @@
   selectedCustomCuisinePriceArray = [[NSMutableArray alloc]init];
   selectedCustomCuisineIdArray = [[NSMutableArray alloc]init];
   self.navigationController.navigationBarHidden = YES;
+  if (selectedUfrespo.name.length>17) {
+    [self.navTitle setFont:[UIFont systemFontOfSize:15]];
+  }else{
+    [self.navTitle setFont:[UIFont systemFontOfSize:17]];
+  }
   self.navTitle.text = selectedUfrespo.name;
+  
   self.opaqueView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.6];
   self.opaqueView.layer.cornerRadius = 10.0;
   self.tableVw.SKSTableViewDelegate = self;
