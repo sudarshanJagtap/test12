@@ -524,13 +524,15 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cFv-DQ-Iw4">
                                         <rect key="frame" x="260" y="7" width="46" height="30"/>
-                                        <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.85373263889999995" green="0.85373263889999995" blue="0.85373263889999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="glE-8c-vbc"/>
                                             <constraint firstAttribute="height" constant="30" id="sQf-hK-L3M"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="Cancel"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.67747372630000002" green="0.085360245900000006" blue="0.097923216499999993" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="resetFiltersCancelBtnClick:" destination="vnS-Tb-31m" eventType="touchUpInside" id="Q5V-Rm-XFH"/>
                                         </connections>
@@ -541,23 +543,25 @@
                                             <constraint firstAttribute="height" constant="32" id="n5b-9G-H6M"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.51235006309999997" green="0.51235006309999997" blue="0.51235006309999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gR2-3V-reT">
                                         <rect key="frame" x="209" y="7" width="46" height="30"/>
-                                        <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.85373263889999995" green="0.85373263889999995" blue="0.85373263889999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="LFV-bE-DPk"/>
                                             <constraint firstAttribute="height" constant="30" id="e6y-zW-n9o"/>
                                         </constraints>
-                                        <state key="normal" title="Reset"/>
+                                        <state key="normal" title="Reset">
+                                            <color key="titleColor" red="0.67747372630000002" green="0.085360245900000006" blue="0.097923216499999993" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="resetFiltersResetBtnClick:" destination="vnS-Tb-31m" eventType="touchUpInside" id="9me-ds-lea"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.86274509799999999" green="0.86274509799999999" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="gR2-3V-reT" firstAttribute="leading" secondItem="ANQ-vV-evE" secondAttribute="trailing" constant="8" id="DS1-q5-fcW"/>
                                     <constraint firstItem="ANQ-vV-evE" firstAttribute="top" secondItem="8hP-oY-Rl6" secondAttribute="top" constant="6" id="Kf8-Gs-DhH"/>

@@ -405,7 +405,7 @@
   self.addedFilterLabel.hidden = YES;
   self.resetFiltersView.hidden = NO;
   crossBtn.hidden = YES;
-  self.tableTopConstraint.constant = -40;
+  self.tableTopConstraint.constant = -30;
   [self.view bringSubviewToFront:self.resetFiltersView];
 }
 
