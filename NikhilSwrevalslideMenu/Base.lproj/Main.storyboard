@@ -2338,11 +2338,18 @@
                     <connections>
                         <outlet property="HTotalAmountView" destination="Djh-QO-YuS" id="TTj-mF-maP"/>
                         <outlet property="addAddressBtn" destination="A8R-rT-LdC" id="sJZ-i2-ZQ0"/>
+                        <outlet property="addAdressBtnHeightConstraint" destination="gKd-ym-PHS" id="fEH-Kd-dtO"/>
                         <outlet property="addressChangeLabel" destination="g4q-eW-JTQ" id="h8O-1z-ygM"/>
+                        <outlet property="addressConstraint" destination="z54-Uu-CIb" id="scd-7g-wMp"/>
                         <outlet property="addressLabel" destination="0MT-ZZ-Vid" id="I7c-sW-oYG"/>
                         <outlet property="couponAmount" destination="ojg-VQ-OhN" id="6nB-8m-hhk"/>
+                        <outlet property="couponAmountConstraint" destination="S08-Sa-sNg" id="Uag-Aj-4Br"/>
                         <outlet property="deliveryFeeAmount" destination="K5X-T7-v4T" id="qvQ-eS-Ymq"/>
+                        <outlet property="deliveryFeeConstriant" destination="Oi8-eN-eGd" id="0CQ-l5-Gl7"/>
+                        <outlet property="hAddressChangeConstraint" destination="uVm-wI-bKq" id="Cj5-td-NAB"/>
+                        <outlet property="hCouponAmountConstraint" destination="tqt-AX-ulu" id="JAJ-W2-7vK"/>
                         <outlet property="hCouponAmountLbl" destination="e1e-gM-JAB" id="TWV-6f-DcB"/>
+                        <outlet property="hDeliveryFeeConstriant" destination="xmW-J3-rSV" id="url-Zv-VOY"/>
                         <outlet property="hDeliveryFeeLbl" destination="LBL-VW-Uml" id="Clh-kR-kox"/>
                         <outlet property="hSalesTaxLbl" destination="83X-YD-rpP" id="YsZ-Ik-6tD"/>
                         <outlet property="hSubTotalLbl" destination="PGt-yW-htq" id="LB0-bn-jmZ"/>
@@ -2353,6 +2360,7 @@
                         <outlet property="salesTaxAmount" destination="rGz-mS-DaJ" id="alz-Vo-how"/>
                         <outlet property="subTotalAmount" destination="h3j-la-okb" id="GW6-tN-WO1"/>
                         <outlet property="totalAmount" destination="Rtx-vg-Khv" id="tRN-yb-VQb"/>
+                        <outlet property="totalAmountViewConstraint" destination="BTz-B3-F1u" id="z8S-Zr-yod"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dwd-Ip-jJ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
