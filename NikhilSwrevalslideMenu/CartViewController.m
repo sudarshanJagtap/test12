@@ -371,15 +371,16 @@
     USerSelectedCartData *cartMenu = (USerSelectedCartData*)[tableArray objectAtIndex:indexPath.row];
     cell.layer.borderColor = [UIColor grayColor].CGColor;
     cell.layer.borderWidth = 0.5;
-    cell.quantityLbl.layer.borderColor = [UIColor colorWithRed:40/255.0f green:174/255.0f   blue:156/255.0f alpha:1.0f].CGColor;
+    cell.quantityLbl.layer.borderColor = [UIColor colorWithRed:170/255.0f green:213/255.0f   blue:92/255.0f alpha:1.0f].CGColor;
     cell.quantityLbl.layer.borderWidth = 1.0;
     cell.editBtn.tag = indexPath.row;
     cell.deleteBtn.tag = indexPath.row;
     cell.plusBtn.tag = indexPath.row;
     cell.minusBtn.tag = indexPath.row;
     cell.quantityLbl.text = cartMenu.quantity;
-    cell.nameLbl.text = cartMenu.sub_category_Name;
-    cell.detailLbl.text = cartMenu.customizeCuisineString;
+    cell.nameLbl.text = cartMenu.sub_category_Name;    
+    NSString *customStr = [cartMenu.customizeCuisineString stringByReplacingOccurrencesOfString:@"&" withString:@","];
+    cell.detailLbl.text = [customStr substringFromIndex:1];
     cell.priceLbl.text = [NSString stringWithFormat:@"$ %.2f",cartMenu.TotalFinalPrice];
     [cell.editBtn addTarget:self
                      action:@selector(editMethod:) forControlEvents:UIControlEventTouchDown];

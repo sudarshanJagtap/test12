@@ -172,10 +172,10 @@
   [CartButton addSubview:btnImg];
 //  [CartButton setBackgroundImage:[UIImage imageNamed:@"added_cart_img.png"] forState:UIControlStateNormal];
   CartButton.frame = CGRectMake(screenWidth-70, screenHeight-70, 50,50 );
-  [self.view addSubview:CartButton];
-  CartButton.backgroundColor = [UIColor greenColor];
+  CartButton.backgroundColor = [UIColor colorWithRed:170.0/255.0 green:213.0/255.0 blue:92.0/255.0 alpha:1.0];
   blankScreen.hidden =YES;
   CartButton.layer.cornerRadius = 25;
+  [self.view addSubview:CartButton];
   [self.view addSubview:blankScreen];
   [self.view bringSubviewToFront:blankScreen];
    [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -595,6 +595,8 @@
     cell.emptyCartBtn.tag = indexPath.row;
     [cell.goToResoBtn addTarget:self action:@selector(goToRest:) forControlEvents:UIControlEventTouchUpInside];
     [cell.emptyCartBtn addTarget:self action:@selector(EmptyCart:) forControlEvents:UIControlEventTouchUpInside];
+    cell.goToResoBtn.layer.cornerRadius =5.0;
+    cell.emptyCartBtn.layer.cornerRadius =5.0;
     USerSelectedCartData *cd = (USerSelectedCartData*)[popRestArray objectAtIndex:indexPath.row];
     NSString *imglogo=cd.Logo;
     NSString *stringURL=@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/ymoc_main/upload/logo/medium/";

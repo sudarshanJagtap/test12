@@ -5,6 +5,12 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Sansation-Bold.ttf">
+            <string>Sansation-Bold</string>
+            <string>Sansation-Bold</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -47,8 +53,8 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="fCJ-6N-hj7"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" name="Sansation-Bold" family="Sansation" pointSize="17"/>
+                        <color key="textColor" red="0.26246643842014467" green="0.59757812500000007" blue="0.42664744825168488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 30.0" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EcR-mB-LbI">
@@ -61,10 +67,9 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k32-pf-qY4">
-                        <rect key="frame" x="17" y="42" width="313" height="39.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.30588235289999999" green="0.6705882353" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k32-pf-qY4">
+                        <rect key="frame" x="87" y="42" width="243" height="39.5"/>
+                        <fontDescription key="fontDescription" name="Sansation-Bold" family="Sansation" pointSize="13"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4RX-hq-wyo">
@@ -97,7 +102,7 @@
                     <constraint firstItem="E6p-PR-Wc3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="TEu-8r-gMi"/>
                     <constraint firstItem="k32-pf-qY4" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="Uet-lD-Jq7"/>
                     <constraint firstItem="EcR-mB-LbI" firstAttribute="leading" secondItem="E6p-PR-Wc3" secondAttribute="trailing" constant="13" id="VC3-Le-AvB"/>
-                    <constraint firstItem="k32-pf-qY4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="9" id="bEU-5h-ceJ"/>
+                    <constraint firstItem="k32-pf-qY4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="79" id="bEU-5h-ceJ"/>
                     <constraint firstItem="4RX-hq-wyo" firstAttribute="leading" secondItem="h3t-dm-e0X" secondAttribute="trailing" constant="10" id="lef-CE-e0E"/>
                     <constraint firstItem="k32-pf-qY4" firstAttribute="top" secondItem="1I3-Bz-9aR" secondAttribute="bottom" constant="8" id="oiR-YW-Rfr"/>
                     <constraint firstItem="h3t-dm-e0X" firstAttribute="leading" secondItem="k32-pf-qY4" secondAttribute="trailing" constant="13" id="rK6-QH-Av7"/>

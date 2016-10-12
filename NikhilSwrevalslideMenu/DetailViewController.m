@@ -85,7 +85,22 @@
     });
   }
   });
-  
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  CGFloat screenHeight = screenRect.size.height;
+  CGFloat screenWidth = screenRect.size.width;
+  CartButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  [CartButton addTarget:self
+                 action:@selector(showCartView)
+       forControlEvents:UIControlEventTouchUpInside];
+  [CartButton setTitle:@"1" forState:UIControlStateNormal];
+  //  [CartButton setBackgroundImage:[UIImage imageNamed:@"added_cart_img.png"] forState:UIControlStateNormal];
+  UIImageView *btnImg = [[UIImageView alloc]initWithFrame:CGRectMake(2.5, 7.5, 45,35)];
+  [btnImg setImage:[UIImage imageNamed:@"added_cart_img.png"]];
+  [CartButton addSubview:btnImg];
+   CartButton.layer.cornerRadius = 25;
+  CartButton.frame = CGRectMake(screenWidth-70, screenHeight-70, 50,50 );
+  CartButton.backgroundColor = [UIColor colorWithRed:170.0/255.0 green:213.0/255.0 blue:92.0/255.0 alpha:1.0];
+  [self.view addSubview:CartButton];
   
 }
 
@@ -143,17 +158,6 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [self getDetailCuisine];
-  CGRect screenRect = [[UIScreen mainScreen] bounds];
-  CGFloat screenHeight = screenRect.size.height;
-  CGFloat screenWidth = screenRect.size.width;
-  CartButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  [CartButton addTarget:self
-                 action:@selector(showCartView)
-       forControlEvents:UIControlEventTouchUpInside];
-  [CartButton setTitle:@"1" forState:UIControlStateNormal];
-  [CartButton setBackgroundImage:[UIImage imageNamed:@"added_cart_img.png"] forState:UIControlStateNormal];
-  CartButton.frame = CGRectMake(screenWidth-70, screenHeight-70, 50,50 );
-  
   NSArray *arr = [[DBManager getSharedInstance] getALlCartData:[selectedUfrespo.ufp_id intValue]];
   if (arr.count>0) {
     CartButton.hidden = NO;
@@ -162,7 +166,7 @@
     CartButton.hidden = YES;
   }
   
-  [self.view addSubview:CartButton];
+  
 }
 
 
