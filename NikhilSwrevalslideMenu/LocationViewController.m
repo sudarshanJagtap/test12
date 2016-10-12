@@ -48,7 +48,7 @@
   self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
   self.txtEntAddressCityState.layer.borderColor=[[UIColor whiteColor]CGColor];
   self.txtEntAddressCityState.layer.borderWidth=2.0;
-  NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Enter Address,City,State" attributes:@{ NSForegroundColorAttributeName : [UIColor grayColor] }];
+  NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Enter Address, City, State" attributes:@{ NSForegroundColorAttributeName : [UIColor grayColor] }];
   self.txtEntAddressCityState.attributedPlaceholder = str;
   self.array = @[self.txtEntAddressCityState];
   [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:self.array]];
@@ -115,7 +115,7 @@
     respoUtility.enteredAddress = self.txtEntAddressCityState.text;
      [self performSegueWithIdentifier:@"FromLocationHome" sender:nil];
   }else{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Text field can not left blank"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
                                                     message:@"Please enter zipcode/address/state/city"
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"

@@ -167,10 +167,15 @@
                  action:@selector(showCartView)
        forControlEvents:UIControlEventTouchUpInside];
   [CartButton setTitle:@"1" forState:UIControlStateNormal];
-  [CartButton setBackgroundImage:[UIImage imageNamed:@"added_cart_img.png"] forState:UIControlStateNormal];
+  UIImageView *btnImg = [[UIImageView alloc]initWithFrame:CGRectMake(2.5, 7.5, 45,35)];
+  [btnImg setImage:[UIImage imageNamed:@"added_cart_img.png"]];
+  [CartButton addSubview:btnImg];
+//  [CartButton setBackgroundImage:[UIImage imageNamed:@"added_cart_img.png"] forState:UIControlStateNormal];
   CartButton.frame = CGRectMake(screenWidth-70, screenHeight-70, 50,50 );
   [self.view addSubview:CartButton];
+  CartButton.backgroundColor = [UIColor greenColor];
   blankScreen.hidden =YES;
+  CartButton.layer.cornerRadius = 25;
   [self.view addSubview:blankScreen];
   [self.view bringSubviewToFront:blankScreen];
    [[NSNotificationCenter defaultCenter] removeObserver:self];
