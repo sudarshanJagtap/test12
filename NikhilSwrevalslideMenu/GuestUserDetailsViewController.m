@@ -33,9 +33,12 @@
   
   // Do any additional setup after loading the view.
 }
+- (IBAction)backNavBtnclk:(id)sender {
+  [self.navigationController popViewControllerAnimated:YES];
+}
 
 -(void)viewWillAppear:(BOOL)animated{
-  self.navigationController.navigationBarHidden = NO;
+  self.navigationController.navigationBarHidden = YES;
   UIToolbar *keyboardDoneButtonView = [[UIToolbar alloc] init];
   [keyboardDoneButtonView sizeToFit];
   UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
