@@ -380,7 +380,16 @@
     cell.quantityLbl.text = cartMenu.quantity;
     cell.nameLbl.text = cartMenu.sub_category_Name;    
     NSString *customStr = [cartMenu.customizeCuisineString stringByReplacingOccurrencesOfString:@"&" withString:@","];
-    cell.detailLbl.text = [customStr substringFromIndex:1];
+    if (customStr.length>1) {
+//      cell.detailLbl.text = [customStr substringFromIndex:1];
+      if ([customStr hasPrefix:@"&"]) {
+        cell.detailLbl.text = [NSString stringWithFormat:@"%@",[customStr substringFromIndex:1]];
+      }else{
+      cell.detailLbl.text = [NSString stringWithFormat:@"%@",[customStr substringFromIndex:0]];
+      }
+    }else{
+    cell.detailLbl.text = [NSString stringWithFormat:@" %@",customStr];
+    }
     cell.priceLbl.text = [NSString stringWithFormat:@"$ %.2f",cartMenu.TotalFinalPrice];
     [cell.editBtn addTarget:self
                      action:@selector(editMethod:) forControlEvents:UIControlEventTouchDown];

@@ -55,6 +55,8 @@
   [super viewDidLoad];
   label=[[UILabel alloc]init];
   label.text=selectedUfrespo.name;
+  label.adjustsFontSizeToFitWidth=YES;
+  label.minimumScaleFactor=0.5;
 //  if (label.text.length>17) {
 //    [label setFont:[UIFont systemFontOfSize:15]];
 //  }else{
@@ -106,6 +108,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
   [super viewWillAppear:animated];
+  label.hidden = NO;
   [RequestUtility sharedRequestUtility].selectedAddressId = @"-1";
   self.navigationController.navigationBarHidden = YES;
   selectedCustomCuisineStringArray = [[NSMutableArray alloc]init];
@@ -174,6 +177,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
+  label.hidden = YES;
   self.navigationController.navigationBarHidden = YES;
 }
 
