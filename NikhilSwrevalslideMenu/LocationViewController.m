@@ -48,11 +48,15 @@
   self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
   self.txtEntAddressCityState.layer.borderColor=[[UIColor whiteColor]CGColor];
   self.txtEntAddressCityState.layer.borderWidth=2.0;
-  NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Enter Address, City, State" attributes:@{ NSForegroundColorAttributeName : [UIColor grayColor] }];
+  NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Enter your Address, Zipcode, city, state…" attributes:@{ NSForegroundColorAttributeName : [UIColor grayColor] }];
   self.txtEntAddressCityState.attributedPlaceholder = str;
   self.array = @[self.txtEntAddressCityState];
   [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:self.array]];
   [self.keyboardControls setDelegate:self];
+//  self.txtEntAddressCityState.layer.cornerRadius = 5.0;
+//  self.searchBtn.layer.cornerRadius=25.0;
+//  self.searchBtn.imageView.layer.cornerRadius = 15.0;
+  self.letMetryBtn.layer.cornerRadius = 5.0;
 }
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls
@@ -134,7 +138,8 @@
                                                                      coordinate:swBoundsCorner];
   
   GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc] init];
-  filter.type = kGMSPlacesAutocompleteTypeFilterEstablishment;
+  filter.type = kGMSPlacesAutocompleteTypeFilterGeocode;
+  filter.country = @"us";
   _fetcher = [[GMSAutocompleteFetcher alloc] initWithBounds:bounds
                                                      filter:filter];
   _fetcher.delegate = self;
@@ -166,11 +171,13 @@
 - (void)didAutocompleteWithPredictions:(NSArray *)predictions {
   NSMutableString *resultsStr = [NSMutableString string];
   NSMutableArray *autoArray = [[NSMutableArray alloc]init];
+  NSArray *passArray = [[NSArray alloc]init];
   for (GMSAutocompletePrediction *prediction in predictions) {
-    [resultsStr appendFormat:@"%@\n", [prediction.attributedPrimaryText string]];
-    [autoArray addObject:[prediction.attributedPrimaryText string]];
+    [resultsStr appendFormat:@"%@\n", [prediction.attributedFullText string]];
+    NSLog(@"\n%@",[prediction.attributedFullText string]);
+    [autoArray addObject:[prediction.attributedFullText string]];
   }
-  NSArray *passArray = [NSArray arrayWithArray:autoArray];
+  passArray = [NSArray arrayWithArray:autoArray];
   if(dropDown == nil) {
     CGFloat f = 200;
     dropDown = [[NIDropDown alloc]showDropDown:self.txtEntAddressCityState :&f :passArray :nil :@"down"];

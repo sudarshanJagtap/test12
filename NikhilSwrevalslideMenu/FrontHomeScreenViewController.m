@@ -143,8 +143,8 @@
                action:@selector(clearFliter)
      forControlEvents:UIControlEventTouchUpInside];
   [crossBtn setTitle:@"" forState:UIControlStateNormal];
-  crossBtn.frame = CGRectMake(10, self.addedFilterLabel.frame.origin.y, 20, 20.0);
-  [crossBtn setBackgroundImage:[UIImage imageNamed:@"delete_item"] forState:UIControlStateNormal];
+  crossBtn.frame = CGRectMake(10, self.addedFilterLabel.frame.origin.y+5, 20, 20.0);
+  [crossBtn setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
   [self.view addSubview:crossBtn];
   [self updateFiltersLabel];
   [self delegateDelivery];
@@ -393,7 +393,7 @@
   
   NSString *filterTxt = [NSString stringWithFormat:@"\t%@", addedFiltersText];
   CGFloat lblHght = [self heightForLabel:self.addedFilterLabel withText:filterTxt];
-  self.lblHghtConstraint.constant = lblHght+05;
+  self.lblHghtConstraint.constant = lblHght+16;
   self.addedFilterLabel.text = filterTxt;
   NSString *allignedFilterText = filterTxt;
   if ([allignedFilterText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length>1) {
@@ -623,7 +623,9 @@
     cell.lblOrder.text =orderValue;
     NSString *feeValue = ufpRespo.fee;
     NSString *distanceValue = ufpRespo.pkDistance;
-    if(ufpRespo.cuisine_string.length>40) {
+    int ct = [self calculateLabelHeight:cell.lblCuisinString];
+    NSLog(@"\n\n %d \n %@",ct,cell.lblCuisinString.text);
+    if(ct>1) {
       cell.cuisineStringHeightConstraint.constant = 32;
     }else{
       cell.cuisineStringHeightConstraint.constant = 16;
@@ -702,6 +704,27 @@
     return cell;
   }
   return cell;
+}
+
+
+-(int)calculateLabelHeight:(UILabel*)yourLabel{
+//  int lineCount = 0;
+//  CGSize textSize = CGSizeMake(yourLabel.frame.size.width, MAXFLOAT);
+//  int rHeight = lroundf([yourLabel sizeThatFits:textSize].height);
+//  int charSize = lroundf(yourLabel.font.leading);
+//  lineCount = rHeight/charSize;
+//  NSLog(@"No of lines: %d",lineCount);
+//  return lineCount;
+  int lineCount = 0;
+  CGSize labelSize = (CGSize){yourLabel.frame.size.width, FLT_MAX};
+  CGRect requiredSize = [yourLabel.text boundingRectWithSize:labelSize  options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: yourLabel.font} context:nil];
+  
+  // Calculate number of lines
+  int charSize = yourLabel.font.leading;
+  int rHeight = requiredSize.size.height;
+  lineCount = rHeight/charSize;
+  
+  return lineCount;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -1247,7 +1270,7 @@ didFailAutocompleteWithError:(NSError *)error {
   noRestoLabel.backgroundColor=[UIColor clearColor];
   noRestoLabel.textColor=[UIColor redColor];
   noRestoLabel.userInteractionEnabled=NO;
-  noRestoLabel.text= @"No reastuarant available";
+  noRestoLabel.text= @"No restaurant available";
   [self.view addSubview:noRestoLabel];
   [self.view bringSubviewToFront:noRestoLabel];
 }
@@ -1282,7 +1305,8 @@ didFailAutocompleteWithError:(NSError *)error {
                                                                      coordinate:swBoundsCorner];
   
   GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc] init];
-  filter.type = kGMSPlacesAutocompleteTypeFilterEstablishment;
+  filter.type = kGMSPlacesAutocompleteTypeFilterGeocode;
+  filter.country = @"us";
   _fetcher = [[GMSAutocompleteFetcher alloc] initWithBounds:bounds
                                                      filter:filter];
   _fetcher.delegate = self;
@@ -1315,8 +1339,8 @@ didFailAutocompleteWithError:(NSError *)error {
   NSMutableString *resultsStr = [NSMutableString string];
   NSMutableArray *autoArray = [[NSMutableArray alloc]init];
   for (GMSAutocompletePrediction *prediction in predictions) {
-    [resultsStr appendFormat:@"%@\n", [prediction.attributedPrimaryText string]];
-    [autoArray addObject:[prediction.attributedPrimaryText string]];
+    [resultsStr appendFormat:@"%@\n", [prediction.attributedFullText string]];
+    [autoArray addObject:[prediction.attributedFullText string]];
   }
   NSArray *passArray = [NSArray arrayWithArray:autoArray];
   if(dropDown == nil) {
