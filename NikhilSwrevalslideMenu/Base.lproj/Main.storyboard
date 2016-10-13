@@ -451,7 +451,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iosfront" translatesAutoresizingMaskIntoConstraints="NO" id="DvD-ec-h58">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="first_screen_background" translatesAutoresizingMaskIntoConstraints="NO" id="DvD-ec-h58">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5QE-vl-RZu">
@@ -469,7 +469,7 @@
                                     <action selector="btnFindFood:" destination="L0F-iw-xfW" eventType="touchUpInside" id="3cV-Cd-DAM"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Address Below" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDM-pj-Woa">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Address Below" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDM-pj-Woa">
                                 <rect key="frame" x="26" y="240" width="268" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="O9V-o1-BJJ"/>
@@ -478,13 +478,13 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Boston" borderStyle="bezel" placeholder="     Enter your Address, city, state..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ms6-bJ-uJP">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder=" Enter your Address, city, state..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ms6-bJ-uJP">
                                 <rect key="frame" x="16" y="265" width="252" height="38"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="HZW-5P-Ty6"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pjd-eq-Pow">
@@ -521,6 +521,8 @@
                     <navigationItem key="navigationItem" id="9IT-R0-dVn"/>
                     <connections>
                         <outlet property="imgView" destination="DvD-ec-h58" id="mxA-Wg-m0u"/>
+                        <outlet property="letMetryBtn" destination="5QE-vl-RZu" id="rO5-Ob-2Er"/>
+                        <outlet property="searchBtn" destination="Pjd-eq-Pow" id="M0Z-Ot-G02"/>
                         <outlet property="txtEntAddressCityState" destination="Ms6-bJ-uJP" id="Rh8-rc-mre"/>
                         <segue destination="BYZ-38-t0r" kind="modal" identifier="FromLocationHome" id="udq-FX-Q6m"/>
                     </connections>
@@ -861,7 +863,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Your Meal On Call" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYc-r2-mkI">
                                         <rect key="frame" x="107" y="5" width="160" height="36"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.67747372630000002" green="0.085360245900000006" blue="0.097923216499999993" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="le5-wI-LBR">
@@ -4947,8 +4949,8 @@
         <image name="checkBx" width="94" height="94"/>
         <image name="facebook" width="24" height="24"/>
         <image name="filter" width="20" height="20"/>
+        <image name="first_screen_background" width="650" height="1009"/>
         <image name="google_plus" width="24" height="24"/>
-        <image name="iosfront" width="1000" height="1200"/>
         <image name="restaurant" width="600" height="450"/>
         <image name="restaurant-cutlery" width="60" height="60"/>
         <image name="review" width="32" height="32"/>

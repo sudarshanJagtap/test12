@@ -48,11 +48,15 @@
   self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
   self.txtEntAddressCityState.layer.borderColor=[[UIColor whiteColor]CGColor];
   self.txtEntAddressCityState.layer.borderWidth=2.0;
-  NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Enter Address, City, State" attributes:@{ NSForegroundColorAttributeName : [UIColor grayColor] }];
+  NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Enter your Address, Zipcode, city, state…" attributes:@{ NSForegroundColorAttributeName : [UIColor grayColor] }];
   self.txtEntAddressCityState.attributedPlaceholder = str;
   self.array = @[self.txtEntAddressCityState];
   [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:self.array]];
   [self.keyboardControls setDelegate:self];
+//  self.txtEntAddressCityState.layer.cornerRadius = 5.0;
+//  self.searchBtn.layer.cornerRadius=25.0;
+//  self.searchBtn.imageView.layer.cornerRadius = 15.0;
+  self.letMetryBtn.layer.cornerRadius = 5.0;
 }
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls

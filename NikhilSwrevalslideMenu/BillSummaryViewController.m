@@ -283,8 +283,13 @@
   [afterPaymentDictionary setValue:[bfPaymentDictionary valueForKey:@"restaurant_id"] forKey:@"restaurant_id"];
   [afterPaymentDictionary setValue:[bfPaymentDictionary valueForKey:@"order_mode"] forKey:@"order_mode"];
   [afterPaymentDictionary setValue:[bfPaymentDictionary valueForKey:@"order_schedule_status"] forKey:@"order_schedule_status"];
+  if ([RequestUtility sharedRequestUtility ].isAsap) {
   [afterPaymentDictionary setValue:[bfPaymentDictionary valueForKey:@"order_schedule_date"] forKey:@"order_schedule_date"];
   [afterPaymentDictionary setValue:[bfPaymentDictionary valueForKey:@"order_schedule_time"] forKey:@"order_schedule_time"];
+  }else{
+    [afterPaymentDictionary setValue:@"0000-00-00" forKey:@"order_schedule_date"];
+    [afterPaymentDictionary setValue:@"00:00" forKey:@"order_schedule_time"];
+  }
   [afterPaymentDictionary setValue:[subTotalPassed substringFromIndex:2] forKey:@"order_amount"];
   [afterPaymentDictionary setValue:[ResponseUtility getSharedInstance].salesTaxValue forKey:@"tax_percent"];
   [afterPaymentDictionary setValue:[salesTaxPassed substringFromIndex:2] forKey:@"tax_amount"];
@@ -292,7 +297,13 @@
   [afterPaymentDictionary setValue:[totalAmountPassed substringFromIndex:2] forKey:@"total_amount"];
   [afterPaymentDictionary setValue:@"0" forKey:@"coupon_amount"];
   [afterPaymentDictionary setValue:@"0" forKey:@"coupon_code"];
+  if([RequestUtility sharedRequestUtility].delivery_status == 0){
+  [afterPaymentDictionary setValue:@"0" forKey:@"delivery_address_id"];
+  }
+  else{
+  
   [afterPaymentDictionary setValue:[RequestUtility sharedRequestUtility].selectedAddressId forKey:@"delivery_address_id"];
+  }
   [afterPaymentDictionary setValue:[[completedPaymen.confirmation valueForKey:@"response"]valueForKey:@"id"] forKey:@"transaction_id"];
   [afterPaymentDictionary setValue:@"1" forKey:@"total_quantity"];
   [self afterPayment:afterPaymentDictionary];

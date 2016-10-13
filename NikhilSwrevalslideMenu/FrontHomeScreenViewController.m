@@ -143,8 +143,8 @@
                action:@selector(clearFliter)
      forControlEvents:UIControlEventTouchUpInside];
   [crossBtn setTitle:@"" forState:UIControlStateNormal];
-  crossBtn.frame = CGRectMake(10, self.addedFilterLabel.frame.origin.y, 20, 20.0);
-  [crossBtn setBackgroundImage:[UIImage imageNamed:@"delete_item"] forState:UIControlStateNormal];
+  crossBtn.frame = CGRectMake(10, self.addedFilterLabel.frame.origin.y+5, 20, 20.0);
+  [crossBtn setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
   [self.view addSubview:crossBtn];
   [self updateFiltersLabel];
   [self delegateDelivery];
@@ -393,7 +393,7 @@
   
   NSString *filterTxt = [NSString stringWithFormat:@"\t%@", addedFiltersText];
   CGFloat lblHght = [self heightForLabel:self.addedFilterLabel withText:filterTxt];
-  self.lblHghtConstraint.constant = lblHght+05;
+  self.lblHghtConstraint.constant = lblHght+16;
   self.addedFilterLabel.text = filterTxt;
   NSString *allignedFilterText = filterTxt;
   if ([allignedFilterText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length>1) {
@@ -1270,7 +1270,7 @@ didFailAutocompleteWithError:(NSError *)error {
   noRestoLabel.backgroundColor=[UIColor clearColor];
   noRestoLabel.textColor=[UIColor redColor];
   noRestoLabel.userInteractionEnabled=NO;
-  noRestoLabel.text= @"No reastuarant available";
+  noRestoLabel.text= @"No restaurant available";
   [self.view addSubview:noRestoLabel];
   [self.view bringSubviewToFront:noRestoLabel];
 }

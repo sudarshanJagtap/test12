@@ -1018,7 +1018,7 @@
     [beforePaymentDictionary setValue:@"before_payment" forKey:@"action"];
     [beforePaymentDictionary setValue:userId forKey:@"user_id"];
     [beforePaymentDictionary setValue:selectedUfrespo.ufp_id forKey:@"restaurant_id"];
-    [beforePaymentDictionary setValue:[utilityObj GetOurIpAddress] forKey:@"ip_address"];
+//    [beforePaymentDictionary setValue:[utilityObj GetOurIpAddress] forKey:@"ip_address"];
     if([RequestUtility sharedRequestUtility].delivery_status == 0){
       [beforePaymentDictionary setValue:@"0" forKey:@"order_mode"];
     }else{
@@ -1030,9 +1030,12 @@
       [beforePaymentDictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
     }else{
       [beforePaymentDictionary setValue:@"0" forKey:@"order_schedule_status"];
-      [beforePaymentDictionary setValue:@"00-00-00" forKey:@"order_schedule_date"];
+      [beforePaymentDictionary setValue:@"0000-00-00" forKey:@"order_schedule_date"];
       [beforePaymentDictionary setValue:@"00:00" forKey:@"order_schedule_time"];
     }
+    NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
+    NSString *user_name=[userdictionary valueForKey:@"user_name"];
+    [beforePaymentDictionary setValue:user_name forKey:@"user_name"];
     
     NSData * beforPaymentjsonData = [NSJSONSerialization dataWithJSONObject:beforePaymentDictionary options:0 error:nil];
     NSString * beforPaymentString = [[NSString alloc] initWithData:beforPaymentjsonData encoding:NSUTF8StringEncoding];
