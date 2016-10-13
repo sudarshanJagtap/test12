@@ -134,7 +134,8 @@
                                                                      coordinate:swBoundsCorner];
   
   GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc] init];
-  filter.type = kGMSPlacesAutocompleteTypeFilterEstablishment;
+  filter.type = kGMSPlacesAutocompleteTypeFilterGeocode;
+  filter.country = @"us";
   _fetcher = [[GMSAutocompleteFetcher alloc] initWithBounds:bounds
                                                      filter:filter];
   _fetcher.delegate = self;
@@ -166,11 +167,13 @@
 - (void)didAutocompleteWithPredictions:(NSArray *)predictions {
   NSMutableString *resultsStr = [NSMutableString string];
   NSMutableArray *autoArray = [[NSMutableArray alloc]init];
+  NSArray *passArray = [[NSArray alloc]init];
   for (GMSAutocompletePrediction *prediction in predictions) {
-    [resultsStr appendFormat:@"%@\n", [prediction.attributedPrimaryText string]];
-    [autoArray addObject:[prediction.attributedPrimaryText string]];
+    [resultsStr appendFormat:@"%@\n", [prediction.attributedFullText string]];
+    NSLog(@"\n%@",[prediction.attributedFullText string]);
+    [autoArray addObject:[prediction.attributedFullText string]];
   }
-  NSArray *passArray = [NSArray arrayWithArray:autoArray];
+  passArray = [NSArray arrayWithArray:autoArray];
   if(dropDown == nil) {
     CGFloat f = 200;
     dropDown = [[NIDropDown alloc]showDropDown:self.txtEntAddressCityState :&f :passArray :nil :@"down"];
