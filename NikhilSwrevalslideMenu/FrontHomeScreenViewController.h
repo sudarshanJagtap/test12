@@ -28,7 +28,6 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIButton *btnPickup;
-//@property (strong, nonatomic) IBOutlet UIButton *btnAsop;
 @property (strong, nonatomic) IBOutlet UIButton *btnSort;
 @property (strong, nonatomic) IBOutlet UIButton *btnDelivery;
 @property (strong, nonatomic) DownPicker *downPicker;
@@ -46,7 +45,10 @@
 @property (weak, nonatomic) IBOutlet UIView *resetFiltersView;
 - (IBAction)resetFiltersCancelBtnClick:(id)sender;
 - (IBAction)resetFiltersResetBtnClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *addressBtn;
 @property (weak, nonatomic) IBOutlet UILabel *resetFilterMsgLbl;
-@property (weak, nonatomic) IBOutlet UILabel *addressBtn;
+@property (weak, nonatomic) IBOutlet UIView *topSuperView;
+
+@property(nonatomic,strong)NSString *enteredCity;
 
 @end

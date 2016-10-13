@@ -51,6 +51,7 @@
   NSMutableDictionary *beforePaymentDictionary;
   NSMutableArray *temporayUniqueID;
   UITextView *myTextView;
+
 }
 
 @end
@@ -60,7 +61,6 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.navigationController.navigationBarHidden = YES;
-  
 }
 
 //-(void)getDisplayCartData{
@@ -166,12 +166,6 @@
   selectedCustomCuisineStringArray = [[NSMutableArray alloc]init];
   selectedCustomCuisinePriceArray = [[NSMutableArray alloc]init];
   selectedCustomCuisineIdArray = [[NSMutableArray alloc]init];
-  
-  //  if (userId.length>0) {
-  //    [self getDisplayCartData];
-  //  }
-  //  else{
-  //
   NSArray *dbArray = [[DBManager getSharedInstance] getALlCartData:[selectedUfrespo.ufp_id intValue]];
   tableArray  = [[NSMutableArray alloc]init];
   [tableArray removeAllObjects];
@@ -181,26 +175,28 @@
   self.tableHeightConstraint.constant = countt*90;
   [self calculateAllDetails];
   if([RequestUtility sharedRequestUtility].delivery_status == 0){
-    self.deliveryFeeLabelHeightConstraint.constant = 0;
-    self.orderModeTopConstraint.constant = -5;
+    self.constraintDeliveryFeeHeight.constant=0;
+    self.constraintOrderModeHeight.constant=40;
+    
   }else{
-    self.deliveryFeeLabelHeightConstraint.constant = 24;
-    self.ordreModeVerticalSpacingConstraint.constant = 40;
-    self.orderModeTopConstraint.constant = 5;
+    self.constraintDeliveryFeeHeight.constant=40;
+    self.constraintOrderModeHeight.constant=40;
   }
-  //  }
   if([RequestUtility sharedRequestUtility].isAsap){
     self.orderScheduleLabel.hidden = NO;
     self.orderScheduleDateTimeLabel.hidden = NO;
     Utility *utilityObj = [[Utility alloc]init];
     NSString *dateStr = [NSString stringWithFormat:@"%@ : %@", [utilityObj getCurrentAsapDate],[utilityObj getCurrentTime]];
     self.orderScheduleDateTimeLabel.text = dateStr;
-    self.orderModeBottomMarginConstraint.constant = 39;
+    self.constriantOrderScheduleHeight.constant=40;
   }else{
     self.orderScheduleLabel.hidden = YES;
     self.orderScheduleDateTimeLabel.hidden = YES;
-    self.orderModeBottomMarginConstraint.constant = 5;
+    self.constriantOrderScheduleHeight.constant=40;
+    self.constraintHacktop.constant=-30;
   }
+  self.cosntraintCouponAmountHeight.constant=0;
+//  self.constraintHacktop.constant=-30;
 }
 
 
@@ -232,9 +228,9 @@
   //  [tableArray addObjectsFromArray:dbArray];
   if (tableArray.count>0) {
     if([RequestUtility sharedRequestUtility].delivery_status == 0){
-    self.deliveryFeePriceLbl .text = [NSString stringWithFormat:@"$ 0.00"];
+      self.deliveryFeePriceLbl .text = [NSString stringWithFormat:@"$ 0.00"];
     }else{
-    self.deliveryFeePriceLbl .text = [NSString stringWithFormat:@"$ %@",selectedUfrespo.fee];
+      self.deliveryFeePriceLbl .text = [NSString stringWithFormat:@"$ %@",selectedUfrespo.fee];
     }
   }else{
     self.deliveryFeePriceLbl .text = [NSString stringWithFormat:@"$ 0.00"];
@@ -258,11 +254,15 @@
   //200*(15/100)
   self.salesTaxPriceLbl.text = [NSString stringWithFormat:@"$ %.02f",tax ];
   float finalAmount;
-   if([RequestUtility sharedRequestUtility].delivery_status == 1){
-     finalAmount= subtotalAmountcalculated + tax + [selectedUfrespo.fee floatValue];
-   }else{
-     finalAmount= subtotalAmountcalculated + tax;
-   }
+  if([RequestUtility sharedRequestUtility].delivery_status == 1){
+    if (tableArray.count==0) {
+      finalAmount= subtotalAmountcalculated + tax;
+    }else{
+    finalAmount= subtotalAmountcalculated + tax + [selectedUfrespo.fee floatValue];
+    }
+  }else{
+    finalAmount= subtotalAmountcalculated + tax;
+  }
   //  int qAmt = [cart.quantity intValue];
   //  finalAmount = finalAmount*qAmt;
   self.totalPriceLbl.text = [NSString stringWithFormat:@"$ %.02f",finalAmount ];
@@ -371,15 +371,25 @@
     USerSelectedCartData *cartMenu = (USerSelectedCartData*)[tableArray objectAtIndex:indexPath.row];
     cell.layer.borderColor = [UIColor grayColor].CGColor;
     cell.layer.borderWidth = 0.5;
-    cell.quantityLbl.layer.borderColor = [UIColor colorWithRed:40/255.0f green:174/255.0f   blue:156/255.0f alpha:1.0f].CGColor;
+    cell.quantityLbl.layer.borderColor = [UIColor colorWithRed:170/255.0f green:213/255.0f   blue:92/255.0f alpha:1.0f].CGColor;
     cell.quantityLbl.layer.borderWidth = 1.0;
     cell.editBtn.tag = indexPath.row;
     cell.deleteBtn.tag = indexPath.row;
     cell.plusBtn.tag = indexPath.row;
     cell.minusBtn.tag = indexPath.row;
     cell.quantityLbl.text = cartMenu.quantity;
-    cell.nameLbl.text = cartMenu.sub_category_Name;
-    cell.detailLbl.text = cartMenu.customizeCuisineString;
+    cell.nameLbl.text = cartMenu.sub_category_Name;    
+    NSString *customStr = [cartMenu.customizeCuisineString stringByReplacingOccurrencesOfString:@"&" withString:@","];
+    if (customStr.length>1) {
+//      cell.detailLbl.text = [customStr substringFromIndex:1];
+      if ([customStr hasPrefix:@"&"]) {
+        cell.detailLbl.text = [NSString stringWithFormat:@"%@",[customStr substringFromIndex:1]];
+      }else{
+      cell.detailLbl.text = [NSString stringWithFormat:@"%@",[customStr substringFromIndex:0]];
+      }
+    }else{
+    cell.detailLbl.text = [NSString stringWithFormat:@" %@",customStr];
+    }
     cell.priceLbl.text = [NSString stringWithFormat:@"$ %.2f",cartMenu.TotalFinalPrice];
     [cell.editBtn addTarget:self
                      action:@selector(editMethod:) forControlEvents:UIControlEventTouchDown];
@@ -463,6 +473,9 @@
     BOOL retval = [manager deleteRecord:(int)cart.unique_id];
     if (retval) {
       NSArray *dbArray = [[DBManager getSharedInstance]getALlCartData:[selectedUfrespo.ufp_id intValue]];
+      if (dbArray.count==0) {
+        
+      }
       tableArray  = [[NSMutableArray alloc]init];
       [tableArray addObjectsFromArray:dbArray] ;
       [self.tblVw reloadData];
@@ -475,6 +488,9 @@
     BOOL retval = [manager deleteRecord:(int)cart.unique_id];
     if (retval) {
       NSArray *dbArray = [[DBManager getSharedInstance]getALlCartData:[selectedUfrespo.ufp_id intValue]];
+      if (dbArray.count==0) {
+        
+      }
       tableArray  = [[NSMutableArray alloc]init];
       [tableArray addObjectsFromArray:dbArray] ;
       [self.tblVw reloadData];
@@ -565,9 +581,13 @@
   [utility doPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseSearchDetailsInfoResponse:responseDictionary];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseSearchDetailsInfoResponse:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }
@@ -799,6 +819,13 @@
   return YES;
 }
 - (IBAction)couponSubmitBtnClick:(id)sender {
+//    if([RequestUtility sharedRequestUtility].isAsap){
+//  self.cosntraintCouponAmountHeight.constant=40;
+//    }else{
+//    self.cosntraintCouponAmountHeight.constant=40;
+//      self.constraintHacktop.constant=10;
+//      self.coupOrderTop.constant = 0;
+//    }
 }
 - (IBAction)proceedToCheckoutBtnClick:(id)sender {
   if (userId.length>0) {
@@ -819,7 +846,7 @@
 -(void)confirmOrderBtnClick{
   
   USerSelectedCartData *cart = (USerSelectedCartData*)[tableArray objectAtIndex:selectedPopUpIndex];
-
+  
   float ttPrice = 0;
   float cPrice = cart.subCategoryPrice;
   ttPrice = cPrice;
@@ -936,9 +963,14 @@
   [utility doYMOCStringPostRequest:url withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseAddToCartUserResponse:responseDictionary];
+      
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseAddToCartUserResponse:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }
@@ -1018,9 +1050,13 @@
   [utility doYMOCStringPostRequest:url withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseUserResponseBeforePayment:responseDictionary];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseUserResponseBeforePayment:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }
@@ -1060,7 +1096,7 @@
     obj_clvc.bfPaymentDictionary = beforePaymentDictionary;
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }else{
-    
+//    [RequestUtility sharedRequestUtility].isThroughPaymentScreen = YES;
     SignUpLoginViewController *obj_clvc  = (SignUpLoginViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"SignUpLoginViewControllerId"];
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }
@@ -1077,7 +1113,7 @@
   NSMutableArray *cArray = [[NSMutableArray alloc]init];
   //    for (int i =0; i<globalCartArray.count; i++) {
   USerSelectedCartData *uscd = (USerSelectedCartData*)[globalCartArray objectAtIndex:selectedPopUpIndex];
-//  NSString *AND_cart_id = [NSString stringWithFormat:@"%ld", (long)uscd.unique_id ];
+  //  NSString *AND_cart_id = [NSString stringWithFormat:@"%ld", (long)uscd.unique_id ];
   NSMutableDictionary *cartdictionary = [[NSMutableDictionary alloc]init];
   [cartdictionary setValue:uscd.randomCartID forKey:@"AND_cart_id"];
   
@@ -1136,26 +1172,30 @@
   [utility doYMOCStringPostRequest:url withParameters:addToCartString onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseUserResponseAfterUpdateCartQuantity:responseDictionary];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseUserResponseAfterUpdateCartQuantity:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }
 
 -(void)updateQuantiyDataToCartServer:(USerSelectedCartData*)cdata{
   
-//  {
-//    "action": "update_quantity",
-//    "user_id": "185",
-//    "app_status": "1",
-//    "cart_id": "13",
-//    "quantity": "6",
-//    "order_mode": "1",
-//    "order_schedule_status": "0",
-//    "order_schedule_date": "0000-00-00",
-//    "order_schedule_time": "00:00:00"
-//  }
+  //  {
+  //    "action": "update_quantity",
+  //    "user_id": "185",
+  //    "app_status": "1",
+  //    "cart_id": "13",
+  //    "quantity": "6",
+  //    "order_mode": "1",
+  //    "order_schedule_status": "0",
+  //    "order_schedule_date": "0000-00-00",
+  //    "order_schedule_time": "00:00:00"
+  //  }
   
   NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
   [dictionary setValue:cdata.serverCartID forKey:@"cart_id"];
@@ -1183,9 +1223,13 @@
   [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseUserResponseAfterUpdateCartQuantity:responseDictionary];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseUserResponseAfterUpdateCartQuantity:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }
@@ -1237,9 +1281,13 @@
   [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
-      [self parseUserResponseAfterDeleteCart:responseDictionary];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseUserResponseAfterDeleteCart:responseDictionary];
+      });
     }else{
-      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
     }
   }];
 }
@@ -1312,5 +1360,80 @@
   return YES;
 }
 
+
+-(void)designView{
+
+  float yAxis = self.tblVw.frame.size.height+self.tblVw.frame.origin.y+40;
+  
+  UILabel *fsubtotalLabel = [self getLabelWithMsg:@"SubTotal:" andColor:@"Black"andYcord:yAxis andAllignt:@"left"];
+  UILabel *asubtotalLabel = [self getLabelWithMsg:@"ASubTotal:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:fsubtotalLabel];
+  [self.fscrollView addSubview:asubtotalLabel];
+  
+  yAxis = yAxis+50;
+  UILabel *fsalesTaxLabel = [self getLabelWithMsg:@"SalesTax:" andColor:@"Black" andYcord:yAxis andAllignt:@"left"];
+  UILabel *asalesTaxLabel = [self getLabelWithMsg:@"ASalesTax:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:fsalesTaxLabel];
+  [self.fscrollView addSubview:asalesTaxLabel];
+  
+  yAxis = yAxis+50;
+  UILabel *fdeliveryfeeLabel = [self getLabelWithMsg:@"DeliveryFee:" andColor:@"Black" andYcord:yAxis andAllignt:@"left"];
+  UILabel *adeliveryfeeLabel = [self getLabelWithMsg:@"ADeliveryFee:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:fdeliveryfeeLabel];
+  [self.fscrollView addSubview:adeliveryfeeLabel];
+  
+  yAxis = yAxis+50;
+  UILabel *fordermodeLabel = [self getLabelWithMsg:@"Order Mode:" andColor:@"Black" andYcord:yAxis andAllignt:@"left"];
+  UILabel *aordermodeLabel = [self getLabelWithMsg:@"AOrder Mode:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:fordermodeLabel];
+  [self.fscrollView addSubview:aordermodeLabel];
+  
+  yAxis = yAxis+50;
+  UILabel *forderScheduleLabel = [self getLabelWithMsg:@"Order Schedule:" andColor:@"Black" andYcord:yAxis andAllignt:@"left"];
+  UILabel *aorderScheduleLabel = [self getLabelWithMsg:@"AOrder Schedule:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:forderScheduleLabel];
+  [self.fscrollView addSubview:aorderScheduleLabel];
+  
+  yAxis = yAxis+50;
+  UILabel *fcouponCodeLabel = [self getLabelWithMsg:@"Coupon Amount:" andColor:@"Black" andYcord:yAxis andAllignt:@"left"];
+  UILabel *acouponCodeLabel = [self getLabelWithMsg:@"ACoupon Amount:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:fcouponCodeLabel];
+  [self.fscrollView addSubview:acouponCodeLabel];
+  
+  yAxis = yAxis+50;
+  UILabel *ftotalLabel = [self getLabelWithMsg:@"Total:" andColor:@"Black" andYcord:yAxis andAllignt:@"left"];
+  UILabel *atotalLabel = [self getLabelWithMsg:@"ATotal:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
+  [self.fscrollView addSubview:ftotalLabel];
+  [self.fscrollView addSubview:atotalLabel];
+
+}
+
+-(UILabel*)getLabelWithMsg:(NSString*)msgStr andColor:(NSString*)color andYcord:(float)yCord andAllignt:(NSString*)align{
+  
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  CGFloat screenHeight = screenRect.size.height;
+  CGFloat screenWidth = screenRect.size.width;
+  
+  UILabel *lbl = [[UILabel alloc]init];
+  if ([align isEqualToString:@"left"]) {
+    [lbl setFrame:CGRectMake(0, yCord, screenWidth/2, 45)];
+    lbl.textAlignment = 0;
+      lbl.textColor = [UIColor blackColor];
+  }else{
+    [lbl setFrame:CGRectMake(screenWidth/2, yCord, screenWidth/2, 45)];
+      lbl.textColor = [UIColor colorWithRed:85.0/255.0 green:150.0/255.0 blue:28.0/255.0 alpha:1.0];
+    lbl.textAlignment = 1;
+  }
+  lbl.font = [UIFont fontWithName:@"Sansation-Bold" size:16];
+  lbl.text = msgStr;
+  lbl.numberOfLines = 1;
+  lbl.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
+  lbl.adjustsFontSizeToFitWidth = YES;
+  lbl.minimumScaleFactor = 10.0f/12.0f;
+  lbl.adjustsFontSizeToFitWidth = YES;
+  lbl.backgroundColor = [UIColor clearColor];
+  lbl.lineBreakMode = NSLineBreakByWordWrapping;
+  return lbl;
+}
 
 @end

@@ -21,6 +21,18 @@ static sqlite3_stmt *statement = nil;
   return sharedInstance;
 }
 
+
+
+//+(DBManager*)getSharedInstance{
+//  static dispatch_once_t onceToken1;
+//  dispatch_once(&onceToken1, ^{
+//    sharedInstance = [[self alloc] init];
+//    
+//  });
+//  
+//  return sharedInstance;
+//}
+
 -(BOOL)createDB{
   NSString *docsDir;
   NSArray *dirPaths;
@@ -168,6 +180,7 @@ static sqlite3_stmt *statement = nil;
 
 -(BOOL)deleteUserData
 {
+  [self deleteCartData];
   const char *dbpath = [databasePath UTF8String];
   if (sqlite3_open(dbpath, &database) == SQLITE_OK)
   {
@@ -183,6 +196,47 @@ static sqlite3_stmt *statement = nil;
     }
   }return NO;
 }
+
+-(BOOL)deleteCartData
+{
+  [self deleteUserFilterResponseData];
+  const char *dbpath = [databasePath UTF8String];
+  if (sqlite3_open(dbpath, &database) == SQLITE_OK)
+  {
+    NSString *queryStr = [NSString stringWithFormat:@"DELETE from UserSelectedAddToCartInfo"];
+    const char *insert_stmt = [queryStr UTF8String];
+    sqlite3_prepare_v2(database, insert_stmt,-1, &statement, NULL);
+    if (sqlite3_step(statement) == SQLITE_DONE)
+    {
+      return YES;
+    }
+    else {
+      return NO;
+    }
+  }return NO;
+}
+
+-(BOOL)deleteUserFilterResponseData
+{
+   [[NSNotificationCenter defaultCenter] postNotificationName:@"hideCartButtonOnLogout" object:nil];
+  const char *dbpath = [databasePath UTF8String];
+  if (sqlite3_open(dbpath, &database) == SQLITE_OK)
+  {
+    NSString *queryStr = [NSString stringWithFormat:@"DELETE from UserFilterResponseData"];
+    const char *insert_stmt = [queryStr UTF8String];
+    sqlite3_prepare_v2(database, insert_stmt,-1, &statement, NULL);
+    if (sqlite3_step(statement) == SQLITE_DONE)
+    {
+      return YES;
+    }
+    else {
+      return NO;
+    }
+  }return NO;
+}
+
+
+
 
 
 -(BOOL)deleteRecord:(int)restID andOrderType:(NSString*)orderType

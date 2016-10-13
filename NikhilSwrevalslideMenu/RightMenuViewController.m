@@ -95,6 +95,17 @@
   
 }
 
+- (IBAction)backNavBtnClk:(id)sender {
+  [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  self.navigationController.navigationBarHidden = YES;
+}
+
+
 -(void)viewDidAppear:(BOOL)animated{
 //  [reqUtility.selectedCusinesArray removeAllObjects];
   
@@ -114,6 +125,7 @@
   }
 
 //  [reqUtility.selectedFeaturesArray addObject:@"open_now_status"];
+  self.navigationController.navigationBarHidden = YES;
 }
 
 -(void)updateCheckBox{

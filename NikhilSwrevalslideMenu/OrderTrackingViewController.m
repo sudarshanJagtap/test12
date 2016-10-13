@@ -115,11 +115,20 @@
 {
   static NSString *cellIdentifier = @"OrderTrackingTableViewCell";
   
-  OrderTrackingTableViewCell *cell = (OrderTrackingTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+  OrderTrackingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+  if (cell == nil) {
+    // Load the top-level objects from the custom cell XIB.
+    NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"OrderTrackingTableViewCell" owner:self options:nil];
+    // Grab a pointer to the first object (presumably the custom cell, as that's all the XIB should contain).
+    cell = [topLevelObjects objectAtIndex:0];
+  }
   
-  if(cell == nil) {
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"OrderTrackingTableViewCell" owner:self options:nil];
-    cell = [nib objectAtIndex:0];
+  
+//  OrderTrackingTableViewCell *cell = (OrderTrackingTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//  
+//  if(cell == nil) {
+//    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"OrderTrackingTableViewCell" owner:self options:nil];
+//    cell = [nib objectAtIndex:0];
     UserOrderTracking *oData = (UserOrderTracking*)[[ResponseUtility getSharedInstance].orderTrackingArray objectAtIndex:indexPath.row];
     
     cell.nameLbl.text = [NSString stringWithFormat:@"%@",oData.restaurant_name];
@@ -133,7 +142,7 @@
     
     [[cell.orderDetailsBtn layer] setBorderWidth:2.0f];
     [[cell.orderDetailsBtn layer] setBorderColor:[UIColor redColor].CGColor];
-  }
+//  }
   return cell;
 }
 

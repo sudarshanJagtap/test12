@@ -10,8 +10,16 @@
 #import "RequestUtility.h"
 #import "AppDelegate.h"
 #import "SWRevealViewController.h"
-@interface GuestUserDetailsViewController (){
+#import "DBManager.h"
+#import "CartViewController.h"
+#import "NIDropDown.h"
+#import "AddDeliveryAddressViewController.h"
+#import "AddressListViewController.h"
+@interface GuestUserDetailsViewController ()<NIDropDownDelegate>{
   AppDelegate *appDelegate;
+  NSArray *statesArray;
+  NIDropDown *dropDown;
+  BOOL delAddress;
 }
 
 @end
@@ -20,11 +28,17 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  delAddress = true;
+  [self getStates];
+  
   // Do any additional setup after loading the view.
+}
+- (IBAction)backNavBtnclk:(id)sender {
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-  self.navigationController.navigationBarHidden = NO;
+  self.navigationController.navigationBarHidden = YES;
   UIToolbar *keyboardDoneButtonView = [[UIToolbar alloc] init];
   [keyboardDoneButtonView sizeToFit];
   UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
@@ -37,6 +51,27 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
   self.navigationController.navigationBarHidden = YES;
+}
+
+
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+  BOOL retval = NO;
+  if (textField == self.stateTxtFld) {
+    if(dropDown == nil) {
+      CGFloat f = 200;
+      dropDown = [[NIDropDown alloc]showDropDown:self.stateTxtFld :&f :statesArray :nil :@"down"];
+      dropDown.delegate = self;
+    }
+    else {
+      [dropDown hideDropDown:self.stateTxtFld];
+      [self rel];
+    }
+    retval = NO;
+  }else{
+    retval = YES;
+  }
+  return retval;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,7 +144,11 @@
   [params setValue:self.emailTxtFld.text forKey:@"email"];
   [params setValue:self.nameTxtFld.text forKey:@"name"];
   [params setValue:self.stateTxtFld.text forKey:@"state"];
-  
+  if (delAddress) {
+    [params setValue:@"1" forKey:@"flag"];
+  }else{
+    [params setValue:@"0" forKey:@"flag"];
+  }
   [utility doPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
@@ -122,56 +161,99 @@
 }
 
 -(void)parseUserResponse:(NSDictionary*)ResponseDictionary{
-  if (ResponseDictionary) {
-     NSString *code = [ResponseDictionary valueForKey:@"code"];
-    if ([code isEqualToString:@"1"]) {
-      NSLog(@"login successfull");
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
+  dispatch_async(dispatch_get_main_queue(), ^{
+    if (ResponseDictionary) {
+      NSString *code = [ResponseDictionary valueForKey:@"code"];
+      if ([code intValue] == 1) {
+        NSLog(@"login successfull");
+        NSString *ud = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"user_name"];
+        if ( ud.length>0) {
+//          if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
+//            [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+//            [appDelegate hideLoadingView];
+//            NSString * storyboardName = @"Main";
+//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+//            UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+//            UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+//            [navController setViewControllers: @[vc] animated: NO ];
+//            [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+//          }else{
+//            [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+//            
+//            [appDelegate hideLoadingView];
+//            NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+//            for (UIViewController *aViewController in allViewControllers) {
+//              if ([aViewController isKindOfClass:[CartViewController class]]) {
+//                [self.navigationController popToViewController:aViewController animated:NO];
+//              }
+//            }
+//          }
+          
+          [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+                      [appDelegate hideLoadingView];
+          if (delAddress) {
+            
+            AddressListViewController *obj_clvc  = (AddressListViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddressListViewControllerId"];
+            
+//            obj_clvc.selectedUfrespo = ufpRespo;
+            [self.navigationController pushViewController:obj_clvc animated:YES];
+          }else{
+            AddDeliveryAddressViewController *obj_clvc  = (AddDeliveryAddressViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddDeliveryAddressViewControllerId"];
+            
+//            obj_clvc.selectedUfrespo = ufpRespo;
+            [self.navigationController pushViewController:obj_clvc animated:YES];
+          
+          }
+        }else{
+          [appDelegate hideLoadingView];
+        }
+      }
+      //    dispatch_async(dispatch_get_main_queue(), ^{
       [appDelegate hideLoadingView];
-      UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+      UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
       [alert show];
-    });
-    
-  }
+      //    });
+      
+    }
+  });
 }
 
 -(BOOL)doValidateUserTextFieldText:(NSMutableString*)message{
   
   BOOL retval = NO;
-   if (self.nameTxtFld.text.length == 0) {
+  if (self.nameTxtFld.text.length == 0) {
     retval= NO;
     [message appendString:@"Please enter name details"];
   }
-   else if (self.emailTxtFld.text.length == 0) {
-     retval= NO;
-     [message appendString:@"Please enter valid email details"];
-   }
-   else if (![self NSStringIsValidEmail:self.emailTxtFld.text]) {
-     retval= NO;
-     [message appendString:@"Please enter valid email details"];
-   }
-   else if (self.mobileNoTxtFld.text.length == 0) {
-     retval= NO;
-     [message appendString:@"Please enter mobile details"];
-   }
-   else if (![self validatePhone:self.mobileNoTxtFld.text]) {
-     retval= NO;
-     [message appendString:@"Please enter valid mobile details"];
-   }
-   else if (self.address1TxtFld.text.length == 0) {
-     retval= NO;
-     [message appendString:@"Please enter address1 details"];
-   }
-   else if (self.adddress2TxtFld.text.length == 0) {
-     retval= NO;
-     [message appendString:@"Please enter address2 details"];
-   }
+  else if (self.emailTxtFld.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Please enter valid email details"];
+  }
+  else if (![self NSStringIsValidEmail:self.emailTxtFld.text]) {
+    retval= NO;
+    [message appendString:@"Please enter valid email details"];
+  }
+  else if (self.mobileNoTxtFld.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Please enter mobile details"];
+  }
+  else if (![self validatePhone:self.mobileNoTxtFld.text]) {
+    retval= NO;
+    [message appendString:@"Please enter valid mobile details"];
+  }
+  else if (self.address1TxtFld.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Please enter address1 details"];
+  }
+  else if (self.adddress2TxtFld.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Please enter address2 details"];
+  }
   
-   else if (self.cityTextFld.text.length == 0) {
-     retval= NO;
-     [message appendString:@"Please enter city details"];
-   }
+  else if (self.cityTextFld.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Please enter city details"];
+  }
   else if (self.zipCodeTxtFld.text.length == 0) {
     retval= NO;
     [message appendString:@"Please enter zipcode details"];
@@ -207,9 +289,9 @@
   NSString *numberRegEx = @"[0-9]{10}";
   NSPredicate *numberTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", numberRegEx];
   if ([numberTest evaluateWithObject:number] == YES)
-  return TRUE;
+    return TRUE;
   else
-  return FALSE;
+    return FALSE;
   
 }
 
@@ -226,6 +308,16 @@
 }
 
 - (IBAction)deliveryAddressBtnClick:(id)sender {
+  if([self.deliveryAddressBtn.currentBackgroundImage isEqual:[UIImage imageNamed:@"uncheckBx.png"]])
+  {
+    delAddress = true;
+    [self.deliveryAddressBtn  setBackgroundImage:[UIImage imageNamed: @"checkBx.png"] forState:UIControlStateNormal];
+  }
+  else
+  {
+    delAddress = false;
+    [self.deliveryAddressBtn  setBackgroundImage:[UIImage imageNamed: @"uncheckBx.png"] forState:UIControlStateNormal];
+  }
 }
 
 - (IBAction)TBdoneClicked:(id)sender
@@ -241,19 +333,106 @@
 {
   if(textField ==self.mobileNoTxtFld){
     NSString *str = [self.mobileNoTxtFld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-  if (str.length >= MOB_MAX_LENGTH && range.length == 0)
-  {
-    return NO; // return NO to not change text
-  }else{return YES;}
+    if (str.length >= MOB_MAX_LENGTH && range.length == 0)
+    {
+      return NO; // return NO to not change text
+    }else{return YES;}
   }
   if (textField==self.zipCodeTxtFld) {
-     NSString *str = [self.zipCodeTxtFld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-     if (str.length >= ZIP_MAX_LENGTH && range.length == 0)
-  {
-    return NO; // return NO to not change text
-  }else{return YES;}
+    NSString *str = [self.zipCodeTxtFld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (str.length >= ZIP_MAX_LENGTH && range.length == 0)
+    {
+      return NO; // return NO to not change text
+    }else{return YES;}
   }
   else
-  {return YES;}
+  {
+    return YES;
+  }
+}
+
+
+-(void)getStates{
+  
+  appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+  [appDelegate showLoadingViewWithString:@"Loading..."];
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];
+  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/states.php";
+  NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+  [params setValue:self.countryTxtFld.text forKey:@"country"];
+  NSError * err;
+  NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
+  NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+  NSLog(@"additional info string \n = %@",String);
+  
+  [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+    if (status) {
+      NSLog(@"response:%@",responseDictionary);
+      [appDelegate hideLoadingView];
+      [self parseStatesResponse:responseDictionary];
+    }else{
+      [appDelegate hideLoadingView];
+    }
+  }];
+}
+
+
+-(void)parseStatesResponse:(NSDictionary*)ResponseDictionary{
+  if (ResponseDictionary) {
+    NSString *code = [ResponseDictionary valueForKey:@"code"];
+    if ([code isEqualToString:@"1"]) {
+      
+      dispatch_async(dispatch_get_main_queue(), ^{
+        appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate hideLoadingView];
+        if ([[ResponseDictionary valueForKey:@"code"]isEqualToString:@"1"]) {
+          NSLog(@"login successfull");
+          NSMutableArray *listarray = [[NSMutableArray alloc]init];
+          NSArray *temp = [ResponseDictionary valueForKey:@"data"];
+          for (int i =0; i<temp.count; i++) {
+            NSString *stateStr = [[temp objectAtIndex:i]valueForKey:@"state"];
+            [listarray addObject:stateStr];
+          }
+          statesArray = [NSArray arrayWithArray:listarray];
+          if (statesArray.count>0) {
+            self.stateTxtFld.text = [statesArray objectAtIndex:0];
+          }
+          
+          NSLog(@"\n\n ListArray = %@",listarray);
+          
+//          if(dropDown == nil) {
+//            CGFloat f = 200;
+//            dropDown = [[NIDropDown alloc]showDropDown:self.stateTxtFld :&f :statesArray :nil :@"down"];
+//            dropDown.delegate = self;
+//          }
+//          else {
+//            [dropDown hideDropDown:self.stateTxtFld];
+//            [self rel];
+//          }
+        }
+        
+      });
+      
+    }
+    
+  }else{
+    dispatch_async(dispatch_get_main_queue(), ^{
+      appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+      [appDelegate hideLoadingView];
+    });
+  }
+}
+
+
+
+
+#pragma mark drop down
+- (void) niDropDownDelegateMethod: (NIDropDown *) sender {
+//  [self btnFindFood:self];
+  [self rel];
+}
+
+-(void)rel{
+  dropDown = nil;
 }
 @end

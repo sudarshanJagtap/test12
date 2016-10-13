@@ -65,7 +65,15 @@
         uData.fullName = [ResponseDictionary valueForKey:@"full_name"];
         uData.address1 = [ResponseDictionary valueForKey:@"address_line1"];
         uData.address2 = [ResponseDictionary valueForKey:@"address_line2"];
-        uData.contactno = [ResponseDictionary valueForKey:@"contact_no"];
+        NSString *contactnum;
+        if ([ResponseDictionary valueForKey:@"contact_no"] == nil || [ResponseDictionary valueForKey:@"contact_no"] == (id)[NSNull null]) {
+          // nil branch
+          contactnum = @" ";
+        } else {
+          // category name is set
+          contactnum =[ResponseDictionary valueForKey:@"contact_no"];
+        }
+        uData.contactno = contactnum;
         uData.city = [ResponseDictionary valueForKey:@"city"];
         uData.zipcode = [ResponseDictionary valueForKey:@"zipcode"];
         uData.state = [ResponseDictionary valueForKey:@"state"];
@@ -81,7 +89,15 @@
           uData.fullName = [respo valueForKey:@"full_name"];
           uData.address1 = [respo valueForKey:@"address_line1"];
           uData.address2 = [respo valueForKey:@"address_line2"];
-          uData.contactno = [respo valueForKey:@"contact_no"];
+          NSString *contactnum;
+          if ([respo valueForKey:@"contact_no"] == nil || [respo valueForKey:@"contact_no"] == (id)[NSNull null]) {
+            // nil branch
+            contactnum = @" ";
+          } else {
+            // category name is set
+            contactnum =[respo valueForKey:@"contact_no"];
+          }
+          uData.contactno = contactnum;
           uData.city = [respo valueForKey:@"city"];
           uData.zipcode = [respo valueForKey:@"zipcode"];
           uData.state = [respo valueForKey:@"state"];
@@ -159,6 +175,15 @@
     [RequestUtility sharedRequestUtility].selectedAddressId =uData.addID;
     [RequestUtility sharedRequestUtility].selectedAddressDataObj =uData;
     [self.navigationController popViewControllerAnimated:YES];
+  }else if ([RequestUtility sharedRequestUtility].isThroughLeftMenu){
+    
+  }else{
+    NSString * storyboardName = @"Main";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+    UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+    [navController setViewControllers: @[vc] animated: NO ];
+    [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
   }
 }
 

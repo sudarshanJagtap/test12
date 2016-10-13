@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		45B202CA9BA8340A2F05E51A /* libPods-NikhilSwrevalslideMenu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3186AC28CEEC4EEACB576BD /* libPods-NikhilSwrevalslideMenu.a */; };
+		6519ACC61DA44EB50094F9B5 /* AddReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6519ACC51DA44EB50094F9B5 /* AddReviewsViewController.m */; };
+		6545A1F11DA6B39C00A6693C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6545A1F01DA6B39C00A6693C /* SystemConfiguration.framework */; };
+		6545A1F51DA6BAE200A6693C /* helveticaneuelight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6545A1F21DA6BAE200A6693C /* helveticaneuelight.ttf */; };
+		6545A1F61DA6BAE200A6693C /* Sansation-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6545A1F31DA6BAE200A6693C /* Sansation-Bold.ttf */; };
+		6545A1F71DA6BAE200A6693C /* Sansation-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6545A1F41DA6BAE200A6693C /* Sansation-Light.ttf */; };
+		655A54721DA4F6E700267B12 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 655A54711DA4F6E700267B12 /* NIDropDown.m */; };
 		65753C891D43DC0A00069C54 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65753C881D43DC0A00069C54 /* DetailViewController.m */; };
 		65753C8D1D43F20300069C54 /* DetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65753C8B1D43F20300069C54 /* DetailTableViewCell.m */; };
 		65753C8E1D43F20300069C54 /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65753C8C1D43F20300069C54 /* DetailTableViewCell.xib */; };
@@ -67,6 +73,8 @@
 		6595CB5B1DA179B8008058BE /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6595CB5A1DA179B8008058BE /* ForgotPasswordViewController.m */; };
 		65B608C61D5666C40055EBF2 /* AddDeliveryAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B608C51D5666C40055EBF2 /* AddDeliveryAddressViewController.m */; };
 		65B608E81D5892000055EBF2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65B608E71D5892000055EBF2 /* GoogleService-Info.plist */; };
+		65C5442B1DA8FC3200A2553D /* PostForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C5442A1DA8FC3200A2553D /* PostForgotPasswordViewController.m */; };
+		65E8E97A1DA67CE1007CD1BF /* ch.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E8E9791DA67CE1007CD1BF /* ch.png */; };
 		8F32F79D1D33701A0013AD6E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F32F79C1D33701A0013AD6E /* main.m */; };
 		8F32F7A01D33701A0013AD6E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F32F79F1D33701A0013AD6E /* AppDelegate.m */; };
 		8F32F7A31D33701A0013AD6E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F32F7A21D33701A0013AD6E /* ViewController.m */; };
@@ -98,6 +106,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6519ACC41DA44EB50094F9B5 /* AddReviewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddReviewsViewController.h; sourceTree = "<group>"; };
+		6519ACC51DA44EB50094F9B5 /* AddReviewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddReviewsViewController.m; sourceTree = "<group>"; };
+		6545A1F01DA6B39C00A6693C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6545A1F21DA6BAE200A6693C /* helveticaneuelight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = helveticaneuelight.ttf; sourceTree = "<group>"; };
+		6545A1F31DA6BAE200A6693C /* Sansation-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sansation-Bold.ttf"; sourceTree = "<group>"; };
+		6545A1F41DA6BAE200A6693C /* Sansation-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sansation-Light.ttf"; sourceTree = "<group>"; };
+		655A54701DA4F6E700267B12 /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
+		655A54711DA4F6E700267B12 /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
 		65753C871D43DC0A00069C54 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		65753C881D43DC0A00069C54 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		65753C8A1D43F20300069C54 /* DetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewCell.h; sourceTree = "<group>"; };
@@ -198,6 +214,10 @@
 		65B608C41D5666C40055EBF2 /* AddDeliveryAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDeliveryAddressViewController.h; sourceTree = "<group>"; };
 		65B608C51D5666C40055EBF2 /* AddDeliveryAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDeliveryAddressViewController.m; sourceTree = "<group>"; };
 		65B608E71D5892000055EBF2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		65C544291DA8FC3200A2553D /* PostForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostForgotPasswordViewController.h; sourceTree = "<group>"; };
+		65C5442A1DA8FC3200A2553D /* PostForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostForgotPasswordViewController.m; sourceTree = "<group>"; };
+		65E8E9781DA67283007CD1BF /* NikhilSwrevalslideMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NikhilSwrevalslideMenu.entitlements; sourceTree = "<group>"; };
+		65E8E9791DA67CE1007CD1BF /* ch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ch.png; path = NikhilSwrevalslideMenu/Assets.xcassets/checkBx.imageset/ch.png; sourceTree = "<group>"; };
 		80DB054F0AEB8563846D1036 /* Pods-NikhilSwrevalslideMenu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NikhilSwrevalslideMenu.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NikhilSwrevalslideMenu/Pods-NikhilSwrevalslideMenu.debug.xcconfig"; sourceTree = "<group>"; };
 		8F32F7981D33701A0013AD6E /* NikhilSwrevalslideMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NikhilSwrevalslideMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F32F79C1D33701A0013AD6E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -259,6 +279,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6545A1F11DA6B39C00A6693C /* SystemConfiguration.framework in Frameworks */,
 				65753D101D4C994A00069C54 /* libsqlite3.tbd in Frameworks */,
 				657DEEFE1D54B60100A1B512 /* FBSDKCoreKit.framework in Frameworks */,
 				657DEF001D54B60100A1B512 /* FBSDKShareKit.framework in Frameworks */,
@@ -308,6 +329,7 @@
 		6F1ED4B0C1506C421D3F95D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6545A1F01DA6B39C00A6693C /* SystemConfiguration.framework */,
 				65753D0F1D4C994A00069C54 /* libsqlite3.tbd */,
 				E3186AC28CEEC4EEACB576BD /* libPods-NikhilSwrevalslideMenu.a */,
 			);
@@ -317,6 +339,7 @@
 		8F32F78F1D33701A0013AD6E = {
 			isa = PBXGroup;
 			children = (
+				65E8E9791DA67CE1007CD1BF /* ch.png */,
 				657DEEF41D54B32F00A1B512 /* ThirdPartyFramework */,
 				65B608E71D5892000055EBF2 /* GoogleService-Info.plist */,
 				65753D0C1D4C8EF400069C54 /* DBManager.h */,
@@ -344,6 +367,7 @@
 		8F32F79A1D33701A0013AD6E /* NikhilSwrevalslideMenu */ = {
 			isa = PBXGroup;
 			children = (
+				65E8E9781DA67283007CD1BF /* NikhilSwrevalslideMenu.entitlements */,
 				8F32F79E1D33701A0013AD6E /* AppDelegate.h */,
 				8F32F79F1D33701A0013AD6E /* AppDelegate.m */,
 				8F32F7A11D33701A0013AD6E /* ViewController.h */,
@@ -464,6 +488,10 @@
 				65849DB91D9A7E0300105977 /* DisplayRatingTableViewCell.h */,
 				65849DBA1D9A7E0300105977 /* DisplayRatingTableViewCell.m */,
 				65849DBB1D9A7E0300105977 /* DisplayRatingTableViewCell.xib */,
+				6519ACC41DA44EB50094F9B5 /* AddReviewsViewController.h */,
+				6519ACC51DA44EB50094F9B5 /* AddReviewsViewController.m */,
+				65C544291DA8FC3200A2553D /* PostForgotPasswordViewController.h */,
+				65C5442A1DA8FC3200A2553D /* PostForgotPasswordViewController.m */,
 			);
 			name = HomeScreen;
 			sourceTree = "<group>";
@@ -508,6 +536,11 @@
 				65753CF11D47ECBE00069C54 /* ResponseUtility.m */,
 				65753D091D4A81CE00069C54 /* Utility.h */,
 				65753D0A1D4A81CE00069C54 /* Utility.m */,
+				655A54701DA4F6E700267B12 /* NIDropDown.h */,
+				655A54711DA4F6E700267B12 /* NIDropDown.m */,
+				6545A1F21DA6BAE200A6693C /* helveticaneuelight.ttf */,
+				6545A1F31DA6BAE200A6693C /* Sansation-Bold.ttf */,
+				6545A1F41DA6BAE200A6693C /* Sansation-Light.ttf */,
 			);
 			name = Operation;
 			sourceTree = "<group>";
@@ -580,6 +613,11 @@
 					8F32F7971D33701A0013AD6E = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = HZZJ7646E4;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -610,15 +648,19 @@
 				657ED34B1D79FB550079ACEA /* OrderTrackingTableViewCell.xib in Resources */,
 				657DEC721D4E816A00A1B512 /* expandableImage.png in Resources */,
 				65814FCA1D73548D00246818 /* HomeCartTableViewCell.xib in Resources */,
+				6545A1F61DA6BAE200A6693C /* Sansation-Bold.ttf in Resources */,
+				6545A1F51DA6BAE200A6693C /* helveticaneuelight.ttf in Resources */,
 				657F469A1D6255CA00F6B68A /* LeftPanelTableViewCell.xib in Resources */,
 				8F32F7AB1D33701A0013AD6E /* LaunchScreen.storyboard in Resources */,
 				657ED3401D79FB020079ACEA /* OrderHistoryTableViewCell.xib in Resources */,
+				65E8E97A1DA67CE1007CD1BF /* ch.png in Resources */,
 				65753CA11D464E0300069C54 /* 1expandableImage@2x.png in Resources */,
 				65753C8E1D43F20300069C54 /* DetailTableViewCell.xib in Resources */,
 				65849DBD1D9A7E0300105977 /* DisplayRatingTableViewCell.xib in Resources */,
 				8F32F7DF1D33C5B80013AD6E /* icon.png in Resources */,
 				8F32F7A81D33701A0013AD6E /* Assets.xcassets in Resources */,
 				8F32F7E01D33C5B80013AD6E /* Menu-Icon.png in Resources */,
+				6545A1F71DA6BAE200A6693C /* Sansation-Light.ttf in Resources */,
 				65753CA01D464E0300069C54 /* expandableImage1.png in Resources */,
 				657ED3561D7EF3D60079ACEA /* ViewOrderTableViewCell.xib in Resources */,
 				65B608E81D5892000055EBF2 /* GoogleService-Info.plist in Resources */,
@@ -699,6 +741,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6519ACC61DA44EB50094F9B5 /* AddReviewsViewController.m in Sources */,
 				65753CF61D47FAC500069C54 /* CustomizeOptionTableViewCell.m in Sources */,
 				657DEC6D1D4E7AD400A1B512 /* AddressListViewController.m in Sources */,
 				65753CA31D464E0300069C54 /* SKSTableViewCell.m in Sources */,
@@ -711,6 +754,7 @@
 				657ED3461D79FB310079ACEA /* OrderTrackingViewController.m in Sources */,
 				657ED34A1D79FB550079ACEA /* OrderTrackingTableViewCell.m in Sources */,
 				8FD104B11D34F05C0063B46A /* Validation.m in Sources */,
+				655A54721DA4F6E700267B12 /* NIDropDown.m in Sources */,
 				657F46A01D63781D00F6B68A /* YourAccountViewController.m in Sources */,
 				8FC1D0421D361033002E7AB0 /* Cartoon.m in Sources */,
 				65753C8D1D43F20300069C54 /* DetailTableViewCell.m in Sources */,
@@ -759,6 +803,7 @@
 				657E5F821D41258500907FE3 /* FilterOperations.m in Sources */,
 				8F678D601D34F924002C06A6 /* LGViewHUD.m in Sources */,
 				657DEC611D4E7A7100A1B512 /* LoginViewController.m in Sources */,
+				65C5442B1DA8FC3200A2553D /* PostForgotPasswordViewController.m in Sources */,
 				65753CF21D47ECBE00069C54 /* ResponseUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -823,9 +868,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "ec4707f9-6916-465e-bd7c-eeda402cba05";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -862,8 +908,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "ec4707f9-6916-465e-bd7c-eeda402cba05";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -874,7 +921,8 @@
 			baseConfigurationReference = 80DB054F0AEB8563846D1036 /* Pods-NikhilSwrevalslideMenu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
+				CODE_SIGN_ENTITLEMENTS = NikhilSwrevalslideMenu/NikhilSwrevalslideMenu.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -887,7 +935,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.androapps.ymoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6da46964-322f-4b7a-9f48-599d0d77ddad";
+				PROVISIONING_PROFILE = "ec4707f9-6916-465e-bd7c-eeda402cba05";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -897,7 +945,8 @@
 			baseConfigurationReference = BD08E6D56464BEC1E046F7B6 /* Pods-NikhilSwrevalslideMenu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
+				CODE_SIGN_ENTITLEMENTS = NikhilSwrevalslideMenu/NikhilSwrevalslideMenu.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -910,7 +959,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.androapps.ymoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6da46964-322f-4b7a-9f48-599d0d77ddad";
+				PROVISIONING_PROFILE = "ec4707f9-6916-465e-bd7c-eeda402cba05";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -29,6 +29,9 @@
 {
   [self animateTextField:textField up:YES];
 }
+- (IBAction)backNavBtnClk:(id)sender {
+  [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -78,7 +81,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  self.navigationController.navigationBarHidden = NO;
+  self.navigationController.navigationBarHidden = YES;
   UIToolbar *keyboardDoneButtonView = [[UIToolbar alloc] init];
   [keyboardDoneButtonView sizeToFit];
   UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"

@@ -36,6 +36,12 @@
   
 }
 
+
+
+- (IBAction)backNavBtnClk:(id)sender {
+   [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
@@ -92,7 +98,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  self.navigationController.navigationBarHidden = NO;
+  self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -351,6 +357,7 @@ dismissViewController:(UIViewController *)viewController {
 }
 
 - (IBAction)forgotPasswordBtnClick:(id)sender {
+//  [self performSegueWithIdentifier:@"ForgetPwd" sender:nil];
 }
 
 -(BOOL) NSStringIsValidEmail:(NSString *)checkString

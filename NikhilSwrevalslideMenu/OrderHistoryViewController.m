@@ -14,8 +14,10 @@
 #import "SWRevealViewController.h"
 #import "OrderHistoryTableViewCell.h"
 #import "ViewOrderViewController.h"
+#import "AddReviewsViewController.h"
 @interface OrderHistoryViewController ()<UITableViewDataSource,UITableViewDelegate>{
   AppDelegate *appDelegate;
+  NSString *userId;
 }
 
 @end
@@ -25,8 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+  [ResponseUtility getSharedInstance].UserOrderArray = [[NSMutableArray alloc]init];
   NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
-  NSString *userId=[userdictionary valueForKey:@"user_id"];
+  userId=[userdictionary valueForKey:@"user_id"];
   NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
   [dict setValue:userId forKey:@"user_id"];
   [dict setValue:@"order_history" forKey:@"action"];
@@ -118,12 +121,19 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   static NSString *cellIdentifier = @"OrderHistoryTableViewCell";
+  OrderHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+  if (cell == nil) {
+    // Load the top-level objects from the custom cell XIB.
+    NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"OrderHistoryTableViewCell" owner:self options:nil];
+    // Grab a pointer to the first object (presumably the custom cell, as that's all the XIB should contain).
+    cell = [topLevelObjects objectAtIndex:0];
+  }
   
-  OrderHistoryTableViewCell *cell = (OrderHistoryTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   
-  if(cell == nil) {
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"OrderHistoryTableViewCell" owner:self options:nil];
-    cell = [nib objectAtIndex:0];
+//  OrderHistoryTableViewCell *cell = (OrderHistoryTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//  if(cell == nil) {
+//    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"OrderHistoryTableViewCell" owner:self options:nil];
+//    cell = [nib objectAtIndex:0];
     USerOrderHistory *oData = (USerOrderHistory*)[[ResponseUtility getSharedInstance].UserOrderArray objectAtIndex:indexPath.row];
     UIColor *redClr = [UIColor colorWithRed:188.0/255.0 green:67.0/255.0 blue:67.0/255.0 alpha:1.0];
     cell.nameLbl.text = [NSString stringWithFormat:@"%@",oData.restaurant_name];
@@ -136,24 +146,62 @@
     cell.isDeliverdLbl.layer.cornerRadius =8.0;
     cell.orderDetailsBtn.tag = indexPath.row;
     [cell.orderDetailsBtn addTarget:self action:@selector(viewOrder:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.orderDetails1 addTarget:self action:@selector(viewOrder:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [cell.review1 addTarget:self action:@selector(addreviews:) forControlEvents:UIControlEventTouchUpInside];
     [[cell.orderDetailsBtn layer] setBorderWidth:2.0f];
     [cell.orderDetailsBtn layer].cornerRadius = 12.0;
     [[cell.orderDetailsBtn layer] setBorderColor:redClr.CGColor];
     
-    NSString *rst = oData.review_status;
-    if (rst==0) {
-//      cell.orderDetailsBtn.hidden= NO;
-//            cell.bottomSpace.constant = 30;
-    }else{
-//      cell.orderDetailsBtn.hidden = YES;
-//      cell.bottomSpace.constant = 0;
-    }
+    [[cell.review1 layer] setBorderWidth:2.0f];
+    [cell.review1 layer].cornerRadius = 12.0;
+    [[cell.review1 layer] setBorderColor:redClr.CGColor];
+    
+    [[cell.orderDetails1 layer] setBorderWidth:2.0f];
+    [cell.orderDetails1 layer].cornerRadius = 12.0;
+    [[cell.orderDetails1 layer] setBorderColor:redClr.CGColor];
+    
+  if ([oData.order_status isEqualToString:@"Delivered"]) {
+    cell.deliveryDateLbl.hidden = NO;
+    cell.OrderDetailsBtnTopconstraint.constant = 3;
+  }else{
+  cell.deliveryDateLbl.hidden = YES;
+    cell.OrderDetailsBtnTopconstraint.constant = -10;
   }
+  
+    if ([oData.order_id isEqualToString:@"PAY-67E025818T953164AK72VZJY"]) {
+      NSLog(@"caught");
+    }
+    if ([oData.order_status isEqualToString:@"Delivered"]) {
+  
+    NSString *rst = oData.review_status;
+    if ([rst isEqual:@"0"]) {
+      cell.orderDetailsBtn.hidden = YES;
+      cell.orderDetails1.hidden = NO;
+      cell.review1.hidden = NO;
+    }else{
+      cell.orderDetailsBtn.hidden = NO;
+      cell.orderDetails1.hidden = YES;
+      cell.review1.hidden = YES;
+    }
+    }else{
+      cell.orderDetailsBtn.hidden = NO;
+      cell.orderDetails1.hidden = YES;
+      cell.review1.hidden = YES;
+    }
+//  }
   return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-  return 175;
+  CGFloat retval = 175;
+  USerOrderHistory *oData = (USerOrderHistory*)[[ResponseUtility getSharedInstance].UserOrderArray objectAtIndex:indexPath.row];
+  if ([oData.order_status isEqualToString:@"Delivered"]) {
+    retval = 175;
+  }else{
+    retval = 175;
+  }
+  return retval;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -165,6 +213,17 @@
   ViewOrderViewController *obj_clvc  = (ViewOrderViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ViewOrderViewControllerId"];
   USerOrderHistory *oData = (USerOrderHistory*)[[ResponseUtility getSharedInstance].UserOrderArray objectAtIndex:btn.tag];
   obj_clvc.orderID =oData.order_id;
+  [self.navigationController pushViewController:obj_clvc animated:YES];
+}
+
+
+-(IBAction)addreviews:(id)sender{
+  UIButton *btn = (UIButton*)sender;
+  NSLog(@"%ld",(long)btn.tag);
+  AddReviewsViewController *obj_clvc  = (AddReviewsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddReviewsViewControllerId"];
+  USerOrderHistory *oData = (USerOrderHistory*)[[ResponseUtility getSharedInstance].UserOrderArray objectAtIndex:btn.tag];
+  obj_clvc.userId = userId;
+  obj_clvc.uData = oData;
   [self.navigationController pushViewController:obj_clvc animated:YES];
 }
 

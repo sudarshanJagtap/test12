@@ -12,5 +12,5 @@
 @interface LocationViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate>
 - (IBAction)btnFindFood:(id)sender;
 @property (strong, nonatomic) IBOutlet UITextField *txtEntAddressCityState;
-
+@property (strong, nonatomic) IBOutlet UIImageView *imgView;
 @end
