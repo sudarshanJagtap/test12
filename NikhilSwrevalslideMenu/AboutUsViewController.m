@@ -7,7 +7,7 @@
 //
 
 #import "AboutUsViewController.h"
-
+#import "SWRevealViewController.h"
 @interface AboutUsViewController ()
 
 @end
@@ -17,6 +17,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+  self.navigationController.navigationBar.hidden = YES;
+}
+
+- (IBAction)backNavBtnClick:(id)sender {
+  NSString * storyboardName = @"Main";
+  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+  UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+  UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+  [navController setViewControllers: @[vc] animated: NO ];
+  [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
 }
 
 - (void)didReceiveMemoryWarning {
