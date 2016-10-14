@@ -4155,6 +4155,84 @@
             </objects>
             <point key="canvasLocation" x="2364" y="2497"/>
         </scene>
+        <!--About Us View Controller-->
+        <scene sceneID="W0Q-Ei-PmH">
+            <objects>
+                <viewController storyboardIdentifier="AboutUsViewControllerId" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2vx-Y4-MCy" customClass="AboutUsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5AI-0g-UKS"/>
+                        <viewControllerLayoutGuide type="bottom" id="eYC-fE-xEQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a8d-Gr-LuW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vdm-2d-a4I">
+                                <rect key="frame" x="-2" y="20" width="322" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BtQ-7K-dut">
+                                        <rect key="frame" x="8" y="6" width="33" height="33"/>
+                                        <state key="normal" image="arraow_back"/>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ymoc_logo" translatesAutoresizingMaskIntoConstraints="NO" id="NdP-Qz-ory">
+                                        <rect key="frame" x="49" y="4" width="39" height="37"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="About YMOC" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="66V-ZW-ePQ">
+                                        <rect key="frame" x="105" y="5" width="194" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.66688042879999998" green="0.83355420830000004" blue="0.35901463030000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qnA-8e-qu4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2044" y="-395"/>
+        </scene>
+        <!--ContactUS View Controller-->
+        <scene sceneID="ett-ai-IDF">
+            <objects>
+                <viewController storyboardIdentifier="ContactUSViewControllerId" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ypW-3U-wCv" customClass="ContactUSViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dkM-qn-UB6"/>
+                        <viewControllerLayoutGuide type="bottom" id="iEO-L3-mF1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="u3Q-h2-pkW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z6w-54-gGj">
+                                <rect key="frame" x="0.0" y="20" width="322" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqi-MT-eoA">
+                                        <rect key="frame" x="8" y="6" width="33" height="33"/>
+                                        <state key="normal" image="arraow_back"/>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ymoc_logo" translatesAutoresizingMaskIntoConstraints="NO" id="LZG-iA-OrQ">
+                                        <rect key="frame" x="49" y="4" width="39" height="37"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contact us" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nKc-Fc-XLB">
+                                        <rect key="frame" x="105" y="5" width="194" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.66688042879999998" green="0.83355420830000004" blue="0.35901463030000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Aoi-jh-dZt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2397" y="-395"/>
+        </scene>
         <!--Change Password View Controller-->
         <scene sceneID="f1K-OX-S8S">
             <objects>
@@ -4965,7 +5043,7 @@
         <image name="ymoc_logo-1" width="58" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0GL-Sm-8oR"/>
         <segue reference="pLI-lU-Bs2"/>
+        <segue reference="WJW-ef-Srl"/>
     </inferredMetricsTieBreakers>
 </document>

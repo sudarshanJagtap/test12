@@ -887,7 +887,11 @@
     [cdictionary setValue:userId forKey:@"user_id"];
     [cdictionary setValue:@"1" forKey:@"app_status"];
     [cdictionary setValue:[utilityObj GetOurIpAddress] forKey:@"ip_address"];
+    if([RequestUtility sharedRequestUtility].delivery_status == 0){
+      [cdictionary setValue:@"0" forKey:@"order_mode"];
+    }else{
     [cdictionary setValue:@"1" forKey:@"order_mode"];
+    }
     if ([RequestUtility sharedRequestUtility ].isAsap) {
       [cdictionary setValue:@"1" forKey:@"order_schedule_status"];
       [cdictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
@@ -1203,7 +1207,11 @@
   NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
   [dictionary setValue:cdata.serverCartID forKey:@"cart_id"];
   [dictionary setValue:@"update_quantity" forKey:@"action"];
-  [dictionary setValue:@"1" forKey:@"order_mode"];
+   if([RequestUtility sharedRequestUtility].delivery_status == 0){
+  [dictionary setValue:@"0" forKey:@"order_mode"];
+   }else{
+   [dictionary setValue:@"1" forKey:@"order_mode"];
+   }
   [dictionary setValue:cdata.quantity forKey:@"quantity"];
   [dictionary setValue:userId forKey:@"user_id"];
   if ([RequestUtility sharedRequestUtility ].isAsap) {
@@ -1262,7 +1270,11 @@
   NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
   [dictionary setValue:cartID forKey:@"cart_id"];
   [dictionary setValue:@"delete" forKey:@"action"];
+  if([RequestUtility sharedRequestUtility].delivery_status == 0){
   [dictionary setValue:@"0" forKey:@"order_mode"];
+  }else{
+  [dictionary setValue:@"1" forKey:@"order_mode"];
+  }
   [dictionary setValue:userId forKey:@"user_id"];
   if ([RequestUtility sharedRequestUtility ].isAsap) {
     [dictionary setValue:@"1" forKey:@"order_schedule_status"];
