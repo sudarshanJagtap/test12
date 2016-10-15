@@ -935,6 +935,7 @@
 					"$(inherited)",
 					"~/Documents/FacebookSDKs-iOS/**",
 					"/Users/sudarshan/Documents/FacebookSDKs-iOS/**",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = NikhilSwrevalslideMenu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -959,6 +960,7 @@
 					"$(inherited)",
 					"~/Documents/FacebookSDKs-iOS/**",
 					"/Users/sudarshan/Documents/FacebookSDKs-iOS/**",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = NikhilSwrevalslideMenu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

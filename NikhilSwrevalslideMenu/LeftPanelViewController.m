@@ -50,10 +50,10 @@
     
     self.arrayImage = @[@"address_book",
                         @"order_history",
+                        @"order_track",
                         @"about",
-                        @"payement",
-                        @"faq",
-                        @"faq",
+                        @"hours",
+                        @"sign_out",
                         @"shareapp",
                         @"about",
                         @"about"];
@@ -63,7 +63,7 @@
     
     self.array = @[@"About Us",@"Contact Us"];
     
-    self.arrayImage = @[@"about",@"about"];
+    self.arrayImage = @[@"about",@"hours"];
     [self.tableVw reloadData];
     
   }
@@ -164,7 +164,7 @@
       [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
     }
     
-    if (indexPath.row==4) {
+    if (indexPath.row==5) {
       
       BOOL retval = NO;
       retval = [DBManager getSharedInstance].deleteUserData;
