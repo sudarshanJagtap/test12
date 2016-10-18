@@ -25,5 +25,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *aTotalTop;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *deliveryFeeTop;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *adeliveryTotalTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *deliveryFeeLabelheightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *adeliveryHghtConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *aTotalTopcontraint;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalLblTopContraint;
 @end

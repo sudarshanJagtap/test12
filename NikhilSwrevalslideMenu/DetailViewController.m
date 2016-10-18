@@ -878,7 +878,7 @@
     NSMutableDictionary *cdictionary = [[NSMutableDictionary alloc]init];
     [cdictionary setValue:userId forKey:@"user_id"];
     [cdictionary setValue:@"1" forKey:@"app_status"];
-    [cdictionary setValue:[utilityObj GetOurIpAddress] forKey:@"ip_address"];
+//    [cdictionary setValue:[utilityObj GetOurIpAddress] forKey:@"ip_address"];
        if([RequestUtility sharedRequestUtility].delivery_status == 0){
          [cdictionary setValue:@"0" forKey:@"order_mode"];
        }else{
