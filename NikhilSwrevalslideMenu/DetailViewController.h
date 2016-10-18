@@ -33,4 +33,5 @@
 @property (nonatomic,strong)UserFiltersResponse *selectedUfrespo;
 - (IBAction)menuBtnClick:(id)sender;
 - (IBAction)navBackBtnClk:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *restClosedLbl;
 @end

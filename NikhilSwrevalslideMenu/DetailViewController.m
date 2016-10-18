@@ -62,17 +62,7 @@
 //  }else{
 //  [label setFont:[UIFont systemFontOfSize:17]];
 //  }
-  label.textColor = [UIColor whiteColor];
-  label.frame=CGRectMake(321, 10, 300, 30);
-  UIFont* boldFont = [UIFont boldSystemFontOfSize:20];
-  [label setFont:boldFont];
-  [self.imgVw addSubview:label];
-  [self configureRatingsandPricing];
-  [UIView animateWithDuration:9.0 delay:0.0 options: UIViewAnimationOptionRepeat
-                   animations:^{
-                     label.frame=CGRectMake(-300, 10, 300, 30);
-                   }completion:^(BOOL finished){
-                   }];
+
   
   dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
 
@@ -87,6 +77,23 @@
     });
   }
   });
+  
+  if (![self checkRestoClosed]) {
+    
+  
+  label.textColor = [UIColor whiteColor];
+  label.frame=CGRectMake(321, 10, 300, 30);
+  UIFont* boldFont = [UIFont boldSystemFontOfSize:20];
+  [label setFont:boldFont];
+  [self.imgVw addSubview:label];
+  [self configureRatingsandPricing];
+  [UIView animateWithDuration:9.0 delay:0.0 options: UIViewAnimationOptionRepeat
+                   animations:^{
+                     label.frame=CGRectMake(-300, 10, 300, 30);
+                   }completion:^(BOOL finished){
+                   }];
+  
+  
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   CGFloat screenHeight = screenRect.size.height;
   CGFloat screenWidth = screenRect.size.width;
@@ -103,7 +110,78 @@
   CartButton.frame = CGRectMake(screenWidth-70, screenHeight-70, 50,50 );
   CartButton.backgroundColor = [UIColor colorWithRed:170.0/255.0 green:213.0/255.0 blue:92.0/255.0 alpha:1.0];
   [self.view addSubview:CartButton];
+  }
   
+}
+
+-(BOOL)checkRestoClosed{
+  
+  BOOL retval = NO;
+//  NSString *Closetime = self.selectedUfrespo.closing_time;
+//  
+//  NSDate *now = [NSDate date];
+//  
+//  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//  dateFormatter.dateFormat = @"HH:mm:ss";
+//  [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+//  NSLog(@"The Current Time is %@",[dateFormatter stringFromDate:now]);
+//  NSString *currTime = [dateFormatter stringFromDate:now];
+  
+  
+//  NSString *time1 = Closetime;
+//  NSString *time2 = @"10:50:23";
+//  
+//  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//  [formatter setDateFormat:@"HH:mm:ss"];
+//  
+//  NSDate *date1= [formatter dateFromString:time1];
+//  NSDate *date2 = [formatter dateFromString:time2];
+//  
+//  NSComparisonResult result = [date1 compare:date2];
+//  if(result == NSOrderedDescending)
+//  {
+//    NSLog(@"date1 is later than date2");
+//    self.restClosedLbl.hidden = NO;
+//      self.tableVw.hidden = YES;
+//    retval = YES;
+//  }
+//  else if(result == NSOrderedAscending)
+//  {
+//    NSLog(@"date2 is later than date1");
+//    retval = NO;
+//  }
+//  else
+//  {
+//    NSLog(@"date1 is equal to date2");
+//    retval = NO;
+//  }
+  
+  
+//  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//  [formatter setDateFormat:@"HH:mm:ss"];
+//  
+//  NSDate *startDate = [formatter dateFromString:currTime];
+//    NSLog(@"The startDate Time is %@",[dateFormatter stringFromDate:startDate]);
+//  NSDate *endDate = [formatter dateFromString:Closetime];
+//    NSLog(@"The endDate Time is %@",[dateFormatter stringFromDate:endDate]);
+//  
+//  if ([startDate compare: endDate] == NSOrderedDescending) {
+//    NSLog(@"startDate is later than endDate");
+//    self.restClosedLbl.hidden = NO;
+//          self.tableVw.hidden = YES;
+//        retval = YES;
+//    
+//  } else if ([startDate compare:endDate] == NSOrderedAscending) {
+//    NSLog(@"startDate is earlier than endDate");
+//     retval = NO;
+//  } else {
+//    NSLog(@"dates are the same");
+//     retval = NO;
+//  }
+
+  
+  
+  return retval;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -160,6 +238,9 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+  if (![self checkRestoClosed]) {
+    
+  
     [self getDetailCuisine];
   NSArray *arr = [[DBManager getSharedInstance] getALlCartData:[selectedUfrespo.ufp_id intValue]];
   if (arr.count>0) {
@@ -167,6 +248,9 @@
     [CartButton setTitle:[NSString stringWithFormat:@"%lu",(unsigned long)arr.count] forState:UIControlStateNormal];
   }else{
     CartButton.hidden = YES;
+  }
+  }else{
+  CartButton.hidden = YES;
   }
   
   
@@ -868,6 +952,8 @@
   NSLog(@"tes");
   
 }
+
+
 
 -(void)addingValueToCartRequest:(NSInteger)restID{
   Utility *utilityObj = [[Utility alloc]init];
