@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "DBManager.h"
 #import "SWRevealViewController.h"
+#import "BillSummaryViewController.h"
 @interface AddressListViewController ()<UITableViewDataSource,UITableViewDelegate>{
   AppDelegate *appDelegate;
 }
@@ -184,6 +185,24 @@
     UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
     [navController setViewControllers: @[vc] animated: NO ];
     [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+    
+//    AddDeliveryAddressViewController *obj_clvc  = (AddDeliveryAddressViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddDeliveryAddressViewControllerId"];
+//    
+//    USerAddressData *uData = (USerAddressData*)[[ResponseUtility getSharedInstance].UserAddressArray objectAtIndex:0];
+//    obj_clvc.data = uData;
+//    [RequestUtility sharedRequestUtility].selectedAddressId =uData.addID;
+//    [RequestUtility sharedRequestUtility].selectedAddressDataObj =uData;
+////    [self.navigationController popViewControllerAnimated:YES];
+//    for (UIViewController *controller in self.navigationController.viewControllers) {
+//      
+//      //Do not forget to import AnOldViewController.h
+//      if ([controller isKindOfClass:[BillSummaryViewController class]]) {
+//        
+//        [self.navigationController popToViewController:controller
+//                                              animated:YES];
+//        break;
+//      }
+//    }
   }
 }
 
@@ -278,7 +297,25 @@
     [navController setViewControllers: @[vc] animated: NO ];
     [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
   }else{
+    
     [self.navigationController popViewControllerAnimated:YES];
+//    AddDeliveryAddressViewController *obj_clvc  = (AddDeliveryAddressViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddDeliveryAddressViewControllerId"];
+//
+//    USerAddressData *uData = (USerAddressData*)[[ResponseUtility getSharedInstance].UserAddressArray objectAtIndex:0];
+//    obj_clvc.data = uData;
+//      [RequestUtility sharedRequestUtility].selectedAddressId =uData.addID;
+//      [RequestUtility sharedRequestUtility].selectedAddressDataObj =uData;
+////    [self.navigationController popViewControllerAnimated:YES];
+//    for (UIViewController *controller in self.navigationController.viewControllers) {
+//      
+//      //Do not forget to import AnOldViewController.h
+//      if ([controller isKindOfClass:[BillSummaryViewController class]]) {
+//        
+//        [self.navigationController popToViewController:controller
+//                                              animated:YES];
+//        break;
+//      }
+//    }
   }
 }
 

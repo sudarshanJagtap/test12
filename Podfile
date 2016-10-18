@@ -13,4 +13,5 @@ pod 'Fabric'
 pod 'TwitterKit'
 pod 'GooglePlaces'
 pod 'GooglePlacePicker'
+pod 'CCTextFieldEffects'
 end

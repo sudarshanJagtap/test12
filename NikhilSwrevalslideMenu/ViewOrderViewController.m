@@ -140,6 +140,9 @@
         NSString *delvieryStr = [NSString stringWithFormat:@"$ %@",vwData.delivery_fee];
         self.aTotal.text = [NSString stringWithFormat:@"$ %@",vwData.total_amount];
         NSString *couponLblStr =[NSString stringWithFormat:@"$ %@",vwData.coupon_amount];
+        
+     
+        
         if (couponLblStr == nil || couponLblStr == (id)[NSNull null]) {
         
         }else{
@@ -164,6 +167,16 @@
         float fullhght = 70*full;
         
         self.tableHeightConstraint.constant = halfhght+fullhght;
+        float subtotalAmoutF = [vwData.order_amount floatValue];
+        float asalesTaxF = [vwData.tax_amount floatValue];
+        float totalAmoutF = [vwData.total_amount floatValue];
+        float add = subtotalAmoutF+asalesTaxF;
+        if (add == totalAmoutF) {
+          self.deliveryFeeLabelheightConstraint.constant = 0;
+          self.adeliveryHghtConstraint.constant = 0;
+          self.aTotalTopcontraint.constant = 0;
+          self.totalLblTopContraint.constant = 0;
+        }
         [self.tableVw reloadData];
       });
     }

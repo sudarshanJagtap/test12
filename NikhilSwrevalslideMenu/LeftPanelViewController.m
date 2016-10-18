@@ -15,7 +15,8 @@
 #import "OrderTrackingViewController.h"
 #import "RequestUtility.h"
 #import "DBManager.h"
-
+#import "AboutUsViewController.h"
+#import "ContactUSViewController.h"
 @interface LeftPanelViewController ()
 @property (strong, nonatomic) NSArray *array;
 @property (strong, nonatomic) NSArray *arrayImage;
@@ -42,14 +43,17 @@
   if (userId.length>0) {
     self.array = @[@"Address Book",
                    @"Order History",
-                   @"About Us",@"Order Tracking",@"Sign Out"];
+                   @"Order Tracking",
+                   @"About Us",
+                   @"Contact Us",
+                   @"Sign Out"];
     
     self.arrayImage = @[@"address_book",
                         @"order_history",
+                        @"order_track",
                         @"about",
-                        @"payement",
-                        @"faq",
-                        @"faq",
+                        @"hours",
+                        @"sign_out",
                         @"shareapp",
                         @"about",
                         @"about"];
@@ -57,9 +61,9 @@
     
   }else{
     
-    self.array = @[@"About Us"];
+    self.array = @[@"About Us",@"Contact Us"];
     
-    self.arrayImage = @[@"about"];
+    self.arrayImage = @[@"about",@"hours"];
     [self.tableVw reloadData];
     
   }
@@ -135,20 +139,32 @@
     }
     if (indexPath.row==2) {
       
-      
-      
-    }
-    if (indexPath.row==3) {
-      
       [RequestUtility sharedRequestUtility].isThroughLeftMenu = YES;
       UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
       UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"OrderTrackingViewControllerId"];
       UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
       [navController setViewControllers: @[vc] animated: NO ];
       [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+      
+    }
+    if (indexPath.row==3) {
+      [RequestUtility sharedRequestUtility].isThroughLeftMenu = YES;
+      UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+      UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"AboutUsViewControllerId"];
+      UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+      [navController setViewControllers: @[vc] animated: NO ];
+      [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+    }
+    if (indexPath.row==4) {
+      [RequestUtility sharedRequestUtility].isThroughLeftMenu = YES;
+      UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+      UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ContactUSViewControllerId"];
+      UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+      [navController setViewControllers: @[vc] animated: NO ];
+      [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
     }
     
-    if (indexPath.row==4) {
+    if (indexPath.row==5) {
       
       BOOL retval = NO;
       retval = [DBManager getSharedInstance].deleteUserData;
@@ -159,7 +175,23 @@
     
     
   }else{
+     NSString *storyboardName = @"Main";
+    if (indexPath.row==0) {
+      [RequestUtility sharedRequestUtility].isThroughLeftMenu = YES;
+      UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+      UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"AboutUsViewControllerId"];
+      UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+      [navController setViewControllers: @[vc] animated: NO ];
+      [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+    }else{
+      [RequestUtility sharedRequestUtility].isThroughLeftMenu = YES;
+      UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+      UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ContactUSViewControllerId"];
+      UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+      [navController setViewControllers: @[vc] animated: NO ];
+      [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
     
+    }
   }
   
 }

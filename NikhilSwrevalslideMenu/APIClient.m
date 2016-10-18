@@ -78,9 +78,14 @@ static NSString *kTraktBaseURLString = @"http://mailer.mobisofttech.co.in/ymoc_p
         id responseDictionary;
         
         NSError *err;
+//      if (responseDictionary!=nil) {
         responseDictionary = [NSJSONSerialization JSONObjectWithData:responseObject
                                                              options:kNilOptions
                                                                error:&err];
+//      }else{
+//      success(task, responseDictionary);
+//      }
+      
 
         if (error) {
             if (failure) {
