@@ -27,6 +27,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+
   [ResponseUtility getSharedInstance].UserOrderArray = [[NSMutableArray alloc]init];
   NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
   userId=[userdictionary valueForKey:@"user_id"];
@@ -145,6 +150,8 @@
     cell.isDeliverdLbl.layer.masksToBounds = YES;
     cell.isDeliverdLbl.layer.cornerRadius =8.0;
     cell.orderDetailsBtn.tag = indexPath.row;
+  cell.orderDetails1.tag = indexPath.row;
+  cell.review1.tag = indexPath.row;
     [cell.orderDetailsBtn addTarget:self action:@selector(viewOrder:) forControlEvents:UIControlEventTouchUpInside];
     [cell.orderDetails1 addTarget:self action:@selector(viewOrder:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -152,7 +159,7 @@
     [[cell.orderDetailsBtn layer] setBorderWidth:2.0f];
     [cell.orderDetailsBtn layer].cornerRadius = 12.0;
     [[cell.orderDetailsBtn layer] setBorderColor:redClr.CGColor];
-    
+
     [[cell.review1 layer] setBorderWidth:2.0f];
     [cell.review1 layer].cornerRadius = 12.0;
     [[cell.review1 layer] setBorderColor:redClr.CGColor];
@@ -169,11 +176,9 @@
     cell.OrderDetailsBtnTopconstraint.constant = -10;
   }
   
-    if ([oData.order_id isEqualToString:@"PAY-67E025818T953164AK72VZJY"]) {
-      NSLog(@"caught");
-    }
-    if ([oData.order_status isEqualToString:@"Delivered"]) {
-  
+
+  if ([oData.order_status isEqualToString:@"Delivered"]) {
+    
     NSString *rst = oData.review_status;
     if ([rst isEqual:@"0"]) {
       cell.orderDetailsBtn.hidden = YES;
@@ -184,11 +189,11 @@
       cell.orderDetails1.hidden = YES;
       cell.review1.hidden = YES;
     }
-    }else{
-      cell.orderDetailsBtn.hidden = NO;
-      cell.orderDetails1.hidden = YES;
-      cell.review1.hidden = YES;
-    }
+  }else{
+    cell.orderDetailsBtn.hidden = NO;
+    cell.orderDetails1.hidden = YES;
+    cell.review1.hidden = YES;
+  }
 //  }
   return cell;
 }

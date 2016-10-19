@@ -33,6 +33,10 @@
 @property(nonatomic,strong)NSString *afterPaymentResponseString;
 @property(nonatomic,strong)USerAddressData *selectedAddressDataObj;
 
+
+@property(nonatomic,strong)NSString *asapSchedule_datePassed;
+@property(nonatomic,strong)NSString *asapSchedule_timePassed;
+
 @property(nonatomic,strong)NSString *enteredCityOnLocationScreen;
 
 + (RequestUtility *)sharedRequestUtility;

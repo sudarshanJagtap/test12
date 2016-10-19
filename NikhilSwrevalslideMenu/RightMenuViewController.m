@@ -443,6 +443,25 @@
   reqUtility.asapSchedule_time = timeStr;
   
   
+//  ASAP
+  
+  
+  NSDateFormatter *dateFormatasap=[[NSDateFormatter alloc]init];
+  dateFormatasap.dateStyle=NSDateFormatterMediumStyle;
+  [dateFormatasap setDateFormat:@"yyyy-MM-dd"];
+  //  NSString *date = [dateFormat stringFromDate:selectedDate];
+  NSDateFormatter *outputFormatterasap = [[NSDateFormatter alloc] init];
+  [outputFormatterasap setDateFormat:@"hh:mm"]; //24hr time format
+  NSString *timeStr1 = [outputFormatterasap stringFromDate:self.DatetimePicker.date];
+  NSString *str1=[NSString stringWithFormat:@"%@ %@",[dateFormatasap  stringFromDate:selectedDate],timeStr1];
+  //assign text to label
+  reqUtility.asapSchedule_datePassed = [dateFormatasap  stringFromDate:selectedDate];
+  reqUtility.asapSchedule_timePassed = timeStr1;
+  
+  
+//  ASAP ends
+  
+  
   NSString *weekday = [self getWeekDayfromStrResponse:[dateFormat  stringFromDate:selectedDate]];
   NSString *month = [self getMonthToDisplayfromStrResponse:[dateFormat stringFromDate:selectedDate]];
   NSString *cdate = [self getDateToDisplayfromStrResponse:[dateFormat stringFromDate:selectedDate]];

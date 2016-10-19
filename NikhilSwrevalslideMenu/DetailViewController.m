@@ -972,8 +972,8 @@
        }
     if ([RequestUtility sharedRequestUtility ].isAsap) {
       [cdictionary setValue:@"1" forKey:@"order_schedule_status"];
-      [cdictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
-      [cdictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
+      [cdictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_datePassed forKey:@"order_schedule_date"];
+      [cdictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_timePassed forKey:@"order_schedule_time"];
     }else{
       [cdictionary setValue:@"0" forKey:@"order_schedule_status"];
       [cdictionary setValue:@"00-00-00" forKey:@"order_schedule_date"];

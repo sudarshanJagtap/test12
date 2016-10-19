@@ -186,7 +186,7 @@
     self.orderScheduleLabel.hidden = NO;
     self.orderScheduleDateTimeLabel.hidden = NO;
     Utility *utilityObj = [[Utility alloc]init];
-    NSString *dateStr = [NSString stringWithFormat:@"%@ : %@", [utilityObj getCurrentAsapDate],[utilityObj getCurrentTime]];
+    NSString *dateStr = [NSString stringWithFormat:@"%@ : %@", [RequestUtility sharedRequestUtility ].asapSchedule_datePassed,[RequestUtility sharedRequestUtility ].asapSchedule_timePassed];
     self.orderScheduleDateTimeLabel.text = dateStr;
     self.constriantOrderScheduleHeight.constant=40;
   }else{
@@ -894,8 +894,10 @@
     }
     if ([RequestUtility sharedRequestUtility ].isAsap) {
       [cdictionary setValue:@"1" forKey:@"order_schedule_status"];
-      [cdictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
-      [cdictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
+//      [cdictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
+//      [cdictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
+      [cdictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_datePassed forKey:@"order_schedule_date"];
+      [cdictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_timePassed forKey:@"order_schedule_time"];
     }else{
       [cdictionary setValue:@"0" forKey:@"order_schedule_status"];
       [cdictionary setValue:@"00-00-00" forKey:@"order_schedule_date"];
@@ -1030,8 +1032,10 @@
     }
     if ([RequestUtility sharedRequestUtility ].isAsap) {
       [beforePaymentDictionary setValue:@"1" forKey:@"order_schedule_status"];
-      [beforePaymentDictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
-      [beforePaymentDictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
+//      [beforePaymentDictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
+//      [beforePaymentDictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
+      [beforePaymentDictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_datePassed forKey:@"order_schedule_date"];
+      [beforePaymentDictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_timePassed forKey:@"order_schedule_time"];
     }else{
       [beforePaymentDictionary setValue:@"0" forKey:@"order_schedule_status"];
       [beforePaymentDictionary setValue:@"0000-00-00" forKey:@"order_schedule_date"];
@@ -1216,8 +1220,10 @@
   [dictionary setValue:userId forKey:@"user_id"];
   if ([RequestUtility sharedRequestUtility ].isAsap) {
     [dictionary setValue:@"1" forKey:@"order_schedule_status"];
-    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentDate] forKey:@"order_schedule_date"];
-    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentTime] forKey:@"order_schedule_time"];
+//    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentDate] forKey:@"order_schedule_date"];
+//    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentTime] forKey:@"order_schedule_time"];
+    [dictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_datePassed forKey:@"order_schedule_date"];
+    [dictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_timePassed forKey:@"order_schedule_time"];
   }else{
     [dictionary setValue:@"0" forKey:@"order_schedule_status"];
     [dictionary setValue:@"0000-00-00" forKey:@"order_schedule_date"];
@@ -1278,8 +1284,10 @@
   [dictionary setValue:userId forKey:@"user_id"];
   if ([RequestUtility sharedRequestUtility ].isAsap) {
     [dictionary setValue:@"1" forKey:@"order_schedule_status"];
-    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentDate] forKey:@"order_schedule_date"];
-    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentTime] forKey:@"order_schedule_time"];
+//    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentDate] forKey:@"order_schedule_date"];
+//    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentTime] forKey:@"order_schedule_time"];
+    [dictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_datePassed forKey:@"order_schedule_date"];
+    [dictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_timePassed forKey:@"order_schedule_time"];
   }else{
     [dictionary setValue:@"0" forKey:@"order_schedule_status"];
     [dictionary setValue:@"00-00-00" forKey:@"order_schedule_date"];
