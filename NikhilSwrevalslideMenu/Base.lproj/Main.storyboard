@@ -1396,7 +1396,7 @@
                                     <action selector="menuBtnClick:" destination="GhB-GK-6LR" eventType="touchUpInside" id="g9n-AE-oSM"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restuarant is closed now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZf-AV-wcK">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant is closed now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZf-AV-wcK">
                                 <rect key="frame" x="5" y="73" width="310" height="31"/>
                                 <color key="backgroundColor" red="0.67747372630000002" green="0.085360245900000006" blue="0.097923216499999993" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -3239,7 +3239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DLn-Kb-H9Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2757" y="1084.5"/>
+            <point key="canvasLocation" x="2765" y="1084.5"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="pgi-YC-QMn">
