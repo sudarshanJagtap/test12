@@ -24,14 +24,12 @@ extern NSString* const kBefore_payment;
 extern NSString* const kUpdate_cart;
 extern NSString* const kUpdate_cart_quantity;
 extern NSString* const kDelete_cart;
-
 extern NSString* const kAfter_socialmedia_login;
 extern NSString* const kLogin;
 extern NSString* const kStates;
 extern NSString* const kGuest_signup;
 extern NSString* const kSignup;
 extern NSString* const kAfter_payment;
-
 extern NSString* const kDelivery_fee;
 extern NSString* const kDelivery_address;
 extern NSString* const kUser_profile;
