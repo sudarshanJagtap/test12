@@ -40,5 +40,12 @@ extern NSString* const kUser_order_details;
 extern NSString* const kAdditional_info;
 extern NSString* const kRestaurant_review;
 extern NSString* const kOrder_review;
+
+
+extern NSString* const kFacebookLoginID;
+extern NSString* const kGooglePlacesApiKey;
+extern NSString* const kPaypalSanboxKey;
+extern NSString* const kPaypalProductionKey;
+
 @end
 

@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>551662774846-v8cfohti0vepm0j9klh9oekn2brr2bjn.apps.googleusercontent.com</string>
+	<string>357460329455-8mgiuh6h2kuuht06vfq6es1ghbb1ktfg.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.551662774846-v8cfohti0vepm0j9klh9oekn2brr2bjn</string>
+	<string>com.googleusercontent.apps.357460329455-8mgiuh6h2kuuht06vfq6es1ghbb1ktfg</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.androapps.ymoc</string>
+	<string>com.ymoc</string>
 	<key>PROJECT_ID</key>
-	<string>firebase-ymoc</string>
+	<string>ymoc-141418</string>
 	<key>IS_ADS_ENABLED</key>
 	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -23,6 +23,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:551662774846:ios:19408de147766079</string>
+	<string>1:357460329455:ios:f63e57847d93c37b</string>
 </dict>
 </plist>

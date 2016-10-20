@@ -22,18 +22,14 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>helveticaneuelight.ttf</string>
-		<string>Sansation-Bold.ttf</string>
-		<string>Sansation-Light.ttf</string>
-	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1048169528571102</string>
+				<string>fb233110650414515</string>
 			</array>
 		</dict>
 		<dict>
@@ -41,7 +37,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.551662774846-v8cfohti0vepm0j9klh9oekn2brr2bjn</string>
+				<string>com.googleusercontent.apps.357460329455-8mgiuh6h2kuuht06vfq6es1ghbb1ktfg</string>
 			</array>
 		</dict>
 		<dict>
@@ -57,27 +53,27 @@
 	<string>1</string>
 	<key>Exception Domains</key>
 	<string></string>
-	<key>Fabric</key>
-	<dict>
-		<key>APIKey</key>
-		<string>2607ca12a46d98e5a5f3abb115703e20b17ff590</string>
-		<key>Kits</key>
-		<array>
-			<dict>
-				<key>KitInfo</key>
-				<dict>
-					<key>consumerKey</key>
-					<string>3ZRpolQbnE8vbmVeQZ1mERwjx</string>
-					<key>consumerSecret</key>
-					<string>RuYr9AX8O4Cse44gH8pLmlCcu1dkLHcSQRb0BtceGa3TOa3hpj</string>
-				</dict>
-				<key>KitName</key>
-				<string>Twitter</string>
-			</dict>
-		</array>
-	</dict>
+  <key>Fabric</key>
+  <dict>
+    <key>APIKey</key>
+    <string>9b6b7bce04bbeb94ca820f4118c8f17c4f15ab41</string>
+    <key>Kits</key>
+    <array>
+      <dict>
+        <key>KitInfo</key>
+        <dict>
+          <key>consumerKey</key>
+          <string>APDpLKXMecaqbFzslYpRa1XMK</string>
+          <key>consumerSecret</key>
+          <string>a7PQ3Ho7nf1NZBs9iYyCtKxBRVSNeiInJkqiVVC7BPGHQzJfC5</string>
+        </dict>
+        <key>KitName</key>
+        <string>Twitter</string>
+      </dict>
+    </array>
+  </dict>
 	<key>FacebookAppID</key>
-	<string>1048169528571102</string>
+	<string>233110650414515</string>
 	<key>FacebookDisplayName</key>
 	<string>YMOC</string>
 	<key>LSApplicationCategoryType</key>
@@ -101,6 +97,12 @@
 			<string></string>
 		</dict>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>helveticaneuelight.ttf</string>
+		<string>Sansation-Bold.ttf</string>
+		<string>Sansation-Light.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

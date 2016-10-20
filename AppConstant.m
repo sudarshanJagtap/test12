@@ -46,12 +46,15 @@ NSString* const kDelivery_address = @"delivery_address.php";
 NSString* const kUser_profile = @"user_profile.php";
 NSString* const kForgot_password = @"forgot_password.php";
 
-
 NSString* const kUser_order_details = @"user_order_details.php";
 NSString* const kAdditional_info = @"additional_info.php";
 NSString* const kRestaurant_review = @"restaurant_review.php";
 NSString* const kOrder_review = @"order_review.php";
 
+NSString* const kFacebookLoginID = @"fb233110650414515";
+NSString* const kGooglePlacesApiKey = @"AIzaSyAwKE2uJR1SJV4RiIdsxl8g4H04aAd_bug";
+NSString* const kPaypalSanboxKey = @"ASGLkX28ypnHeOc26Z9AS2i8ozJyYaEobRW8ZGFjWfcVzK62JHkqgRBYHzP99SRcf7aRhrL459SGVyAX";
+NSString* const kPaypalProductionKey = @"YOUR_CLIENT_ID_FOR_PRODUCTION";
 
 
 

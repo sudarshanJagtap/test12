@@ -13,6 +13,7 @@
 #import <Google/SignIn.h>
 #import <Fabric/Fabric.h>
 #import <TwitterKit/TwitterKit.h>
+#import "AppConstant.h"
 @import GooglePlaces;
 @interface AppDelegate ()<UIApplicationDelegate, GIDSignInDelegate>
 
@@ -23,14 +24,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  NSString *googlePlacePIKEY = @"AIzaSyB3N4VlBeevnXyZWS33R5yaFJb2mCcfc1s";
+  NSString *googlePlacePIKEY = kGooglePlacesApiKey;
   [GMSPlacesClient provideAPIKey:googlePlacePIKEY];
   [Fabric with:@[[Twitter class]]];
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];
   // Add any custom logic here.
-  [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentProduction : @"YOUR_CLIENT_ID_FOR_PRODUCTION",
-                                                         PayPalEnvironmentSandbox : @"ASGLkX28ypnHeOc26Z9AS2i8ozJyYaEobRW8ZGFjWfcVzK62JHkqgRBYHzP99SRcf7aRhrL459SGVyAX"}];
+  [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentProduction : kPaypalProductionKey,
+                                                         PayPalEnvironmentSandbox : kPaypalSanboxKey}];
   NSError* configureError;
   [[GGLContext sharedInstance] configureWithError: &configureError];
   NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
@@ -86,7 +87,7 @@
          annotation:(id)annotation {
   
   
-  if ([[url scheme] isEqualToString:@"fb1048169528571102"]) {
+  if ([[url scheme] isEqualToString:kFacebookLoginID]) {
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication
@@ -104,7 +105,7 @@
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary *)options {
-  if ([[url scheme] isEqualToString:@"fb1048169528571102"]) {
+  if ([[url scheme] isEqualToString:kFacebookLoginID]) {
     return [[FBSDKApplicationDelegate sharedInstance]application:app openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
   }else{
     return [[GIDSignIn sharedInstance] handleURL:url

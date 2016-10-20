@@ -713,7 +713,12 @@
   // Calculate number of lines
   int charSize = yourLabel.font.leading;
   int rHeight = requiredSize.size.height;
-  lineCount = rHeight/charSize;
+  if (charSize!=0) {
+    lineCount = rHeight/charSize;
+  }else{
+    lineCount = 1;
+  }
+  
   
   return lineCount;
 }

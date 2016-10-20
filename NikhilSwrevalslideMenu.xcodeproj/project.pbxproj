@@ -727,7 +727,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2607ca12a46d98e5a5f3abb115703e20b17ff590 afeb29b4bc7e6771c06ff55be3c6aae658715c6dc21f4a5672d382cf22cb0dac";
+			shellScript = "${PODS_ROOT}/Fabric/run 9b6b7bce04bbeb94ca820f4118c8f17c4f15ab41 43104fd43dce75616d9dce230163daa548ff9dd9668559d842c4d2e9c01b57ff";
 		};
 		A9B30CC9AA04122F26B97B38 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -934,7 +934,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NikhilSwrevalslideMenu/NikhilSwrevalslideMenu.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -946,9 +946,9 @@
 				INFOPLIST_FILE = NikhilSwrevalslideMenu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.androapps.ymoc;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ymoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ec4707f9-6916-465e-bd7c-eeda402cba05";
+				PROVISIONING_PROFILE = "ef46a581-7208-4fd3-a637-685a3b0b6043";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -959,7 +959,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NikhilSwrevalslideMenu/NikhilSwrevalslideMenu.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ritesh Joshi (HZZJ7646E4)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -971,9 +971,9 @@
 				INFOPLIST_FILE = NikhilSwrevalslideMenu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.androapps.ymoc;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ymoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ec4707f9-6916-465e-bd7c-eeda402cba05";
+				PROVISIONING_PROFILE = "ef46a581-7208-4fd3-a637-685a3b0b6043";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
