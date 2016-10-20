@@ -20,6 +20,7 @@
 #import "Utility.h"
 #import "AdditionalInfoViewController.h"
 #import "DisplayRatingsViewController.h"
+#import "AppConstant.h"
 @interface DetailViewController ()<UITextViewDelegate>{
   
   NSMutableArray *sectionArray;
@@ -65,11 +66,8 @@
 
   
   dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-
-  NSString *stringURL=@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/ymoc_main/upload/image/";
-  //    NSString *stringURL=@"http://ymoc.mobisofttech.co.in/ymoc_main/upload/logo/thumbnail/";
   
-  NSString *url_Img_FULL = [stringURL stringByAppendingPathComponent:selectedUfrespo.imageStr];
+  NSString *url_Img_FULL = [kBaseRestImagePathUtl stringByAppendingPathComponent:selectedUfrespo.imageStr];
   if (selectedUfrespo.imageStr) {
     NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url_Img_FULL]];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -704,7 +702,6 @@
 
 -(void)showCartView{
   [self getSalesTaxValue ];
-  //  http://ymoc.mobisofttech.co.in/android_api/tax.php
   
 }
 
@@ -713,8 +710,7 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/tax.php";
-  [utility doPostRequestfor:url withParameters:nil onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doPostRequestfor:kTaxValue withParameters:nil onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       dispatch_async(dispatch_get_main_queue(), ^{
@@ -787,8 +783,7 @@
   //  AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/ajax_customization.php";
-  [utility doPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doPostRequestfor:kAjax_customization withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"response:%@",responseDictionary);
@@ -1037,8 +1032,7 @@
 -(void)addValuesToCart:(NSString*)string andUID:(NSInteger)uid{
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/add_cart.php";
-  [utility doYMOCStringPostRequest:url withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kAdd_cart withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
     
     if (status) {
       NSLog(@"response:%@",responseDictionary);

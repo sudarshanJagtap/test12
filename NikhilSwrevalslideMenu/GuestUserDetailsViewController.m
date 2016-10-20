@@ -15,6 +15,7 @@
 #import "NIDropDown.h"
 #import "AddDeliveryAddressViewController.h"
 #import "AddressListViewController.h"
+#import "AppConstant.h"
 @interface GuestUserDetailsViewController ()<NIDropDownDelegate>{
   AppDelegate *appDelegate;
   NSArray *statesArray;
@@ -133,7 +134,6 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/guest_signup.php?";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:self.countryTxtFld.text forKey:@"country"];
   [params setValue:self.zipCodeTxtFld.text forKey:@"zipcode"];
@@ -149,7 +149,7 @@
   }else{
     [params setValue:@"0" forKey:@"flag"];
   }
-  [utility doPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doPostRequestfor:kGuest_signup withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponse:responseDictionary];
@@ -357,7 +357,6 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/states.php";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:self.countryTxtFld.text forKey:@"country"];
   NSError * err;
@@ -365,7 +364,7 @@
   NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
   NSLog(@"additional info string \n = %@",String);
   
-  [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kStates withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [appDelegate hideLoadingView];

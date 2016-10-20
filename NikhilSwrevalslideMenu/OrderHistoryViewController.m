@@ -15,6 +15,7 @@
 #import "OrderHistoryTableViewCell.h"
 #import "ViewOrderViewController.h"
 #import "AddReviewsViewController.h"
+#import "AppConstant.h"
 @interface OrderHistoryViewController ()<UITableViewDataSource,UITableViewDelegate>{
   AppDelegate *appDelegate;
   NSString *userId;
@@ -51,14 +52,12 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/user_order_details.php";
-  
   NSError * err;
   NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
   NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
   NSLog(@"order hsitory string \n = %@",String);
   
-  [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kUser_order_details withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [appDelegate hideLoadingView];

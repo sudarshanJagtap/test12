@@ -8,7 +8,7 @@
 
 #import "CuisineOperation.h"
 #import "constant.h"
-
+#import "AppConstant.h"
 @implementation CuisineOperation
 
 -(NSDictionary *) dictionary {
@@ -27,7 +27,7 @@
 {
     //    [[APIClient shared]GET:kServiceNameLogin parameters:[self dictionary] success:^(NSURLSessionDataTask *task, id responseObject) {
     NSLog(@"%@",[self dictionary]);
-    [[APIClient shared] GET:kServiceNameCuisine parameters:[self dictionary]success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[APIClient shared] GET:kCuisine_name parameters:[self dictionary]success:^(NSURLSessionDataTask *task, id responseObject) {
         
         
         

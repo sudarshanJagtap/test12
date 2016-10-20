@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "RequestUtility.h"
 #import "DBManager.h"
+#import "AppConstant.h"
 @interface ChangePasswordViewController ()<UITextFieldDelegate>{
   BOOL isSecureEntryOn;
   AppDelegate *appDelegate;
@@ -94,7 +95,6 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/user_profile.php";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
   NSString *userId=[userdictionary valueForKey:@"user_id"];
@@ -105,7 +105,7 @@
   NSError * err;
   NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
   NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-  [utility doYMOCStringPostRequest:url withParameters:myString onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kUser_profile withParameters:myString onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponse:responseDictionary];

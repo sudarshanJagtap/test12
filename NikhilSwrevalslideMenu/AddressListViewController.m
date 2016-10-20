@@ -15,6 +15,8 @@
 #import "DBManager.h"
 #import "SWRevealViewController.h"
 #import "BillSummaryViewController.h"
+#import "AppConstant.h"
+
 @interface AddressListViewController ()<UITableViewDataSource,UITableViewDelegate>{
   AppDelegate *appDelegate;
 }
@@ -43,8 +45,7 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/delivery_address.php";
-  [utility doYMOCPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCPostRequestfor:kDelivery_address withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [appDelegate hideLoadingView];
@@ -239,13 +240,12 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/delivery_address.php";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:userId forKey:@"user_id"];
   [params setValue:@"delete_delivery_address" forKey:@"action"];
   [params setValue:addId forKey:@"delivery_address_id"];
   NSLog(@"%@",params);
-  [utility doYMOCPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCPostRequestfor:kDelivery_address withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponseforDeleteAddress:responseDictionary];

@@ -11,10 +11,10 @@
 #import <AFNetworking/AFNetworking.h>
 #import "AFXMLRequestSerializer.h"
 #import "Constant.h"         //declare  constant header file 
-
+#import "AppConstant.h"
   
 //static NSString *kTraktBaseURLString = @"http://ymoc.mobisofttech.co.in/android_api/";
-static NSString *kTraktBaseURLString = @"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/";          /// righting the base url here
+//static NSString *kTraktBaseURLString = @"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/";          /// righting the base url here
 
 
 
@@ -26,7 +26,7 @@ static NSString *kTraktBaseURLString = @"http://mailer.mobisofttech.co.in/ymoc_p
     static APIClient *_sharedClient = nil;
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
-        _sharedClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:kTraktBaseURLString]];
+        _sharedClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:kBaseMain_url]];
         
     });
     return _sharedClient;
@@ -44,7 +44,7 @@ static NSString *kTraktBaseURLString = @"http://mailer.mobisofttech.co.in/ymoc_p
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
         
-        _sharedXMLClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:kTraktBaseURLString]];
+        _sharedXMLClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:kBaseMain_url]];
         _sharedXMLClient.responseSerializer = [AFHTTPResponseSerializer serializer];
         _sharedXMLClient.requestSerializer = [AFXMLRequestSerializer serializer]; // This is our custom made serializer which accepts xml data
     });

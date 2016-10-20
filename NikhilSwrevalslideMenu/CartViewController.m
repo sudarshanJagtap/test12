@@ -20,6 +20,7 @@
 #import "ResponseUtility.h"
 #import "BillSummaryViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "AppConstant.h"
 #define kOFFSET_FOR_KEYBOARD 80.0
 
 @interface CartViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>{
@@ -577,8 +578,7 @@
   //  AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/ajax_customization.php";
-  [utility doPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doPostRequestfor:kAjax_customization withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       dispatch_async(dispatch_get_main_queue(), ^{
@@ -965,8 +965,7 @@
 -(void)addValuesToCart:(NSString*)string{
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/add_cart.php";
-  [utility doYMOCStringPostRequest:url withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kAdd_cart withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       
@@ -1057,8 +1056,7 @@
 -(void)beforePayment:(NSString*)string{
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/before_payment.php";
-  [utility doYMOCStringPostRequest:url withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kBefore_payment withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       dispatch_async(dispatch_get_main_queue(), ^{
@@ -1179,8 +1177,7 @@
   
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/update_cart.php";
-  [utility doYMOCStringPostRequest:url withParameters:addToCartString onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kUpdate_cart withParameters:addToCartString onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       dispatch_async(dispatch_get_main_queue(), ^{
@@ -1236,8 +1233,7 @@
   NSLog(@"updateQuantiyDataToCartServer string \n = %@",String);
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/update_cart_quantity.php";
-  [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kUpdate_cart_quantity withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       dispatch_async(dispatch_get_main_queue(), ^{
@@ -1272,7 +1268,7 @@
 }
 
 -(void)deleteCartiwthCartId:(NSString*)cartID{
-  //http://ymoc.mobisofttech.co.in/android_api/delete_cart.php	{"action":"delete","user_id":"12","app_status":"1","cart_id":"147","order_mode":"1","order_schedule_status":"0","order_schedule_date":"0000-00-00","order_schedule_time":"00:00:00"}
+
   NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
   [dictionary setValue:cartID forKey:@"cart_id"];
   [dictionary setValue:@"delete" forKey:@"action"];
@@ -1300,8 +1296,7 @@
   NSLog(@"delete cart string \n = %@",String);
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/delete_cart.php";
-  [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kDelete_cart withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       dispatch_async(dispatch_get_main_queue(), ^{

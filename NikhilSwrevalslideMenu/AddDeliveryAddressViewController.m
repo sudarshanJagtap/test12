@@ -12,6 +12,7 @@
 #import "DBManager.h"
 #import "NIDropDown.h"
 #import "SWRevealViewController.h"
+#import "AppConstant.h"
 #define kOFFSET_FOR_KEYBOARD 80.0
 @interface AddDeliveryAddressViewController ()<NIDropDownDelegate>{
   AppDelegate *appDelegate;
@@ -133,7 +134,7 @@
   [super viewWillDisappear:animated];
   self.navigationController.navigationBarHidden = YES;
 }
-//http://ymoc.mobisofttech.co.in/android_api/delivery_address.php
+
 -(void)doValidateUserDetails{
   NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
   NSString *userId=[userdictionary valueForKey:@"user_id"];
@@ -141,7 +142,6 @@
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
   
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/delivery_address.php";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:userId forKey:@"user_id"];
   [params setValue:[userdictionary valueForKey:@"user_name"] forKey:@"user_name"];
@@ -155,7 +155,7 @@
   [params setValue:self.countryTxtFld.text forKey:@"country"];
   [params setValue:@"add_delivery_address" forKey:@"action"];
   NSLog(@"%@",params);
-  [utility doYMOCPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCPostRequestfor:kDelivery_address withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponse:responseDictionary];
@@ -352,7 +352,6 @@
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
   
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/delivery_address.php";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:userId forKey:@"user_id"];
   [params setValue:self.fullNameTxtFld.text forKey:@"full_name"];
@@ -366,7 +365,7 @@
   [params setValue:self.countryTxtFld.text forKey:@"country"];
   [params setValue:@"update_delivery_address" forKey:@"action"];
   NSLog(@"%@",params);
-  [utility doYMOCPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCPostRequestfor:kDelivery_address withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponse:responseDictionary];
@@ -383,7 +382,6 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/states.php";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:self.countryTxtFld.text forKey:@"country"];
   NSError * err;
@@ -391,7 +389,7 @@
   NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
   NSLog(@"additional info string \n = %@",String);
   
-  [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kStates withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [appDelegate hideLoadingView];

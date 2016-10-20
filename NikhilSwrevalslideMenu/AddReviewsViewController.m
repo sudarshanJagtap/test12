@@ -11,6 +11,7 @@
 #import "RequestUtility.h"
 #import "DBManager.h"
  #import <QuartzCore/QuartzCore.h>
+#import "AppConstant.h"
 @interface AddReviewsViewController ()<UITextViewDelegate>{
   AppDelegate *appDelegate;
 }
@@ -41,15 +42,13 @@
   
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
-  RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/order_review.php";
-  
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];  
   NSError * err;
   NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
   NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
   NSLog(@"additional info string \n = %@",String);
   
-  [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kOrder_review withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       dispatch_async(dispatch_get_main_queue(), ^{

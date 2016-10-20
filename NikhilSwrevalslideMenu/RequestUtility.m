@@ -9,6 +9,7 @@
 #import "RequestUtility.h"
 #import "ResponseUtility.h"
 #import "Reachability.h"
+#import "AppConstant.h"
 @implementation RequestUtility
 + (RequestUtility *)sharedRequestUtility {
   __strong static RequestUtility *httpRequestUtility = nil;
@@ -37,8 +38,8 @@
 }
 
 -(void)doGetRequestfor:(NSString*)url withParameters:(NSDictionary*)params onComplete:(void (^)(bool status, NSDictionary  *response))completionBlock{
-
-  url = [url stringByReplacingOccurrencesOfString:@"http://ymoc.mobisofttech.co.in/android_api/" withString:@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/"];
+  
+  url = [NSString stringWithFormat:@"%@%@",kBaseMain_url,url];
   
   if ([self isNetworkAvailable]) {
     NSURL *URL = [NSURL URLWithString:url];
@@ -76,7 +77,7 @@
 -(void)doPostRequestfor:(NSString*)url withParameters:(NSDictionary*)params onComplete:(void (^)(bool status,
                                                                                                  NSDictionary  *response))completionBlock{
   
-    url = [url stringByReplacingOccurrencesOfString:@"http://ymoc.mobisofttech.co.in/android_api/" withString:@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/"];
+  url = [NSString stringWithFormat:@"%@%@",kBaseMain_url,url];
   if ([self isNetworkAvailable]) {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.discretionary = NO;
@@ -130,21 +131,21 @@
 
 - (BOOL)isNetworkAvailable
 {
-//  CFNetDiagnosticRef dReference;
-//  dReference = CFNetDiagnosticCreateWithURL (kCFAllocatorDefault, (__bridge CFURLRef)[NSURL URLWithString:@"www.apple.com"]);
-//  CFNetDiagnosticStatus status;
-//  status = CFNetDiagnosticCopyNetworkStatusPassively (dReference, NULL);
-//  CFRelease (dReference);
-//  if ( status == kCFNetDiagnosticConnectionUp )
-//  {
-//    NSLog (@"Connection is Available");
-//    return YES;
-//  }
-//  else
-//  {
-//    NSLog (@"Connection is down");
-//    return NO;
-//  }
+  //  CFNetDiagnosticRef dReference;
+  //  dReference = CFNetDiagnosticCreateWithURL (kCFAllocatorDefault, (__bridge CFURLRef)[NSURL URLWithString:@"www.apple.com"]);
+  //  CFNetDiagnosticStatus status;
+  //  status = CFNetDiagnosticCopyNetworkStatusPassively (dReference, NULL);
+  //  CFRelease (dReference);
+  //  if ( status == kCFNetDiagnosticConnectionUp )
+  //  {
+  //    NSLog (@"Connection is Available");
+  //    return YES;
+  //  }
+  //  else
+  //  {
+  //    NSLog (@"Connection is down");
+  //    return NO;
+  //  }
   BOOL retval = NO;
   Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
   NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
@@ -161,18 +162,18 @@
 -(NSString*)getFeaturNamefromSelectedTag:(int)SelectedTag{
   switch (SelectedTag) {
     case 0:
-      return @"open_now_status";
-      break;
+    return @"open_now_status";
+    break;
     case 1:
-      return @"free_delivery";
-      break;
+    return @"free_delivery";
+    break;
     case 2:
-      return @"customize_food";
-      break;
-      
+    return @"customize_food";
+    break;
+    
     default:
-      return @"open_now_status";
-      break;
+    return @"open_now_status";
+    break;
   }
 }
 
@@ -193,79 +194,79 @@
 -(NSString*)getMinimumOrderAmountfromRating:(int)rating{
   switch (rating) {
     case 0:
-      return @"10";
-      break;
+    return @"10";
+    break;
     case 1:
-      return @"100";
-      break;
+    return @"100";
+    break;
     case 2:
-      return @"1000";
-      break;
+    return @"1000";
+    break;
     case 3:
-      return @"10000";
-      break;
+    return @"10000";
+    break;
     case 4:
-      return @"100000";
-      break;
-      
+    return @"100000";
+    break;
+    
     default:
-      return @"no";
-      break;
+    return @"no";
+    break;
   }
 }
 
 -(NSString*)getSortingKeyfromIndex:(int)index{
   switch (index) {
     case 0:
-      return @" ";
-      break;
+    return @" ";
+    break;
     case 1:
-      return @"order by ri.name asc";
-      break;
+    return @"order by ri.name asc";
+    break;
     case 2:
-      return @"order by rai.min_order_amount asc";
-      break;
+    return @"order by rai.min_order_amount asc";
+    break;
     case 3:
-      return @"order by rai.min_order_amount desc";
-      break;
+    return @"order by rai.min_order_amount desc";
+    break;
     case 4:
-      return @"order by rai.rating desc";
-      break;
+    return @"order by rai.rating desc";
+    break;
     case 5:
-      return @"order by rai.delivery_time asc";
-      break;
+    return @"order by rai.delivery_time asc";
+    break;
     case 6:
-      return @"order by rdf.fee asc";
-      break;
+    return @"order by rdf.fee asc";
+    break;
     default:
-      return @"";
-      break;
+    return @"";
+    break;
   }
 }
 
 -(NSDictionary*)getParamsForUserFilters{
-//  NSString *pp= [[NSMutableString alloc]init];
-//  NSString *str1 = [NSString stringWithFormat:@"{\"rating\":%d,",self.ratings];
-//  NSString *str2 = [NSString stringWithFormat:@"\"feature\":\"%@\",",[self.selectedFeaturesArray componentsJoinedByString:@","]];
-//  NSString *str3 = [NSString stringWithFormat:@"\"address\":\"%@\",",[ResponseUtility getSharedInstance].enteredAddress];
-//  NSString *str4 = [NSString stringWithFormat:@"\"all_cuisine\":\"%@\",",[self.selectedCusinesArray componentsJoinedByString:@","]];
-//  NSString *str5 = [NSString stringWithFormat:@"\"sorting\":\"%@\",",self.sorting];
-//  NSString *str6 = [NSString stringWithFormat:@"\"delivery_status\":\"%d\",",self.delivery_status];
-//  
-//  NSString *str8 = [NSString stringWithFormat:@"\"min_order_amount\":\"%@\",",self.min_order_amount];
-//  NSString *str7 = [NSString stringWithFormat:@"\"action1\":\"%@\"}",@"search"];
-//  pp = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",str1,str2,str3,str4,str5,str6,str8,str7];
-//  NSDictionary *paramsValue = [[NSDictionary alloc]initWithObjectsAndKeys:pp,@"filter_val", nil];
+  //  NSString *pp= [[NSMutableString alloc]init];
+  //  NSString *str1 = [NSString stringWithFormat:@"{\"rating\":%d,",self.ratings];
+  //  NSString *str2 = [NSString stringWithFormat:@"\"feature\":\"%@\",",[self.selectedFeaturesArray componentsJoinedByString:@","]];
+  //  NSString *str3 = [NSString stringWithFormat:@"\"address\":\"%@\",",[ResponseUtility getSharedInstance].enteredAddress];
+  //  NSString *str4 = [NSString stringWithFormat:@"\"all_cuisine\":\"%@\",",[self.selectedCusinesArray componentsJoinedByString:@","]];
+  //  NSString *str5 = [NSString stringWithFormat:@"\"sorting\":\"%@\",",self.sorting];
+  //  NSString *str6 = [NSString stringWithFormat:@"\"delivery_status\":\"%d\",",self.delivery_status];
+  //
+  //  NSString *str8 = [NSString stringWithFormat:@"\"min_order_amount\":\"%@\",",self.min_order_amount];
+  //  NSString *str7 = [NSString stringWithFormat:@"\"action1\":\"%@\"}",@"search"];
+  //  pp = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",str1,str2,str3,str4,str5,str6,str8,str7];
+  //  NSDictionary *paramsValue = [[NSDictionary alloc]initWithObjectsAndKeys:pp,@"filter_val", nil];
   
-//  NSLog(@"%@",paramsValue);
+  //  NSLog(@"%@",paramsValue);
   
-//  return paramsValue;
+  //  return paramsValue;
   if ([RequestUtility sharedRequestUtility].isAsap) {
     return [self getParamsForAsapUserFilters];
   }else{
     return [self getParamsForNormalUserFilters];
   }
-
+  
 }
 
 -(NSDictionary*)getParamsForNormalUserFilters{
@@ -296,16 +297,16 @@
   NSString *str4 = [NSString stringWithFormat:@"\"all_cuisine\":\"%@\",",[self.selectedCusinesArray componentsJoinedByString:@","]];
   NSString *str5 = [NSString stringWithFormat:@"\"sorting\":\"%@\",",self.sorting];
   NSString *str6 = [NSString stringWithFormat:@"\"delivery_status\":\"%d\",",self.delivery_status];
-
+  
   NSString *str8 = [NSString stringWithFormat:@"\"min_order_amount\":\"%@\",",self.min_order_amount];
   NSString *str9 = [NSString stringWithFormat:@"\"schedule_date\":\"%@\",",[RequestUtility sharedRequestUtility].asapSchedule_date];
   NSString *str10 = [NSString stringWithFormat:@"\"schedule_time\":\"%@\",",[RequestUtility sharedRequestUtility].asapSchedule_time];
-    NSString *str7 = [NSString stringWithFormat:@"\"action1\":\"%@\"}",@"search"];
+  NSString *str7 = [NSString stringWithFormat:@"\"action1\":\"%@\"}",@"search"];
   
   pp = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@",str1,str2,str3,str4,str5,str6,str8,str9,str10,str7];
   NSDictionary *paramsValue = [[NSDictionary alloc]initWithObjectsAndKeys:pp,@"filter_val", nil];
   
-//  NSLog(@"%@",paramsValue);
+  //  NSLog(@"%@",paramsValue);
   return paramsValue;
 }
 
@@ -330,7 +331,8 @@
 
 
 -(void)doYMOCPostRequestfor:(NSString*)url withParameters:(NSDictionary*)params onComplete:(void (^)(bool status, NSDictionary  *response))completionBlock{
-    url = [url stringByReplacingOccurrencesOfString:@"http://ymoc.mobisofttech.co.in/android_api/" withString:@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/"];
+  
+  url = [NSString stringWithFormat:@"%@%@",kBaseMain_url,url];
   if ([self isNetworkAvailable]) {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.discretionary = NO;
@@ -348,8 +350,8 @@
       NSArray *values = [params allValues];
       NSMutableString *postData = [[NSMutableString alloc]init];
       for (int i =0; i<[key count]; i++) {
-//        NSString *str =[NSString stringWithFormat:@"%@=%@&",[key objectAtIndex:i],[values objectAtIndex:i]];
-//        [postData appendString:str];
+        //        NSString *str =[NSString stringWithFormat:@"%@=%@&",[key objectAtIndex:i],[values objectAtIndex:i]];
+        //        [postData appendString:str];
         NSString *str =[NSString stringWithFormat:@"\"%@\":\"%@\",",[key objectAtIndex:i],[values objectAtIndex:i]];
         [postData appendString:str];
       }
@@ -387,7 +389,8 @@
 
 
 -(void)doYMOCStringPostRequest:(NSString*)url withParameters:(NSString*)params onComplete:(void (^)(bool status, NSDictionary  *response))completionBlock{
-    url = [url stringByReplacingOccurrencesOfString:@"http://ymoc.mobisofttech.co.in/android_api/" withString:@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/"];
+  
+  url = [NSString stringWithFormat:@"%@%@",kBaseMain_url,url];
   if ([self isNetworkAvailable]) {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.discretionary = NO;
@@ -401,17 +404,17 @@
     
     [request setHTTPMethod:@"POST"];
     if (params.length>0) {
-//      NSArray *key = [params allKeys];
-//      NSArray *values = [params allValues];
-//      NSMutableString *postData = [[NSMutableString alloc]init];
-//      for (int i =0; i<[key count]; i++) {
-//        //        NSString *str =[NSString stringWithFormat:@"%@=%@&",[key objectAtIndex:i],[values objectAtIndex:i]];
-//        //        [postData appendString:str];
-//        NSString *str =[NSString stringWithFormat:@"\"%@\":\"%@\",",[key objectAtIndex:i],[values objectAtIndex:i]];
-//        [postData appendString:str];
-//      }
-//      postData = (NSMutableString*)[postData substringToIndex:[postData length]-1];
-//      postData = (NSMutableString*)[NSString stringWithFormat:@"{%@}",postData];
+      //      NSArray *key = [params allKeys];
+      //      NSArray *values = [params allValues];
+      //      NSMutableString *postData = [[NSMutableString alloc]init];
+      //      for (int i =0; i<[key count]; i++) {
+      //        //        NSString *str =[NSString stringWithFormat:@"%@=%@&",[key objectAtIndex:i],[values objectAtIndex:i]];
+      //        //        [postData appendString:str];
+      //        NSString *str =[NSString stringWithFormat:@"\"%@\":\"%@\",",[key objectAtIndex:i],[values objectAtIndex:i]];
+      //        [postData appendString:str];
+      //      }
+      //      postData = (NSMutableString*)[postData substringToIndex:[postData length]-1];
+      //      postData = (NSMutableString*)[NSString stringWithFormat:@"{%@}",postData];
       NSData* data=[params dataUsingEncoding:NSUTF8StringEncoding];
       [request setHTTPBody:data];
     }

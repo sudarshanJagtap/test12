@@ -19,7 +19,7 @@
 #import <Google/SignIn.h>
 #import <TwitterKit/TwitterKit.h>
 #import "SWRevealViewController.h"
-
+#import "AppConstant.h"
 @interface SignUpLoginViewController ()<GIDSignInUIDelegate,GIDSignInDelegate>{
   AppDelegate *appDelegate;
 }
@@ -97,14 +97,13 @@
   
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/after_socialmedia_login.php";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:[results valueForKey:@"id"] forKey:@"app_id"];
   [params setValue:[results valueForKey:@"name"] forKey:@"full_name"];
   [params setValue:[results valueForKey:@"email"] forKey:@"email"];
   [params setValue:@"facebook" forKey:@"app_name"];
   [params setValue:@"after_socialmedia_login" forKey:@"action"];
-  [utility doYMOCPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCPostRequestfor:kAfter_socialmedia_login withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponse:responseDictionary];
@@ -202,14 +201,13 @@
   
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/after_socialmedia_login.php";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:[results valueForKey:@"id_str"] forKey:@"app_id"];
   [params setValue:[results valueForKey:@"name"] forKey:@"full_name"];
   [params setValue:[results valueForKey:@"screen_name"] forKey:@"email"];
   [params setValue:@"twitter" forKey:@"app_name"];
   [params setValue:@"after_socialmedia_login" forKey:@"action"];
-  [utility doYMOCPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCPostRequestfor:kAfter_socialmedia_login withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponse:responseDictionary];
@@ -283,8 +281,7 @@ didSignInForUser:(GIDGoogleUser *)user
 -(void)uploadgoogleSignINDetails:(NSDictionary*)params{
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/after_socialmedia_login.php";
-  [utility doYMOCPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCPostRequestfor:kAfter_socialmedia_login withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponse:responseDictionary];

@@ -23,7 +23,7 @@
 #import "HomeCartTableViewCell.h"
 #import <GooglePlaces/GooglePlaces.h>
 #import "NIDropDown.h"
-
+#import "AppConstant.h"
 @interface FrontHomeScreenViewController ()<RightMenuViewControllerDelegate,GMSAutocompleteViewControllerDelegate,NIDropDownDelegate>{
   
   ResponseUtility *respoUtility;
@@ -599,11 +599,7 @@
     cell.emptyCartBtn.layer.cornerRadius =5.0;
     USerSelectedCartData *cd = (USerSelectedCartData*)[popRestArray objectAtIndex:indexPath.row];
     NSString *imglogo=cd.Logo;
-    NSString *stringURL=@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/ymoc_main/upload/logo/medium/";
-    //    NSString *stringURL=@"http://ymoc.mobisofttech.co.in/ymoc_main/upload/logo/thumbnail/";
-    
-    
-    NSString *url_Img_FULL = [stringURL stringByAppendingPathComponent:imglogo];
+    NSString *url_Img_FULL = [kBaseImage_pathUrl stringByAppendingPathComponent:imglogo];
     if (imglogo) {
       cell.imgVw.showActivityIndicator = YES;
       cell.imgVw.imageURL = [NSURL URLWithString:url_Img_FULL];
@@ -664,12 +660,7 @@
     timeValue = [timeValue stringByAppendingString:@" Minutes"];
     cell.lbldeliveritime.text =timeValue;
     NSString *imglogo=ufpRespo.logo;
-    
-    
-    NSString *stringURL=@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/ymoc_main/upload/logo/medium/";
-    //    NSString *stringURL=@"http://ymoc.mobisofttech.co.in/ymoc_main/upload/logo/thumbnail/";
-    
-    NSString *url_Img_FULL = [stringURL stringByAppendingPathComponent:imglogo];
+    NSString *url_Img_FULL = [kBaseImage_pathUrl stringByAppendingPathComponent:imglogo];
     if (imglogo) {
       cell.imgView.showActivityIndicator = YES;
       cell.imgView.imageURL = [NSURL URLWithString:url_Img_FULL];

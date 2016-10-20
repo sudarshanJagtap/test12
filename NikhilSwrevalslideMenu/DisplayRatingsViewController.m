@@ -10,6 +10,8 @@
 #import "AppDelegate.h"
 #import "RequestUtility.h"
 #import "DisplayRatingTableViewCell.h"
+#import "AppConstant.h"
+
 @interface DisplayRatingsViewController (){
   
   AppDelegate *appDelegate;
@@ -55,13 +57,12 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/restaurant_review.php";
   NSError * err;
   NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
   NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
   NSLog(@"getAllReviews string \n = %@",String);
   
-  [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kRestaurant_review withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"getAllReviews response:%@",responseDictionary);
       [appDelegate hideLoadingView];

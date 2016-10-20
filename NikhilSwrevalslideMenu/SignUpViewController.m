@@ -12,6 +12,7 @@
 #import "DBManager.h"
 #import "CartViewController.h"
 #import "SWRevealViewController.h"
+#import "AppConstant.h"
 #define kOFFSET_FOR_KEYBOARD 80.0
 @interface SignUpViewController (){
   AppDelegate *appDelegate;
@@ -133,7 +134,6 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/signup.php?";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:self.nameTxtFld.text forKey:@"name"];
   [params setValue:self.mobileTxtFld.text forKey:@"mobile"];
@@ -141,7 +141,7 @@
   [params setValue:self.passwordTxtFld.text forKey:@"password"];
 
   
-  [utility doPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doPostRequestfor:kSignup withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponse:responseDictionary];

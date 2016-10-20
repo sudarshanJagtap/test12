@@ -9,6 +9,7 @@
 #import "FilterOperations.h"
 #import "constant.h"
 #import "RequestUtility.h"
+#import "AppConstant.h"
 @interface FilterOperations(){
   NSDictionary *params;
 }
@@ -48,9 +49,8 @@
   
   if ([RequestUtility sharedRequestUtility].isAsap) {
     NSLog(@"the params for the url are %@",parameter);
-//    http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/schedule_user_filter.php
-//    http://ymoc.mobisofttech.co.in/android_api/schedule_user_filter.php
-    [[APIClient shared] GET:@"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/schedule_user_filter.php" parameters:parameter success:^(NSURLSessionDataTask *task, id responseObject) {
+
+    [[APIClient shared] GET:kSchedule_user_filter parameters:parameter success:^(NSURLSessionDataTask *task, id responseObject) {
       NSLog(@"the response for the url are %@",responseObject);
       [self validateAPIResponseWithData:responseObject success:sucess failure:failure];
       
@@ -62,7 +62,7 @@
   }else{
   NSLog(@"the params for the url are %@",parameter);
   
-  [[APIClient shared] GET:kServiceNameDirectryURL parameters:parameter success:^(NSURLSessionDataTask *task, id responseObject) {
+  [[APIClient shared] GET:kUser_filter parameters:parameter success:^(NSURLSessionDataTask *task, id responseObject) {
     NSLog(@"the response for the url are %@",responseObject);
     [self validateAPIResponseWithData:responseObject success:sucess failure:failure];
     

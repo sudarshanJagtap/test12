@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "RequestUtility.h"
 #import "DBManager.h"
+#import "AppConstant.h"
 @interface ForgotPasswordViewController ()<UITextFieldDelegate>{
   AppDelegate *appDelegate;
 }
@@ -74,7 +75,6 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/forgot_password.php";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
 //  NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
 //  NSString *userId=[userdictionary valueForKey:@"user_id"];
@@ -83,7 +83,7 @@
   NSError * err;
   NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
   NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-  [utility doYMOCStringPostRequest:url withParameters:myString onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kForgot_password withParameters:myString onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponse:responseDictionary];

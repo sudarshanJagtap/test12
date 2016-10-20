@@ -14,6 +14,7 @@
 #import "RequestUtility.h"
 #import "SWRevealViewController.h"
 #import "DBManager.h"
+#import "AppConstant.h"
 // Set the environment:
 // - For live charges, use PayPalEnvironmentProduction (default).
 // - To use the PayPal sandbox, use PayPalEnvironmentSandbox.
@@ -186,14 +187,12 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/delivery_fee.php";
-  
   NSError * err;
   NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:&err];
   NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
   NSLog(@"getDeliveryFee info string \n = %@",String);
   
-  [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kDelivery_fee withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"\n\n response of getDeliveryFee \n\n :%@",responseDictionary);
       [appDelegate hideLoadingView];
@@ -316,8 +315,7 @@
   NSLog(@"after payment string \n = %@",String);
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/after_payment.php";
-  [utility doYMOCStringPostRequest:url withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCStringPostRequest:kAfter_payment withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"response:%@",responseDictionary);

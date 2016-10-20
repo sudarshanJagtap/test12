@@ -18,7 +18,7 @@
 #import "CartViewController.h"
 #import <Google/SignIn.h>
 #import <TwitterKit/TwitterKit.h>
-
+#import "AppConstant.h"
 #define kOFFSET_FOR_KEYBOARD 80.0
 @interface LoginViewController ()<GIDSignInUIDelegate,GIDSignInDelegate>{
   AppDelegate *appDelegate;
@@ -144,14 +144,13 @@
   
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/after_socialmedia_login.php";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:[results valueForKey:@"id"] forKey:@"app_id"];
   [params setValue:[results valueForKey:@"name"] forKey:@"full_name"];
   [params setValue:[results valueForKey:@"email"] forKey:@"email"];
   [params setValue:@"facebook" forKey:@"app_name"];
   [params setValue:@"after_socialmedia_login" forKey:@"action"];
-  [utility doYMOCPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCPostRequestfor:kAfter_socialmedia_login withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponseOfSocialMedia:responseDictionary];
@@ -252,14 +251,13 @@
   
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/after_socialmedia_login.php";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:[results valueForKey:@"id_str"] forKey:@"app_id"];
   [params setValue:[results valueForKey:@"name"] forKey:@"full_name"];
   [params setValue:[results valueForKey:@"screen_name"] forKey:@"email"];
   [params setValue:@"twitter" forKey:@"app_name"];
   [params setValue:@"after_socialmedia_login" forKey:@"action"];
-  [utility doYMOCPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCPostRequestfor:kAfter_socialmedia_login withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponseOfSocialMedia:responseDictionary];
@@ -312,8 +310,7 @@ didSignInForUser:(GIDGoogleUser *)user
 -(void)uploadgoogleSignINDetails:(NSDictionary*)params{
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/after_socialmedia_login.php";
-  [utility doYMOCPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doYMOCPostRequestfor:kAfter_socialmedia_login withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponseOfSocialMedia:responseDictionary];
@@ -374,11 +371,10 @@ dismissViewController:(UIViewController *)viewController {
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSString *url = @"http://ymoc.mobisofttech.co.in/android_api/login.php?";
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:email forKey:@"user_name"];
   [params setValue:password forKey:@"password"];
-  [utility doPostRequestfor:url withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
+  [utility doPostRequestfor:kLogin withParameters:params onComplete:^(bool status, NSDictionary *responseDictionary){
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       [self parseUserResponse:responseDictionary];
@@ -428,10 +424,3 @@ dismissViewController:(UIViewController *)viewController {
 }
 
 @end
-
-
-//Login webservice-
-//http://ymoc.mobisofttech.co.in/android_api/login.php?user_name=rajesh.p@mobisofttech.co.in&password=123")
-//
-//Responce-
-//{"code":1,"data":{"user_id":"2","user_name":"rajesh.p@mobisofttech.co.in","user_full_name":"rajesh patil"},"msg":"Login successfull"}
