@@ -114,72 +114,71 @@
   
 }
 
+-(int) minutesSinceMidnight:(NSDate *)date
+{
+  NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:date];
+  return 60 * (int)[components hour] + (int)[components minute];
+}
+
+
 -(BOOL)checkRestoClosed{
   
   BOOL retval = NO;
-//  NSString *Closetime = self.selectedUfrespo.closing_time;
-//  
-//  NSDate *now = [NSDate date];
-//  
-//  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//  dateFormatter.dateFormat = @"HH:mm:ss";
-//  [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
-//  NSLog(@"The Current Time is %@",[dateFormatter stringFromDate:now]);
-//  NSString *currTime = [dateFormatter stringFromDate:now];
+//  NSString *endTimeString = [self.selectedUfrespo.closing_time substringToIndex:5];
+//  NSString *startTimeString = [self.selectedUfrespo.opening_time substringToIndex:5];
   
   
-//  NSString *time1 = Closetime;
-//  NSString *time2 = @"10:50:23";
-//  
-//  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//  [formatter setDateFormat:@"HH:mm:ss"];
-//  
-//  NSDate *date1= [formatter dateFromString:time1];
-//  NSDate *date2 = [formatter dateFromString:time2];
-//  
-//  NSComparisonResult result = [date1 compare:date2];
-//  if(result == NSOrderedDescending)
-//  {
-//    NSLog(@"date1 is later than date2");
-//    self.restClosedLbl.hidden = NO;
-//      self.tableVw.hidden = YES;
-//    retval = YES;
-//  }
-//  else if(result == NSOrderedAscending)
-//  {
-//    NSLog(@"date2 is later than date1");
-//    retval = NO;
-//  }
-//  else
-//  {
-//    NSLog(@"date1 is equal to date2");
-//    retval = NO;
-//  }
+  NSDateComponents *openingTime = [[NSDateComponents alloc] init];
+  openingTime.hour = [[self.selectedUfrespo.opening_time substringToIndex:2] intValue];
+  openingTime.minute = (int)[self.selectedUfrespo.opening_time substringWithRange:NSMakeRange(3, 2)];
   
+  NSDateComponents *closingTime = [[NSDateComponents alloc] init];
+  closingTime.hour = [[self.selectedUfrespo.closing_time substringToIndex:2] intValue];
+  closingTime.minute = (int)[self.selectedUfrespo.closing_time substringWithRange:NSMakeRange(3, 2)];
   
-//  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//  [formatter setDateFormat:@"HH:mm:ss"];
-//  
-//  NSDate *startDate = [formatter dateFromString:currTime];
-//    NSLog(@"The startDate Time is %@",[dateFormatter stringFromDate:startDate]);
-//  NSDate *endDate = [formatter dateFromString:Closetime];
-//    NSLog(@"The endDate Time is %@",[dateFormatter stringFromDate:endDate]);
-//  
-//  if ([startDate compare: endDate] == NSOrderedDescending) {
-//    NSLog(@"startDate is later than endDate");
-//    self.restClosedLbl.hidden = NO;
-//          self.tableVw.hidden = YES;
-//        retval = YES;
-//    
-//  } else if ([startDate compare:endDate] == NSOrderedAscending) {
-//    NSLog(@"startDate is earlier than endDate");
-//     retval = NO;
-//  } else {
-//    NSLog(@"dates are the same");
-//     retval = NO;
-//  }
-
+  NSDate *now = [NSDate date];
   
+  NSDateComponents *currentTime = [[NSCalendar currentCalendar] components:NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond
+                                                                  fromDate:now];
+  
+  NSMutableArray *times = [@[openingTime, closingTime, currentTime] mutableCopy];
+  [times sortUsingComparator:^NSComparisonResult(NSDateComponents *t1, NSDateComponents *t2) {
+    if (t1.hour > t2.hour) {
+      return NSOrderedDescending;
+    }
+    
+    if (t1.hour < t2.hour) {
+      return NSOrderedAscending;
+    }
+    // hour is the same
+    if (t1.minute > t2.minute) {
+      return NSOrderedDescending;
+    }
+    
+    if (t1.minute < t2.minute) {
+      return NSOrderedAscending;
+    }
+    // hour and minute are the same
+    if (t1.second > t2.second) {
+      return NSOrderedDescending;
+    }
+    
+    if (t1.second < t2.second) {
+      return NSOrderedAscending;
+    }
+    return NSOrderedSame;
+    
+  }];
+  
+  if ([times indexOfObject:currentTime] == 1) {
+    NSLog(@"We are Open!");
+    retval = NO;
+  } else {
+    NSLog(@"Sorry, we are closed!");
+    self.restClosedLbl.hidden = NO;
+              self.tableVw.hidden = YES;
+            retval = YES;
+  }
   
   return retval;
 }
@@ -972,8 +971,8 @@
        }
     if ([RequestUtility sharedRequestUtility ].isAsap) {
       [cdictionary setValue:@"1" forKey:@"order_schedule_status"];
-      [cdictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
-      [cdictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
+      [cdictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_datePassed forKey:@"order_schedule_date"];
+      [cdictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_timePassed forKey:@"order_schedule_time"];
     }else{
       [cdictionary setValue:@"0" forKey:@"order_schedule_status"];
       [cdictionary setValue:@"00-00-00" forKey:@"order_schedule_date"];

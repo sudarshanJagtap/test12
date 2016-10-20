@@ -167,10 +167,13 @@
         float fullhght = 70*full;
         
         self.tableHeightConstraint.constant = halfhght+fullhght;
+        
         float subtotalAmoutF = [vwData.order_amount floatValue];
         float asalesTaxF = [vwData.tax_amount floatValue];
         float totalAmoutF = [vwData.total_amount floatValue];
-        float add = subtotalAmoutF+asalesTaxF;
+        float coupAmtF = [vwData.coupon_amount floatValue];
+        
+        float add = subtotalAmoutF+asalesTaxF+coupAmtF;
         if (add == totalAmoutF) {
           self.deliveryFeeLabelheightConstraint.constant = 0;
           self.adeliveryHghtConstraint.constant = 0;
