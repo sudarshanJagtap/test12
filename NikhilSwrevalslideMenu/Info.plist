@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>YMOC</string>
+	<string>YMOC.COM</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -53,25 +53,25 @@
 	<string>1</string>
 	<key>Exception Domains</key>
 	<string></string>
-  <key>Fabric</key>
-  <dict>
-    <key>APIKey</key>
-    <string>9b6b7bce04bbeb94ca820f4118c8f17c4f15ab41</string>
-    <key>Kits</key>
-    <array>
-      <dict>
-        <key>KitInfo</key>
-        <dict>
-          <key>consumerKey</key>
-          <string>APDpLKXMecaqbFzslYpRa1XMK</string>
-          <key>consumerSecret</key>
-          <string>a7PQ3Ho7nf1NZBs9iYyCtKxBRVSNeiInJkqiVVC7BPGHQzJfC5</string>
-        </dict>
-        <key>KitName</key>
-        <string>Twitter</string>
-      </dict>
-    </array>
-  </dict>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>9b6b7bce04bbeb94ca820f4118c8f17c4f15ab41</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict>
+					<key>consumerKey</key>
+					<string>APDpLKXMecaqbFzslYpRa1XMK</string>
+					<key>consumerSecret</key>
+					<string>a7PQ3Ho7nf1NZBs9iYyCtKxBRVSNeiInJkqiVVC7BPGHQzJfC5</string>
+				</dict>
+				<key>KitName</key>
+				<string>Twitter</string>
+			</dict>
+		</array>
+	</dict>
 	<key>FacebookAppID</key>
 	<string>233110650414515</string>
 	<key>FacebookDisplayName</key>

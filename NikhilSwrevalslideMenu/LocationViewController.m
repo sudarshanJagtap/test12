@@ -48,7 +48,7 @@
   self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
   self.txtEntAddressCityState.layer.borderColor=[[UIColor whiteColor]CGColor];
   self.txtEntAddressCityState.layer.borderWidth=2.0;
-  NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Enter your Address, Zipcode, city, state…" attributes:@{ NSForegroundColorAttributeName : [UIColor grayColor] }];
+  NSAttributedString *str = [[NSAttributedString alloc] initWithString:@"Enter Street Address, City, State" attributes:@{ NSForegroundColorAttributeName : [UIColor grayColor] }];
   self.txtEntAddressCityState.attributedPlaceholder = str;
   self.array = @[self.txtEntAddressCityState];
   [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:self.array]];
@@ -120,13 +120,14 @@
      [self performSegueWithIdentifier:@"FromLocationHome" sender:nil];
   }else{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                    message:@"Please enter zipcode/address/state/city"
+                                                    message:@"Please Enter Street Address, City, State"
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
   }
 }
+
 
 #pragma mark Custom AutoComplete
 

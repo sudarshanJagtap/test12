@@ -23,6 +23,7 @@
   UIView *pkVw;
   int counter ;
   NSDate *selectedDate;
+  UIImageView *imgAccessoryvw;
 }
 
 @end
@@ -249,10 +250,17 @@
   if ([selectedRowsArray containsObject:[arrayCuisine objectAtIndex:indexPath.row]]) {
     cell.imageView.image = [UIImage imageNamed:@"checkBx1.png"];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    
+//    imgAccessoryvw=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 21, 17)];
+//    imgAccessoryvw.image=[UIImage imageNamed:@"star12.png"];
+//    cell.accessoryView=imgAccessoryvw;
   }
   else {
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.imageView.image = [UIImage imageNamed:@"uncheckBx1.png"];
+//    imgAccessoryvw=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 21, 17)];
+//    imgAccessoryvw.image=[UIImage imageNamed:@"star23.png"];
+//    cell.accessoryView=imgAccessoryvw;
   }
   UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleChecking:)];
   [cell addGestureRecognizer:tap];

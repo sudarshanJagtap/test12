@@ -78,13 +78,13 @@
         id responseDictionary;
         
         NSError *err;
-//      if (responseDictionary!=nil) {
+      if (responseObject!=nil) {
         responseDictionary = [NSJSONSerialization JSONObjectWithData:responseObject
                                                              options:kNilOptions
                                                                error:&err];
-//      }else{
-//      success(task, responseDictionary);
-//      }
+      }else{
+      success(task, responseDictionary);
+      }
       
 
         if (error) {
