@@ -15,9 +15,14 @@
 //NSString* const kBaseRestImagePathUtl = @"http://ymoc.com/ymoc_main/upload/image/";
 
 
-NSString* const kBaseMain_url = @"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/";
-NSString* const kBaseImage_pathUrl = @"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/ymoc_main/upload/logo/medium/";
-NSString* const kBaseRestImagePathUtl = @"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/ymoc_main/upload/image/";
+NSString* const kBaseMain_url = @"https://www.ymoc.com/android_api/";
+NSString* const kBaseImage_pathUrl = @"https://www.ymoc.com/ymoc_main/upload/logo/medium/";
+NSString* const kBaseRestImagePathUtl = @"https://www.ymoc.com/ymoc_main/upload/image/";
+
+
+//NSString* const kBaseMain_url = @"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/android_api/";
+//NSString* const kBaseImage_pathUrl = @"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/ymoc_main/upload/logo/medium/";
+//NSString* const kBaseRestImagePathUtl = @"http://mailer.mobisofttech.co.in/ymoc_portal_dev_latest/ymoc_main/upload/image/";
 
 NSString* const kSchedule_user_filter = @"schedule_user_filter.php";
 NSString* const kUser_filter = @"user_filter.php";

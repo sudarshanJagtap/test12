@@ -36,16 +36,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NikhilSwrevalslideMenu/BillSummaryViewController.m"
-            timestampString = "496865328.252821"
+            filePath = "NikhilSwrevalslideMenu/DetailViewController.m"
+            timestampString = "498767141.557882"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "-checkRestoClosed"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NikhilSwrevalslideMenu/SignUpLoginViewController.m"
+            timestampString = "498777891.572711"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "-uploadTwitterDetails:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NikhilSwrevalslideMenu/SignUpLoginViewController.m"
+            timestampString = "498777903.581095"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
+            landmarkName = "-uploadTwitterDetails:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SignUpLoginViewController uploadTwitterDetails:]"
+                  moduleName = "NikhilSwrevalslideMenu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sudarshan/Documents/Androapps/YMOC/NikhilSwrevalslideMenu/SignUpLoginViewController.m"
+                  timestampString = "498777903.583128"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "210"
+                  endingLineNumber = "210"
+                  offsetFromSymbolStart = "544">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__50-[SignUpLoginViewController uploadTwitterDetails:]_block_invoke"
+                  moduleName = "NikhilSwrevalslideMenu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sudarshan/Documents/Androapps/YMOC/NikhilSwrevalslideMenu/SignUpLoginViewController.m"
+                  timestampString = "498777903.583283"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "210"
+                  endingLineNumber = "210"
+                  offsetFromSymbolStart = "47">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NikhilSwrevalslideMenu/SignUpLoginViewController.m"
+            timestampString = "498777904.851616"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
+            landmarkName = "-uploadTwitterDetails:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -56,12 +136,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NikhilSwrevalslideMenu/RequestUtility.m"
-            timestampString = "497123524.486703"
+            timestampString = "498777926.81084"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "-doPostRequestfor:withParameters:onComplete:"
+            startingLineNumber = "336"
+            endingLineNumber = "336"
+            landmarkName = "-doYMOCPostRequestfor:withParameters:onComplete:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -72,12 +152,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NikhilSwrevalslideMenu/RequestUtility.m"
-            timestampString = "497123926.813595"
+            timestampString = "498777948.558065"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
+            landmarkName = "-doYMOCPostRequestfor:withParameters:onComplete:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NikhilSwrevalslideMenu/RequestUtility.m"
+            timestampString = "498777949.943876"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "370"
+            endingLineNumber = "370"
+            landmarkName = "-doYMOCPostRequestfor:withParameters:onComplete:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NikhilSwrevalslideMenu/RequestUtility.m"
+            timestampString = "498777950.967912"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "377"
             endingLineNumber = "377"
-            landmarkName = "-doYMOCStringPostRequest:withParameters:onComplete:"
+            landmarkName = "-doYMOCPostRequestfor:withParameters:onComplete:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
