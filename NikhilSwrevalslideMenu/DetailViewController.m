@@ -122,17 +122,18 @@
 -(BOOL)checkRestoClosed{
   
   BOOL retval = NO;
-//  NSString *endTimeString = [self.selectedUfrespo.closing_time substringToIndex:5];
-//  NSString *startTimeString = [self.selectedUfrespo.opening_time substringToIndex:5];
+
+  NSDateFormatter *dateformat = [[NSDateFormatter alloc] init];
+  [dateformat setDateFormat:@"HH:mm:ss"];
+ 
+  NSDate *oDate = [dateformat dateFromString:self.selectedUfrespo.opening_time];
+  NSDate *cDate = [dateformat dateFromString:self.selectedUfrespo.closing_time];
   
+  NSDateComponents *openingTime = [[NSCalendar currentCalendar] components:NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond
+                                                                  fromDate:oDate];
   
-  NSDateComponents *openingTime = [[NSDateComponents alloc] init];
-  openingTime.hour = [[self.selectedUfrespo.opening_time substringToIndex:2] intValue];
-  openingTime.minute = (int)[self.selectedUfrespo.opening_time substringWithRange:NSMakeRange(3, 2)];
-  
-  NSDateComponents *closingTime = [[NSDateComponents alloc] init];
-  closingTime.hour = [[self.selectedUfrespo.closing_time substringToIndex:2] intValue];
-  closingTime.minute = (int)[self.selectedUfrespo.closing_time substringWithRange:NSMakeRange(3, 2)];
+  NSDateComponents *closingTime = [[NSCalendar currentCalendar] components:NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond
+                                                         fromDate:cDate];
   
   NSDate *now = [NSDate date];
   

@@ -62,6 +62,16 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.navigationController.navigationBarHidden = YES;
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+//  CGFloat screenHeight = screenRect.size.height;
+//  CGFloat screenWidth = screenRect.size.width;
+  coverView = [[UIScrollView alloc] initWithFrame:screenRect];
+  coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+  popVw.layer.cornerRadius = 10.0;
+  popVw=[[UIView alloc]init];
+  [popVw setBackgroundColor:[UIColor whiteColor]];
+  popVw.hidden = YES;
+  coverView.hidden = YES;
 }
 
 //-(void)getDisplayCartData{
@@ -186,7 +196,7 @@
   if([RequestUtility sharedRequestUtility].isAsap){
     self.orderScheduleLabel.hidden = NO;
     self.orderScheduleDateTimeLabel.hidden = NO;
-    Utility *utilityObj = [[Utility alloc]init];
+//    Utility *utilityObj = [[Utility alloc]init];
     NSString *dateStr = [NSString stringWithFormat:@"%@ : %@", [RequestUtility sharedRequestUtility ].asapSchedule_datePassed,[RequestUtility sharedRequestUtility ].asapSchedule_timePassed];
     self.orderScheduleDateTimeLabel.text = dateStr;
     self.constriantOrderScheduleHeight.constant=40;
@@ -582,6 +592,7 @@
     if (status) {
       NSLog(@"response:%@",responseDictionary);
       dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
         [self parseSearchDetailsInfoResponse:responseDictionary];
       });
     }else{
@@ -653,12 +664,14 @@
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   CGFloat screenHeight = screenRect.size.height;
   CGFloat screenWidth = screenRect.size.width;
-  coverView = [[UIScrollView alloc] initWithFrame:screenRect];
-  coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
-  [self.view addSubview:coverView];
-  popVw.layer.cornerRadius = 10.0;
-  popVw=[[UIView alloc]initWithFrame:CGRectMake(20, 100, screenWidth-40, screenHeight/2+100)];
-  [popVw setBackgroundColor:[UIColor whiteColor]];
+//  coverView = [[UIScrollView alloc] initWithFrame:screenRect];
+//  coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+//  [self.view addSubview:coverView];
+//  popVw.layer.cornerRadius = 10.0;
+//  popVw=[[UIView alloc]initWithFrame:CGRectMake(20, 100, screenWidth-40, screenHeight/2+100)];
+//  [popVw setBackgroundColor:[UIColor whiteColor]];
+  
+  [popVw setFrame:CGRectMake(20, 100, screenWidth-40, screenHeight/2+100)];
   CustomizationMenu *cmenu;
   if ([ResponseUtility getSharedInstance].CustomizeMenuArray.count>0) {
     cmenu = [[ResponseUtility getSharedInstance].CustomizeMenuArray objectAtIndex:0];
@@ -778,7 +791,7 @@
   extendedHeight = extendedHeight+70;
   UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
   [button1 addTarget:self
-              action:@selector(cancelOrderBtnClick)
+              action:@selector(editcancelOrderBtnClick)
     forControlEvents:UIControlEventTouchUpInside];
   button1.backgroundColor = [UIColor blackColor];
   [button1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -788,7 +801,7 @@
   
   UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
   [button2 addTarget:self
-              action:@selector(confirmOrderBtnClick)
+              action:@selector(editconfirmOrderBtnClick)
     forControlEvents:UIControlEventTouchUpInside];
   button2.backgroundColor = [UIColor colorWithRed:(0/255.f) green:(204/255.f) blue:(0/255.f) alpha:1.0f];;
   [button2 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -805,8 +818,14 @@
   coverView.userInteractionEnabled= YES;
   //    [yourView addSubview:MyScrollVw];
   coverView.contentSize= CGSizeMake(320 ,extendedHeight+300);
-  
+  coverView.hidden = NO;
+  popVw.hidden = NO;
+  [self.view addSubview:coverView];
   [coverView addSubview:popVw];
+  [self.view bringSubviewToFront:coverView];
+  [coverView bringSubviewToFront:popVw];
+  
+  
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -835,16 +854,19 @@
   }
 }
 
--(void)cancelOrderBtnClick{
+-(void)editcancelOrderBtnClick{
   [selectedCustomCuisineIdArray removeAllObjects];
   [selectedCustomCuisinePriceArray removeAllObjects];
   [selectedCustomCuisineStringArray removeAllObjects];
   [coverView removeFromSuperview];
   [popVw removeFromSuperview];
+  popVw.hidden = YES;
+  coverView.hidden = YES;
 }
 
--(void)confirmOrderBtnClick{
-  
+-(void)editconfirmOrderBtnClick{
+  popVw.hidden = YES;
+  coverView.hidden = YES;
   USerSelectedCartData *cart = (USerSelectedCartData*)[tableArray objectAtIndex:selectedPopUpIndex];
   
   float ttPrice = 0;
