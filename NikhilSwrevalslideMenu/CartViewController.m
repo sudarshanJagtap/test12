@@ -21,7 +21,7 @@
 #import "BillSummaryViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "AppConstant.h"
-#define kOFFSET_FOR_KEYBOARD 80.0
+#define kOFFSET_FOR_KEYBOARD 100.0
 
 @interface CartViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>{
   NSString *textStr;
@@ -860,7 +860,7 @@
   return YES;
 }
 - (IBAction)couponSubmitBtnClick:(id)sender {
-  
+  [self.couponTextFld resignFirstResponder];
   if (self.couponTextFld.text.length>0) {
     [self addCoupon:self.couponTextFld.text];
   }else{
