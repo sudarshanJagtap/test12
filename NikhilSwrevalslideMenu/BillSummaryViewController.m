@@ -162,13 +162,16 @@
   
       self.hCouponAmountConstraint.constant=0;
       self.couponAmountConstraint.constant=0;
-//  if (![[bfPaymentDictionary valueForKey:@"couponAmount"] isEqual:@"0"]) {
-//    self.hCouponAmountConstraint.constant=40;
-//    self.couponAmountConstraint.constant=40;
-//  }else{
-//    self.hCouponAmountConstraint.constant=0;
-//    self.couponAmountConstraint.constant=0;
-//  }
+  if (![[bfPaymentDictionary valueForKey:@"couponAmount"] isEqual:@"0"]) {
+    self.hCouponAmountConstraint.constant=40;
+    self.couponAmountConstraint.constant=40;
+    NSString *cpAmt =[bfPaymentDictionary valueForKey:@"coupon_amount"];
+    self.couponAmount.text = [NSString stringWithFormat:@"$ %@",cpAmt];
+  }else{
+    
+    self.hCouponAmountConstraint.constant=0;
+    self.couponAmountConstraint.constant=0;
+  }
   
   self.totalAmountViewConstraint.constant = 41;
 
@@ -294,8 +297,8 @@
   [afterPaymentDictionary setValue:[salesTaxPassed substringFromIndex:2] forKey:@"tax_amount"];
   [afterPaymentDictionary setValue:[deliveryFeePassed substringFromIndex:2] forKey:@"delivery_fee"];
   [afterPaymentDictionary setValue:[totalAmountPassed substringFromIndex:2] forKey:@"total_amount"];
-  [afterPaymentDictionary setValue:@"0" forKey:@"coupon_amount"];
-  [afterPaymentDictionary setValue:@"0" forKey:@"coupon_code"];
+  [afterPaymentDictionary setValue:[bfPaymentDictionary valueForKey:@"coupon_amount"] forKey:@"coupon_amount"];
+  [afterPaymentDictionary setValue:[bfPaymentDictionary valueForKey:@"coupon_code"]forKey:@"coupon_code"];
   if([RequestUtility sharedRequestUtility].delivery_status == 0){
   [afterPaymentDictionary setValue:@"0" forKey:@"delivery_address_id"];
   }
@@ -483,36 +486,18 @@
   // Remove our last completed payment, just for demo purposes.
   self.resultText = nil;
   
-  // Note: For purposes of illustration, this example shows a payment that includes
-  //       both payment details (subtotal, shipping, tax) and multiple items.
-  //       You would only specify these if appropriate to your situation.
-  //       Otherwise, you can leave payment.items and/or payment.paymentDetails nil,
-  //       and simply set payment.amount to your total charge.
+//  float tempTotalAmount = totalAmountPassed;
   
-  // Optional: include multiple items
-  //  PayPalItem *item1 = [PayPalItem itemWithName:@"Old jeans with holes"
-  //                                  withQuantity:2
-  //                                     withPrice:[NSDecimalNumber decimalNumberWithString:@"84.99"]
-  //                                  withCurrency:@"USD"
-  //                                       withSku:@"Hip-00037"];
-  //  PayPalItem *item2 = [PayPalItem itemWithName:@"Free rainbow patch"
-  //                                  withQuantity:1
-  //                                     withPrice:[NSDecimalNumber decimalNumberWithString:@"0.00"]
-  //                                  withCurrency:@"USD"
-  //                                       withSku:@"Hip-00066"];
-  //  PayPalItem *item3 = [PayPalItem itemWithName:@"Long-sleeve plaid shirt (mustache not included)"
-  //                                  withQuantity:1
-  //                                     withPrice:[NSDecimalNumber decimalNumberWithString:@"37.99"]
-  //                                  withCurrency:@"USD"
-  //                                       withSku:@"Hip-00291"];
-  //  NSArray *items = @[item1, item2, item3];
-  //  NSDecimalNumber *subtotal = [PayPalItem totalPriceForItems:items];
-  //
-  //  // Optional: include payment details
-  //  NSDecimalNumber *shipping = [[NSDecimalNumber alloc] initWithString:@"5.99"];
-  //  NSDecimalNumber *tax = [[NSDecimalNumber alloc] initWithString:@"2.50"];
+  NSString *tempCpAmt = [bfPaymentDictionary valueForKey:@"coupon_amount"];
+  
+    NSDecimalNumber *tempCpAmtDecimal = [NSDecimalNumber decimalNumberWithString:tempCpAmt];
+
+  
+  
   NSDecimalNumber *totalAmountPasseddecimal = [NSDecimalNumber decimalNumberWithString:[[totalAmountPassed componentsSeparatedByString:@" "] objectAtIndex:1]];
+  
   NSDecimalNumber *subTotalPasseddecimal = [NSDecimalNumber decimalNumberWithString:[[subTotalPassed componentsSeparatedByString:@" "] objectAtIndex:1]];
+  subTotalPasseddecimal = [subTotalPasseddecimal decimalNumberBySubtracting:tempCpAmtDecimal];
   NSDecimalNumber *deliveryFeePasseddecimal = [NSDecimalNumber decimalNumberWithString:[[deliveryFeePassed componentsSeparatedByString:@" "] objectAtIndex:1]];
   NSDecimalNumber *salesTaxPasseddecimal = [NSDecimalNumber decimalNumberWithString:[[salesTaxPassed componentsSeparatedByString:@" "] objectAtIndex:1]];
   PayPalPaymentDetails *paymentDetails;

@@ -52,7 +52,11 @@
   NSMutableDictionary *beforePaymentDictionary;
   NSMutableArray *temporayUniqueID;
   UITextView *myTextView;
-
+  
+  NSString *obtainedCouponCode;
+  NSString *obtainedCouponAmount;
+  BOOL couponAmountchanged;
+  
 }
 
 @end
@@ -63,8 +67,8 @@
   [super viewDidLoad];
   self.navigationController.navigationBarHidden = YES;
   CGRect screenRect = [[UIScreen mainScreen] bounds];
-//  CGFloat screenHeight = screenRect.size.height;
-//  CGFloat screenWidth = screenRect.size.width;
+  //  CGFloat screenHeight = screenRect.size.height;
+  //  CGFloat screenWidth = screenRect.size.width;
   coverView = [[UIScrollView alloc] initWithFrame:screenRect];
   coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
   popVw.layer.cornerRadius = 10.0;
@@ -72,6 +76,25 @@
   [popVw setBackgroundColor:[UIColor whiteColor]];
   popVw.hidden = YES;
   coverView.hidden = YES;
+  obtainedCouponAmount = @"0";
+  obtainedCouponCode = @"0";
+  couponAmountchanged = NO;
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+
+  if (![obtainedCouponAmount isEqualToString:@"0"]) {
+
+  if([RequestUtility sharedRequestUtility].isAsap){
+    self.cosntraintCouponAmountHeight.constant=40;
+  }else{
+    self.cosntraintCouponAmountHeight.constant=40;
+    self.constraintHacktop.constant=10;
+    self.coupOrderTop.constant = 0;
+  }
+  }else{
+  
+  }
 }
 
 //-(void)getDisplayCartData{
@@ -196,7 +219,7 @@
   if([RequestUtility sharedRequestUtility].isAsap){
     self.orderScheduleLabel.hidden = NO;
     self.orderScheduleDateTimeLabel.hidden = NO;
-//    Utility *utilityObj = [[Utility alloc]init];
+    //    Utility *utilityObj = [[Utility alloc]init];
     NSString *dateStr = [NSString stringWithFormat:@"%@ : %@", [RequestUtility sharedRequestUtility ].asapSchedule_datePassed,[RequestUtility sharedRequestUtility ].asapSchedule_timePassed];
     self.orderScheduleDateTimeLabel.text = dateStr;
     self.constriantOrderScheduleHeight.constant=40;
@@ -207,7 +230,7 @@
     self.constraintHacktop.constant=-30;
   }
   self.cosntraintCouponAmountHeight.constant=0;
-//  self.constraintHacktop.constant=-30;
+  //  self.constraintHacktop.constant=-30;
 }
 
 
@@ -235,8 +258,6 @@
   NSArray *dbArray = [[DBManager getSharedInstance] getALlCartData:[selectedUfrespo.ufp_id intValue]];
   globalCartArray = [[NSMutableArray alloc]init];
   [globalCartArray addObjectsFromArray:dbArray];
-  //  [globalCartArray addObjectsFromArray:tableArray];
-  //  [tableArray addObjectsFromArray:dbArray];
   if (tableArray.count>0) {
     if([RequestUtility sharedRequestUtility].delivery_status == 0){
       self.deliveryFeePriceLbl .text = [NSString stringWithFormat:@"$ 0.00"];
@@ -269,13 +290,14 @@
     if (tableArray.count==0) {
       finalAmount= subtotalAmountcalculated + tax;
     }else{
-    finalAmount= subtotalAmountcalculated + tax + [selectedUfrespo.fee floatValue];
+      finalAmount= subtotalAmountcalculated + tax + [selectedUfrespo.fee floatValue];
     }
   }else{
     finalAmount= subtotalAmountcalculated + tax;
   }
   //  int qAmt = [cart.quantity intValue];
   //  finalAmount = finalAmount*qAmt;
+  finalAmount = finalAmount-[obtainedCouponAmount floatValue];
   self.totalPriceLbl.text = [NSString stringWithFormat:@"$ %.02f",finalAmount ];
   
   float amountPending = [selectedUfrespo.min_order_amount floatValue]-subtotalAmountcalculated;
@@ -389,17 +411,17 @@
     cell.plusBtn.tag = indexPath.row;
     cell.minusBtn.tag = indexPath.row;
     cell.quantityLbl.text = cartMenu.quantity;
-    cell.nameLbl.text = cartMenu.sub_category_Name;    
+    cell.nameLbl.text = cartMenu.sub_category_Name;
     NSString *customStr = [cartMenu.customizeCuisineString stringByReplacingOccurrencesOfString:@"&" withString:@","];
     if (customStr.length>1) {
-//      cell.detailLbl.text = [customStr substringFromIndex:1];
+      //      cell.detailLbl.text = [customStr substringFromIndex:1];
       if ([customStr hasPrefix:@"&"]) {
         cell.detailLbl.text = [NSString stringWithFormat:@"%@",[customStr substringFromIndex:1]];
       }else{
-      cell.detailLbl.text = [NSString stringWithFormat:@"%@",[customStr substringFromIndex:0]];
+        cell.detailLbl.text = [NSString stringWithFormat:@"%@",[customStr substringFromIndex:0]];
       }
     }else{
-    cell.detailLbl.text = [NSString stringWithFormat:@" %@",customStr];
+      cell.detailLbl.text = [NSString stringWithFormat:@" %@",customStr];
     }
     cell.priceLbl.text = [NSString stringWithFormat:@"$ %.2f",cartMenu.TotalFinalPrice];
     [cell.editBtn addTarget:self
@@ -664,12 +686,12 @@
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   CGFloat screenHeight = screenRect.size.height;
   CGFloat screenWidth = screenRect.size.width;
-//  coverView = [[UIScrollView alloc] initWithFrame:screenRect];
-//  coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
-//  [self.view addSubview:coverView];
-//  popVw.layer.cornerRadius = 10.0;
-//  popVw=[[UIView alloc]initWithFrame:CGRectMake(20, 100, screenWidth-40, screenHeight/2+100)];
-//  [popVw setBackgroundColor:[UIColor whiteColor]];
+  //  coverView = [[UIScrollView alloc] initWithFrame:screenRect];
+  //  coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+  //  [self.view addSubview:coverView];
+  //  popVw.layer.cornerRadius = 10.0;
+  //  popVw=[[UIView alloc]initWithFrame:CGRectMake(20, 100, screenWidth-40, screenHeight/2+100)];
+  //  [popVw setBackgroundColor:[UIColor whiteColor]];
   
   [popVw setFrame:CGRectMake(20, 100, screenWidth-40, screenHeight/2+100)];
   CustomizationMenu *cmenu;
@@ -838,13 +860,14 @@
   return YES;
 }
 - (IBAction)couponSubmitBtnClick:(id)sender {
-//    if([RequestUtility sharedRequestUtility].isAsap){
-//  self.cosntraintCouponAmountHeight.constant=40;
-//    }else{
-//    self.cosntraintCouponAmountHeight.constant=40;
-//      self.constraintHacktop.constant=10;
-//      self.coupOrderTop.constant = 0;
-//    }
+  
+  if (self.couponTextFld.text.length>0) {
+    [self addCoupon:self.couponTextFld.text];
+  }else{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"Please enter valid coupon" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+  }
+  
 }
 - (IBAction)proceedToCheckoutBtnClick:(id)sender {
   if (userId.length>0) {
@@ -912,12 +935,12 @@
     if([RequestUtility sharedRequestUtility].delivery_status == 0){
       [cdictionary setValue:@"0" forKey:@"order_mode"];
     }else{
-    [cdictionary setValue:@"1" forKey:@"order_mode"];
+      [cdictionary setValue:@"1" forKey:@"order_mode"];
     }
     if ([RequestUtility sharedRequestUtility ].isAsap) {
       [cdictionary setValue:@"1" forKey:@"order_schedule_status"];
-//      [cdictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
-//      [cdictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
+      //      [cdictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
+      //      [cdictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
       [cdictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_datePassed forKey:@"order_schedule_date"];
       [cdictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_timePassed forKey:@"order_schedule_time"];
     }else{
@@ -1045,7 +1068,7 @@
     [beforePaymentDictionary setValue:@"before_payment" forKey:@"action"];
     [beforePaymentDictionary setValue:userId forKey:@"user_id"];
     [beforePaymentDictionary setValue:selectedUfrespo.ufp_id forKey:@"restaurant_id"];
-//    [beforePaymentDictionary setValue:[utilityObj GetOurIpAddress] forKey:@"ip_address"];
+    //    [beforePaymentDictionary setValue:[utilityObj GetOurIpAddress] forKey:@"ip_address"];
     if([RequestUtility sharedRequestUtility].delivery_status == 0){
       [beforePaymentDictionary setValue:@"0" forKey:@"order_mode"];
     }else{
@@ -1053,8 +1076,8 @@
     }
     if ([RequestUtility sharedRequestUtility ].isAsap) {
       [beforePaymentDictionary setValue:@"1" forKey:@"order_schedule_status"];
-//      [beforePaymentDictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
-//      [beforePaymentDictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
+      //      [beforePaymentDictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
+      //      [beforePaymentDictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
       [beforePaymentDictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_datePassed forKey:@"order_schedule_date"];
       [beforePaymentDictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_timePassed forKey:@"order_schedule_time"];
     }else{
@@ -1062,6 +1085,8 @@
       [beforePaymentDictionary setValue:@"0000-00-00" forKey:@"order_schedule_date"];
       [beforePaymentDictionary setValue:@"00:00" forKey:@"order_schedule_time"];
     }
+    [beforePaymentDictionary setValue:obtainedCouponCode forKey:@"coupon_code"];
+    [beforePaymentDictionary setValue:obtainedCouponAmount forKey:@"coupon_amount"];
     NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
     NSString *user_name=[userdictionary valueForKey:@"user_name"];
     [beforePaymentDictionary setValue:user_name forKey:@"user_name"];
@@ -1127,7 +1152,7 @@
     obj_clvc.bfPaymentDictionary = beforePaymentDictionary;
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }else{
-//    [RequestUtility sharedRequestUtility].isThroughPaymentScreen = YES;
+    //    [RequestUtility sharedRequestUtility].isThroughPaymentScreen = YES;
     SignUpLoginViewController *obj_clvc  = (SignUpLoginViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"SignUpLoginViewControllerId"];
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }
@@ -1230,17 +1255,17 @@
   NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
   [dictionary setValue:cdata.serverCartID forKey:@"cart_id"];
   [dictionary setValue:@"update_quantity" forKey:@"action"];
-   if([RequestUtility sharedRequestUtility].delivery_status == 0){
-  [dictionary setValue:@"0" forKey:@"order_mode"];
-   }else{
-   [dictionary setValue:@"1" forKey:@"order_mode"];
-   }
+  if([RequestUtility sharedRequestUtility].delivery_status == 0){
+    [dictionary setValue:@"0" forKey:@"order_mode"];
+  }else{
+    [dictionary setValue:@"1" forKey:@"order_mode"];
+  }
   [dictionary setValue:cdata.quantity forKey:@"quantity"];
   [dictionary setValue:userId forKey:@"user_id"];
   if ([RequestUtility sharedRequestUtility ].isAsap) {
     [dictionary setValue:@"1" forKey:@"order_schedule_status"];
-//    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentDate] forKey:@"order_schedule_date"];
-//    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentTime] forKey:@"order_schedule_time"];
+    //    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentDate] forKey:@"order_schedule_date"];
+    //    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentTime] forKey:@"order_schedule_time"];
     [dictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_datePassed forKey:@"order_schedule_date"];
     [dictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_timePassed forKey:@"order_schedule_time"];
   }else{
@@ -1290,20 +1315,20 @@
 }
 
 -(void)deleteCartiwthCartId:(NSString*)cartID{
-
+  
   NSMutableDictionary *dictionary = [[NSMutableDictionary alloc]init];
   [dictionary setValue:cartID forKey:@"cart_id"];
   [dictionary setValue:@"delete" forKey:@"action"];
   if([RequestUtility sharedRequestUtility].delivery_status == 0){
-  [dictionary setValue:@"0" forKey:@"order_mode"];
+    [dictionary setValue:@"0" forKey:@"order_mode"];
   }else{
-  [dictionary setValue:@"1" forKey:@"order_mode"];
+    [dictionary setValue:@"1" forKey:@"order_mode"];
   }
   [dictionary setValue:userId forKey:@"user_id"];
   if ([RequestUtility sharedRequestUtility ].isAsap) {
     [dictionary setValue:@"1" forKey:@"order_schedule_status"];
-//    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentDate] forKey:@"order_schedule_date"];
-//    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentTime] forKey:@"order_schedule_time"];
+    //    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentDate] forKey:@"order_schedule_date"];
+    //    [dictionary setValue:[[RequestUtility sharedRequestUtility ] getCurrentTime] forKey:@"order_schedule_time"];
     [dictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_datePassed forKey:@"order_schedule_date"];
     [dictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_timePassed forKey:@"order_schedule_time"];
   }else{
@@ -1367,7 +1392,8 @@
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {
   int animatedDistance;
-  int moveUpValue = textField.frame.origin.y+ textField.frame.size.height;
+  
+  int moveUpValue = textField.frame.origin.y+ textField.frame.size.height+100;
   UIInterfaceOrientation orientation =
   [[UIApplication sharedApplication] statusBarOrientation];
   if (orientation == UIInterfaceOrientationPortrait ||
@@ -1402,7 +1428,7 @@
 
 
 -(void)designView{
-
+  
   float yAxis = self.tblVw.frame.size.height+self.tblVw.frame.origin.y+40;
   
   UILabel *fsubtotalLabel = [self getLabelWithMsg:@"SubTotal:" andColor:@"Black"andYcord:yAxis andAllignt:@"left"];
@@ -1445,7 +1471,7 @@
   UILabel *atotalLabel = [self getLabelWithMsg:@"ATotal:" andColor:@"red" andYcord:yAxis andAllignt:@"right"];
   [self.fscrollView addSubview:ftotalLabel];
   [self.fscrollView addSubview:atotalLabel];
-
+  
 }
 
 -(UILabel*)getLabelWithMsg:(NSString*)msgStr andColor:(NSString*)color andYcord:(float)yCord andAllignt:(NSString*)align{
@@ -1458,10 +1484,10 @@
   if ([align isEqualToString:@"left"]) {
     [lbl setFrame:CGRectMake(0, yCord, screenWidth/2, 45)];
     lbl.textAlignment = 0;
-      lbl.textColor = [UIColor blackColor];
+    lbl.textColor = [UIColor blackColor];
   }else{
     [lbl setFrame:CGRectMake(screenWidth/2, yCord, screenWidth/2, 45)];
-      lbl.textColor = [UIColor colorWithRed:85.0/255.0 green:150.0/255.0 blue:28.0/255.0 alpha:1.0];
+    lbl.textColor = [UIColor colorWithRed:85.0/255.0 green:150.0/255.0 blue:28.0/255.0 alpha:1.0];
     lbl.textAlignment = 1;
   }
   lbl.font = [UIFont fontWithName:@"Sansation-Bold" size:16];
@@ -1474,6 +1500,75 @@
   lbl.backgroundColor = [UIColor clearColor];
   lbl.lineBreakMode = NSLineBreakByWordWrapping;
   return lbl;
+}
+
+#pragma mark coupon
+
+-(void)addCoupon:(NSString*)cpstring{
+  //  http://ymoc.mobisofttech.co.in/android_api/coupon.php
+  //  { "user_id": "1",  "restaurant_id": "9",  "coupon_code": "382647",  "total_amount": "100",  "action": "validate_coupon"}
+  
+  NSMutableDictionary *couponDict = [[NSMutableDictionary alloc]init];
+  NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
+  NSString *suserId=[userdictionary valueForKey:@"user_id"];
+  
+  [couponDict setValue:suserId forKey:@"user_id"];
+  [couponDict setValue:selectedUfrespo.ufp_id forKey:@"restaurant_id"];
+  [couponDict setValue:cpstring forKey:@"coupon_code"];
+  [couponDict setValue:[totalAmountPassed substringFromIndex:2] forKey:@"total_amount"];
+  [couponDict setValue:@"validate_coupon" forKey:@"action"];
+  
+  NSData * couponDictjsonData = [NSJSONSerialization dataWithJSONObject:couponDict options:0 error:nil];
+  NSString * couponDictString = [[NSString alloc] initWithData:couponDictjsonData encoding:NSUTF8StringEncoding];
+  NSLog(@"couponDictString = %@",couponDictString);
+  [appDelegate showLoadingViewWithString:@"Loading..."];
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];
+  [utility doYMOCStringPostRequest:kCoupon withParameters:couponDictString onComplete:^(bool status, NSDictionary *responseDictionary){
+    if (status) {
+      NSLog(@"response:%@",responseDictionary);
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseUserResponseaddCoupon:responseDictionary];
+      });
+    }else{
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
+    }
+  }];
+}
+
+-(void)parseUserResponseaddCoupon:(NSDictionary*)ResponseDictionary{
+  if (ResponseDictionary) {
+    
+    //        {"code":"1","data":{"coupon_code":"382647","coupon_amount":"30"},"msg":"Success"}
+    dispatch_async(dispatch_get_main_queue(), ^{
+     
+      NSString *code = [ResponseDictionary valueForKey:@"code"];
+      if ([code isEqualToString:@"1"]) {
+        couponAmountchanged = YES;
+        NSLog(@"login successfull");
+        [appDelegate hideLoadingView];
+        obtainedCouponCode = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"coupon_code"];
+        obtainedCouponAmount = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"coupon_amount"];
+        self.couponTextFld.text = obtainedCouponCode;
+//        self.couponTextFld.enabled = NO;
+        if([RequestUtility sharedRequestUtility].isAsap){
+          self.cosntraintCouponAmountHeight.constant=40;
+        }else{
+          self.cosntraintCouponAmountHeight.constant=40;
+          self.constraintHacktop.constant=10;
+          self.coupOrderTop.constant = 0;
+        }
+        [self calculateAllDetails];
+        self.couponAmountLbl.text = [NSString stringWithFormat:@"$ %@",obtainedCouponAmount];
+      }else{
+        [appDelegate hideLoadingView];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Coupon Not Valid" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+      }
+    });
+    
+  }
 }
 
 @end

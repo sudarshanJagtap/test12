@@ -21,6 +21,7 @@
 #import "AdditionalInfoViewController.h"
 #import "DisplayRatingsViewController.h"
 #import "AppConstant.h"
+#import "SWRevealViewController.h"
 @interface DetailViewController ()<UITextViewDelegate>{
   
   NSMutableArray *sectionArray;
@@ -45,6 +46,10 @@
   NSInteger currentUID;
   NSString *subID,*catName,*subCatName,*newprice;
   NSMutableArray *temporayUniqueID;
+  UIView *blankScreen;
+  UIView *alertView;
+  UILabel *fromLabel;
+  
 }
 
 @end
@@ -58,6 +63,18 @@
   label.text=selectedUfrespo.name;
   label.adjustsFontSizeToFitWidth=YES;
   label.minimumScaleFactor=0.5;
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  CGFloat screenHeight = screenRect.size.height;
+  CGFloat screenWidth = screenRect.size.width;
+  alertView = [[UIView alloc]init];
+  fromLabel = [[UILabel alloc]init];
+  blankScreen = [[UIView alloc]init];
+  blankScreen.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+  blankScreen.backgroundColor = [UIColor blackColor];
+  blankScreen.alpha = 0.5;
+  blankScreen.hidden =YES;
+  [self.view addSubview:blankScreen];
+  [self.view bringSubviewToFront:blankScreen];
 //  if (label.text.length>17) {
 //    [label setFont:[UIFont systemFontOfSize:15]];
 //  }else{
@@ -76,8 +93,8 @@
   }
   });
   
-  if (![self checkRestoClosed]) {
-    
+//  if (![self checkRestoClosed]) {
+  
   
   label.textColor = [UIColor whiteColor];
   label.frame=CGRectMake(321, 10, 300, 30);
@@ -92,9 +109,9 @@
                    }];
   
   
-  CGRect screenRect = [[UIScreen mainScreen] bounds];
-  CGFloat screenHeight = screenRect.size.height;
-  CGFloat screenWidth = screenRect.size.width;
+//  CGRect screenRect = [[UIScreen mainScreen] bounds];
+//  CGFloat screenHeight = screenRect.size.height;
+//  CGFloat screenWidth = screenRect.size.width;
   CartButton = [UIButton buttonWithType:UIButtonTypeCustom];
   [CartButton addTarget:self
                  action:@selector(showCartView)
@@ -108,7 +125,7 @@
   CartButton.frame = CGRectMake(screenWidth-70, screenHeight-70, 50,50 );
   CartButton.backgroundColor = [UIColor colorWithRed:170.0/255.0 green:213.0/255.0 blue:92.0/255.0 alpha:1.0];
   [self.view addSubview:CartButton];
-  }
+//  }
   
 }
 
@@ -236,8 +253,8 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-  if (![self checkRestoClosed]) {
-    
+//  if (![self checkRestoClosed]) {
+  
   
     [self getDetailCuisine];
   NSArray *arr = [[DBManager getSharedInstance] getALlCartData:[selectedUfrespo.ufp_id intValue]];
@@ -247,9 +264,9 @@
   }else{
     CartButton.hidden = YES;
   }
-  }else{
-  CartButton.hidden = YES;
-  }
+//  }else{
+//  CartButton.hidden = YES;
+//  }
   
   
 }
@@ -488,6 +505,7 @@
 
 - (void)tableView:(SKSTableView *)tableView didSelectSubRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if (![self checkRestoClosed]) {
   NSLog(@"Section: %ld, Row:%ld, Subrow:%ld", (long)indexPath.section, (long)indexPath.row, (long)indexPath.subRow);
   //  [self adPopUpMenu];
   CuisineDetailResponse *resp = self.contents[indexPath.section][indexPath.row][indexPath.subRow];
@@ -503,6 +521,9 @@
   subCatName = resp.sub_category;
   subID =resp.cuisine_id;
   newprice = resp.price;
+  }else{
+    [self showMsg:@"Looks like this restaurant is closed now find something open near"];
+  }
   
 }
 
@@ -702,7 +723,12 @@
 }
 
 -(void)showCartView{
-  [self getSalesTaxValue ];
+  if (![self checkRestoClosed]) {
+    [self getSalesTaxValue ];
+  }else{
+    [self showMsg:@"Looks like this restaurant is closed now find something open near"];
+  }
+  
   
 }
 
@@ -1076,5 +1102,97 @@
     
   }
 }
+
+-(void)showMsg:(NSString*)msgStr{
+  
+  
+  
+  float screenWidth = [[UIScreen mainScreen] bounds].size.width;
+  float screenheight = [[UIScreen mainScreen] bounds].size.height;
+  //  fullscreenView.frame = self.view.bounds;
+  //  fullscreenView.backgroundColor = [UIColor blackColor];
+  UITapGestureRecognizer *singleFingerTap =
+  [[UITapGestureRecognizer alloc] initWithTarget:self
+                                          action:@selector(handleSingleTap:)];
+  [blankScreen addGestureRecognizer:singleFingerTap];
+  blankScreen.hidden = NO;
+  alertView.hidden = NO;
+  //  fullscreenView.alpha = 0.5;
+  //  [self.view addSubview:fullscreenView];
+  //  [self.view bringSubviewToFront:fullscreenView];
+  
+  
+  alertView.backgroundColor = [UIColor whiteColor];
+  [alertView setFrame:CGRectMake(20, screenheight, screenWidth-40, 155)];
+  
+  UIImageView *imgView = [[UIImageView alloc]init];
+  [imgView setFrame:CGRectMake(0, 0, screenWidth-40, 47)];
+  [imgView setImage: [UIImage imageNamed:@"closedMsgImg.png"]];
+  imgView.backgroundColor = [UIColor colorWithRed:203.0 green:255.0 blue:112.0 alpha:1];
+  [alertView addSubview:imgView];
+  
+  UILabel *lineLbl = [[UILabel alloc]init];
+  [lineLbl setFrame:CGRectMake(0, 47, alertView.frame.size.width, 1)];
+  lineLbl.backgroundColor = [UIColor lightGrayColor];
+  lineLbl.numberOfLines = 1;
+  [alertView addSubview:lineLbl];
+  
+  [fromLabel setFrame:CGRectMake(0, 50, screenWidth-40, 45)];
+  fromLabel.font = [UIFont fontWithName:@"Sansation-Bold" size:16];
+  fromLabel.text = msgStr;
+  fromLabel.numberOfLines = 4;
+  fromLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
+  fromLabel.adjustsFontSizeToFitWidth = YES;
+  fromLabel.minimumScaleFactor = 10.0f/12.0f;
+  fromLabel.adjustsFontSizeToFitWidth = YES;
+  fromLabel.backgroundColor = [UIColor clearColor];
+  fromLabel.textColor = [UIColor colorWithRed:85.0/255.0 green:150.0/255.0 blue:28.0/255.0 alpha:1.0];;
+  fromLabel.textAlignment = NSTextAlignmentCenter;
+  fromLabel.lineBreakMode = NSLineBreakByWordWrapping;
+  [alertView addSubview:fromLabel];
+  
+  UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+  [okBtn addTarget:self
+            action:@selector(OKBtnClicked:)
+  forControlEvents:UIControlEventTouchUpInside];
+  [okBtn setTitle:@"CLOSE" forState:UIControlStateNormal];
+  okBtn.frame = CGRectMake(alertView.frame.size.width/2-50, 105, 100, 40.0);
+  okBtn.backgroundColor = [UIColor colorWithRed:63/255.0f green:173/255.0f blue:232/255.0f alpha:1.0f];
+  
+  blankScreen.hidden =NO;
+  [alertView addSubview:okBtn];
+  [self.view addSubview:alertView];
+  [self.view bringSubviewToFront:alertView];
+  
+  [UIView transitionWithView:alertView
+                    duration:0.5
+                     options:UIViewAnimationOptionTransitionNone
+                  animations:^{
+                    alertView.center = self.view.center;
+                  }
+                  completion:nil];
+  
+}
+-(IBAction)OKBtnClicked:(id)sender{
+  //  UIButton *btn = (UIButton*)sender;
+  blankScreen.hidden =YES;
+  alertView.hidden = YES;
+  [alertView removeFromSuperview];
+    NSString * storyboardName = @"Main";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+    UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+    [navController setViewControllers: @[vc] animated: NO ];
+    [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+  
+  
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+  blankScreen.hidden = YES;
+  alertView.hidden = YES;
+  [alertView removeFromSuperview];
+}
+
 
 @end
