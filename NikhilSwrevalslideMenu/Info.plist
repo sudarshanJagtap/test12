@@ -48,7 +48,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>Exception Domains</key>
 	<string></string>
 	<key>Fabric</key>
@@ -95,6 +95,10 @@
 			<string></string>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Your Personal photo library can be used to take and scan photo or cards</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Camera is required to scan cards for transaction and photos</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>helveticaneuelight.ttf</string>
