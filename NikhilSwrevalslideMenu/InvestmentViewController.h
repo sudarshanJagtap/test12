@@ -14,6 +14,7 @@
 
 - (IBAction)backButton:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIView *Enquiryview;
 
 @property (strong, nonatomic) IBOutlet UITextField *nameTf;
 
