@@ -11,6 +11,7 @@
 @interface InvestmentViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate>
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
 @property (strong, nonatomic) IBOutlet UITextView *textViewDescription;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 - (IBAction)backButton:(id)sender;
 

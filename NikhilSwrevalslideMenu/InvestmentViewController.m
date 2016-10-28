@@ -8,14 +8,23 @@
 
 #import "InvestmentViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#define kOFFSET_FOR_KEYBOARD 100.0
 @interface InvestmentViewController ()<UITextViewDelegate>
 
 @end
 
 @implementation InvestmentViewController
-
+@synthesize scrollView;
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWasShown:)
+                                               name:UIKeyboardDidShowNotification object:nil];
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillBeHidden:)
+                                               name:UIKeyboardWillHideNotification object:nil];
   // Do any additional setup after loading the view.
   self.textViewDescription.layer.borderWidth=5;
   self.textViewDescription.layer.borderColor=[UIColor blackColor].CGColor;
@@ -37,35 +46,34 @@
   self.Enquiryview.layer.shadowOpacity = 1;
   self.Enquiryview.layer.shadowOffset = CGSizeZero;
   self.Enquiryview.layer.masksToBounds = NO;
-  
-  //    self.CheckboxFirst = [[UIButton alloc] initWithFrame:CGRectMake(5,5 ,10,10)];
-  //    [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
-  //    [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateSelected];
+
   self.CheckboxFirst.selected = YES;
   [self.CheckboxFirst addTarget:self action:@selector(checkboxSelected:) forControlEvents:UIControlEventTouchUpInside];
-  //    [self.investTf addSubview:self.CheckboxFirst];
   self.investTf.userInteractionEnabled=NO;
-  
-  
-  
-  //    [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
-  //    [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
+
   self.checkBoxSecond.selected = NO;
   [self.checkBoxSecond addTarget:self action:@selector(checkBoxSelectedNext:) forControlEvents:UIControlEventTouchUpInside];
-  //    [self.investTf addSubview:self.checkBoxSecond];
-  
-  
-  
-  
-  
-  //    self.asapCheckbox=[[UIButton alloc]initWithFrame:CGRectMake(5, 5, 15, 15)];
-  //    [self.asapCheckbox setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
-  //    [self.asapCheckbox setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
+
   self.asapCheckbox.selected = YES;
   [self.asapCheckbox addTarget:self action:@selector(AsapcheckSelectedNext:) forControlEvents:UIControlEventTouchUpInside];
-  // [self. addSubview:self.asapCheckbox];
+
+  UIToolbar *keyboardDoneButtonView = [[UIToolbar alloc] init];
+  [keyboardDoneButtonView sizeToFit];
+  UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                                 style:UIBarButtonItemStylePlain target:self
+                                                                action:@selector(doneClicked:)];
+  [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
+  self.contactTf.keyboardType = UIKeyboardTypeNumberPad;
+  self.zipcodeTf.keyboardType = UIKeyboardTypeNumberPad;
+  self.contactTf.inputAccessoryView = keyboardDoneButtonView;
+  self.zipcodeTf.inputAccessoryView = keyboardDoneButtonView;
   
-  
+}
+
+- (IBAction)doneClicked:(id)sender
+{
+  NSLog(@"Done Clicked.");
+  [self.view endEditing:YES];
 }
 
 
@@ -133,15 +141,6 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  //    [self.nameTf becomeFirstResponder];
-  //     [self.emailIdTf becomeFirstResponder];
-  //    [self.contactTf resignFirstResponder];
-  //    [self.streetNameTf resignFirstResponder];
-  //    [self.houseNoTf resignFirstResponder];
-  //    [self.zipcodeTf resignFirstResponder];
-  //    [self.cityTf resignFirstResponder];
-  //    [self.textViewDescription resignFirstResponder];
-  
   [textField resignFirstResponder];
   
   return YES;
@@ -153,15 +152,7 @@
 {
   return YES;
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
 
 - (IBAction)backButton:(id)sender
 {
@@ -170,6 +161,8 @@
   
 }
 
+#pragma mark textView delegate
+
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
   if ([textView.text isEqualToString:@"Comments"]) {
@@ -177,6 +170,7 @@
     textView.textColor = [UIColor blackColor]; //optional
   }
   [textView becomeFirstResponder];
+  [self animateTextview:textView up:YES];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
@@ -186,6 +180,112 @@
     textView.textColor = [UIColor lightGrayColor]; //optional
   }
   [textView resignFirstResponder];
+  [self animateTextview:textView up:NO];
+}
+
+- (void) animateTextview: (UITextView*) textview up: (BOOL) up
+{
+//  int animatedDistance;
+//  
+//  int moveUpValue = textview.frame.origin.y+ textview.frame.size.height+100;
+//  UIInterfaceOrientation orientation =
+//  [[UIApplication sharedApplication] statusBarOrientation];
+//  if (orientation == UIInterfaceOrientationPortrait ||
+//      orientation == UIInterfaceOrientationPortraitUpsideDown)
+//  {
+//    
+//    animatedDistance = 216-(self.view.frame.size.height-moveUpValue-5);
+//  }
+//  else
+//  {
+//    animatedDistance = 162-(320-moveUpValue-5);
+//  }
+//  
+//  if(animatedDistance>0)
+//  {
+//    const int movementDistance = animatedDistance;
+//    const float movementDuration = 0.3f;
+//    int movement = (up ? -movementDistance : movementDistance);
+//    [UIView beginAnimations: nil context: nil];
+//    [UIView setAnimationBeginsFromCurrentState: YES];
+//    [UIView setAnimationDuration: movementDuration];
+//    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+//    [UIView commitAnimations];
+//  }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+  
+  if([text isEqualToString:@"\n"]) {
+    [textView resignFirstResponder];
+    return NO;
+  }
+  
+  return YES;
+}
+
+#pragma mark textfield delegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+  [self animateTextField:textField up:YES];
+  self.scrollView.contentOffset = CGPointMake(0, textField.frame.origin.y);
+
+}
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+  [self animateTextField:textField up:NO];
+}
+
+
+- (void) animateTextField: (UITextField*) textField up: (BOOL) up
+{
+//  int animatedDistance;
+//  
+//  int moveUpValue = textField.frame.origin.y+ textField.frame.size.height+100;
+//  UIInterfaceOrientation orientation =
+//  [[UIApplication sharedApplication] statusBarOrientation];
+//  if (orientation == UIInterfaceOrientationPortrait ||
+//      orientation == UIInterfaceOrientationPortraitUpsideDown)
+//  {
+//    
+//    animatedDistance = 216-(520-moveUpValue-5);
+//  }
+//  else
+//  {
+//    animatedDistance = 162-(320-moveUpValue-5);
+//  }
+//  
+//  if(animatedDistance>0)
+//  {
+//    const int movementDistance = animatedDistance;
+//    const float movementDuration = 0.3f;
+//    int movement = (up ? -movementDistance : movementDistance);
+//    [UIView beginAnimations: nil context: nil];
+//    [UIView setAnimationBeginsFromCurrentState: YES];
+//    [UIView setAnimationDuration: movementDuration];
+//    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+//    [UIView commitAnimations];
+//  }
+}
+
+- (void)keyboardWasShown:(NSNotification*)notification
+{
+//  NSDictionary *info = [notification userInfo];
+//  CGRect keyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//  keyboardRect = [self.view convertRect:keyboardRect fromView:nil];
+//  
+//  UIEdgeInsets contentInset = self.scrollView.contentInset;
+//  contentInset.bottom = keyboardRect.size.height-100;
+//  self.scrollView.contentInset = contentInset;
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)notification
+{
+//  UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+//  self.scrollView.contentInset = contentInsets;
 }
 
 @end

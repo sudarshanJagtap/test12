@@ -4813,6 +4813,7 @@
                         <outlet property="emailIdTf" destination="fKm-Bp-0Yx" id="r5D-cD-66f"/>
                         <outlet property="houseNoTf" destination="mhX-s3-cs5" id="ZBc-YZ-Fb2"/>
                         <outlet property="nameTf" destination="8nt-sE-Vu3" id="w0Y-Ra-fMx"/>
+                        <outlet property="scrollView" destination="t2O-3t-bHq" id="joh-9x-KRP"/>
                         <outlet property="streetNameTf" destination="042-Jd-SUs" id="Aer-oY-q1o"/>
                         <outlet property="zipcodeTf" destination="ffM-eH-2JS" id="dIH-07-K2s"/>
                     </connections>
