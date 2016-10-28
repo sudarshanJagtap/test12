@@ -55,8 +55,9 @@ NSString* const kGooglePlacesApiKey = @"AIzaSyAwKE2uJR1SJV4RiIdsxl8g4H04aAd_bug"
 NSString* const kPaypalSanboxKey = @"ASGLkX28ypnHeOc26Z9AS2i8ozJyYaEobRW8ZGFjWfcVzK62JHkqgRBYHzP99SRcf7aRhrL459SGVyAX";
 NSString* const kPaypalProductionKey = @"YOUR_CLIENT_ID_FOR_PRODUCTION";
 
-
-
+NSString* const kPrivacyPolicy = @"privacy_notice.php";
+NSString* const kLeaderShip = @"leadership.php";
+NSString* const kInvestMentOppurtunity=@"investment_opportunity.php";
 
 
 

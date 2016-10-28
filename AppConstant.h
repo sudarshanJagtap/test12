@@ -46,5 +46,9 @@ extern NSString* const kGooglePlacesApiKey;
 extern NSString* const kPaypalSanboxKey;
 extern NSString* const kPaypalProductionKey;
 
+extern NSString* const kPrivacyPolicy;
+extern NSString* const kLeaderShip;
+extern NSString* const kInvestMentOppurtunity;
+
 @end
 

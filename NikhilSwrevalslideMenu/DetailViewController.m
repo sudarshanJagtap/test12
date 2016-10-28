@@ -192,7 +192,7 @@
   } else {
     NSLog(@"Sorry, we are closed!");
     self.restClosedLbl.hidden = NO;
-              self.tableVw.hidden = YES;
+    self.tableVw.hidden = NO;
             retval = YES;
   }
   
@@ -201,6 +201,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
   [super viewWillAppear:animated];
+  [self checkRestoClosed];
   label.hidden = NO;
   [RequestUtility sharedRequestUtility].selectedAddressId = @"-1";
   self.navigationController.navigationBarHidden = YES;
@@ -521,7 +522,10 @@
   subCatName = resp.sub_category;
   subID =resp.cuisine_id;
   newprice = resp.price;
-  }else{
+  }
+  else
+  {
+      
     [self showMsg:@"Looks like this restaurant is closed now find something open near"];
   }
   

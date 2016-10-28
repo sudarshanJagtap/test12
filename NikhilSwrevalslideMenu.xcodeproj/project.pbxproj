@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		45B202CA9BA8340A2F05E51A /* libPods-NikhilSwrevalslideMenu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3186AC28CEEC4EEACB576BD /* libPods-NikhilSwrevalslideMenu.a */; };
+		65103D141DC3D91200B366A6 /* InvestmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65103D0D1DC3D91200B366A6 /* InvestmentViewController.m */; };
+		65103D161DC3D91200B366A6 /* LeaderShipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65103D111DC3D91200B366A6 /* LeaderShipViewController.m */; };
 		651830701DB159680010A037 /* ContactUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6518306F1DB159680010A037 /* ContactUSViewController.m */; };
 		6519ACC61DA44EB50094F9B5 /* AddReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6519ACC51DA44EB50094F9B5 /* AddReviewsViewController.m */; };
 		6545A1F11DA6B39C00A6693C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6545A1F01DA6B39C00A6693C /* SystemConfiguration.framework */; };
@@ -105,9 +107,17 @@
 		C13ED63E1D3A918B007DBFEF /* CuisineOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C13ED63D1D3A918B007DBFEF /* CuisineOperation.m */; };
 		C14370191D37DD6000C7E562 /* DrawerTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C14370181D37DD6000C7E562 /* DrawerTableCell.m */; };
 		C14399E81D38A23F00228A0C /* HomeViewOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C14399E71D38A23F00228A0C /* HomeViewOperation.m */; };
+		C15253031DC3285C008560A3 /* PolicyViewNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15253021DC3285C008560A3 /* PolicyViewNoticeViewController.m */; };
+		C152530F1DC32FFD008560A3 /* PrivacyOpreationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C152530E1DC32FFD008560A3 /* PrivacyOpreationController.m */; };
+		C15253121DC33018008560A3 /* LeaderShipoprationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15253111DC33018008560A3 /* LeaderShipoprationController.m */; };
+		C15253151DC33043008560A3 /* OppurtunityOperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15253141DC33043008560A3 /* OppurtunityOperationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		65103D0C1DC3D91200B366A6 /* InvestmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvestmentViewController.h; sourceTree = "<group>"; };
+		65103D0D1DC3D91200B366A6 /* InvestmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvestmentViewController.m; sourceTree = "<group>"; };
+		65103D101DC3D91200B366A6 /* LeaderShipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderShipViewController.h; sourceTree = "<group>"; };
+		65103D111DC3D91200B366A6 /* LeaderShipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderShipViewController.m; sourceTree = "<group>"; };
 		6518306E1DB159680010A037 /* ContactUSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactUSViewController.h; sourceTree = "<group>"; };
 		6518306F1DB159680010A037 /* ContactUSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactUSViewController.m; sourceTree = "<group>"; };
 		6519ACC41DA44EB50094F9B5 /* AddReviewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddReviewsViewController.h; sourceTree = "<group>"; };
@@ -277,6 +287,14 @@
 		C14370181D37DD6000C7E562 /* DrawerTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerTableCell.m; sourceTree = "<group>"; };
 		C14399E61D38A23F00228A0C /* HomeViewOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewOperation.h; sourceTree = "<group>"; };
 		C14399E71D38A23F00228A0C /* HomeViewOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewOperation.m; sourceTree = "<group>"; };
+		C15253011DC3285C008560A3 /* PolicyViewNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolicyViewNoticeViewController.h; sourceTree = "<group>"; };
+		C15253021DC3285C008560A3 /* PolicyViewNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolicyViewNoticeViewController.m; sourceTree = "<group>"; };
+		C152530D1DC32FFD008560A3 /* PrivacyOpreationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacyOpreationController.h; sourceTree = "<group>"; };
+		C152530E1DC32FFD008560A3 /* PrivacyOpreationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyOpreationController.m; sourceTree = "<group>"; };
+		C15253101DC33018008560A3 /* LeaderShipoprationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderShipoprationController.h; sourceTree = "<group>"; };
+		C15253111DC33018008560A3 /* LeaderShipoprationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderShipoprationController.m; sourceTree = "<group>"; };
+		C15253131DC33042008560A3 /* OppurtunityOperationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OppurtunityOperationController.h; sourceTree = "<group>"; };
+		C15253141DC33043008560A3 /* OppurtunityOperationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OppurtunityOperationController.m; sourceTree = "<group>"; };
 		E3186AC28CEEC4EEACB576BD /* libPods-NikhilSwrevalslideMenu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NikhilSwrevalslideMenu.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -484,6 +502,12 @@
 				657ED3491D79FB550079ACEA /* OrderTrackingTableViewCell.xib */,
 				657ED34C1D79FB980079ACEA /* AboutUsViewController.h */,
 				657ED34D1D79FB980079ACEA /* AboutUsViewController.m */,
+				C15253011DC3285C008560A3 /* PolicyViewNoticeViewController.h */,
+				C15253021DC3285C008560A3 /* PolicyViewNoticeViewController.m */,
+				65103D0C1DC3D91200B366A6 /* InvestmentViewController.h */,
+				65103D0D1DC3D91200B366A6 /* InvestmentViewController.m */,
+				65103D101DC3D91200B366A6 /* LeaderShipViewController.h */,
+				65103D111DC3D91200B366A6 /* LeaderShipViewController.m */,
 				6518306E1DB159680010A037 /* ContactUSViewController.h */,
 				6518306F1DB159680010A037 /* ContactUSViewController.m */,
 				657ED34F1D7EF3C40079ACEA /* ViewOrderViewController.h */,
@@ -540,6 +564,12 @@
 				657E5F811D41258500907FE3 /* FilterOperations.m */,
 				65753C8F1D43F53500069C54 /* CuisineDetailOperation.h */,
 				65753C901D43F53500069C54 /* CuisineDetailOperation.m */,
+				C152530D1DC32FFD008560A3 /* PrivacyOpreationController.h */,
+				C152530E1DC32FFD008560A3 /* PrivacyOpreationController.m */,
+				C15253101DC33018008560A3 /* LeaderShipoprationController.h */,
+				C15253111DC33018008560A3 /* LeaderShipoprationController.m */,
+				C15253131DC33042008560A3 /* OppurtunityOperationController.h */,
+				C15253141DC33043008560A3 /* OppurtunityOperationController.m */,
 				65753CED1D47EC0400069C54 /* RequestUtility.h */,
 				65753CEE1D47EC0400069C54 /* RequestUtility.m */,
 				65753CF01D47ECBE00069C54 /* ResponseUtility.h */,
@@ -754,8 +784,10 @@
 				6519ACC61DA44EB50094F9B5 /* AddReviewsViewController.m in Sources */,
 				65753CF61D47FAC500069C54 /* CustomizeOptionTableViewCell.m in Sources */,
 				657DEC6D1D4E7AD400A1B512 /* AddressListViewController.m in Sources */,
+				65103D161DC3D91200B366A6 /* LeaderShipViewController.m in Sources */,
 				65753CA31D464E0300069C54 /* SKSTableViewCell.m in Sources */,
 				65753CA21D464E0300069C54 /* SKSTableView.m in Sources */,
+				65103D141DC3D91200B366A6 /* InvestmentViewController.m in Sources */,
 				65753D131D4CA3B000069C54 /* CartViewController.m in Sources */,
 				657F469D1D6377EF00F6B68A /* YourAccountTableViewCell.m in Sources */,
 				65753D0B1D4A81CE00069C54 /* Utility.m in Sources */,
@@ -764,6 +796,7 @@
 				657ED3461D79FB310079ACEA /* OrderTrackingViewController.m in Sources */,
 				657ED34A1D79FB550079ACEA /* OrderTrackingTableViewCell.m in Sources */,
 				8FD104B11D34F05C0063B46A /* Validation.m in Sources */,
+				C15253151DC33043008560A3 /* OppurtunityOperationController.m in Sources */,
 				655A54721DA4F6E700267B12 /* NIDropDown.m in Sources */,
 				657F46A01D63781D00F6B68A /* YourAccountViewController.m in Sources */,
 				8FC1D0421D361033002E7AB0 /* Cartoon.m in Sources */,
@@ -776,6 +809,7 @@
 				657F46991D6255CA00F6B68A /* LeftPanelTableViewCell.m in Sources */,
 				65753D0E1D4C8EF400069C54 /* DBManager.m in Sources */,
 				8FC1D03F1D360D00002E7AB0 /* FrontHomeScreenTableViewCell.m in Sources */,
+				C15253121DC33018008560A3 /* LeaderShipoprationController.m in Sources */,
 				6595CB5B1DA179B8008058BE /* ForgotPasswordViewController.m in Sources */,
 				8FD104AE1D34F0530063B46A /* CommonAlertViewController.m in Sources */,
 				C14370191D37DD6000C7E562 /* DrawerTableCell.m in Sources */,
@@ -788,10 +822,12 @@
 				8F32F7C61D337AC90013AD6E /* FrontHomeScreenViewController.m in Sources */,
 				65C5D1451DB941FB00A6FCD1 /* AppConstant.m in Sources */,
 				657ED33F1D79FB020079ACEA /* OrderHistoryTableViewCell.m in Sources */,
+				C15253031DC3285C008560A3 /* PolicyViewNoticeViewController.m in Sources */,
 				65849DBC1D9A7E0300105977 /* DisplayRatingTableViewCell.m in Sources */,
 				65753C911D43F53500069C54 /* CuisineDetailOperation.m in Sources */,
 				657DEC641D4E7A8B00A1B512 /* GuestUserDetailsViewController.m in Sources */,
 				8FD104AA1D34F03D0063B46A /* APIClient.m in Sources */,
+				C152530F1DC32FFD008560A3 /* PrivacyOpreationController.m in Sources */,
 				8FC1D0451D36137B002E7AB0 /* ImageDownloadOperation.m in Sources */,
 				657FB6D81D663B67000201C9 /* ChangePasswordViewController.m in Sources */,
 				C13ED63E1D3A918B007DBFEF /* CuisineOperation.m in Sources */,

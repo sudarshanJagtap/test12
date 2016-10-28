@@ -8,6 +8,7 @@
 
 #import "AboutUsViewController.h"
 #import "SWRevealViewController.h"
+#import "PrivacyOpreationController.h"
 @interface AboutUsViewController ()
 
 @end
@@ -18,6 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   self.navigationController.navigationBar.hidden = YES;
+    self.textViewContent.userInteractionEnabled=NO;
 }
 
 - (IBAction)backNavBtnClick:(id)sender {
@@ -44,4 +46,25 @@
 }
 */
 
+- (IBAction)privacyAction:(id)sender
+{
+    
+       
+    
+}
+
+- (IBAction)leaderShipAction:(id)sender {
+}
+
+- (IBAction)investOppturnity:(id)sender
+{
+  /*  UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"Message" message:@"coming Soon...." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    
+    [alertView show];*/
+    
+    
+    
+    
+    
+}
 @end
