@@ -4326,8 +4326,8 @@
                                     <segue destination="9Xv-AM-3AN" kind="push" id="mRo-VI-v2o"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="dEj-FS-rm5">
-                                <rect key="frame" x="7" y="64" width="301" height="284"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="dEj-FS-rm5">
+                                <rect key="frame" x="3" y="64" width="309" height="281"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <string key="text">YMOC.COM is aimed to be one of the widely covered online meal ordering portals.The company is based in Cranbury,NJ.The portal aims to attract the online community to order meals for individuals,groups or corporates.whatever the ocassion is YMOC.COM has everything that we call success!The portal and its team will work with the clients to design the meal plan for the meals to make it a successfu dining experience.The arrangements may be for Corporate Breakfast,Lunch,Dinner,Birthday Party,Wedding or anything you just name it.The team is always there to sit and design with you for your dining experience a success and pleasure.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -4344,9 +4344,12 @@
                             <constraint firstItem="7aN-UC-pTn" firstAttribute="top" secondItem="Vdm-2d-a4I" secondAttribute="bottom" constant="8" id="AVO-Nd-VNx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7aN-UC-pTn" secondAttribute="trailing" constant="-8" id="BQa-LS-0Yd"/>
                             <constraint firstItem="eYC-fE-xEQ" firstAttribute="top" secondItem="ZcW-bq-jpD" secondAttribute="bottom" constant="13" id="DQP-NQ-SKr"/>
+                            <constraint firstItem="dEj-FS-rm5" firstAttribute="top" secondItem="5AI-0g-UKS" secondAttribute="bottom" constant="44" id="Dju-H2-Nvq"/>
                             <constraint firstItem="eYC-fE-xEQ" firstAttribute="top" secondItem="ylU-C0-sEn" secondAttribute="bottom" id="Dny-OJ-DAl"/>
                             <constraint firstItem="ylU-C0-sEn" firstAttribute="top" secondItem="a8d-Gr-LuW" secondAttribute="topMargin" id="DrN-k5-Avv"/>
                             <constraint firstAttribute="trailing" secondItem="biD-Zt-FoD" secondAttribute="trailing" constant="12" id="E0W-MX-o2q"/>
+                            <constraint firstItem="eSd-oi-PfV" firstAttribute="top" secondItem="dEj-FS-rm5" secondAttribute="bottom" constant="2" id="Gqm-XW-zTD"/>
+                            <constraint firstItem="dEj-FS-rm5" firstAttribute="leading" secondItem="a8d-Gr-LuW" secondAttribute="leadingMargin" constant="-13" id="Ldg-HM-3zX"/>
                             <constraint firstAttribute="trailing" secondItem="eSd-oi-PfV" secondAttribute="trailing" constant="12" id="NYO-cC-dda"/>
                             <constraint firstItem="ZcW-bq-jpD" firstAttribute="leading" secondItem="a8d-Gr-LuW" secondAttribute="leadingMargin" constant="-5" id="O2t-M6-L2C"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZcW-bq-jpD" secondAttribute="trailing" constant="-5" id="Ppa-2r-hAu"/>
@@ -4357,6 +4360,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="ylU-C0-sEn" secondAttribute="trailing" constant="-20" id="dCQ-uc-Ao3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Vdm-2d-a4I" secondAttribute="trailing" constant="-20" id="djb-hl-Q5T"/>
                             <constraint firstItem="biD-Zt-FoD" firstAttribute="top" secondItem="RTU-Z5-iXl" secondAttribute="bottom" constant="8" id="fBz-t2-Gt2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dEj-FS-rm5" secondAttribute="trailing" constant="-8" id="fwf-af-a58"/>
                             <constraint firstItem="RTU-Z5-iXl" firstAttribute="top" secondItem="eSd-oi-PfV" secondAttribute="bottom" constant="8" id="nSL-Ox-ZXx"/>
                             <constraint firstItem="biD-Zt-FoD" firstAttribute="leading" secondItem="a8d-Gr-LuW" secondAttribute="leading" constant="7" id="ubs-rO-dB1"/>
                             <constraint firstItem="Vdm-2d-a4I" firstAttribute="top" secondItem="5AI-0g-UKS" secondAttribute="bottom" id="vqX-qR-f6k"/>
@@ -5357,6 +5361,7 @@
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hLf-At-dyI">
                                         <rect key="frame" x="32" y="49" width="254" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="D36-WX-YbA"/>
                                         </constraints>
@@ -5368,6 +5373,7 @@
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WMe-Ic-LTf">
                                         <rect key="frame" x="32" y="116" width="254" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="pTg-Lc-XL2"/>
                                         </constraints>
@@ -5379,6 +5385,7 @@
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Email Id" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xHZ-65-wcp">
                                         <rect key="frame" x="32" y="180" width="254" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="cmK-B3-iy3"/>
                                         </constraints>
@@ -5390,6 +5397,7 @@
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IRd-1b-qeN">
                                         <rect key="frame" x="32" y="248" width="254" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="QjN-NR-UDP"/>
                                         </constraints>
@@ -5401,6 +5409,7 @@
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="If you have Questions?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BND-aY-sd3">
                                         <rect key="frame" x="32" y="303" width="254" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="AXJ-pF-al0"/>
                                         </constraints>
