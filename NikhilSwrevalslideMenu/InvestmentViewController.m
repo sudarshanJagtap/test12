@@ -8,8 +8,20 @@
 
 #import "InvestmentViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "NIDropDown.h"
 #define kOFFSET_FOR_KEYBOARD 100.0
-@interface InvestmentViewController ()<UITextViewDelegate>
+#import "AppDelegate.h"
+#import "RequestUtility.h"
+#import "AppConstant.h"
+#import "NIDropDown.h"
+
+@interface InvestmentViewController ()<UITextViewDelegate,NIDropDownDelegate>{
+  AppDelegate *appDelegate;
+  NSArray *statesArray;
+  NIDropDown *dropDown;
+  BOOL isAsapSelected;
+  BOOL isInvest;
+}
 
 @end
 
@@ -17,7 +29,8 @@
 @synthesize scrollView;
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
+  isAsapSelected = YES;
+  isInvest = YES;
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(keyboardWasShown:)
                                                name:UIKeyboardDidShowNotification object:nil];
@@ -25,6 +38,7 @@
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(keyboardWillBeHidden:)
                                                name:UIKeyboardWillHideNotification object:nil];
+  [self getStates];
   // Do any additional setup after loading the view.
   self.textViewDescription.layer.borderWidth=5;
   self.textViewDescription.layer.borderColor=[UIColor blackColor].CGColor;
@@ -46,17 +60,17 @@
   self.Enquiryview.layer.shadowOpacity = 1;
   self.Enquiryview.layer.shadowOffset = CGSizeZero;
   self.Enquiryview.layer.masksToBounds = NO;
-
+  
   self.CheckboxFirst.selected = YES;
   [self.CheckboxFirst addTarget:self action:@selector(checkboxSelected:) forControlEvents:UIControlEventTouchUpInside];
   self.investTf.userInteractionEnabled=NO;
-
+  
   self.checkBoxSecond.selected = NO;
   [self.checkBoxSecond addTarget:self action:@selector(checkBoxSelectedNext:) forControlEvents:UIControlEventTouchUpInside];
-
+  
   self.asapCheckbox.selected = YES;
   [self.asapCheckbox addTarget:self action:@selector(AsapcheckSelectedNext:) forControlEvents:UIControlEventTouchUpInside];
-
+  
   UIToolbar *keyboardDoneButtonView = [[UIToolbar alloc] init];
   [keyboardDoneButtonView sizeToFit];
   UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
@@ -76,18 +90,17 @@
   [self.view endEditing:YES];
 }
 
-
-
-
 -(void)AsapcheckSelectedNext:(id)sender{
   
   
   if([self.asapCheckbox isSelected]==YES)
   {
+    isAsapSelected = NO;
     [self.asapCheckbox setSelected:NO];
     [self.asapCheckbox setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
   }
   else{
+    isAsapSelected = YES;
     [self.asapCheckbox setSelected:YES];
     [self.asapCheckbox setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
   }
@@ -101,11 +114,13 @@
   
   if([self.CheckboxFirst isSelected]==YES)
   {
+    isInvest = NO;
     [self.CheckboxFirst setSelected:NO];
     [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
     [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
   }
   else{
+    isInvest = YES;
     [self.CheckboxFirst setSelected:YES];
     [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
     [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
@@ -119,11 +134,13 @@
   
   if([self.checkBoxSecond isSelected]==YES)
   {
+    isInvest = YES;
     [self.checkBoxSecond setSelected:NO];
     [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
     [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
   }
   else{
+    isInvest = NO;
     [self.checkBoxSecond setSelected:YES];
     [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
     [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
@@ -146,13 +163,24 @@
   return YES;
 }
 
-
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-  return YES;
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+  BOOL retval = NO;
+  if (textField == self.stateTf) {
+    if(dropDown == nil) {
+      CGFloat f = 200;
+      dropDown = [[NIDropDown alloc]showDropDown:self.stateTf :&f :statesArray :nil :@"down"];
+      dropDown.delegate = self;
+    }
+    else {
+      [dropDown hideDropDown:self.stateTf];
+      [self rel];
+    }
+    retval = NO;
+  }else{
+    retval = YES;
+  }
+  return retval;
 }
-
 
 - (IBAction)backButton:(id)sender
 {
@@ -185,33 +213,33 @@
 
 - (void) animateTextview: (UITextView*) textview up: (BOOL) up
 {
-//  int animatedDistance;
-//  
-//  int moveUpValue = textview.frame.origin.y+ textview.frame.size.height+100;
-//  UIInterfaceOrientation orientation =
-//  [[UIApplication sharedApplication] statusBarOrientation];
-//  if (orientation == UIInterfaceOrientationPortrait ||
-//      orientation == UIInterfaceOrientationPortraitUpsideDown)
-//  {
-//    
-//    animatedDistance = 216-(self.view.frame.size.height-moveUpValue-5);
-//  }
-//  else
-//  {
-//    animatedDistance = 162-(320-moveUpValue-5);
-//  }
-//  
-//  if(animatedDistance>0)
-//  {
-//    const int movementDistance = animatedDistance;
-//    const float movementDuration = 0.3f;
-//    int movement = (up ? -movementDistance : movementDistance);
-//    [UIView beginAnimations: nil context: nil];
-//    [UIView setAnimationBeginsFromCurrentState: YES];
-//    [UIView setAnimationDuration: movementDuration];
-//    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-//    [UIView commitAnimations];
-//  }
+  //  int animatedDistance;
+  //
+  //  int moveUpValue = textview.frame.origin.y+ textview.frame.size.height+100;
+  //  UIInterfaceOrientation orientation =
+  //  [[UIApplication sharedApplication] statusBarOrientation];
+  //  if (orientation == UIInterfaceOrientationPortrait ||
+  //      orientation == UIInterfaceOrientationPortraitUpsideDown)
+  //  {
+  //
+  //    animatedDistance = 216-(self.view.frame.size.height-moveUpValue-5);
+  //  }
+  //  else
+  //  {
+  //    animatedDistance = 162-(320-moveUpValue-5);
+  //  }
+  //
+  //  if(animatedDistance>0)
+  //  {
+  //    const int movementDistance = animatedDistance;
+  //    const float movementDuration = 0.3f;
+  //    int movement = (up ? -movementDistance : movementDistance);
+  //    [UIView beginAnimations: nil context: nil];
+  //    [UIView setAnimationBeginsFromCurrentState: YES];
+  //    [UIView setAnimationDuration: movementDuration];
+  //    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+  //    [UIView commitAnimations];
+  //  }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -230,7 +258,7 @@
 {
   [self animateTextField:textField up:YES];
   self.scrollView.contentOffset = CGPointMake(0, textField.frame.origin.y);
-
+  
 }
 
 
@@ -242,50 +270,336 @@
 
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {
-//  int animatedDistance;
-//  
-//  int moveUpValue = textField.frame.origin.y+ textField.frame.size.height+100;
-//  UIInterfaceOrientation orientation =
-//  [[UIApplication sharedApplication] statusBarOrientation];
-//  if (orientation == UIInterfaceOrientationPortrait ||
-//      orientation == UIInterfaceOrientationPortraitUpsideDown)
-//  {
-//    
-//    animatedDistance = 216-(520-moveUpValue-5);
-//  }
-//  else
-//  {
-//    animatedDistance = 162-(320-moveUpValue-5);
-//  }
-//  
-//  if(animatedDistance>0)
-//  {
-//    const int movementDistance = animatedDistance;
-//    const float movementDuration = 0.3f;
-//    int movement = (up ? -movementDistance : movementDistance);
-//    [UIView beginAnimations: nil context: nil];
-//    [UIView setAnimationBeginsFromCurrentState: YES];
-//    [UIView setAnimationDuration: movementDuration];
-//    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-//    [UIView commitAnimations];
-//  }
+  //  int animatedDistance;
+  //
+  //  int moveUpValue = textField.frame.origin.y+ textField.frame.size.height+100;
+  //  UIInterfaceOrientation orientation =
+  //  [[UIApplication sharedApplication] statusBarOrientation];
+  //  if (orientation == UIInterfaceOrientationPortrait ||
+  //      orientation == UIInterfaceOrientationPortraitUpsideDown)
+  //  {
+  //
+  //    animatedDistance = 216-(520-moveUpValue-5);
+  //  }
+  //  else
+  //  {
+  //    animatedDistance = 162-(320-moveUpValue-5);
+  //  }
+  //
+  //  if(animatedDistance>0)
+  //  {
+  //    const int movementDistance = animatedDistance;
+  //    const float movementDuration = 0.3f;
+  //    int movement = (up ? -movementDistance : movementDistance);
+  //    [UIView beginAnimations: nil context: nil];
+  //    [UIView setAnimationBeginsFromCurrentState: YES];
+  //    [UIView setAnimationDuration: movementDuration];
+  //    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+  //    [UIView commitAnimations];
+  //  }
 }
 
 - (void)keyboardWasShown:(NSNotification*)notification
 {
-//  NSDictionary *info = [notification userInfo];
-//  CGRect keyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-//  keyboardRect = [self.view convertRect:keyboardRect fromView:nil];
-//  
-//  UIEdgeInsets contentInset = self.scrollView.contentInset;
-//  contentInset.bottom = keyboardRect.size.height-100;
-//  self.scrollView.contentInset = contentInset;
+  //  NSDictionary *info = [notification userInfo];
+  //  CGRect keyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+  //  keyboardRect = [self.view convertRect:keyboardRect fromView:nil];
+  //
+  //  UIEdgeInsets contentInset = self.scrollView.contentInset;
+  //  contentInset.bottom = keyboardRect.size.height-100;
+  //  self.scrollView.contentInset = contentInset;
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)notification
 {
-//  UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-//  self.scrollView.contentInset = contentInsets;
+  //  UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+  //  self.scrollView.contentInset = contentInsets;
 }
 
+-(void)clearTextField{
+ dispatch_async(dispatch_get_main_queue(), ^{
+  self.nameTf.text = @"";
+  self.emailIdTf.text = @"";
+  self.contactTf.text = @"";
+  self.streetNameTf.text = @"";
+  self.houseNoTf.text = @"";
+  self.zipcodeTf.text = @"";
+  self.cityTf.text = @"";
+  self.commentTextView.text = @"Comments";
+  self.commentTextView.textColor = [UIColor lightGrayColor];
+ });
+}
+
+-(BOOL) NSStringIsValidEmail:(NSString *)checkString
+{
+  BOOL stricterFilter = NO;
+  NSString *stricterFilterString = @"^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$";
+  NSString *laxString = @"^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$";
+  NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+  NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+  return [emailTest evaluateWithObject:checkString];
+}
+
+- (BOOL)validatePhone:(NSString *)number
+{
+  
+  NSString *numberRegEx = @"[0-9]{10}";
+  NSPredicate *numberTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", numberRegEx];
+  if ([numberTest evaluateWithObject:number] == YES)
+  return TRUE;
+  else
+  return FALSE;
+  
+}
+
+
+-(BOOL)doValidateUserTextFieldText:(NSMutableString*)message{
+  
+  BOOL retval = NO;
+  if (self.nameTf.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Enter Name"];
+  }
+  else if (![self NSStringIsValidEmail:self.emailIdTf.text]) {
+    retval= NO;
+    [message appendString:@"Enter valid Email Address"];
+  }
+  else if (self.emailIdTf.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Enter valid Email Address"];
+  }
+  else if (self.contactTf.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Enter valid Contact Number"];
+  }
+  else if (![self validatePhone:self.contactTf.text]) {
+    retval= NO;
+    [message appendString:@"Enter valid Contact Number"];
+  }
+  else if (self.streetNameTf.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Enter Street Name"];
+  }
+  else if (self.zipcodeTf.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Enter valid zipcode"];
+  }
+  else if (self.cityTf.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Enter City"];
+  }
+  else if (self.stateTf.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Please select State"];
+  }
+  else{
+    retval = YES;
+  }
+  return retval;
+}
+
+#pragma mark GetStates
+-(void)getStates{
+  
+  appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+  [appDelegate showLoadingViewWithString:@"Loading..."];
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];
+  NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+  //  [params setValue:self.countryTxtFld.text forKey:@"country"];
+  NSError * err;
+  NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
+  NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+  NSLog(@"additional info string \n = %@",String);
+  
+  [utility doYMOCStringPostRequest:kStates withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+    if (status) {
+      NSLog(@"response:%@",responseDictionary);
+      [appDelegate hideLoadingView];
+      [self parseStatesResponse:responseDictionary];
+    }else{
+      [appDelegate hideLoadingView];
+    }
+  }];
+}
+
+-(void)parseStatesResponse:(NSDictionary*)ResponseDictionary{
+  if (ResponseDictionary) {
+    NSString *code = [ResponseDictionary valueForKey:@"code"];
+    if ([code isEqualToString:@"1"]) {
+      
+      dispatch_async(dispatch_get_main_queue(), ^{
+        appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate hideLoadingView];
+        if ([[ResponseDictionary valueForKey:@"code"]isEqualToString:@"1"]) {
+          NSLog(@"login successfull");
+          NSMutableArray *listarray = [[NSMutableArray alloc]init];
+          NSArray *temp = [ResponseDictionary valueForKey:@"data"];
+          for (int i =0; i<temp.count; i++) {
+            NSString *stateStr = [[temp objectAtIndex:i]valueForKey:@"state"];
+            [listarray addObject:stateStr];
+          }
+          statesArray = [NSArray arrayWithArray:listarray];
+          NSLog(@"\n\n ListArray = %@",listarray);
+          if (statesArray.count>0) {
+            self.stateTf.text = [statesArray objectAtIndex:0];
+          }
+        }
+        
+      });
+      
+    }
+    
+  }else{
+    dispatch_async(dispatch_get_main_queue(), ^{
+      appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+      [appDelegate hideLoadingView];
+    });
+  }
+}
+
+
+
+
+#pragma mark drop down
+- (void) niDropDownDelegateMethod: (NIDropDown *) sender {
+  //  [self btnFindFood:self];
+  [self rel];
+}
+
+-(void)rel{
+  dropDown = nil;
+}
+
+#pragma markInvestmentAPI
+
+
+
+
+- (IBAction)submitForm:(id)sender {
+  
+  NSMutableString *msgString = [[NSMutableString alloc]init];
+  BOOL retval = [self doValidateUserTextFieldText:msgString];
+  if (retval) {
+    
+    [self doSubmitDetails];
+    
+    
+  }else{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:msgString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+    
+  }
+}
+
+#define MOB_MAX_LENGTH 10
+#define ZIP_MAX_LENGTH 6
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+  if(textField ==self.contactTf){
+    NSString *str = [self.contactTf.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (str.length >= MOB_MAX_LENGTH && range.length == 0)
+    {
+      return NO; // return NO to not change text
+    }else{return YES;}
+  }
+  if (textField==self.zipcodeTf) {
+    NSString *str = [self.zipcodeTf.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (str.length >= ZIP_MAX_LENGTH && range.length == 0)
+    {
+      return NO; // return NO to not change text
+    }else{return YES;}
+  }
+  else
+  {return YES;}
+}
+
+-(void)doSubmitDetails{
+  
+  //  "{
+  //  ""name"": ""rajesh"",
+  //  ""email"": ""rajesh.p@mobisofttech.co.in"",
+  //  ""contact_no"": ""1234567890"",
+  //  ""address_line_1"": ""thane"",
+  //  ""address_line_2"": ""west"",
+  //  ""zipcode"": ""400605"",
+  //  ""city"": ""thane"",
+  //  ""state"": ""maharashtra"",
+  //  ""comment"": ""sfsdfsdfdfsdf"",
+  //  ""time_to_contact"": ""asap"",
+  //  ""inquiry_type"": ""ddfgdf"",
+  //  ""action"": ""investment_opportunity""
+  //}"
+
+  appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+  [appDelegate showLoadingViewWithString:@"Loading..."];
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];
+  
+  NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+  [params setValue:self.nameTf.text forKey:@"name"];
+  [params setValue:self.emailIdTf.text forKey:@"email"];
+  [params setValue:self.self.streetNameTf.text forKey:@"address_line1"];
+  [params setValue:self.houseNoTf.text forKey:@"address_line2"];
+  [params setValue:self.contactTf.text forKey:@"contact_no"];
+  [params setValue:self.zipcodeTf.text forKey:@"zipcode"];
+  [params setValue:self.stateTf.text forKey:@"state"];
+  [params setValue:self.cityTf.text forKey:@"city"];
+  [params setValue:self.commentTextView.text forKey:@"comment"];
+  if (isAsapSelected) {
+    [params setValue:@"asap" forKey:@"time_to_contact"];
+  }else{
+    [params setValue:@" " forKey:@"time_to_contact"];
+  }
+  if (isInvest) {
+    [params setValue:@"0" forKey:@"inquiry_type"];
+  }else{
+    [params setValue:@"1" forKey:@"inquiry_type"];
+  }
+  [params setValue:@"investment_opportunity" forKey:@"action"];
+  NSLog(@"%@",params);
+  
+  NSError * err;
+  NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
+  NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+  NSLog(@"investment info string \n = %@",String);
+  
+  [utility doYMOCStringPostRequest:kInvestMentOppurtunity withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+    if (status) {
+      NSLog(@"response:%@",responseDictionary);
+       [self clearTextField];
+      [self parseUserResponse:responseDictionary];
+    }else{
+       [self clearTextField];
+      appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+      dispatch_async(dispatch_get_main_queue(), ^{
+      [appDelegate hideLoadingView];
+      });
+    }
+  }];
+  
+}
+
+-(void)parseUserResponse:(NSDictionary*)ResponseDictionary{
+    if (ResponseDictionary) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *code = [ResponseDictionary valueForKey:@"code"];
+        if ([code isEqualToString:@"1"]) {
+          NSLog(@"address add successfull");
+          [appDelegate hideLoadingView];
+  [self clearTextField];
+          UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+          [alert show];
+  
+        }else{
+  
+          [self clearTextField];
+  
+          [appDelegate hideLoadingView];
+          UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+          [alert show];
+        }
+      });
+      
+    }
+}
 @end

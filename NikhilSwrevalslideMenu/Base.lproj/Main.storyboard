@@ -4705,6 +4705,9 @@
                                         <state key="normal" title="SUBMIT">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="submitForm:" destination="qBv-mV-Hc3" eventType="touchUpInside" id="G2f-fD-rqV"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -4812,9 +4815,12 @@
                         <outlet property="contactTf" destination="gqJ-4d-IiD" id="qrC-eH-TQa"/>
                         <outlet property="emailIdTf" destination="fKm-Bp-0Yx" id="r5D-cD-66f"/>
                         <outlet property="houseNoTf" destination="mhX-s3-cs5" id="ZBc-YZ-Fb2"/>
+                        <outlet property="investTf" destination="CZF-pX-MQE" id="eck-6o-luP"/>
                         <outlet property="nameTf" destination="8nt-sE-Vu3" id="w0Y-Ra-fMx"/>
                         <outlet property="scrollView" destination="t2O-3t-bHq" id="joh-9x-KRP"/>
+                        <outlet property="stateTf" destination="Noo-pi-gxl" id="iA6-TJ-kVe"/>
                         <outlet property="streetNameTf" destination="042-Jd-SUs" id="Aer-oY-q1o"/>
+                        <outlet property="submitBtnClick" destination="zvQ-xk-9So" id="Z2x-WW-1dj"/>
                         <outlet property="zipcodeTf" destination="ffM-eH-2JS" id="dIH-07-K2s"/>
                     </connections>
                 </viewController>

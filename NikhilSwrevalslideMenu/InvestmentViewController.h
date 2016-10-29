@@ -32,6 +32,9 @@
 @property (strong, nonatomic) IBOutlet UITextField *zipcodeTf;
 
 @property (strong, nonatomic) IBOutlet UITextField *cityTf;
+
+@property (strong, nonatomic) IBOutlet UITextField *stateTf;
+
 @property (strong, nonatomic) IBOutlet UITextView *commentTextView;
 
 @property (strong, nonatomic) IBOutlet UIButton *CheckboxFirst;
@@ -40,5 +43,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *checkBoxSecond;
 
 @property (strong, nonatomic) IBOutlet UITextField *investTf;
+- (IBAction)submitForm:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIButton *submitBtnClick;
 @end

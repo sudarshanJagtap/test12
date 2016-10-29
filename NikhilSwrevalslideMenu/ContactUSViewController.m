@@ -9,7 +9,13 @@
 #import "ContactUSViewController.h"
 #import "SWRevealViewController.h"
 #import "CCTextFieldEffects.h"
-@interface ContactUSViewController ()<UITextFieldDelegate>
+#import "AppDelegate.h"
+#import "AppConstant.h"
+#import "RequestUtility.h"
+@interface ContactUSViewController ()<UITextFieldDelegate>{
+
+  AppDelegate *appDelegate;
+}
 
 @end
 
@@ -25,6 +31,22 @@
   self.scrollVw.hidden  = NO;
   self.ContactReactSegment.selectedSegmentIndex = 0;
   [self configuretxtfld];
+  
+  UIToolbar *keyboardDoneButtonView = [[UIToolbar alloc] init];
+  [keyboardDoneButtonView sizeToFit];
+  UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                                 style:UIBarButtonItemStylePlain target:self
+                                                                action:@selector(doneClicked:)];
+  [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
+  self.phoneTxtfld.keyboardType = UIKeyboardTypeNumberPad;
+    self.phoneTxtfld.inputAccessoryView = keyboardDoneButtonView;
+  
+}
+
+- (IBAction)doneClicked:(id)sender
+{
+  NSLog(@"Done Clicked.");
+  [self.view endEditing:YES];
 }
 
 -(void)configuretxtfld{
@@ -118,7 +140,7 @@
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {
   int animatedDistance;
-  int moveUpValue = textField.frame.origin.y+ textField.frame.size.height;
+  int moveUpValue = textField.frame.origin.y+ textField.frame.size.height+100;
   UIInterfaceOrientation orientation =
   [[UIApplication sharedApplication] statusBarOrientation];
   if (orientation == UIInterfaceOrientationPortrait ||
@@ -151,6 +173,20 @@
   return YES;
 }
 - (IBAction)subtmitBtnclick:(id)sender {
+  
+  NSMutableString *msgString = [[NSMutableString alloc]init];
+  BOOL retval = [self doValidateUserTextFieldText:msgString];
+  if (retval) {
+    
+    [self doSubmitDetails];
+    
+    
+  }else{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:msgString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+    
+  }
+  
 }
 - (IBAction)segmentClick:(id)sender {
   UISegmentedControl *s = (UISegmentedControl *)sender;
@@ -172,4 +208,155 @@
     self.scrollVw.hidden  = YES;
   }
 }
+
+-(BOOL) NSStringIsValidEmail:(NSString *)checkString
+{
+  BOOL stricterFilter = NO;
+  NSString *stricterFilterString = @"^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$";
+  NSString *laxString = @"^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$";
+  NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+  NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+  return [emailTest evaluateWithObject:checkString];
+}
+
+- (BOOL)validatePhone:(NSString *)number
+{
+  
+  NSString *numberRegEx = @"[0-9]{10}";
+  NSPredicate *numberTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", numberRegEx];
+  if ([numberTest evaluateWithObject:number] == YES)
+  return TRUE;
+  else
+  return FALSE;
+  
+}
+#define MOB_MAX_LENGTH 10
+#define ZIP_MAX_LENGTH 6
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+  if(textField ==self.phoneTxtfld){
+    NSString *str = [self.phoneTxtfld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (str.length >= MOB_MAX_LENGTH && range.length == 0)
+    {
+      return NO; // return NO to not change text
+    }else{return YES;}
+  }
+  else
+  {return YES;}
+}
+
+-(BOOL)doValidateUserTextFieldText:(NSMutableString*)message{
+  
+  BOOL retval = NO;
+  if (self.fNameTxtfld.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Enter First Name"];
+  }
+  else if (self.lNameTxtFld.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Enter Last Name"];
+  }
+  else if (![self NSStringIsValidEmail:self.emailTxtFld.text]) {
+    retval= NO;
+    [message appendString:@"Enter valid Email Address"];
+  }
+  else if (self.emailTxtFld.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Enter valid Email Address"];
+  }
+  else if (self.phoneTxtfld.text.length == 0) {
+    retval= NO;
+    [message appendString:@"Enter valid Contact Number"];
+  }
+  else if (![self validatePhone:self.phoneTxtfld.text]) {
+    retval= NO;
+    [message appendString:@"Enter valid Contact Number"];
+  }
+  else{
+    retval = YES;
+  }
+  return retval;
+}
+
+-(void)clearTextField{
+  dispatch_async(dispatch_get_main_queue(), ^{
+    self.fNameTxtfld.text = @"";
+    self.lNameTxtFld.text = @"";
+    self.emailTxtFld.text = @"";
+    self.phoneTxtfld.text = @"";
+    self.quesTxtfld.text = @"";
+  });
+}
+
+
+-(void)doSubmitDetails{
+  
+//  "{
+//  ""first_name"": ""rajesh"",
+//  ""last_name"": ""patil"",
+//  ""email"": ""rajesh.p@mobisofttech.co.in"",
+//  ""contact_no"": ""1234567890"",
+//  ""questions"": ""testing"",
+//  ""action"": ""contact_us""
+//}"
+  
+  appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+  [appDelegate showLoadingViewWithString:@"Loading..."];
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];
+  
+  NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+  [params setValue:self.fNameTxtfld.text forKey:@"first_name"];
+  [params setValue:self.lNameTxtFld.text forKey:@"last_name"];
+  [params setValue:self.self.emailTxtFld.text forKey:@"email"];
+  [params setValue:self.phoneTxtfld.text forKey:@"contact_no"];
+  [params setValue:self.quesTxtfld.text forKey:@"questions"];
+  [params setValue:@"contact_us" forKey:@"action"];
+  NSLog(@"%@",params);
+  
+  NSError * err;
+  NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
+  NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+  NSLog(@"Contact us info string \n = %@",String);
+  
+  [utility doYMOCStringPostRequest:kContact_us withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+    if (status) {
+      NSLog(@"response:%@",responseDictionary);
+      [self clearTextField];
+      [self parseUserResponse:responseDictionary];
+    }else{
+      [self clearTextField];
+      appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
+    }
+  }];
+  
+}
+
+-(void)parseUserResponse:(NSDictionary*)ResponseDictionary{
+  if (ResponseDictionary) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      NSString *code = [ResponseDictionary valueForKey:@"code"];
+      if ([code isEqualToString:@"1"]) {
+        NSLog(@"address add successfull");
+        [appDelegate hideLoadingView];
+        [self clearTextField];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        
+      }else{
+        
+        [self clearTextField];
+        
+        [appDelegate hideLoadingView];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+      }
+    });
+    
+  }
+}
+
 @end
