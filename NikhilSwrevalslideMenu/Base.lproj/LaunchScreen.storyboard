@@ -18,30 +18,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="5KX-Ai-QgC">
-                                <rect key="frame" x="13" y="95" width="294" height="180"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="splash_bg" translatesAutoresizingMaskIntoConstraints="NO" id="vzK-JQ-ufn">
+                                <rect key="frame" x="-4" y="0.0" width="328" height="570"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_icon" translatesAutoresizingMaskIntoConstraints="NO" id="5KX-Ai-QgC">
+                                <rect key="frame" x="9" y="140" width="302" height="188"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="soy-e5-jTI"/>
+                                    <constraint firstAttribute="height" constant="188" id="VNI-z1-Bba"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Order food online from the best restaurants near you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9m0-Sj-G7i">
-                                <rect key="frame" x="22" y="414" width="292" height="47"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order food from the best restaurants near you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9m0-Sj-G7i">
+                                <rect key="frame" x="10" y="440" width="300" height="47"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="47" id="5bP-6a-enz"/>
+                                    <constraint firstAttribute="height" constant="47" id="xGa-yU-UJr"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5KX-Ai-QgC" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="75" id="3mM-MN-4OR"/>
-                            <constraint firstItem="5KX-Ai-QgC" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" constant="3" id="cFj-k6-FJO"/>
-                            <constraint firstItem="9m0-Sj-G7i" firstAttribute="leading" secondItem="5KX-Ai-QgC" secondAttribute="leading" constant="5" id="g2U-qm-hEy"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="9m0-Sj-G7i" secondAttribute="bottom" constant="107" id="gpX-Dx-heB"/>
-                            <constraint firstItem="5KX-Ai-QgC" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-3" id="iHH-vg-UU0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="9m0-Sj-G7i" secondAttribute="trailing" constant="-10" id="kzC-6U-f4k"/>
+                            <constraint firstItem="5KX-Ai-QgC" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-50" id="9ou-JQ-W68"/>
+                            <constraint firstItem="5KX-Ai-QgC" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-7" id="DSN-da-L9l"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5KX-Ai-QgC" secondAttribute="trailing" constant="-7" id="G30-QH-SPQ"/>
+                            <constraint firstItem="9m0-Sj-G7i" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-6" id="WXC-4X-1uc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9m0-Sj-G7i" secondAttribute="trailing" constant="-6" id="qTu-0o-Q2w"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="9m0-Sj-G7i" secondAttribute="bottom" constant="81" id="qth-U9-uq9"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -51,6 +54,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Launch" width="180" height="180"/>
+        <image name="splash_bg" width="534" height="712"/>
+        <image name="splash_icon" width="1600" height="1600"/>
     </resources>
 </document>
