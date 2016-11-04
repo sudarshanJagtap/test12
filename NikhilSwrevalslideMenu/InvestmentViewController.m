@@ -440,8 +440,17 @@
           }
           statesArray = [NSArray arrayWithArray:listarray];
           NSLog(@"\n\n ListArray = %@",listarray);
+//          if (statesArray.count>0) {
+//            self.stateTf.text = [statesArray objectAtIndex:0];
+//          }
+          
           if (statesArray.count>0) {
-            self.stateTf.text = [statesArray objectAtIndex:0];
+            
+            if ([statesArray containsObject:@"New Jersey"]) {
+              self.stateTf.text = @"New Jersey";
+            }else{
+              self.stateTf.text = [statesArray objectAtIndex:0];
+            }
           }
         }
         

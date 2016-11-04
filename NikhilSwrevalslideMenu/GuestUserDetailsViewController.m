@@ -394,7 +394,12 @@
           }
           statesArray = [NSArray arrayWithArray:listarray];
           if (statesArray.count>0) {
+            
+            if ([statesArray containsObject:@"New Jersey"]) {
+              self.stateTxtFld.text = @"New Jersey";
+            }else{
             self.stateTxtFld.text = [statesArray objectAtIndex:0];
+            }
           }
           
           NSLog(@"\n\n ListArray = %@",listarray);

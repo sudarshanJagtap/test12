@@ -180,6 +180,12 @@
 @property(nonatomic,strong)NSString *tax_amount;
 @property(nonatomic,strong)NSString *total_amount;
 @property(nonatomic,strong)NSString *transaction_id;
+
+@property(nonatomic,strong)NSString *order_mode;
+@property(nonatomic,strong)NSString *order_schedule_date;
+@property(nonatomic,strong)NSString *order_schedule_status;
+@property(nonatomic,strong)NSString *order_schedule_time;
+
 @property(nonatomic,strong)NSMutableArray *viewOrderDetailsDataArray;
 
 

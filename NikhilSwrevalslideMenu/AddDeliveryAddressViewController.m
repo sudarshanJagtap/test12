@@ -419,10 +419,17 @@
           }
           statesArray = [NSArray arrayWithArray:listarray];
           NSLog(@"\n\n ListArray = %@",listarray);
+//          if (statesArray.count>0) {
+//            self.stateTxtFld.text = [statesArray objectAtIndex:0];
+//          }
           if (statesArray.count>0) {
-            self.stateTxtFld.text = [statesArray objectAtIndex:0];
+            
+            if ([statesArray containsObject:@"New Jersey"]) {
+              self.stateTxtFld.text = @"New Jersey";
+            }else{
+              self.stateTxtFld.text = [statesArray objectAtIndex:0];
+            }
           }
-          
 //          if(dropDown == nil) {
 //            CGFloat f = 200;
 //            dropDown = [[NIDropDown alloc]showDropDown:self.stateTxtFld :&f :statesArray :nil :@"down"];

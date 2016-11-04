@@ -14,6 +14,7 @@
 #import "SWRevealViewController.h"
 #import "OrderTrackingTableViewCell.h"
 #import "AppConstant.h"
+#import "MapTrackingViewController.h"
 @interface OrderTrackingViewController ()<UITableViewDataSource,UITableViewDelegate>{
   AppDelegate *appDelegate;
 }
@@ -150,6 +151,20 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+  
+    USerOrderHistory *oData = (USerOrderHistory*)[[ResponseUtility getSharedInstance].orderTrackingArray objectAtIndex:indexPath.row];
+  NSLog(@"%ld",(long)indexPath.row);
+  
+  if ([oData.order_status isEqualToString:@"Dispatched"]) {
+    MapTrackingViewController *obj_clvc  = (MapTrackingViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"MapTrackingViewControllerId"];
+    obj_clvc.order_id =oData.order_id;
+    [self.navigationController pushViewController:obj_clvc animated:YES];
+  }else{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"Once Order is dispatched, you can track your food!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alert show];
+  }
+  
+ 
 }
 
 - (IBAction)navBackBtnClick:(id)sender {

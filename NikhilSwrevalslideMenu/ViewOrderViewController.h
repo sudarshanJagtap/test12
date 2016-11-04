@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *deliveryFeeLabelheightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *adeliveryHghtConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *aTotalTopcontraint;
+@property (weak, nonatomic) IBOutlet UILabel *orderScheduleLbl;
+@property (weak, nonatomic) IBOutlet UILabel *aOrderScheduleLbl;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalLblTopContraint;
 @end

@@ -95,7 +95,13 @@
         vwData.tax_amount = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"tax_amount"];
         vwData.total_amount = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"total_amount"];
         vwData.transaction_id = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"transaction_id"];
+        
+         vwData.order_mode = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"order_mode"];
+         vwData.order_schedule_date = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"order_schedule_date"];
+         vwData.order_schedule_status = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"order_schedule_status"];
+         vwData.order_schedule_time = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"order_schedule_time"];
         NSArray *dataArray = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"order_data"];
+        
         for (int i =0; i<dataArray.count; i++) {
           NSDictionary *data = [dataArray objectAtIndex:i];
           ViewOrderDetailsData *vw = [[ViewOrderDetailsData alloc]init];
@@ -115,6 +121,12 @@
         vwData.tax_amount = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"tax_amount"];
         vwData.total_amount = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"total_amount"];
         vwData.transaction_id = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"transaction_id"];
+        
+        vwData.order_mode = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"order_mode"];
+        vwData.order_schedule_date = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"order_schedule_date"];
+        vwData.order_schedule_status = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"order_schedule_status"];
+        vwData.order_schedule_time = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"order_schedule_time"];
+        
         NSArray *valuesAr = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"data"];
         for (NSArray *respo in valuesAr){
           NSArray *dataArray = [respo valueForKey:@"order_data"];
@@ -173,11 +185,27 @@
         float coupAmtF = [vwData.coupon_amount floatValue];
         
         float add = subtotalAmoutF+asalesTaxF+coupAmtF;
-        if (add == totalAmoutF) {
+        BOOL oMode = [vwData.order_mode boolValue];
+//        if (add == totalAmoutF) {
+         if (!oMode) {
           self.deliveryFeeLabelheightConstraint.constant = 0;
           self.adeliveryHghtConstraint.constant = 0;
           self.aTotalTopcontraint.constant = 0;
           self.totalLblTopContraint.constant = 0;
+        }
+        BOOL oSstatus = [vwData.order_schedule_status boolValue];
+        if (oSstatus) {
+          NSString *oschDateTime = [NSString stringWithFormat:@"%@ %@",vwData.order_schedule_date,vwData.order_schedule_time];
+          self.aOrderScheduleLbl.text = oschDateTime;
+          self.orderScheduleLbl.hidden = NO;
+          self.aOrderScheduleLbl.hidden = NO;
+          self.aCpAmtTop.constant = 51;
+          self.cpAmtTop.constant = 51;
+        }else{
+          self.aCpAmtTop.constant = 15;
+          self.cpAmtTop.constant = 15;
+          self.orderScheduleLbl.hidden = YES;
+          self.aOrderScheduleLbl.hidden = YES;
         }
         [self.tableVw reloadData];
       });

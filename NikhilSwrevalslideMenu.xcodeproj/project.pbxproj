@@ -74,6 +74,7 @@
 		65849DBC1D9A7E0300105977 /* DisplayRatingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65849DBA1D9A7E0300105977 /* DisplayRatingTableViewCell.m */; };
 		65849DBD1D9A7E0300105977 /* DisplayRatingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65849DBB1D9A7E0300105977 /* DisplayRatingTableViewCell.xib */; };
 		6595CB5B1DA179B8008058BE /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6595CB5A1DA179B8008058BE /* ForgotPasswordViewController.m */; };
+		65AC4DDF1DCD22CE00389461 /* MapTrackingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65AC4DDE1DCD22CE00389461 /* MapTrackingViewController.m */; };
 		65B608C61D5666C40055EBF2 /* AddDeliveryAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B608C51D5666C40055EBF2 /* AddDeliveryAddressViewController.m */; };
 		65B608E81D5892000055EBF2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65B608E71D5892000055EBF2 /* GoogleService-Info.plist */; };
 		65C5442B1DA8FC3200A2553D /* PostForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C5442A1DA8FC3200A2553D /* PostForgotPasswordViewController.m */; };
@@ -225,6 +226,8 @@
 		65849DBB1D9A7E0300105977 /* DisplayRatingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayRatingTableViewCell.xib; sourceTree = "<group>"; };
 		6595CB591DA179B8008058BE /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		6595CB5A1DA179B8008058BE /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
+		65AC4DDD1DCD22CE00389461 /* MapTrackingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapTrackingViewController.h; sourceTree = "<group>"; };
+		65AC4DDE1DCD22CE00389461 /* MapTrackingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapTrackingViewController.m; sourceTree = "<group>"; };
 		65B608C41D5666C40055EBF2 /* AddDeliveryAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDeliveryAddressViewController.h; sourceTree = "<group>"; };
 		65B608C51D5666C40055EBF2 /* AddDeliveryAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDeliveryAddressViewController.m; sourceTree = "<group>"; };
 		65B608E71D5892000055EBF2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -526,6 +529,8 @@
 				6519ACC51DA44EB50094F9B5 /* AddReviewsViewController.m */,
 				65C544291DA8FC3200A2553D /* PostForgotPasswordViewController.h */,
 				65C5442A1DA8FC3200A2553D /* PostForgotPasswordViewController.m */,
+				65AC4DDD1DCD22CE00389461 /* MapTrackingViewController.h */,
+				65AC4DDE1DCD22CE00389461 /* MapTrackingViewController.m */,
 			);
 			name = HomeScreen;
 			sourceTree = "<group>";
@@ -821,6 +826,7 @@
 				C13ED6381D3A85AF007DBFEF /* RightMenuViewController.m in Sources */,
 				8F32F7C61D337AC90013AD6E /* FrontHomeScreenViewController.m in Sources */,
 				65C5D1451DB941FB00A6FCD1 /* AppConstant.m in Sources */,
+				65AC4DDF1DCD22CE00389461 /* MapTrackingViewController.m in Sources */,
 				657ED33F1D79FB020079ACEA /* OrderHistoryTableViewCell.m in Sources */,
 				C15253031DC3285C008560A3 /* PolicyViewNoticeViewController.m in Sources */,
 				65849DBC1D9A7E0300105977 /* DisplayRatingTableViewCell.m in Sources */,
