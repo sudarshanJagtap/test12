@@ -43,10 +43,8 @@ extern NSString* const kPrivacyPolicy;
 extern NSString* const kLeaderShip;
 extern NSString* const kInvestMentOppurtunity;
 extern NSString* const kContact_us;
-
 extern NSString* const kgps_src_dst_location;
 extern NSString* const kgps_current_location;
-
 
 extern NSString* const kFacebookLoginID;
 extern NSString* const kGooglePlacesApiKey;

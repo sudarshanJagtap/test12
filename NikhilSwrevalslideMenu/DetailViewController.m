@@ -49,6 +49,7 @@
   UIView *blankScreen;
   UIView *alertView;
   UILabel *fromLabel;
+  BOOL restClosedFlag;
   
 }
 
@@ -75,13 +76,7 @@
   blankScreen.hidden =YES;
   [self.view addSubview:blankScreen];
   [self.view bringSubviewToFront:blankScreen];
-//  if (label.text.length>17) {
-//    [label setFont:[UIFont systemFontOfSize:15]];
-//  }else{
-//  [label setFont:[UIFont systemFontOfSize:17]];
-//  }
 
-  
   dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
   
   NSString *url_Img_FULL = [kBaseRestImagePathUtl stringByAppendingPathComponent:selectedUfrespo.imageStr];
@@ -138,70 +133,80 @@
 
 -(BOOL)checkRestoClosed{
   
-  BOOL retval = NO;
-
-  NSDateFormatter *dateformat = [[NSDateFormatter alloc] init];
-  [dateformat setDateFormat:@"HH:mm:ss"];
- 
-  NSDate *oDate = [dateformat dateFromString:self.selectedUfrespo.opening_time];
-  NSDate *cDate = [dateformat dateFromString:self.selectedUfrespo.closing_time];
-  
-  NSDateComponents *openingTime = [[NSCalendar currentCalendar] components:NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond
-                                                                  fromDate:oDate];
-  
-  NSDateComponents *closingTime = [[NSCalendar currentCalendar] components:NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond
-                                                         fromDate:cDate];
-  
-  NSDate *now = [NSDate date];
-  
-  NSDateComponents *currentTime = [[NSCalendar currentCalendar] components:NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond
-                                                                  fromDate:now];
-  
-  NSMutableArray *times = [@[openingTime, closingTime, currentTime] mutableCopy];
-  [times sortUsingComparator:^NSComparisonResult(NSDateComponents *t1, NSDateComponents *t2) {
-    if (t1.hour > t2.hour) {
-      return NSOrderedDescending;
+    if (!restClosedFlag) {
+      
+      NSLog(@"Sorry, we are closed!");
+      self.restClosedLbl.hidden = NO;
+      self.tableVw.hidden = NO;
+    } else {
+      NSLog(@"We are Open!");
     }
-    
-    if (t1.hour < t2.hour) {
-      return NSOrderedAscending;
-    }
-    // hour is the same
-    if (t1.minute > t2.minute) {
-      return NSOrderedDescending;
-    }
-    
-    if (t1.minute < t2.minute) {
-      return NSOrderedAscending;
-    }
-    // hour and minute are the same
-    if (t1.second > t2.second) {
-      return NSOrderedDescending;
-    }
-    
-    if (t1.second < t2.second) {
-      return NSOrderedAscending;
-    }
-    return NSOrderedSame;
-    
-  }];
-  
-  if ([times indexOfObject:currentTime] == 1) {
-    NSLog(@"We are Open!");
-    retval = NO;
-  } else {
-    NSLog(@"Sorry, we are closed!");
-    self.restClosedLbl.hidden = NO;
-    self.tableVw.hidden = NO;
-            retval = YES;
-  }
-  
-  return retval;
+  return !restClosedFlag;
+//  BOOL retval = NO;
+//
+//  NSDateFormatter *dateformat = [[NSDateFormatter alloc] init];
+//  [dateformat setDateFormat:@"HH:mm:ss"];
+// 
+//  NSDate *oDate = [dateformat dateFromString:self.selectedUfrespo.opening_time];
+//  NSDate *cDate = [dateformat dateFromString:self.selectedUfrespo.closing_time];
+//  
+//  NSDateComponents *openingTime = [[NSCalendar currentCalendar] components:NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond
+//                                                                  fromDate:oDate];
+//  
+//  NSDateComponents *closingTime = [[NSCalendar currentCalendar] components:NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond
+//                                                         fromDate:cDate];
+//  
+//  NSDate *now = [NSDate date];
+//  
+//  NSDateComponents *currentTime = [[NSCalendar currentCalendar] components:NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond
+//                                                                  fromDate:now];
+//  
+//  NSMutableArray *times = [@[openingTime, closingTime, currentTime] mutableCopy];
+//  [times sortUsingComparator:^NSComparisonResult(NSDateComponents *t1, NSDateComponents *t2) {
+//    if (t1.hour > t2.hour) {
+//      return NSOrderedDescending;
+//    }
+//    
+//    if (t1.hour < t2.hour) {
+//      return NSOrderedAscending;
+//    }
+//    // hour is the same
+//    if (t1.minute > t2.minute) {
+//      return NSOrderedDescending;
+//    }
+//    
+//    if (t1.minute < t2.minute) {
+//      return NSOrderedAscending;
+//    }
+//    // hour and minute are the same
+//    if (t1.second > t2.second) {
+//      return NSOrderedDescending;
+//    }
+//    
+//    if (t1.second < t2.second) {
+//      return NSOrderedAscending;
+//    }
+//    return NSOrderedSame;
+//    
+//  }];
+//  
+//  if ([times indexOfObject:currentTime] == 1) {
+//    NSLog(@"We are Open!");
+//    retval = NO;
+//  } else {
+//    NSLog(@"Sorry, we are closed!");
+//    self.restClosedLbl.hidden = NO;
+//    self.tableVw.hidden = NO;
+//            retval = YES;
+//  }
+//  
+//  return retval;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
   [super viewWillAppear:animated];
-  [self checkRestoClosed];
+//  [self checkRestoClosed];
+  restClosedFlag = NO;
   label.hidden = NO;
   [RequestUtility sharedRequestUtility].selectedAddressId = @"-1";
   self.navigationController.navigationBarHidden = YES;
@@ -287,6 +292,7 @@
   [cdOperation  callAPIWithParamter:nil success:^(BOOL success, id response) {
     
     NSLog(@"%@",response);
+    restClosedFlag = [[response valueForKey:@"open_status"] boolValue];
     NSDictionary *sectionDictionary = [response valueForKey:@"category_list"];
     if (sectionDictionary.count>0) {
       
@@ -332,6 +338,7 @@
       [self.contents addObject:finalArr];
       NSLog(@"content Array %@",self.contents);
       dispatch_async(dispatch_get_main_queue(), ^{
+        [self checkRestoClosed];
         [appDelegate hideLoadingView];
         [self.tableVw reloadData];
         self.tableVw.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -339,6 +346,7 @@
     }else{
       dispatch_async(dispatch_get_main_queue(), ^{
         [appDelegate hideLoadingView];
+        [self checkRestoClosed];
         [self.tableVw reloadData];
         self.tableVw.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
       });

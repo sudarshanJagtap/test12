@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="splash_bg" translatesAutoresizingMaskIntoConstraints="NO" id="vzK-JQ-ufn">
-                                <rect key="frame" x="-4" y="0.0" width="328" height="570"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_bg" translatesAutoresizingMaskIntoConstraints="NO" id="vzK-JQ-ufn">
+                                <rect key="frame" x="-8" y="0.0" width="336" height="570"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_icon" translatesAutoresizingMaskIntoConstraints="NO" id="5KX-Ai-QgC">
                                 <rect key="frame" x="9" y="140" width="302" height="188"/>
@@ -42,9 +42,13 @@
                             <constraint firstItem="5KX-Ai-QgC" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-50" id="9ou-JQ-W68"/>
                             <constraint firstItem="5KX-Ai-QgC" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-7" id="DSN-da-L9l"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5KX-Ai-QgC" secondAttribute="trailing" constant="-7" id="G30-QH-SPQ"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="vzK-JQ-ufn" secondAttribute="bottom" constant="-2" id="NyL-xS-nCX"/>
                             <constraint firstItem="9m0-Sj-G7i" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-6" id="WXC-4X-1uc"/>
+                            <constraint firstItem="vzK-JQ-ufn" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-24" id="awz-Z9-s2A"/>
+                            <constraint firstItem="vzK-JQ-ufn" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="puM-Wo-N6D"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9m0-Sj-G7i" secondAttribute="trailing" constant="-6" id="qTu-0o-Q2w"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="9m0-Sj-G7i" secondAttribute="bottom" constant="81" id="qth-U9-uq9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vzK-JQ-ufn" secondAttribute="trailing" constant="-24" id="zwY-Vl-IAa"/>
                         </constraints>
                     </view>
                 </viewController>
