@@ -139,6 +139,12 @@
     cell.isDeliverdLbl.text= [NSString stringWithFormat:@"%@",oData.order_status];
     cell.isDeliverdLbl.layer.masksToBounds = YES;
     cell.isDeliverdLbl.layer.cornerRadius =8.0;
+  
+  if ([oData.order_status isEqualToString:@"Delivered"]) {
+    cell.deliveryDateLbl.hidden = NO;
+  }else{
+    cell.deliveryDateLbl.hidden = YES;
+  }
     
     [[cell.orderDetailsBtn layer] setBorderWidth:2.0f];
     [[cell.orderDetailsBtn layer] setBorderColor:[UIColor redColor].CGColor];
@@ -147,7 +153,19 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-  return 143;
+  
+  CGFloat retval = 143;
+  UserOrderTracking *oData = (UserOrderTracking*)[[ResponseUtility getSharedInstance].orderTrackingArray objectAtIndex:indexPath.row];
+  if ([oData.order_status isEqualToString:@"Delivered"]) {
+//    cell.deliveryDateLbl.hidden = NO;
+    //    cell.OrderDetailsBtnTopconstraint.constant = 3;
+    retval = 143;
+  }else{
+    retval = 130;
+//    cell.deliveryDateLbl.hidden = YES;
+    //    cell.OrderDetailsBtnTopconstraint.constant = -10;
+  }
+  return retval;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -435,8 +435,12 @@
           NSMutableArray *listarray = [[NSMutableArray alloc]init];
           NSArray *temp = [ResponseDictionary valueForKey:@"data"];
           for (int i =0; i<temp.count; i++) {
+//            NSString *stateStr = [[temp objectAtIndex:i]valueForKey:@"state"];
+//            [listarray addObject:stateStr];
+            NSString *codeStr = [[temp objectAtIndex:i]valueForKey:@"code"];
             NSString *stateStr = [[temp objectAtIndex:i]valueForKey:@"state"];
-            [listarray addObject:stateStr];
+            NSString *displayStr = [NSString stringWithFormat:@"%@-%@",codeStr,stateStr];
+            [listarray addObject:displayStr];
           }
           statesArray = [NSArray arrayWithArray:listarray];
           NSLog(@"\n\n ListArray = %@",listarray);
@@ -446,8 +450,8 @@
           
           if (statesArray.count>0) {
             
-            if ([statesArray containsObject:@"New Jersey"]) {
-              self.stateTf.text = @"New Jersey";
+            if ([statesArray containsObject:@"NJ-New Jersey"]) {
+              self.stateTf.text = @"NJ-New Jersey";
             }else{
               self.stateTf.text = [statesArray objectAtIndex:0];
             }
@@ -500,28 +504,68 @@
   }
 }
 
+#define ACCEPTABLE_CHARACTERS @" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 #define MOB_MAX_LENGTH 10
 #define ZIP_MAX_LENGTH 6
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-  if(textField ==self.contactTf){
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
+  if ([textField isEqual:self.nameTf]) {
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARACTERS] invertedSet];
+    
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    
+    return [string isEqualToString:filtered];
+  }
+  else if ([textField isEqual:self.cityTf]) {
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARACTERS] invertedSet];
+    
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    
+    return [string isEqualToString:filtered];
+  }
+  else if(textField ==self.contactTf){
     NSString *str = [self.contactTf.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (str.length >= MOB_MAX_LENGTH && range.length == 0)
     {
       return NO; // return NO to not change text
     }else{return YES;}
   }
-  if (textField==self.zipcodeTf) {
+  else if (textField==self.zipcodeTf) {
     NSString *str = [self.zipcodeTf.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (str.length >= ZIP_MAX_LENGTH && range.length == 0)
     {
       return NO; // return NO to not change text
     }else{return YES;}
   }
-  else
-  {return YES;}
+  else{
+    
+    return YES;
+  }
+  
 }
+
+//#define MOB_MAX_LENGTH 10
+//#define ZIP_MAX_LENGTH 6
+//
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//  if(textField ==self.contactTf){
+//    NSString *str = [self.contactTf.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//    if (str.length >= MOB_MAX_LENGTH && range.length == 0)
+//    {
+//      return NO; // return NO to not change text
+//    }else{return YES;}
+//  }
+//  if (textField==self.zipcodeTf) {
+//    NSString *str = [self.zipcodeTf.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//    if (str.length >= ZIP_MAX_LENGTH && range.length == 0)
+//    {
+//      return NO; // return NO to not change text
+//    }else{return YES;}
+//  }
+//  else
+//  {return YES;}
+//}
 
 -(void)doSubmitDetails{
   

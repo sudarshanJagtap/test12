@@ -1563,7 +1563,7 @@
         self.couponAmountLbl.text = [NSString stringWithFormat:@"$ %@",obtainedCouponAmount];
       }else{
         [appDelegate hideLoadingView];
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Coupon Not Valid" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Coupon Is Not Valid" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
       }
     });

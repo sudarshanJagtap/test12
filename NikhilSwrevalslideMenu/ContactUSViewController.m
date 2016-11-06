@@ -230,20 +230,54 @@
   return FALSE;
   
 }
+//#define MOB_MAX_LENGTH 10
+//#define ZIP_MAX_LENGTH 6
+//
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//  if(textField ==self.phoneTxtfld){
+//    NSString *str = [self.phoneTxtfld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//    if (str.length >= MOB_MAX_LENGTH && range.length == 0)
+//    {
+//      return NO; // return NO to not change text
+//    }else{return YES;}
+//  }
+//  else
+//  {return YES;}
+//}
+
+
+#define ACCEPTABLE_CHARACTERS @" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 #define MOB_MAX_LENGTH 10
 #define ZIP_MAX_LENGTH 6
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-  if(textField ==self.phoneTxtfld){
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
+  if ([textField isEqual:self.fNameTxtfld]) {
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARACTERS] invertedSet];
+    
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    
+    return [string isEqualToString:filtered];
+  }
+  else if ([textField isEqual:self.lNameTxtFld]) {
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARACTERS] invertedSet];
+    
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    
+    return [string isEqualToString:filtered];
+  }
+  else if(textField ==self.phoneTxtfld){
     NSString *str = [self.phoneTxtfld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (str.length >= MOB_MAX_LENGTH && range.length == 0)
     {
       return NO; // return NO to not change text
     }else{return YES;}
   }
-  else
-  {return YES;}
+  else{
+    
+    return YES;
+  }
+  
 }
 
 -(BOOL)doValidateUserTextFieldText:(NSMutableString*)message{

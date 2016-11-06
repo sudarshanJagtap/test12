@@ -197,23 +197,23 @@
   BOOL retval = NO;
   if (self.nameTxtFld.text.length == 0) {
     retval= NO;
-    [message appendString:@"Please enter name details"];
+    [message appendString:@"Please enter name"];
   }
   else if (self.mobileTxtFld.text.length == 0) {
     retval= NO;
-    [message appendString:@"Please enter mobile details"];
+    [message appendString:@"Please enter mobile number"];
   }
   else if (![self validatePhone:self.mobileTxtFld.text]) {
     retval= NO;
-    [message appendString:@"Please enter valid mobile details"];
+    [message appendString:@"Please enter valid mobile number"];
   }
   else if (self.emailTxtFld.text.length == 0) {
     retval= NO;
-    [message appendString:@"Please enter valid email details"];
+    [message appendString:@"Please enter valid email address"];
   }
   else if (![self NSStringIsValidEmail:self.emailTxtFld.text]) {
     retval= NO;
-    [message appendString:@"Please enter valid email details"];
+    [message appendString:@"Please enter valid email address"];
   }
   else if (self.passwordTxtFld.text.length == 0) {
     retval= NO;
@@ -262,21 +262,44 @@
   [self.view endEditing:YES];
 }
 
+#define ACCEPTABLE_CHARACTERS @" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 #define MOB_MAX_LENGTH 10
+#define ZIP_MAX_LENGTH 6
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-  if (textField == self.mobileTxtFld) {
-    if (self.mobileTxtFld.text.length >= MOB_MAX_LENGTH && range.length == 0)
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
+  if ([textField isEqual:self.nameTxtFld]) {
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARACTERS] invertedSet];
+    
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    
+    return [string isEqualToString:filtered];
+  }
+  else if(textField ==self.mobileTxtFld){
+    NSString *str = [self.mobileTxtFld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (str.length >= MOB_MAX_LENGTH && range.length == 0)
     {
       return NO; // return NO to not change text
-    }
+    }else{return YES;}
   }
- 
   else{
-  return YES;
+    
+    return YES;
   }
-  return YES;
+  
 }
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//  if (textField == self.mobileTxtFld) {
+//    if (self.mobileTxtFld.text.length >= MOB_MAX_LENGTH && range.length == 0)
+//    {
+//      return NO; // return NO to not change text
+//    }
+//  }
+// 
+//  else{
+//  return YES;
+//  }
+//  return YES;
+//}
 
 @end

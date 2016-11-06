@@ -53,7 +53,7 @@
     self.countryTxtFld.text = @"";
     self.contactNoTxtFld.text = @"";
     self.titleLbl.text=@"Add Address";
-    [self.doneUpdateBtn setTitle:@"Done" forState:UIControlStateNormal];
+    [self.doneUpdateBtn setTitle:@"ADD" forState:UIControlStateNormal];
   }
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -221,10 +221,10 @@
     retval= NO;
     [message appendString:@"Please enter address1 details"];
   }
-  else if (self.address2TxtFld.text.length == 0) {
-    retval= NO;
-    [message appendString:@"Please enter address2 details"];
-  }
+//  else if (self.address2TxtFld.text.length == 0) {
+//    retval= NO;
+//    [message appendString:@"Please enter address2 details"];
+//  }
   else if (self.contactNoTxtFld.text.length == 0) {
     retval= NO;
     [message appendString:@"Please enter contact details"];
@@ -295,7 +295,7 @@
     }
     
   }else{
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:msgString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:msgString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
     
   }
@@ -305,28 +305,60 @@
   [self.navigationController popViewControllerAnimated:YES];
 }
 
+#define ACCEPTABLE_CHARACTERS @" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 #define MOB_MAX_LENGTH 10
 #define ZIP_MAX_LENGTH 6
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-  if(textField ==self.contactNoTxtFld){
-    NSString *str = [self.contactNoTxtFld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (str.length >= MOB_MAX_LENGTH && range.length == 0)
-    {
-      return NO; // return NO to not change text
-    }else{return YES;}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
+  if ([textField isEqual:self.fullNameTxtFld]) {
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARACTERS] invertedSet];
+    
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    
+    return [string isEqualToString:filtered];
   }
-  if (textField==self.zipCodeTxtFld) {
+  else if ([textField isEqual:self.cityTxtFld]) {
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARACTERS] invertedSet];
+    
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    
+    return [string isEqualToString:filtered];
+  }
+  else if (textField==self.zipCodeTxtFld) {
     NSString *str = [self.zipCodeTxtFld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (str.length >= ZIP_MAX_LENGTH && range.length == 0)
     {
       return NO; // return NO to not change text
     }else{return YES;}
   }
-  else
-  {return YES;}
+  else{
+    
+    return YES;
+  }
+  
 }
+//#define MOB_MAX_LENGTH 10
+//#define ZIP_MAX_LENGTH 6
+//
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//  if(textField ==self.contactNoTxtFld){
+//    NSString *str = [self.contactNoTxtFld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//    if (str.length >= MOB_MAX_LENGTH && range.length == 0)
+//    {
+//      return NO; // return NO to not change text
+//    }else{return YES;}
+//  }
+//  if (textField==self.zipCodeTxtFld) {
+//    NSString *str = [self.zipCodeTxtFld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//    if (str.length >= ZIP_MAX_LENGTH && range.length == 0)
+//    {
+//      return NO; // return NO to not change text
+//    }else{return YES;}
+//  }
+//  else
+//  {return YES;}
+//}
 - (IBAction)doneUpdateBtnClick:(id)sender {
   NSMutableString *msgString = [[NSMutableString alloc]init];
   BOOL retval = [self doValidateUserTextFieldText:msgString];
@@ -338,7 +370,7 @@
     }
     
   }else{
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:msgString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:msgString delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
     
   }
@@ -414,8 +446,12 @@
           NSMutableArray *listarray = [[NSMutableArray alloc]init];
           NSArray *temp = [ResponseDictionary valueForKey:@"data"];
           for (int i =0; i<temp.count; i++) {
+//            NSString *stateStr = [[temp objectAtIndex:i]valueForKey:@"state"];
+//            [listarray addObject:stateStr];
+            NSString *codeStr = [[temp objectAtIndex:i]valueForKey:@"code"];
             NSString *stateStr = [[temp objectAtIndex:i]valueForKey:@"state"];
-            [listarray addObject:stateStr];
+            NSString *displayStr = [NSString stringWithFormat:@"%@-%@",codeStr,stateStr];
+            [listarray addObject:displayStr];
           }
           statesArray = [NSArray arrayWithArray:listarray];
           NSLog(@"\n\n ListArray = %@",listarray);
@@ -424,8 +460,8 @@
 //          }
           if (statesArray.count>0) {
             
-            if ([statesArray containsObject:@"New Jersey"]) {
-              self.stateTxtFld.text = @"New Jersey";
+            if ([statesArray containsObject:@"NJ-New Jersey"]) {
+              self.stateTxtFld.text = @"NJ-New Jersey";
             }else{
               self.stateTxtFld.text = [statesArray objectAtIndex:0];
             }
