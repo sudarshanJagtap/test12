@@ -20,6 +20,12 @@
     // Do any additional setup after loading the view.
   self.navigationController.navigationBar.hidden = YES;
     self.textViewContent.userInteractionEnabled=NO;
+  NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+  NSString *temp = [NSString stringWithFormat:@"%@ %@ %@",@"You are on version",version,@"on Ymoc app.\n"];
+  NSString *abtcontent = @"YMOC.COM is aimed to be one of the widely covered online meal ordering portals. The company is based in Cranbury, NJ. The portal aims to attract the online community to order meals for individuals, groups or corporates. Whatever the ocassion is YMOC.COM has everything that we call it a SUCCESS! The portal and it's team will work with the clients to design the meal plan for the meals to make it a successful dinning experience. The arrangements may be for Corporate Breakfasts, Lunch, Dinner, Birthday Party, Wedding or anything you just name it. The team is always there to sit and design with you for your dinning experience a success and pleasurable.";
+  NSString *finalStr = [NSString stringWithFormat:@"%@%@",temp,abtcontent];
+  self.textViewContent.text = finalStr
+  ;
 }
 
 - (IBAction)backNavBtnClick:(id)sender {

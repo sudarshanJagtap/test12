@@ -436,13 +436,29 @@
   [reqUtility.selectedFeaturesArray removeAllObjects];
   reqUtility.min_order_amount = @"no";
   reqUtility.ratings = 0;
-  reqUtility.delivery_status = 0;
+  if ([self.btnPickup isEnabled]) {
+    reqUtility.selectedOrderType = @"Delivery";
+//    [self.btnPickup setEnabled:YES];
+//    [self.btnDelivery setEnabled:NO];
+    reqUtility.delivery_status = 0;
+  }else{
+    reqUtility.selectedOrderType = @"PickUp";
+//    [self.btnPickup setEnabled:YES];
+//    [self.btnDelivery setEnabled:NO];
+    reqUtility.delivery_status = 1;
+  
+  }
+//  reqUtility.delivery_status = 0;
   reqUtility.sorting = @"no";
   reqUtility.isAsap = NO;
   self.addedFilterLabel.hidden = YES;
   crossBtn.hidden = YES;
   self.lblHghtConstraint.constant = 0;
-  [self delegateDelivery];
+  if ([self.btnPickup isEnabled]) {
+    [self delegateDelivery];
+  }else{
+  [self btnpickup:self];
+  }
   self.tableView.frame= CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y-20, self.tableView.frame.size.width, self.tableView.frame.size.height);//self.tableView.frame.origin.y-20;
 }
 

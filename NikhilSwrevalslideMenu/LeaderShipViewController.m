@@ -17,9 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    
-    NSString *urlString = @"https://www.ymoc.com/android_api/leadership.php";
+  
+//    NSString *urlString = @"https://www.ymoc.com/android_api/leadership.php";
+  NSString *urlString = @"https://www.ymoc.com/android_api/leadership.php";
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     [self.mywebView loadRequest:urlRequest];
