@@ -11,5 +11,6 @@
 @interface LeftPanelViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableVw;
 @property (weak, nonatomic) IBOutlet UILabel *loginLbl;
+@property (weak, nonatomic) IBOutlet UIImageView *bgImg;
 
 @end

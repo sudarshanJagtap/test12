@@ -26,7 +26,8 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
+  self.bgImg.image = [UIImage imageNamed:@"about_us_background.png"];
+  self.bgImg.alpha = 0.9;
   
 }
 
@@ -66,7 +67,14 @@
     self.arrayImage = @[@"about",@"hours"];
     [self.tableVw reloadData];
     
+//    CGFloat height = self.tableVw.rowHeight;
+//    height *= self.array.count;
+//    
+//    CGRect tableFrame = self.tableVw.frame;
+//    tableFrame.size.height = height;
+//    self.tableVw.frame = tableFrame;
   }
+  self.tableVw.backgroundColor = [UIColor clearColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,12 +108,11 @@
     NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"LeftPanelTableViewCell" owner:self options:nil];
     cell = [nib objectAtIndex:0];
   }
-  
   cell.txtlbl.text = [self.array objectAtIndex:indexPath.row];
   cell.imgVw.image = [UIImage imageNamed:[self.arrayImage objectAtIndex:indexPath.row]];
   
   // Configure the cell...
-  cell.backgroundColor = [UIColor clearColor];
+  cell.backgroundColor = [UIColor whiteColor];
   // Configure the cell...
   float screenWidth = [[UIScreen mainScreen] bounds].size.width;
   
