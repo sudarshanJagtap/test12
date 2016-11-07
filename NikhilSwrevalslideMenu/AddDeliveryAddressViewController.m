@@ -13,6 +13,7 @@
 #import "NIDropDown.h"
 #import "SWRevealViewController.h"
 #import "AppConstant.h"
+#import <QuartzCore/QuartzCore.h>
 #define kOFFSET_FOR_KEYBOARD 80.0
 @interface AddDeliveryAddressViewController ()<NIDropDownDelegate>{
   AppDelegate *appDelegate;
@@ -54,8 +55,12 @@
     self.contactNoTxtFld.text = @"";
     self.titleLbl.text=@"Add Address";
     [self.doneUpdateBtn setTitle:@"ADD" forState:UIControlStateNormal];
+    
+    
   }
 }
+
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
   [self animateTextField:textField up:YES];
@@ -126,6 +131,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  UIImageView *imgViewForDropDown = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, self.stateTxtFld.frame.size.height)];
+  imgViewForDropDown.image = [UIImage imageNamed:@"drop2.png"];
+  [imgViewForDropDown.layer setBorderColor: [[UIColor blackColor] CGColor]];
+  [imgViewForDropDown.layer setBorderWidth: 1.0];
+  self.stateTxtFld.rightView = imgViewForDropDown;
+  self.stateTxtFld.rightViewMode = UITextFieldViewModeAlways;
   self.navigationController.navigationBarHidden = YES;
 }
 
