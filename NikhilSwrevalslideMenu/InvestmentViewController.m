@@ -21,6 +21,7 @@
   NIDropDown *dropDown;
   BOOL isAsapSelected;
   BOOL isInvest;
+  BOOL isInvestChanged;
 }
 
 @end
@@ -29,8 +30,9 @@
 @synthesize scrollView;
 - (void)viewDidLoad {
   [super viewDidLoad];
-  isAsapSelected = YES;
+  isAsapSelected = NO;
   isInvest = YES;
+  isInvestChanged = NO;
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(keyboardWasShown:)
                                                name:UIKeyboardDidShowNotification object:nil];
@@ -61,14 +63,14 @@
   self.Enquiryview.layer.shadowOffset = CGSizeZero;
   self.Enquiryview.layer.masksToBounds = NO;
   
-  self.CheckboxFirst.selected = YES;
+//  self.CheckboxFirst.selected = YES;
   [self.CheckboxFirst addTarget:self action:@selector(checkboxSelected:) forControlEvents:UIControlEventTouchUpInside];
   self.investTf.userInteractionEnabled=NO;
   
-  self.checkBoxSecond.selected = NO;
+//  self.checkBoxSecond.selected = NO;
   [self.checkBoxSecond addTarget:self action:@selector(checkBoxSelectedNext:) forControlEvents:UIControlEventTouchUpInside];
   
-  self.asapCheckbox.selected = YES;
+//  self.asapCheckbox.selected = YES;
   [self.asapCheckbox addTarget:self action:@selector(AsapcheckSelectedNext:) forControlEvents:UIControlEventTouchUpInside];
   
   UIToolbar *keyboardDoneButtonView = [[UIToolbar alloc] init];
@@ -91,7 +93,9 @@
   self.stateTf.rightViewMode = UITextFieldViewModeAlways;
 
   
-  
+  [self.asapCheckbox setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
+  [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
+  [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
   
 
 }
@@ -122,41 +126,48 @@
 
 
 -(void)checkboxSelected:(id)sender{
+  isInvestChanged = YES;
+  isInvest = YES;
+  [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
+  [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
   
-  
-  if([self.CheckboxFirst isSelected]==YES)
-  {
-    isInvest = NO;
-    [self.CheckboxFirst setSelected:NO];
-    [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
-    [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
-  }
-  else{
-    isInvest = YES;
-    [self.CheckboxFirst setSelected:YES];
-    [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
-    [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
-  }
+//  if([self.CheckboxFirst isSelected]==YES)
+//  {
+//    isInvest = NO;
+//    [self.CheckboxFirst setSelected:NO];
+//    [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
+//    [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
+//  }
+//  else{
+//    isInvest = YES;
+//    [self.CheckboxFirst setSelected:YES];
+//    [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
+//    [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
+//  }
   
 }
 
 
 -(void)checkBoxSelectedNext:(id)sender{
+  isInvestChanged = YES;
+  isInvest = NO;
+  [self.checkBoxSecond setSelected:YES];
+  [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
+  [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
   
-  
-  if([self.checkBoxSecond isSelected]==YES)
-  {
-    isInvest = YES;
-    [self.checkBoxSecond setSelected:NO];
-    [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
-    [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
-  }
-  else{
-    isInvest = NO;
-    [self.checkBoxSecond setSelected:YES];
-    [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
-    [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
-  }
+//  if([self.checkBoxSecond isSelected]==YES)
+//  {
+//    isInvest = YES;
+//    [self.checkBoxSecond setSelected:NO];
+//    [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
+//    [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
+//  }
+//  else{
+//    isInvest = NO;
+//    [self.checkBoxSecond setSelected:YES];
+//    [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
+//    [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
+//  }
   
 }
 
@@ -339,6 +350,12 @@
   self.cityTf.text = @"";
   self.commentTextView.text = @"Comments";
   self.commentTextView.textColor = [UIColor lightGrayColor];
+   isAsapSelected = YES;
+   isInvest = YES;
+   isInvestChanged = NO;
+   [self.asapCheckbox setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
+   [self.checkBoxSecond setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
+   [self.CheckboxFirst setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
  });
 }
 
@@ -615,10 +632,15 @@
   }else{
     [params setValue:@" " forKey:@"time_to_contact"];
   }
+  if (isInvestChanged) {
+
   if (isInvest) {
     [params setValue:@"0" forKey:@"inquiry_type"];
   }else{
     [params setValue:@"1" forKey:@"inquiry_type"];
+  }
+  }else{
+  [params setValue:@" " forKey:@"inquiry_type"];
   }
   [params setValue:@"investment_opportunity" forKey:@"action"];
   NSLog(@"%@",params);
