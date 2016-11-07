@@ -249,7 +249,7 @@
 
 #define ACCEPTABLE_CHARACTERS @" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 #define MOB_MAX_LENGTH 10
-#define ZIP_MAX_LENGTH 6
+#define ZIP_MAX_LENGTH 11
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
   if ([textField isEqual:self.fNameTxtfld]) {

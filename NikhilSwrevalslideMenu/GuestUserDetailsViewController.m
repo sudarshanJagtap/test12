@@ -210,8 +210,8 @@
       }
       //    dispatch_async(dispatch_get_main_queue(), ^{
       [appDelegate hideLoadingView];
-      UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-      [alert show];
+//      UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//      [alert show];
       //    });
       
     }
@@ -297,7 +297,7 @@
 
 #define ACCEPTABLE_CHARACTERS @" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 #define MOB_MAX_LENGTH 10
-#define ZIP_MAX_LENGTH 6
+#define ZIP_MAX_LENGTH 11
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
   if ([textField isEqual:self.nameTxtFld]) {

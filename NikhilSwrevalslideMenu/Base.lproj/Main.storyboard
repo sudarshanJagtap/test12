@@ -1815,7 +1815,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="waF-VY-H7e">
                                         <rect key="frame" x="172" y="738" width="145" height="40"/>
                                         <color key="backgroundColor" red="0.66688042879999998" green="0.83355420830000004" blue="0.35901463030000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="Submit">
+                                        <state key="normal" title="Apply">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -3409,7 +3409,7 @@
                                     <constraint firstAttribute="height" constant="40" id="h0f-r1-7v7"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                 <connections>
                                     <outlet property="delegate" destination="XRC-z8-Kdd" id="qdf-h7-u2g"/>
                                 </connections>
