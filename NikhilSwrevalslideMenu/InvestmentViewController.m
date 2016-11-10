@@ -104,7 +104,7 @@
   self.zipcodeTf.inputAccessoryView = keyboardDoneButtonView;
   
   
-  UIImageView *imgViewForDropDown = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, self.stateTf.frame.size.height)];
+  UIImageView *imgViewForDropDown = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, self.stateTf.frame.size.height)];
    imgViewForDropDown.image = [UIImage imageNamed:@"drop2.png"];
   [imgViewForDropDown.layer setBorderColor: [[UIColor blackColor] CGColor]];
   [imgViewForDropDown.layer setBorderWidth: 1.0];

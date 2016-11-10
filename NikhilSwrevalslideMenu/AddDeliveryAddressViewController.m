@@ -147,7 +147,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  UIImageView *imgViewForDropDown = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, self.stateTxtFld.frame.size.height)];
+  UIImageView *imgViewForDropDown = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, self.stateTxtFld.frame.size.height)];
   imgViewForDropDown.image = [UIImage imageNamed:@"drop2.png"];
   [imgViewForDropDown.layer setBorderColor: [[UIColor blackColor] CGColor]];
   [imgViewForDropDown.layer setBorderWidth: 1.0];
