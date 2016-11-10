@@ -90,6 +90,7 @@
                                                                 action:@selector(TBdoneClicked:)];
   [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
   self.mobileTxtFld.inputAccessoryView = keyboardDoneButtonView;
+  self.mobileTxtFld.keyboardType = UIKeyboardTypeNumberPad;
 }
 
 - (void)viewWillDisappear:(BOOL)animated

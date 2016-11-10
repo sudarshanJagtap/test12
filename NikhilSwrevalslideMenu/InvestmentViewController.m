@@ -98,7 +98,7 @@
                                                                  style:UIBarButtonItemStylePlain target:self
                                                                 action:@selector(doneClicked:)];
   [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
-  self.contactTf.keyboardType = UIKeyboardTypePhonePad;
+  self.contactTf.keyboardType = UIKeyboardTypeNumberPad;
   self.zipcodeTf.keyboardType = UIKeyboardTypePhonePad;
   self.contactTf.inputAccessoryView = keyboardDoneButtonView;
   self.zipcodeTf.inputAccessoryView = keyboardDoneButtonView;
