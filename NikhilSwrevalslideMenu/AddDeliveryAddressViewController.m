@@ -200,7 +200,7 @@
       NSString *code = [ResponseDictionary valueForKey:@"code"];
 //      if ([ResponseDictionary valueForKey:@"code"] == [NSNumber numberWithLong:1]) {
       if ([code isEqualToString:@"1"]) {
-        NSLog(@"address add successfull");
+        NSLog(@"address addSuccessful");
         [appDelegate hideLoadingView];
         
         if ([RequestUtility sharedRequestUtility].isThroughPaymentScreen) {

@@ -3840,8 +3840,9 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="uOq-fK-Rcw"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="Done">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="DoneBtnClick:" destination="dpD-yv-yA6" eventType="touchUpInside" id="1r8-TJ-i6i"/>
@@ -4176,8 +4177,9 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="Lsc-8k-oXg"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <state key="normal" title="Submit">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="submitBtnClick:" destination="Sbu-Bs-KUv" eventType="touchUpInside" id="r7a-1u-10V"/>
@@ -4895,9 +4897,9 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="37" id="AW2-Yz-Muj"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="SUBMIT">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="submitForm:" destination="qBv-mV-Hc3" eventType="touchUpInside" id="G2f-fD-rqV"/>
@@ -5250,7 +5252,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* marked field should be filled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Nl-En-CPS">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* marked field should be filled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Nl-En-CPS">
                                         <rect key="frame" x="32" y="6" width="254" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="Jko-dN-JFR"/>
@@ -5334,8 +5336,9 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="e95-K5-xwo"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="Submit">
-                                            <color key="titleColor" red="1" green="0.98240144149999997" blue="0.98261874039999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="subtmitBtnclick:" destination="ypW-3U-wCv" eventType="touchUpInside" id="fbR-Eb-IlH"/>
@@ -6293,8 +6296,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="Kul-2I-uuP"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="SUBMIT">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="submitBtnClick:" destination="bzU-ta-2TA" eventType="touchUpInside" id="qWX-qt-Ak6"/>

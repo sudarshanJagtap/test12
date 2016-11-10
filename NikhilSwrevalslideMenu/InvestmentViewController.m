@@ -14,6 +14,7 @@
 #import "RequestUtility.h"
 #import "AppConstant.h"
 #import "NIDropDown.h"
+#import "SWRevealViewController.h"
 
 @interface InvestmentViewController ()<UITextViewDelegate,NIDropDownDelegate>{
   AppDelegate *appDelegate;
@@ -22,6 +23,10 @@
   BOOL isAsapSelected;
   BOOL isInvest;
   BOOL isInvestChanged;
+  
+  UIView *blankScreen;
+  UIView *alertView;
+  UILabel *fromLabel;
 }
 
 @end
@@ -30,6 +35,20 @@
 @synthesize scrollView;
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  CGFloat screenHeight = screenRect.size.height;
+  CGFloat screenWidth = screenRect.size.width;
+  alertView = [[UIView alloc]init];
+  fromLabel = [[UILabel alloc]init];
+  blankScreen = [[UIView alloc]init];
+  blankScreen.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+  blankScreen.backgroundColor = [UIColor blackColor];
+  blankScreen.alpha = 0.5;
+  blankScreen.hidden =YES;
+  [self.view addSubview:blankScreen];
+  [self.view bringSubviewToFront:blankScreen];
+  
   isAsapSelected = NO;
   isInvest = YES;
   isInvestChanged = NO;
@@ -719,15 +738,18 @@
           NSLog(@"address add successfull");
           [appDelegate hideLoadingView];
   [self clearTextField];
-          UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-          [alert show];
+//          UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//          [alert show];
+//          UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"Thanks for Contacting us." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//          [alert show];
+           [self showMsg:@"Thanks for Contacting us."];
   
         }else{
   
           [self clearTextField];
   
           [appDelegate hideLoadingView];
-          UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+          UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
           [alert show];
         }
       });
@@ -771,6 +793,93 @@
   int length = (int)[mobileNumber length];
   
   return length;
+}
+
+
+-(void)showMsg:(NSString*)msgStr{
+  
+  
+  
+  float screenWidth = [[UIScreen mainScreen] bounds].size.width;
+  float screenheight = [[UIScreen mainScreen] bounds].size.height;
+  //  fullscreenView.frame = self.view.bounds;
+  //  fullscreenView.backgroundColor = [UIColor blackColor];
+  //  UITapGestureRecognizer *singleFingerTap =
+  //  [[UITapGestureRecognizer alloc] initWithTarget:self
+  //                                          action:@selector(handleSingleTap:)];
+  //  [blankScreen addGestureRecognizer:singleFingerTap];
+  blankScreen.hidden = NO;
+  alertView.hidden = NO;
+  //  fullscreenView.alpha = 0.5;
+  //  [self.view addSubview:fullscreenView];
+  //  [self.view bringSubviewToFront:fullscreenView];
+  
+  
+  alertView.backgroundColor = [UIColor whiteColor];
+  [alertView setFrame:CGRectMake(20, screenheight, screenWidth-40, 155)];
+  
+  UIImageView *imgView = [[UIImageView alloc]init];
+  [imgView setFrame:CGRectMake(0, 0, screenWidth-40, 47)];
+  [imgView setImage: [UIImage imageNamed:@"alertImg.png"]];
+  imgView.backgroundColor = [UIColor colorWithRed:203.0 green:255.0 blue:112.0 alpha:1];
+  [alertView addSubview:imgView];
+  
+//  UILabel *lineLbl = [[UILabel alloc]init];
+//  [lineLbl setFrame:CGRectMake(0, 47, alertView.frame.size.width, 1)];
+//  lineLbl.backgroundColor = [UIColor lightGrayColor];
+//  lineLbl.numberOfLines = 1;
+//  [alertView addSubview:lineLbl];
+  
+  [fromLabel setFrame:CGRectMake(0, 50, screenWidth-40, 45)];
+  fromLabel.font = [UIFont fontWithName:@"Sansation-Bold" size:16];
+  fromLabel.text = msgStr;
+  fromLabel.numberOfLines = 4;
+  fromLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
+  fromLabel.adjustsFontSizeToFitWidth = YES;
+  fromLabel.minimumScaleFactor = 10.0f/12.0f;
+  fromLabel.adjustsFontSizeToFitWidth = YES;
+  fromLabel.backgroundColor = [UIColor clearColor];
+  fromLabel.textColor = [UIColor colorWithRed:85.0/255.0 green:150.0/255.0 blue:28.0/255.0 alpha:1.0];;
+  fromLabel.textAlignment = NSTextAlignmentCenter;
+  fromLabel.lineBreakMode = NSLineBreakByWordWrapping;
+  [alertView addSubview:fromLabel];
+  
+  UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+  [okBtn addTarget:self
+            action:@selector(OKBtnClicked:)
+  forControlEvents:UIControlEventTouchUpInside];
+  [okBtn setTitle:@"OK" forState:UIControlStateNormal];
+  okBtn.frame = CGRectMake(alertView.frame.size.width/2-50, 105, 100, 40.0);
+  okBtn.backgroundColor = [UIColor colorWithRed:63/255.0f green:173/255.0f blue:232/255.0f alpha:1.0f];
+  
+  blankScreen.hidden =NO;
+  [alertView addSubview:okBtn];
+  [self.view addSubview:alertView];
+  [self.view bringSubviewToFront:alertView];
+  
+  [UIView transitionWithView:alertView
+                    duration:0.5
+                     options:UIViewAnimationOptionTransitionNone
+                  animations:^{
+                    alertView.center = self.view.center;
+                  }
+                  completion:nil];
+  
+}
+-(IBAction)OKBtnClicked:(id)sender{
+  //  UIButton *btn = (UIButton*)sender;
+  blankScreen.hidden =YES;
+  alertView.hidden = YES;
+  [alertView removeFromSuperview];
+  
+  NSString * storyboardName = @"Main";
+  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+  UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+  UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+  [navController setViewControllers: @[vc] animated: NO ];
+  [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+  
+  
 }
 
 @end
