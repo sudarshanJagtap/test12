@@ -266,6 +266,10 @@
     retval= NO;
     [message appendString:@"Please enter zipcode details"];
   }
+  else if (![self isValidPinCode:self.zipCodeTxtFld.text]) {
+    retval= NO;
+    [message appendString:@"Please enter valid zipcode"];
+  }
   else if (self.stateTxtFld.text.length == 0) {
     retval= NO;
     [message appendString:@"Please enter state details"];
@@ -278,6 +282,18 @@
     retval = YES;
   }
   return retval;
+}
+
+-(BOOL)isValidPinCode:(NSString*)pincode    {
+  
+  //For US
+  NSString *pinRegex = @"^\\d{5}(-\\d{4})?$";
+  
+  //  NSString *pinRegex = @"^[0-9]{6}$";
+  NSPredicate *pinTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pinRegex];
+  
+  BOOL pinValidates = [pinTest evaluateWithObject:pincode];
+  return pinValidates;
 }
 
 -(BOOL) NSStringIsValidEmail:(NSString *)checkString
@@ -339,12 +355,6 @@
     return [string isEqualToString:filtered];
   }
   else if(textField ==self.mobileNoTxtFld){
-//    NSString *str = [self.mobileNoTxtFld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//    if (str.length >= MOB_MAX_LENGTH && range.length == 0)
-//    {
-//      return NO; // return NO to not change text
-//    }else{return YES;}
-    
     int length = (int)[self getLength:textField.text];
     //NSLog(@"Length  =  %d ",length);
     
@@ -357,7 +367,7 @@
     if(length == 3)
     {
       NSString *num = [self formatNumber:textField.text];
-      textField.text = [NSString stringWithFormat:@"(%@) ",num];
+      textField.text = [NSString stringWithFormat:@"%@",num];
       
       if(range.length > 0)
         textField.text = [NSString stringWithFormat:@"%@",[num substringToIndex:3]];
@@ -367,12 +377,41 @@
       NSString *num = [self formatNumber:textField.text];
       //NSLog(@"%@",[num  substringToIndex:3]);
       //NSLog(@"%@",[num substringFromIndex:3]);
-      textField.text = [NSString stringWithFormat:@"(%@) %@-",[num  substringToIndex:3],[num substringFromIndex:3]];
+      textField.text = [NSString stringWithFormat:@"%@-%@-",[num  substringToIndex:3],[num substringFromIndex:3]];
       
       if(range.length > 0)
-        textField.text = [NSString stringWithFormat:@"(%@) %@",[num substringToIndex:3],[num substringFromIndex:3]];
+        textField.text = [NSString stringWithFormat:@"%@-%@",[num substringToIndex:3],[num substringFromIndex:3]];
     }
     return YES;
+    
+//    int length = (int)[self getLength:textField.text];
+//    //NSLog(@"Length  =  %d ",length);
+//    
+//    if(length == 10)
+//    {
+//      if(range.length == 0)
+//        return NO;
+//    }
+//    
+//    if(length == 3)
+//    {
+//      NSString *num = [self formatNumber:textField.text];
+//      textField.text = [NSString stringWithFormat:@"(%@) ",num];
+//      
+//      if(range.length > 0)
+//        textField.text = [NSString stringWithFormat:@"%@",[num substringToIndex:3]];
+//    }
+//    else if(length == 6)
+//    {
+//      NSString *num = [self formatNumber:textField.text];
+//      //NSLog(@"%@",[num  substringToIndex:3]);
+//      //NSLog(@"%@",[num substringFromIndex:3]);
+//      textField.text = [NSString stringWithFormat:@"(%@) %@-",[num  substringToIndex:3],[num substringFromIndex:3]];
+//      
+//      if(range.length > 0)
+//        textField.text = [NSString stringWithFormat:@"(%@) %@",[num substringToIndex:3],[num substringFromIndex:3]];
+//    }
+//    return YES;
   }
   else if (textField==self.zipCodeTxtFld) {
     NSString *str = [self.zipCodeTxtFld.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

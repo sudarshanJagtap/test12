@@ -317,7 +317,7 @@
     if(length == 3)
     {
       NSString *num = [self formatNumber:textField.text];
-      textField.text = [NSString stringWithFormat:@"(%@) ",num];
+      textField.text = [NSString stringWithFormat:@"%@",num];
       
       if(range.length > 0)
         textField.text = [NSString stringWithFormat:@"%@",[num substringToIndex:3]];
@@ -327,10 +327,10 @@
       NSString *num = [self formatNumber:textField.text];
       //NSLog(@"%@",[num  substringToIndex:3]);
       //NSLog(@"%@",[num substringFromIndex:3]);
-      textField.text = [NSString stringWithFormat:@"(%@) %@-",[num  substringToIndex:3],[num substringFromIndex:3]];
+      textField.text = [NSString stringWithFormat:@"%@-%@-",[num  substringToIndex:3],[num substringFromIndex:3]];
       
       if(range.length > 0)
-        textField.text = [NSString stringWithFormat:@"(%@) %@",[num substringToIndex:3],[num substringFromIndex:3]];
+        textField.text = [NSString stringWithFormat:@"%@-%@",[num substringToIndex:3],[num substringFromIndex:3]];
     }
     return YES;
   }
@@ -456,6 +456,8 @@
     
   }
 }
+
+
 
 #pragma mark phone number format
 

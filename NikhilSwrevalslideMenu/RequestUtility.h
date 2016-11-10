@@ -34,6 +34,9 @@
 @property(nonatomic,strong)USerAddressData *selectedAddressDataObj;
 
 
+@property(nonatomic,strong)NSString *asapFormatedDisplayDate;
+
+
 @property(nonatomic,strong)NSString *asapSchedule_datePassed;
 @property(nonatomic,strong)NSString *asapSchedule_timePassed;
 

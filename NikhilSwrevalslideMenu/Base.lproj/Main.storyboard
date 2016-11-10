@@ -3092,7 +3092,7 @@
                                             <constraint firstAttribute="height" constant="40" id="l8M-1o-hc7"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                         <connections>
                                             <outlet property="delegate" destination="O6n-kz-ZJN" id="qas-DM-QKa"/>
                                         </connections>
@@ -3805,7 +3805,7 @@
                                             <constraint firstAttribute="height" constant="40" id="LMC-ta-BBw"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                         <connections>
                                             <outlet property="delegate" destination="dpD-yv-yA6" id="gKz-bj-F9Q"/>
                                         </connections>
@@ -4769,7 +4769,7 @@
                                             <constraint firstAttribute="height" constant="35" id="Wdt-nF-xll"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                         <connections>
                                             <outlet property="delegate" destination="qBv-mV-Hc3" id="sXQ-6y-N62"/>
                                         </connections>

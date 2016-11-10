@@ -98,8 +98,8 @@
                                                                  style:UIBarButtonItemStylePlain target:self
                                                                 action:@selector(doneClicked:)];
   [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
-  self.contactTf.keyboardType = UIKeyboardTypeNumberPad;
-  self.zipcodeTf.keyboardType = UIKeyboardTypeNumberPad;
+  self.contactTf.keyboardType = UIKeyboardTypePhonePad;
+  self.zipcodeTf.keyboardType = UIKeyboardTypePhonePad;
   self.contactTf.inputAccessoryView = keyboardDoneButtonView;
   self.zipcodeTf.inputAccessoryView = keyboardDoneButtonView;
   
@@ -448,6 +448,10 @@
     retval= NO;
     [message appendString:@"Enter valid zipcode"];
   }
+  else if (![self isValidPinCode:self.zipcodeTf.text]) {
+    retval= NO;
+    [message appendString:@"Please enter valid zipcode"];
+  }
   else if (self.cityTf.text.length == 0) {
     retval= NO;
     [message appendString:@"Enter City"];
@@ -460,6 +464,18 @@
     retval = YES;
   }
   return retval;
+}
+
+-(BOOL)isValidPinCode:(NSString*)pincode    {
+  
+  //For US
+  NSString *pinRegex = @"^\\d{5}(-\\d{4})?$";
+  
+  //  NSString *pinRegex = @"^[0-9]{6}$";
+  NSPredicate *pinTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pinRegex];
+  
+  BOOL pinValidates = [pinTest evaluateWithObject:pincode];
+  return pinValidates;
 }
 
 #pragma mark GetStates
@@ -588,11 +604,6 @@
     return [string isEqualToString:filtered];
   }
   else if(textField ==self.contactTf){
-//    NSString *str = [self.contactTf.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//    if (str.length >= MOB_MAX_LENGTH && range.length == 0)
-//    {
-//      return NO; // return NO to not change text
-//    }else{return YES;}
     int length = (int)[self getLength:textField.text];
     //NSLog(@"Length  =  %d ",length);
     
@@ -605,7 +616,7 @@
     if(length == 3)
     {
       NSString *num = [self formatNumber:textField.text];
-      textField.text = [NSString stringWithFormat:@"(%@) ",num];
+      textField.text = [NSString stringWithFormat:@"%@",num];
       
       if(range.length > 0)
         textField.text = [NSString stringWithFormat:@"%@",[num substringToIndex:3]];
@@ -615,12 +626,40 @@
       NSString *num = [self formatNumber:textField.text];
       //NSLog(@"%@",[num  substringToIndex:3]);
       //NSLog(@"%@",[num substringFromIndex:3]);
-      textField.text = [NSString stringWithFormat:@"(%@) %@-",[num  substringToIndex:3],[num substringFromIndex:3]];
+      textField.text = [NSString stringWithFormat:@"%@-%@-",[num  substringToIndex:3],[num substringFromIndex:3]];
       
       if(range.length > 0)
-        textField.text = [NSString stringWithFormat:@"(%@) %@",[num substringToIndex:3],[num substringFromIndex:3]];
+        textField.text = [NSString stringWithFormat:@"%@-%@",[num substringToIndex:3],[num substringFromIndex:3]];
     }
     return YES;
+//    int length = (int)[self getLength:textField.text];
+//    //NSLog(@"Length  =  %d ",length);
+//    
+//    if(length == 10)
+//    {
+//      if(range.length == 0)
+//        return NO;
+//    }
+//    
+//    if(length == 3)
+//    {
+//      NSString *num = [self formatNumber:textField.text];
+//      textField.text = [NSString stringWithFormat:@"(%@) ",num];
+//      
+//      if(range.length > 0)
+//        textField.text = [NSString stringWithFormat:@"%@",[num substringToIndex:3]];
+//    }
+//    else if(length == 6)
+//    {
+//      NSString *num = [self formatNumber:textField.text];
+//      //NSLog(@"%@",[num  substringToIndex:3]);
+//      //NSLog(@"%@",[num substringFromIndex:3]);
+//      textField.text = [NSString stringWithFormat:@"(%@) %@-",[num  substringToIndex:3],[num substringFromIndex:3]];
+//      
+//      if(range.length > 0)
+//        textField.text = [NSString stringWithFormat:@"(%@) %@",[num substringToIndex:3],[num substringFromIndex:3]];
+//    }
+//    return YES;
     
   }
   else if (textField==self.zipcodeTf) {
@@ -881,5 +920,7 @@
   
   
 }
+
+
 
 @end

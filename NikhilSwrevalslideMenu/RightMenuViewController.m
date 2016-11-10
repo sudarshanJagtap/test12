@@ -59,7 +59,8 @@
     [self.asapChkBx setBackgroundImage:[UIImage imageNamed: @"checkBx.png"] forState:UIControlStateNormal];
     NSString *str=[NSString stringWithFormat:@"%@ %@",reqUtility.asapSchedule_date,reqUtility.asapSchedule_time];
     //assign text to label
-    self.asapDisplayLbl.text=str;
+    self.asapDisplayLbl.text=reqUtility.asapFormatedDisplayDate;
+    
   }
   selectedRowsArray = [[NSMutableArray alloc]init];
   fOperation = [FilterOperations getSharedInstance];
@@ -442,7 +443,7 @@
   [dateFormat setDateFormat:@"dd:MM:yy"];
 //  NSString *date = [dateFormat stringFromDate:selectedDate];
   NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-  [outputFormatter setDateFormat:@"hh:mm"]; //24hr time format
+  [outputFormatter setDateFormat:@"hh:mm a"]; //24hr time format
   NSString *timeStr = [outputFormatter stringFromDate:self.DatetimePicker.date];
   NSString *str=[NSString stringWithFormat:@"%@ %@",[dateFormat  stringFromDate:selectedDate],timeStr];
   //assign text to label
@@ -468,8 +469,7 @@
   
   
 //  ASAP ends
-  
-  
+
   NSString *weekday = [self getWeekDayfromStrResponse:[dateFormat  stringFromDate:selectedDate]];
   NSString *month = [self getMonthToDisplayfromStrResponse:[dateFormat stringFromDate:selectedDate]];
   NSString *cdate = [self getDateToDisplayfromStrResponse:[dateFormat stringFromDate:selectedDate]];
@@ -481,8 +481,9 @@
   }else if ([self.dateDisplayLbl.text isEqualToString:@"Tommorow"]) {
     weekday = @"Tommorow";
   }
-  NSString *displyStr = [NSString stringWithFormat:@"%@ %@-%@-%@ %@",weekday,cdate,month,currentYear,timeStr];
+  NSString *displyStr = [NSString stringWithFormat:@"%@ %@ %@ %@ %@",weekday,month,cdate,currentYear,timeStr];
    self.asapDisplayLbl.text=displyStr;
+  reqUtility.asapFormatedDisplayDate = displyStr;
   reqUtility.asapDisplayLbl = displyStr;
 }
 
@@ -544,13 +545,27 @@
 
 -(NSString*)getMonthToDisplayfromStrResponse:(NSString*)str{
   NSDateFormatter *df = [[NSDateFormatter alloc] init];
-  [df setDateFormat:@"dd:MM:yy"];
+  [df setDateFormat:@"MM"];
   NSDate *myDate = [df dateFromString: str];
   
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
   //Get Month
-  [formatter setDateFormat:@"MMM"];
+  [formatter setDateFormat:@"MM"];
   NSString *strMonth = [formatter stringFromDate:myDate];
-  return strMonth;
+  NSArray *mst = [str componentsSeparatedByString:@":"];
+  return [self MonthNameString:[[mst objectAtIndex:1] intValue]];
+//  return strMonth;
 }
+
+-(NSString*)MonthNameString:(int)monthNumber
+{
+  NSDateFormatter *formate = [NSDateFormatter new];
+  
+  NSArray *monthNames = [formate standaloneMonthSymbols];
+  
+  NSString *monthName = [monthNames objectAtIndex:(monthNumber - 1)];
+  
+  return monthName;
+}
+
 @end

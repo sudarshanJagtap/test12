@@ -64,8 +64,8 @@
                                                                  style:UIBarButtonItemStylePlain target:self
                                                                 action:@selector(TBdoneClicked:)];
   [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
-  self.contactNoTxtFld.keyboardType = UIKeyboardTypeNumberPad;
-  self.zipCodeTxtFld.keyboardType = UIKeyboardTypeNumberPad;
+  self.contactNoTxtFld.keyboardType = UIKeyboardTypePhonePad;
+  self.zipCodeTxtFld.keyboardType = UIKeyboardTypePhonePad;
   self.contactNoTxtFld.inputAccessoryView = keyboardDoneButtonView;
   self.zipCodeTxtFld.inputAccessoryView = keyboardDoneButtonView;
 }
@@ -268,6 +268,10 @@
     retval= NO;
     [message appendString:@"Please enter zipcode"];
   }
+  else if (![self isValidPinCode:self.zipCodeTxtFld.text]) {
+    retval= NO;
+    [message appendString:@"Please enter valid zipcode"];
+  }
   else if (self.stateTxtFld.text.length == 0) {
     retval= NO;
     [message appendString:@"Please enter state"];
@@ -280,6 +284,18 @@
     retval = YES;
   }
   return retval;
+}
+
+-(BOOL)isValidPinCode:(NSString*)pincode    {
+  
+  //For US
+  NSString *pinRegex = @"^\\d{5}(-\\d{4})?$";
+  
+  //  NSString *pinRegex = @"^[0-9]{6}$";
+  NSPredicate *pinTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pinRegex];
+  
+  BOOL pinValidates = [pinTest evaluateWithObject:pincode];
+  return pinValidates;
 }
 
 -(BOOL) NSStringIsValidEmail:(NSString *)checkString
@@ -381,7 +397,7 @@
     if(length == 3)
     {
       NSString *num = [self formatNumber:textField.text];
-      textField.text = [NSString stringWithFormat:@"(%@) ",num];
+      textField.text = [NSString stringWithFormat:@"%@",num];
       
       if(range.length > 0)
         textField.text = [NSString stringWithFormat:@"%@",[num substringToIndex:3]];
@@ -391,12 +407,40 @@
       NSString *num = [self formatNumber:textField.text];
       //NSLog(@"%@",[num  substringToIndex:3]);
       //NSLog(@"%@",[num substringFromIndex:3]);
-      textField.text = [NSString stringWithFormat:@"(%@) %@-",[num  substringToIndex:3],[num substringFromIndex:3]];
+      textField.text = [NSString stringWithFormat:@"%@-%@-",[num  substringToIndex:3],[num substringFromIndex:3]];
       
       if(range.length > 0)
-        textField.text = [NSString stringWithFormat:@"(%@) %@",[num substringToIndex:3],[num substringFromIndex:3]];
+        textField.text = [NSString stringWithFormat:@"%@-%@",[num substringToIndex:3],[num substringFromIndex:3]];
     }
     return YES;
+//    int length = (int)[self getLength:textField.text];
+//    //NSLog(@"Length  =  %d ",length);
+//    
+//    if(length == 10)
+//    {
+//      if(range.length == 0)
+//        return NO;
+//    }
+//    
+//    if(length == 3)
+//    {
+//      NSString *num = [self formatNumber:textField.text];
+//      textField.text = [NSString stringWithFormat:@"(%@) ",num];
+//      
+//      if(range.length > 0)
+//        textField.text = [NSString stringWithFormat:@"%@",[num substringToIndex:3]];
+//    }
+//    else if(length == 6)
+//    {
+//      NSString *num = [self formatNumber:textField.text];
+//      //NSLog(@"%@",[num  substringToIndex:3]);
+//      //NSLog(@"%@",[num substringFromIndex:3]);
+//      textField.text = [NSString stringWithFormat:@"(%@) %@-",[num  substringToIndex:3],[num substringFromIndex:3]];
+//      
+//      if(range.length > 0)
+//        textField.text = [NSString stringWithFormat:@"(%@) %@",[num substringToIndex:3],[num substringFromIndex:3]];
+//    }
+//    return YES;
   
   }
   else if (textField==self.zipCodeTxtFld) {
