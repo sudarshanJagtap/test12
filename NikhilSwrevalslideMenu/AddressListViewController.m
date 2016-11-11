@@ -59,6 +59,7 @@
 
 -(void)parseSearchDetailsInfoResponse:(NSDictionary*)ResponseDictionary{
   if (ResponseDictionary) {
+     [ResponseUtility getSharedInstance].UserAddressArray = [[NSMutableArray alloc]init];
     NSString *code = [ResponseDictionary valueForKey:@"code"];
     if ([code isEqualToString:@"1"]) {
       [ResponseUtility getSharedInstance].UserAddressArray = [[NSMutableArray alloc]init];
@@ -179,6 +180,14 @@
     [self.navigationController popViewControllerAnimated:YES];
   }else if ([RequestUtility sharedRequestUtility].isThroughLeftMenu){
     
+  }else if ([RequestUtility sharedRequestUtility].isThroughGuestUser){
+    [RequestUtility sharedRequestUtility].isThroughGuestUser= YES;
+    [RequestUtility sharedRequestUtility].selectedAddressId =uData.addID;
+    [RequestUtility sharedRequestUtility].selectedAddressDataObj =uData;
+    BillSummaryViewController *obj_clvc  = (BillSummaryViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"BillSummaryViewControllerId"];
+    
+    //            obj_clvc.selectedUfrespo = ufpRespo;
+    [self.navigationController pushViewController:obj_clvc animated:YES];
   }else{
     NSString * storyboardName = @"Main";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];

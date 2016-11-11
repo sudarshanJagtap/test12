@@ -12,10 +12,10 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
 
-@property(nonatomic,strong)NSString *selectedRestName;
+//@property(nonatomic,strong)NSString *selectedRestName;
 @property (weak, nonatomic) IBOutlet UILabel *deliveryFeePriceLbl;
 @property (weak, nonatomic) IBOutlet UILabel *orderModeLbl;
-@property (nonatomic,strong)UserFiltersResponse *selectedUfrespo;
+//@property (nonatomic,strong)UserFiltersResponse *selectedUfrespo;
 
 @property (weak, nonatomic) IBOutlet UILabel *salesTaxPriceLbl;
 @property (weak, nonatomic) IBOutlet UITableView *tblVw;

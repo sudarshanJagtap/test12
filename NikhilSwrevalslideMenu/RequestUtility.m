@@ -33,6 +33,7 @@
     self.selectedCusinesArray = [[NSMutableArray alloc]init];
     [self.selectedFeaturesArray addObject:@"open_now_status"];
     self.selectedAddressId = @"-1";
+    self.isThroughGuestUser = NO;
   }
   return self;
 }

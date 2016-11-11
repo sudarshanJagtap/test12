@@ -8,11 +8,12 @@
 
 #import "CuisineDetailOperation.h"
 #import "constant.h"
+#import "RequestUtility.h"
 @implementation CuisineDetailOperation
 @synthesize selectedId;
 -(NSDictionary *) dictionary {
   return @{
-           @"rest_id"  : selectedId,
+           @"rest_id"  : [RequestUtility sharedRequestUtility].selectedUfrespo.ufp_id,
            
            
            

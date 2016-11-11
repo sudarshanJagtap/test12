@@ -15,6 +15,7 @@
 #import "SWRevealViewController.h"
 #import "DBManager.h"
 #import "AppConstant.h"
+#import "Utility.h"
 // Set the environment:
 // - For live charges, use PayPalEnvironmentProduction (default).
 // - To use the PayPal sandbox, use PayPalEnvironmentSandbox.
@@ -27,14 +28,22 @@
   UIView *alertView;
   UILabel *fromLabel;
   int tag;
+  RequestUtility *sharedReqUtlty;
   
+  NSString *subTotalPassed;
+  NSString *salesTaxPassed;
+  NSString *deliveryFeePassed;
+  NSString *totalAmountPassed;
+  NSDictionary *bfPaymentDictionary;
+  
+  NSMutableArray *temporayUniqueID;
 }
 @property(nonatomic, strong, readwrite) PayPalConfiguration *payPalConfig;
 @end
 
 @implementation BillSummaryViewController
 
-@synthesize subTotalPassed,salesTaxPassed,deliveryFeePassed,totalAmountPassed,bfPaymentDictionary;
+//@synthesize subTotalPassed,salesTaxPassed,deliveryFeePassed,totalAmountPassed,bfPaymentDictionary;
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -104,6 +113,17 @@
 //                                           );
 //}
 -(void)viewWillAppear:(BOOL)animated{
+  sharedReqUtlty = [RequestUtility sharedRequestUtility];
+  if ([RequestUtility sharedRequestUtility].isThroughGuestUser){
+    [RequestUtility sharedRequestUtility].isThroughGuestUser= NO;
+    [self addingValueToCartRequest:[sharedReqUtlty.selectedUfrespo.ufp_id integerValue]];
+  }
+  
+  subTotalPassed = sharedReqUtlty.subTotalPassed;
+  salesTaxPassed = sharedReqUtlty.salesTaxPassed;
+  deliveryFeePassed = sharedReqUtlty.deliveryFeePassed;
+  totalAmountPassed = sharedReqUtlty.totalAmountPassed;
+  bfPaymentDictionary = sharedReqUtlty.bfPaymentDictionary;
   
   if([RequestUtility sharedRequestUtility].delivery_status == 1){
  if (![[RequestUtility sharedRequestUtility].selectedAddressId isEqual:@"-1"]) {
@@ -636,5 +656,201 @@
   blankScreen.hidden = YES;
   alertView.hidden = YES;
   [alertView removeFromSuperview];
+}
+
+
+#pragma mark guest user before payment
+
+-(void)addingValueToCartRequest:(NSInteger)restID{
+  NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
+  NSString *userId=[userdictionary valueForKey:@"user_id"];
+  Utility *utilityObj = [[Utility alloc]init];
+  if (userId.length>0) {
+    
+    NSMutableDictionary *cdictionary = [[NSMutableDictionary alloc]init];
+    [cdictionary setValue:userId forKey:@"user_id"];
+    [cdictionary setValue:@"1" forKey:@"app_status"];
+    [cdictionary setValue:[utilityObj GetOurIpAddress] forKey:@"ip_address"];
+    if([RequestUtility sharedRequestUtility].delivery_status == 0){
+      [cdictionary setValue:@"0" forKey:@"order_mode"];
+    }else{
+      [cdictionary setValue:@"1" forKey:@"order_mode"];
+    }
+    if ([RequestUtility sharedRequestUtility ].isAsap) {
+      [cdictionary setValue:@"1" forKey:@"order_schedule_status"];
+      //      [cdictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
+      //      [cdictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
+      [cdictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_datePassed forKey:@"order_schedule_date"];
+      [cdictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_timePassed forKey:@"order_schedule_time"];
+    }else{
+      [cdictionary setValue:@"0" forKey:@"order_schedule_status"];
+      [cdictionary setValue:@"00-00-00" forKey:@"order_schedule_date"];
+      [cdictionary setValue:@"00:00" forKey:@"order_schedule_time"];
+    }
+    temporayUniqueID = [[NSMutableArray alloc]init];
+    NSMutableArray *cArray = [[NSMutableArray alloc]init];
+    NSArray *arr = [[DBManager getSharedInstance] getALlPendingCartDatatobeAdded:(int)restID];
+    if (arr.count>0) {
+      
+      for (int i =0; i<arr.count; i++) {
+        
+        
+        USerSelectedCartData *cartData = (USerSelectedCartData*)[arr objectAtIndex:i];
+        //      currentUID = cartData.unique_id;
+        NSString *randID = cartData.randomCartID;
+        [temporayUniqueID addObject:randID];
+        NSString *AND_cart_id = [NSString stringWithFormat:@"%ld", (long)cartData.unique_id ];
+        NSMutableDictionary *cartdictionary = [[NSMutableDictionary alloc]init];
+        [cartdictionary setValue:randID forKey:@"AND_cart_id"];
+        [cartdictionary setValue:AND_cart_id forKey:@"cart_id"];
+        [cartdictionary setValue:[NSString stringWithFormat:@"%ld",(long)cartData.restaurant_Id] forKey:@"rest_id"];
+        [cartdictionary setValue:[NSString stringWithFormat:@"%ld",(long)cartData.subCategory_Id] forKey:@"sub_cat_id"];
+        [cartdictionary setValue:cartData.quantity forKey:@"quantity"];
+        [cartdictionary setValue:cartData.instructions forKey:@"instruction"];
+        NSMutableArray *custArray = [[NSMutableArray alloc]init];
+        NSArray *cIDArray = [cartData.customizedCuisineId componentsSeparatedByString:@"&"];
+        NSArray *cOPArray = [cartData.customizeCuisineString componentsSeparatedByString:@"&"];
+        NSArray *cPRArray = [cartData.customizeCuisinePrice componentsSeparatedByString:@"&"];
+        NSString *emptyStr = [cOPArray objectAtIndex:0];
+        if (![emptyStr isEqual:@""]) {
+          
+          for (int i =0; i<cOPArray.count; i++) {
+            NSMutableDictionary *custdictionary = [[NSMutableDictionary alloc]init];
+            [cartdictionary setValue:AND_cart_id forKey:@"cart_id"];
+            [custdictionary setValue:[cIDArray objectAtIndex:i] forKey:@"cust_id"];
+            [custdictionary setValue:[cOPArray objectAtIndex:i] forKey:@"cust_option"];
+            [custdictionary setValue:[cPRArray objectAtIndex:i] forKey:@"cust_price"];
+            [custArray addObject:custdictionary];
+          }
+        }else{
+          for (int i =1; i<cOPArray.count; i++) {
+            NSMutableDictionary *custdictionary = [[NSMutableDictionary alloc]init];
+            [cartdictionary setValue:AND_cart_id forKey:@"cart_id"];
+            [custdictionary setValue:[cIDArray objectAtIndex:i] forKey:@"cust_id"];
+            [custdictionary setValue:[cOPArray objectAtIndex:i] forKey:@"cust_option"];
+            [custdictionary setValue:[cPRArray objectAtIndex:i] forKey:@"cust_price"];
+            [custArray addObject:custdictionary];
+          }
+        }
+        [cArray addObject:cartdictionary];
+        [cartdictionary setObject:custArray forKey:@"customization"];
+        [cdictionary setObject:cArray forKey:@"cart_data"];
+      }
+      NSLog(@"cart = %@",cdictionary);
+      NSError * err;
+      NSData * jsonData = [NSJSONSerialization dataWithJSONObject:cdictionary options:0 error:&err];
+      NSString * addToCartString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+      NSLog(@"Add to cart String = %@",addToCartString);
+      [self addValuesToCart:addToCartString];
+    }
+  }
+}
+
+-(void)addValuesToCart:(NSString*)string{
+  [appDelegate showLoadingViewWithString:@"Loading..."];
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];
+  [utility doYMOCStringPostRequest:kAdd_cart withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
+    if (status) {
+      NSLog(@"response:%@",responseDictionary);
+      
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseAddToCartUserResponse:responseDictionary];
+      });
+    }else{
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
+    }
+  }];
+}
+
+// The reponse from server is : {"code":"1","data":{"8":49},"msg":"success"}
+
+-(void)parseAddToCartUserResponse:(NSDictionary*)ResponseDictionary{
+  if (ResponseDictionary) {
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+      NSString *code = [ResponseDictionary valueForKey:@"code"];
+      if ([code isEqualToString:@"1"]) {
+        NSLog(@"login successfull");
+        [appDelegate hideLoadingView];
+        [self GuestUserBeforePayment];
+//        NSDictionary *data = [ResponseDictionary valueForKey:@"data"];
+//        for (int i =0; i<data.count; i++) {
+//          NSString *localID = [temporayUniqueID objectAtIndex:i];
+//          if (localID.length>0) {
+//            
+//            NSString *serverID = [[data valueForKey:localID] stringValue];
+//            if (serverID.length>0) {
+//              [[DBManager getSharedInstance] updateDataIntoDB:serverID andLocalCartID:localID];
+//            }
+//          }
+//          
+//        }
+//        [self reloadView];
+        
+      }else{
+        [appDelegate hideLoadingView];
+//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:[ResponseDictionary valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [alert show];
+      }
+    });
+    
+  }
+}
+
+-(void)GuestUserBeforePayment{
+  NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
+  NSString *userId=[userdictionary valueForKey:@"user_id"];
+  
+  if (userId.length>0) {
+    NSString *user_name=[userdictionary valueForKey:@"user_name"];
+    [sharedReqUtlty.GuestUserBeforPaymentDict setValue:user_name forKey:@"user_name"];
+    [sharedReqUtlty.GuestUserBeforPaymentDict setValue:userId forKey:@"user_id"];
+    NSData * beforPaymentjsonData = [NSJSONSerialization dataWithJSONObject:sharedReqUtlty.GuestUserBeforPaymentDict options:0 error:nil];
+    NSString * beforPaymentString = [[NSString alloc] initWithData:beforPaymentjsonData encoding:NSUTF8StringEncoding];
+    NSLog(@"beforePaymentString = %@",beforPaymentString);
+    
+    [self GuestUserBeforePayment:beforPaymentString];
+    //    sharedReqUtlty.GuestUserBeforPaymentString = beforPaymentString;
+  }
+}
+
+-(void)GuestUserBeforePayment:(NSString*)string{
+  [appDelegate showLoadingViewWithString:@"Loading..."];
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];
+  [utility doYMOCStringPostRequest:kBefore_payment withParameters:string onComplete:^(bool status, NSDictionary *responseDictionary){
+    if (status) {
+      NSLog(@"response:%@",responseDictionary);
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseUserResponseGuestBeforePayment:responseDictionary];
+      });
+    }else{
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
+    }
+  }];
+}
+
+-(void)parseUserResponseGuestBeforePayment:(NSDictionary*)ResponseDictionary{
+  if (ResponseDictionary) {
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+      NSString *code = [ResponseDictionary valueForKey:@"code"];
+      if ([code isEqualToString:@"1"]) {
+        NSLog(@"login successfull");
+        [appDelegate hideLoadingView];
+//        [self proceedTONextScreen];
+      }else{
+        [appDelegate hideLoadingView];
+//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Problem initiating users before payment" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [alert show];
+      }
+    });
+    
+  }
 }
 @end

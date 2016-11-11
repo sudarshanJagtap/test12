@@ -52,6 +52,10 @@
   UITextField *customTxtFld;
   
   UIView *blankScreen;
+  
+//  UserFiltersResponse *selectedUfrespo;
+  RequestUtility *sharedReqUtlty;
+//  NSString *selectedRestName;
 }
 
 @end
@@ -199,7 +203,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-  
+  sharedReqUtlty = [RequestUtility sharedRequestUtility];
   [RequestUtility sharedRequestUtility].isThroughLeftMenu = NO;
   [RequestUtility sharedRequestUtility].isThroughPaymentScreen = NO;
   self.searchArea.hidden = YES;
@@ -748,7 +752,8 @@
     if ([self.btnPickup isEnabled]) {
       DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
       
-      obj_clvc.selectedUfrespo = ufpRespo;
+//      obj_clvc.selectedUfrespo = ufpRespo;
+      sharedReqUtlty.selectedUfrespo = ufpRespo;
       [self.navigationController pushViewController:obj_clvc animated:YES];
     }else{
       //update ordertype and changeBtnType
@@ -761,7 +766,8 @@
     if ([self.btnDelivery isEnabled]) {
       DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
       
-      obj_clvc.selectedUfrespo = ufpRespo;
+//      obj_clvc.selectedUfrespo = ufpRespo;
+      sharedReqUtlty.selectedUfrespo = ufpRespo;
       [self.navigationController pushViewController:obj_clvc animated:YES];
     }else{
       //update ordertype and changeBtnType
@@ -771,7 +777,8 @@
   }else{
     DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
     
-    obj_clvc.selectedUfrespo = ufpRespo;
+//    obj_clvc.selectedUfrespo = ufpRespo;
+    sharedReqUtlty.selectedUfrespo = ufpRespo;
     [self.navigationController pushViewController:obj_clvc animated:YES];
     
   }
@@ -864,7 +871,8 @@
   if (retval) {
     //    [self btndelivery:self];
     DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
-    obj_clvc.selectedUfrespo = didSelectedFilterRespo;
+//    obj_clvc.selectedUfrespo = didSelectedFilterRespo;
+    sharedReqUtlty.selectedUfrespo = didSelectedFilterRespo;
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }else{
     //Failed to update order mode
@@ -881,7 +889,8 @@
   if (retval) {
     //    [self btnpickup:self];
     DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
-    obj_clvc.selectedUfrespo = didSelectedFilterRespo;
+//    obj_clvc.selectedUfrespo = didSelectedFilterRespo;
+    sharedReqUtlty.selectedUfrespo = didSelectedFilterRespo;
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }else{
     //Failed to update order mode
@@ -923,7 +932,8 @@
   NSString *ID = [NSString stringWithFormat:@"%ld",(long)data.restaurant_Id];
   UserFiltersResponse *frsp = [[DBManager getSharedInstance]getUserFilterData:ID];
   DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
-  obj_clvc.selectedUfrespo = frsp;
+//  obj_clvc.selectedUfrespo = frsp;
+  sharedReqUtlty.selectedUfrespo = frsp;
   
   [self.navigationController pushViewController:obj_clvc animated:YES];
 }

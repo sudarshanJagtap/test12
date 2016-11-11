@@ -45,11 +45,11 @@
 - (IBAction)addAddressBtnClick:(id)sender;
 - (IBAction)backNavigationClick:(id)sender;
 
-@property(nonatomic,strong)NSString *subTotalPassed;
-@property(nonatomic,strong)NSString *salesTaxPassed;
-@property(nonatomic,strong)NSString *deliveryFeePassed;
-@property(nonatomic,strong)NSString *totalAmountPassed;
-@property(nonatomic,strong)NSDictionary *bfPaymentDictionary;
+//@property(nonatomic,strong)NSString *subTotalPassed;
+//@property(nonatomic,strong)NSString *salesTaxPassed;
+//@property(nonatomic,strong)NSString *deliveryFeePassed;
+//@property(nonatomic,strong)NSString *totalAmountPassed;
+//@property(nonatomic,strong)NSDictionary *bfPaymentDictionary;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *hDeliveryFeeConstriant;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *deliveryFeeConstriant;

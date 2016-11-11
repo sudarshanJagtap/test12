@@ -12,11 +12,6 @@
 #import "RateView.h"
 #import "ResponseUtility.h"
 @interface DetailViewController : UIViewController<SKSTableViewDelegate>
-//@property(nonatomic,strong)NSString *cuisineTxt;
-//@property(nonatomic,assign)float ratingTxt;
-//@property(nonatomic,strong)NSString *minOrderTxt;
-//@property(nonatomic,strong)NSString *DeliveryText;
-//@property(nonatomic,strong)NSString *cid,*imgUrl, *cuisineName,*pass_rest_id;
 @property (weak, nonatomic) IBOutlet SKSTableView *tableVw;
 @property (weak, nonatomic) IBOutlet UILabel *deliveryLbl;
 @property (weak, nonatomic) IBOutlet UILabel *waitTimeLbl;
@@ -30,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet RateView *ratingsView;
 @property (weak, nonatomic) IBOutlet UILabel *navTitle;
 @property (weak, nonatomic) IBOutlet UIButton *backBtnClick;
-@property (nonatomic,strong)UserFiltersResponse *selectedUfrespo;
+//@property (nonatomic,strong)UserFiltersResponse *selectedUfrespo;
 - (IBAction)menuBtnClick:(id)sender;
 - (IBAction)navBackBtnClk:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *restClosedLbl;

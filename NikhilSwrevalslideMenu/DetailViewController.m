@@ -51,16 +51,24 @@
   UILabel *fromLabel;
   BOOL restClosedFlag;
   
+  RequestUtility *sharedReqUtlty;
+  UserFiltersResponse *selectedUfrespo;
 }
 
 @end
 
 @implementation DetailViewController
-@synthesize selectedUfrespo;
+//@synthesize selectedUfrespo;
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+}
+
+-(void)initComponents{
+  sharedReqUtlty = [RequestUtility sharedRequestUtility];
+  selectedUfrespo = sharedReqUtlty.selectedUfrespo;
   label=[[UILabel alloc]init];
+  
   label.text=selectedUfrespo.name;
   label.adjustsFontSizeToFitWidth=YES;
   label.minimumScaleFactor=0.5;
@@ -206,6 +214,7 @@
 -(void)viewWillAppear:(BOOL)animated{
   [super viewWillAppear:animated];
 //  [self checkRestoClosed];
+  [self initComponents];
   restClosedFlag = NO;
   label.hidden = NO;
   [RequestUtility sharedRequestUtility].selectedAddressId = @"-1";
@@ -773,8 +782,11 @@
         //        {"code":"1","data":[{"tax":"15"}],"msg":"Data has been found"}
         [ResponseUtility getSharedInstance].salesTaxValue = [[[ResponseDictionary valueForKey:@"data"] objectAtIndex:0]valueForKey:@"tax"];
         CartViewController *obj_clvc  = (CartViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"CartViewControllerId"];
-        obj_clvc.selectedRestName = selectedUfrespo.name;
-        obj_clvc.selectedUfrespo = selectedUfrespo;
+//        obj_clvc.selectedRestName = selectedUfrespo.name;
+//        obj_clvc.selectedUfrespo = selectedUfrespo;
+        sharedReqUtlty.selectedUfrespo = selectedUfrespo;
+        sharedReqUtlty.selectedRestName = selectedUfrespo.name;
+        
         [self.navigationController pushViewController:obj_clvc animated:YES];
       }else{
         [appDelegate hideLoadingView];
@@ -800,7 +812,7 @@
 - (IBAction)menuBtnClick:(id)sender {
   
   DisplayRatingsViewController *obj_clvc  = (DisplayRatingsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DisplayRatingsViewControllerId"];
-  obj_clvc.restID = self.selectedUfrespo.ufp_id;
+  obj_clvc.restID = selectedUfrespo.ufp_id;
   obj_clvc.restName = selectedUfrespo.name;
   [self.navigationController pushViewController:obj_clvc animated:YES];
 }
@@ -808,7 +820,7 @@
 - (IBAction)additionalInfoBtnClick:(id)sender {
   
   AdditionalInfoViewController *obj_clvc  = (AdditionalInfoViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AdditionalInfoViewControllerId"];
-  obj_clvc.restID = self.selectedUfrespo.ufp_id;
+  obj_clvc.restID = selectedUfrespo.ufp_id;
   [self.navigationController pushViewController:obj_clvc animated:YES];
 }
 

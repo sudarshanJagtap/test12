@@ -36,11 +36,28 @@
 
 @property(nonatomic,strong)NSString *asapFormatedDisplayDate;
 
-
 @property(nonatomic,strong)NSString *asapSchedule_datePassed;
 @property(nonatomic,strong)NSString *asapSchedule_timePassed;
 
 @property(nonatomic,strong)NSString *enteredCityOnLocationScreen;
+
+
+
+//Guest User flow changes
+
+
+@property(nonatomic,strong)NSString *subTotalPassed;
+@property(nonatomic,strong)NSString *salesTaxPassed;
+@property(nonatomic,strong)NSString *deliveryFeePassed;
+@property(nonatomic,strong)NSString *totalAmountPassed;
+@property(nonatomic,strong)NSDictionary *bfPaymentDictionary;
+@property(nonatomic,strong)NSString *selectedRestName;
+@property (nonatomic,strong)UserFiltersResponse *selectedUfrespo;
+
+@property(nonatomic,strong)NSDictionary *GuestUserBeforPaymentDict;
+@property(nonatomic,assign)BOOL isThroughGuestUser;
+
+
 
 + (RequestUtility *)sharedRequestUtility;
 

@@ -14,6 +14,7 @@
 #import "SWRevealViewController.h"
 #import "AppConstant.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AddressListViewController.h"
 #define kOFFSET_FOR_KEYBOARD 80.0
 @interface AddDeliveryAddressViewController ()<NIDropDownDelegate>{
   AppDelegate *appDelegate;
@@ -210,6 +211,14 @@
           UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
           [navController setViewControllers: @[vc] animated: NO ];
           [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+        
+        }
+        else if ([RequestUtility sharedRequestUtility].isThroughGuestUser){
+          AddressListViewController *obj_clvc  = (AddressListViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddressListViewControllerId"];
+          
+          //            obj_clvc.selectedUfrespo = ufpRespo;
+          [self.navigationController pushViewController:obj_clvc animated:YES];
+        
         }
         else if ([RequestUtility sharedRequestUtility].isThroughLeftMenu){
           [self.navigationController popViewControllerAnimated:YES];

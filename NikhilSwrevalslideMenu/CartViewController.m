@@ -57,14 +57,25 @@
   NSString *obtainedCouponAmount;
   BOOL couponAmountchanged;
   
+  
+  UserFiltersResponse *selectedUfrespo;
+  RequestUtility *sharedReqUtlty;
+  NSString *selectedRestName;
 }
 
 @end
 
 @implementation CartViewController
-@synthesize selectedRestName,selectedUfrespo;
+//@synthesize selectedRestName,selectedUfrespo;
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+}
+
+-(void)initComponents{
+  sharedReqUtlty = [RequestUtility sharedRequestUtility];
+  selectedUfrespo = sharedReqUtlty.selectedUfrespo;
+  selectedRestName = sharedReqUtlty.selectedRestName;
   self.navigationController.navigationBarHidden = YES;
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   //  CGFloat screenHeight = screenRect.size.height;
@@ -79,6 +90,8 @@
   obtainedCouponAmount = @"0";
   obtainedCouponCode = @"0";
   couponAmountchanged = NO;
+
+
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -193,6 +206,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
   [super viewWillAppear:animated];
+  [self initComponents];
   NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
   userId=[userdictionary valueForKey:@"user_id"];
   [self addingValueToCartRequest:[selectedUfrespo.ufp_id integerValue]];
@@ -873,6 +887,7 @@
   if (userId.length>0) {
     [self createBeforePayment];
   }else{
+    [self createAndKeepGuestUserDetails];
     [self proceedTONextScreen];
   }
 }
@@ -1060,6 +1075,42 @@
   }
 }
 
+-(void)createAndKeepGuestUserDetails{
+  beforePaymentDictionary  = [[NSMutableDictionary alloc]init];
+  [beforePaymentDictionary setValue:@"before_payment" forKey:@"action"];
+//  [beforePaymentDictionary setValue:userId forKey:@"user_id"];
+  [beforePaymentDictionary setValue:selectedUfrespo.ufp_id forKey:@"restaurant_id"];
+  //    [beforePaymentDictionary setValue:[utilityObj GetOurIpAddress] forKey:@"ip_address"];
+  if([RequestUtility sharedRequestUtility].delivery_status == 0){
+    [beforePaymentDictionary setValue:@"0" forKey:@"order_mode"];
+  }else{
+    [beforePaymentDictionary setValue:@"1" forKey:@"order_mode"];
+  }
+  if ([RequestUtility sharedRequestUtility ].isAsap) {
+    [beforePaymentDictionary setValue:@"1" forKey:@"order_schedule_status"];
+    //      [beforePaymentDictionary setValue:[utilityObj getCurrentDate] forKey:@"order_schedule_date"];
+    //      [beforePaymentDictionary setValue:[utilityObj getCurrentTime] forKey:@"order_schedule_time"];
+    [beforePaymentDictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_datePassed forKey:@"order_schedule_date"];
+    [beforePaymentDictionary setValue:[RequestUtility sharedRequestUtility ].asapSchedule_timePassed forKey:@"order_schedule_time"];
+  }else{
+    [beforePaymentDictionary setValue:@"0" forKey:@"order_schedule_status"];
+    [beforePaymentDictionary setValue:@"0000-00-00" forKey:@"order_schedule_date"];
+    [beforePaymentDictionary setValue:@"00:00" forKey:@"order_schedule_time"];
+  }
+  [beforePaymentDictionary setValue:obtainedCouponCode forKey:@"coupon_code"];
+  [beforePaymentDictionary setValue:obtainedCouponAmount forKey:@"coupon_amount"];
+//  NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
+//  NSString *user_name=[userdictionary valueForKey:@"user_name"];
+//  [beforePaymentDictionary setValue:user_name forKey:@"user_name"];
+  
+//  NSData * beforPaymentjsonData = [NSJSONSerialization dataWithJSONObject:beforePaymentDictionary options:0 error:nil];
+//  NSString * beforPaymentString = [[NSString alloc] initWithData:beforPaymentjsonData encoding:NSUTF8StringEncoding];
+//  NSLog(@"beforePaymentString = %@",beforPaymentString);
+  
+  sharedReqUtlty.GuestUserBeforPaymentDict = beforePaymentDictionary;
+
+}
+
 -(void)createBeforePayment{
   if (userId.length>0) {
     
@@ -1096,7 +1147,7 @@
     NSLog(@"beforePaymentString = %@",beforPaymentString);
     
     [self beforePayment:beforPaymentString];
-    
+//    sharedReqUtlty.GuestUserBeforPaymentString = beforPaymentString;
   }
 }
 
@@ -1145,14 +1196,25 @@
   if (userId.length>0) {
     
     BillSummaryViewController *obj_clvc  = (BillSummaryViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"BillSummaryViewControllerId"];
-    obj_clvc.subTotalPassed = subTotalPassed;
-    obj_clvc.salesTaxPassed = salesTaxPassed;
-    obj_clvc.deliveryFeePassed = deliveryFeePassed;
-    obj_clvc.totalAmountPassed = totalAmountPassed;
-    obj_clvc.bfPaymentDictionary = beforePaymentDictionary;
+//    obj_clvc.subTotalPassed = subTotalPassed;
+//    obj_clvc.salesTaxPassed = salesTaxPassed;
+//    obj_clvc.deliveryFeePassed = deliveryFeePassed;
+//    obj_clvc.totalAmountPassed = totalAmountPassed;
+//    obj_clvc.bfPaymentDictionary = beforePaymentDictionary;
+    
+    sharedReqUtlty.subTotalPassed = subTotalPassed;
+    sharedReqUtlty.salesTaxPassed = salesTaxPassed;
+    sharedReqUtlty.deliveryFeePassed = deliveryFeePassed;
+    sharedReqUtlty.totalAmountPassed = totalAmountPassed;
+    sharedReqUtlty.bfPaymentDictionary = beforePaymentDictionary;
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }else{
     //    [RequestUtility sharedRequestUtility].isThroughPaymentScreen = YES;
+    sharedReqUtlty.subTotalPassed = subTotalPassed;
+    sharedReqUtlty.salesTaxPassed = salesTaxPassed;
+    sharedReqUtlty.deliveryFeePassed = deliveryFeePassed;
+    sharedReqUtlty.totalAmountPassed = totalAmountPassed;
+    sharedReqUtlty.bfPaymentDictionary = beforePaymentDictionary;
     SignUpLoginViewController *obj_clvc  = (SignUpLoginViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"SignUpLoginViewControllerId"];
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }
