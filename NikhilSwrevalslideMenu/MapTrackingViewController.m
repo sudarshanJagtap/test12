@@ -89,6 +89,8 @@
   mapPin.coordinate = coordinate;
   
   [self.mapView addAnnotation:mapPin];
+  
+  
 }
 
 - (void)didReceiveMemoryWarning {
@@ -196,6 +198,16 @@
   {
     [self addPinWithTitle:name[i] AndCoordinate:arrCoordinateStr[i]];
   }
+  MKMapRect zoomRect = MKMapRectNull;
+  for (id <MKAnnotation> annotation in self.mapView.annotations)
+  {
+    MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+    MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.05, 0.05);
+    zoomRect = MKMapRectUnion(zoomRect, pointRect);
+  }
+  zoomRect.origin.x = zoomRect.origin.x-50;
+    zoomRect.origin.y = zoomRect.origin.y-50;
+  [self.mapView setVisibleMapRect:zoomRect animated:YES];
   
 }
 

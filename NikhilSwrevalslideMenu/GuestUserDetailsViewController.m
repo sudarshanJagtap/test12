@@ -51,7 +51,7 @@
   self.zipCodeTxtFld.inputAccessoryView = keyboardDoneButtonView;
   
   self.mobileNoTxtFld.keyboardType = UIKeyboardTypeNumberPad;
-  self.zipCodeTxtFld.keyboardType = UIKeyboardTypePhonePad;
+  self.zipCodeTxtFld.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
   
   UIImageView *imgViewForDropDown = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, self.stateTxtFld.frame.size.height)];
   imgViewForDropDown.image = [UIImage imageNamed:@"drop2.png"];

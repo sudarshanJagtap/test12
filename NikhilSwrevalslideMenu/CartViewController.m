@@ -236,6 +236,7 @@
     //    Utility *utilityObj = [[Utility alloc]init];
     NSString *dateStr = [NSString stringWithFormat:@"%@ : %@", [RequestUtility sharedRequestUtility ].asapSchedule_datePassed,[RequestUtility sharedRequestUtility ].asapSchedule_timePassed];
     self.orderScheduleDateTimeLabel.text = dateStr;
+    [self getDisplayDate:[NSString stringWithFormat:@"%@ %@", [RequestUtility sharedRequestUtility ].asapSchedule_datePassed,[RequestUtility sharedRequestUtility ].asapSchedule_timePassed]];
     self.constriantOrderScheduleHeight.constant=40;
   }else{
     self.orderScheduleLabel.hidden = YES;
@@ -245,6 +246,15 @@
   }
   self.cosntraintCouponAmountHeight.constant=0;
   //  self.constraintHacktop.constant=-30;
+}
+-(void)getDisplayDate:(NSString*)myString{
+//NSString *myString = @"2012-11-22 10:19:04";
+NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm";
+NSDate *yourDate = [dateFormatter dateFromString:myString];
+dateFormatter.dateFormat = @"MMM dd yyyy HH:mm a";
+NSLog(@"%@",[dateFormatter stringFromDate:yourDate]);
+  self.orderScheduleDateTimeLabel.text = [dateFormatter stringFromDate:yourDate];
 }
 
 

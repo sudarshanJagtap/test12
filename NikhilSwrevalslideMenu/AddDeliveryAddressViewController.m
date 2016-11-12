@@ -66,7 +66,7 @@
                                                                 action:@selector(TBdoneClicked:)];
   [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
   self.contactNoTxtFld.keyboardType = UIKeyboardTypeNumberPad;
-  self.zipCodeTxtFld.keyboardType = UIKeyboardTypePhonePad;
+  self.zipCodeTxtFld.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
   self.contactNoTxtFld.inputAccessoryView = keyboardDoneButtonView;
   self.zipCodeTxtFld.inputAccessoryView = keyboardDoneButtonView;
 }

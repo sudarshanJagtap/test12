@@ -99,7 +99,7 @@
                                                                 action:@selector(doneClicked:)];
   [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
   self.contactTf.keyboardType = UIKeyboardTypeNumberPad;
-  self.zipcodeTf.keyboardType = UIKeyboardTypePhonePad;
+  self.zipcodeTf.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
   self.contactTf.inputAccessoryView = keyboardDoneButtonView;
   self.zipcodeTf.inputAccessoryView = keyboardDoneButtonView;
   

@@ -134,8 +134,12 @@
     cell.nameLbl.text = [NSString stringWithFormat:@"%@",oData.restaurant_name];
     cell.orderIdLbl.text= [NSString stringWithFormat:@"Order ID: %@",oData.order_id ];
     cell.totalAmtLbl.text= [NSString stringWithFormat:@"Total Amount: %@",oData.total_amount];
-    cell.orderDateLbl.text= [NSString stringWithFormat:@"Order Date: %@",oData.order_date];
-    cell.deliveryDateLbl.text= [NSString stringWithFormat:@"Delivery Date: %@",oData.delivery_date];
+  NSString *odatee = [self getDisplayDate:oData.order_date];
+  cell.orderDateLbl.text= [NSString stringWithFormat:@"Order Date: %@",odatee];
+  NSString *ddatee = [self getDisplayDate:oData.delivery_date];
+  cell.orderDateLbl.text= [NSString stringWithFormat:@"Order Date: %@",ddatee];
+//    cell.orderDateLbl.text= [NSString stringWithFormat:@"Order Date: %@",oData.order_date];
+//    cell.deliveryDateLbl.text= [NSString stringWithFormat:@"Delivery Date: %@",oData.delivery_date];
     cell.isDeliverdLbl.text= [NSString stringWithFormat:@"%@",oData.order_status];
     cell.isDeliverdLbl.layer.masksToBounds = YES;
     cell.isDeliverdLbl.layer.cornerRadius =8.0;
@@ -150,6 +154,16 @@
     [[cell.orderDetailsBtn layer] setBorderColor:[UIColor redColor].CGColor];
 //  }
   return cell;
+}
+
+-(NSString*)getDisplayDate:(NSString*)myString{
+  //NSString *myString = @"2012-11-22 10:19:04";
+  NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+  dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+  NSDate *yourDate = [dateFormatter dateFromString:myString];
+  dateFormatter.dateFormat = @"MMM dd yyyy HH:mm:ss";
+  NSLog(@"%@",[dateFormatter stringFromDate:yourDate]);
+  return [dateFormatter stringFromDate:yourDate];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
