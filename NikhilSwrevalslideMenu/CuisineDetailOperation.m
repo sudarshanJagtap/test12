@@ -14,6 +14,7 @@
 -(NSDictionary *) dictionary {
   return @{
            @"rest_id"  : [RequestUtility sharedRequestUtility].selectedUfrespo.ufp_id,
+           @"schedule_status":@"0",
            
            
            

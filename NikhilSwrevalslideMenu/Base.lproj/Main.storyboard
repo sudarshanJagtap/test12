@@ -1070,7 +1070,7 @@
                                 <rect key="frame" x="-8" y="-3" width="332" height="571"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="f2X-PV-6qD">
-                                <rect key="frame" x="-4" y="170" width="328" height="396"/>
+                                <rect key="frame" x="-4" y="155" width="328" height="411"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Igp-id-5gC" id="Phk-GX-ldf"/>
@@ -1084,18 +1084,19 @@
                                     <constraint firstAttribute="width" constant="88" id="iXX-pP-2Zm"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to your account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3j-FV-dbk">
-                                <rect key="frame" x="12" y="133" width="284" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="          Login to your account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3j-FV-dbk">
+                                <rect key="frame" x="0.0" y="126" width="297" height="28"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="284" id="8gp-bJ-hh1"/>
-                                    <constraint firstAttribute="height" constant="21" id="v7C-ts-0om"/>
+                                    <constraint firstAttribute="width" constant="297" id="8gp-bJ-hh1"/>
+                                    <constraint firstAttribute="height" constant="28" id="v7C-ts-0om"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <color key="textColor" red="0.67747372630000002" green="0.085360245900000006" blue="0.097923216499999993" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVB-6d-g33">
-                                <rect key="frame" x="-4" y="28" width="328" height="139"/>
+                                <rect key="frame" x="-4" y="28" width="328" height="124"/>
                                 <connections>
                                     <action selector="LoginBtnClick:" destination="Igp-id-5gC" eventType="touchUpInside" id="3Gu-Iv-7H5"/>
                                 </connections>
@@ -1103,7 +1104,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="UVB-6d-g33" firstAttribute="top" secondItem="bGb-Aq-RV6" secondAttribute="bottom" constant="8" id="0FT-8r-hMC"/>
-                            <constraint firstItem="t3j-FV-dbk" firstAttribute="top" secondItem="VZT-DN-l4q" secondAttribute="bottom" constant="8" id="1XT-Vn-HdB"/>
+                            <constraint firstItem="t3j-FV-dbk" firstAttribute="top" secondItem="VZT-DN-l4q" secondAttribute="bottom" constant="1" id="1XT-Vn-HdB"/>
                             <constraint firstItem="HtL-OV-A2V" firstAttribute="top" secondItem="eTz-xf-HFg" secondAttribute="topMargin" constant="-3" id="1lc-tZ-aLh"/>
                             <constraint firstItem="yq4-Cv-szz" firstAttribute="top" secondItem="f2X-PV-6qD" secondAttribute="bottom" constant="2" id="324-Ke-uLd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HtL-OV-A2V" secondAttribute="trailing" constant="-20" id="H3a-r5-uZO"/>
@@ -1113,9 +1114,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="f2X-PV-6qD" secondAttribute="trailing" constant="-20" id="VuS-dM-tOi"/>
                             <constraint firstItem="f2X-PV-6qD" firstAttribute="leading" secondItem="eTz-xf-HFg" secondAttribute="leadingMargin" constant="-20" id="W5b-nS-m6X"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UVB-6d-g33" secondAttribute="trailing" constant="-20" id="dzr-J8-13i"/>
-                            <constraint firstItem="t3j-FV-dbk" firstAttribute="leading" secondItem="eTz-xf-HFg" secondAttribute="leadingMargin" constant="-4" id="iJL-Wc-tGE"/>
+                            <constraint firstItem="t3j-FV-dbk" firstAttribute="leading" secondItem="eTz-xf-HFg" secondAttribute="leadingMargin" constant="-16" id="iJL-Wc-tGE"/>
                             <constraint firstItem="VZT-DN-l4q" firstAttribute="leading" secondItem="eTz-xf-HFg" secondAttribute="leadingMargin" constant="14" id="pak-hB-COz"/>
-                            <constraint firstItem="f2X-PV-6qD" firstAttribute="top" secondItem="t3j-FV-dbk" secondAttribute="bottom" constant="16" id="pve-fz-K5d"/>
+                            <constraint firstItem="f2X-PV-6qD" firstAttribute="top" secondItem="t3j-FV-dbk" secondAttribute="bottom" constant="1" id="pve-fz-K5d"/>
                             <constraint firstItem="HtL-OV-A2V" firstAttribute="leading" secondItem="eTz-xf-HFg" secondAttribute="leadingMargin" constant="-24" id="rtn-Ra-w9J"/>
                             <constraint firstItem="UVB-6d-g33" firstAttribute="leading" secondItem="eTz-xf-HFg" secondAttribute="leadingMargin" constant="-20" id="t0U-9N-ubl"/>
                         </constraints>

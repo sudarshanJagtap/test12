@@ -40,7 +40,7 @@
   NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
   NSString *userId=[userdictionary valueForKey:@"user_id"];
   NSString *userFullName=[userdictionary valueForKey:@"user_name"];
-  if (userId.length>0) {self.loginLbl.text = userFullName;}else{self.loginLbl.text=@"Login to your account";}
+  if (userId.length>0) {self.loginLbl.text = [NSString stringWithFormat:@" %@",userFullName];}else{self.loginLbl.text=@" Login to your account";}
   if (userId.length>0) {
     self.array = @[@"Address Book",
                    @"Order History",

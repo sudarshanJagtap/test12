@@ -469,13 +469,19 @@
 -(BOOL)isValidPinCode:(NSString*)pincode    {
   
   //For US
-  NSString *pinRegex = @"^\\d{5}(-\\d{4})?$";
-  
-  //  NSString *pinRegex = @"^[0-9]{6}$";
-  NSPredicate *pinTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pinRegex];
-  
-  BOOL pinValidates = [pinTest evaluateWithObject:pincode];
-  return pinValidates;
+//  NSString *pinRegex = @"^\\d{5}(-\\d{4})?$";
+//  
+//  //  NSString *pinRegex = @"^[0-9]{6}$";
+//  NSPredicate *pinTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pinRegex];
+//  
+//  BOOL pinValidates = [pinTest evaluateWithObject:pincode];
+  BOOL ret = NO;
+  if (pincode.length>=5) {
+    ret = YES;
+  }else{
+    ret =NO;
+  }
+  return ret;
 }
 
 #pragma mark GetStates
@@ -587,7 +593,7 @@
 #define ACCEPTABLE_CHARACTERS @" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 #define MOB_MAX_LENGTH 10
 #define ZIP_MAX_LENGTH 11
-
+#define ZipACCEPTABLE_CHARACTERS @"0123456789-"
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
   if ([textField isEqual:self.nameTf]) {
     NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARACTERS] invertedSet];
@@ -663,11 +669,21 @@
     
   }
   else if (textField==self.zipcodeTf) {
-    NSString *str = [self.zipcodeTf.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (str.length >= ZIP_MAX_LENGTH && range.length == 0)
+    
+    int length = (int)textField.text.length;
+    //NSLog(@"Length  =  %d ",length);
+    
+    if(length == 11)
     {
-      return NO; // return NO to not change text
-    }else{return YES;}
+      if(range.length == 0)
+        return NO;
+    }
+    
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:ZipACCEPTABLE_CHARACTERS] invertedSet];
+    
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    
+    return [string isEqualToString:filtered];
   }
   else{
     
@@ -920,6 +936,13 @@
   
   
 }
+
+
+
+
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string  {
+//
+//}
 
 
 
