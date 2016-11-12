@@ -25,6 +25,7 @@ NSString* const kBaseRestImagePathUtl = @"https://www.ymoc.com/ymoc_main/upload/
 
 NSString* const kSchedule_user_filter = @"schedule_user_filter.php";
 NSString* const kUser_filter = @"user_filter.php";
+NSString* const kRest_menu = @"rest_menu.php";
 NSString* const kCuisine_name = @"cuisine_name.php";
 NSString* const kTaxValue = @"tax.php";
 NSString* const kAjax_customization = @"ajax_customization.php";

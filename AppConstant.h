@@ -16,6 +16,7 @@ extern NSString* const kBaseRestImagePathUtl;
 
 extern NSString* const kSchedule_user_filter;
 extern NSString* const kUser_filter;
+extern NSString* const kRest_menu;
 extern NSString* const kCuisine_name;
 extern NSString* const kTaxValue;
 extern NSString* const kAjax_customization;

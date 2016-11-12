@@ -8,6 +8,7 @@
 
 #import "CuisineDetailOperation.h"
 #import "constant.h"
+#import "AppConstant.h"
 #import "RequestUtility.h"
 @implementation CuisineDetailOperation
 @synthesize selectedId;
@@ -28,7 +29,7 @@
 {
   //    [[APIClient shared]GET:kServiceNameLogin parameters:[self dictionary] success:^(NSURLSessionDataTask *task, id responseObject) {
   NSLog(@"%@",[self dictionary]);
-  [[APIClient shared] GET:@"rest_menu.php" parameters:[self dictionary]success:^(NSURLSessionDataTask *task, id responseObject) {
+  [[APIClient shared] GET:kRest_menu parameters:[self dictionary]success:^(NSURLSessionDataTask *task, id responseObject) {
     
     if ([responseObject valueForKey:@"category_list"]){
        sucess(true, responseObject);
