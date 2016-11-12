@@ -55,7 +55,7 @@
 @property (nonatomic,strong)UserFiltersResponse *selectedUfrespo;
 
 @property(nonatomic,strong)NSDictionary *GuestUserBeforPaymentDict;
-//@property(nonatomic,assign)BOOL isThroughGuestUser;
+@property(nonatomic,assign)BOOL isThroughGuestUser;
 
 
 

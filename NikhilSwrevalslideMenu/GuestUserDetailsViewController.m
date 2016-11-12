@@ -146,8 +146,7 @@
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   RequestUtility *utility = [RequestUtility sharedRequestUtility];
-//  utility.isThroughGuestUser = YES;
-  utility.isThroughGuestUser = NO;
+  utility.isThroughGuestUser = YES;
   NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
   [params setValue:self.countryTxtFld.text forKey:@"country"];
   [params setValue:self.zipCodeTxtFld.text forKey:@"zipcode"];
