@@ -16,6 +16,7 @@
 #import "DBManager.h"
 #import "AppConstant.h"
 #import "Utility.h"
+#import "VantivPaymentWebViewController.h"
 // Set the environment:
 // - For live charges, use PayPalEnvironmentProduction (default).
 // - To use the PayPal sandbox, use PayPalEnvironmentSandbox.
@@ -37,6 +38,9 @@
   NSDictionary *bfPaymentDictionary;
   
   NSMutableArray *temporayUniqueID;
+  
+  NSString *vantivWebString;
+  BOOL isVantiv;
 }
 @property(nonatomic, strong, readwrite) PayPalConfiguration *payPalConfig;
 @end
@@ -853,4 +857,106 @@
     
   }
 }
+
+-(IBAction)paymentCheckBoxSelected:(id)sender{
+  UIButton *btn = (UIButton*)sender;
+  if (btn.tag ==0) {
+
+    [self.paypalBtn setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
+    [self.vantivBtn setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
+    [self payBtnClick:self];
+  }else{
+
+    [self.vantivBtn setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
+    [self.paypalBtn setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
+    [self doVantivPayment];
+  }
+}
+
+-(void)doVantivPayment{
+//  " {""order_schedule_date"":""0000-00-00"",
+//  ""order_schedule_status"":""0"",
+//  ""user_name"":""pradnya.m@mobisofttech.co.in"",
+//  ""delivery_address_id"":""21"",
+//  ""restaurant_id"":""1"",""order_mode"":""1"",""coupon_code"":""0"",""order_schedule_time"":""00:00:00"",""user_id "":""1"",""full_name"":""Pradnya""}"
+  
+  NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
+  NSString *userId=[userdictionary valueForKey:@"user_id"];
+  NSString *userName=[userdictionary valueForKey:@"user_name"];
+  NSString *userFullName=[userdictionary valueForKey:@"user_full_name"];
+  
+  NSMutableDictionary *vantivDict = [[NSMutableDictionary alloc]init];
+  if ([RequestUtility sharedRequestUtility ].isAsap) {
+    [vantivDict setValue:[bfPaymentDictionary valueForKey:@"order_schedule_date"] forKey:@"order_schedule_date"];
+    [vantivDict setValue:[bfPaymentDictionary valueForKey:@"order_schedule_time"] forKey:@"order_schedule_time"];
+  }else{
+    [vantivDict setValue:@"0000-00-00" forKey:@"order_schedule_date"];
+    [vantivDict setValue:@"00:00" forKey:@"order_schedule_time"];
+  }
+  [vantivDict setValue:[bfPaymentDictionary valueForKey:@"order_schedule_status"] forKey:@"order_schedule_status"];
+  [vantivDict setValue:[bfPaymentDictionary valueForKey:@"restaurant_id"] forKey:@"restaurant_id"];
+  [vantivDict setValue:[bfPaymentDictionary valueForKey:@"order_mode"] forKey:@"order_mode"];
+
+  [vantivDict setObject:[RequestUtility sharedRequestUtility].selectedAddressId forKey:@"delivery_address_id"];
+  if ([RequestUtility sharedRequestUtility].coupnCode) {
+    [vantivDict setObject:[RequestUtility sharedRequestUtility].coupnCode forKey:@"coupon_code"];
+  }else{
+  [vantivDict setObject:@" " forKey:@"coupon_code"];
+  }
+  
+  
+  [vantivDict setObject:userId forKey:@"user_id"];
+  [vantivDict setObject:userName forKey:@"user_name"];
+  [vantivDict setObject:userFullName forKey:@"full_name"];
+  
+  NSData * vantivDictjsonData = [NSJSONSerialization dataWithJSONObject:vantivDict options:0 error:nil];
+  NSString * vantivDictString = [[NSString alloc] initWithData:vantivDictjsonData encoding:NSUTF8StringEncoding];
+  NSLog(@"vantivDictStringString = %@",vantivDictString);
+  [appDelegate showLoadingViewWithString:@"Loading..."];
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];
+  [utility doYMOCStringPostRequest:kvantivPayment withParameters:vantivDictString onComplete:^(bool status, NSDictionary *responseDictionary){
+    if (status) {
+      NSLog(@"response:%@",responseDictionary);
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseUserResponseforVantiv:responseDictionary];
+      });
+    }else{
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
+    }
+  }];
+}
+
+-(void)parseUserResponseforVantiv:(NSDictionary*)ResponseDictionary{
+  if (ResponseDictionary) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      
+      NSString *code = [ResponseDictionary valueForKey:@"code"];
+      if ([code isEqualToString:@"1"]) {
+        NSLog(@"vantiv request successfull");
+        [appDelegate hideLoadingView];
+        vantivWebString = [ResponseDictionary valueForKey:@"data"];
+        VantivPaymentWebViewController *obj_clvc  = (VantivPaymentWebViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"VantivPaymentWebViewControllerId"];
+        obj_clvc.urlStr = vantivWebString;
+        obj_clvc.bfPaymentDictionary = [bfPaymentDictionary mutableCopy];
+        [self.navigationController pushViewController:obj_clvc animated:YES];
+      }else{
+        [appDelegate hideLoadingView];
+      }
+    });
+    
+  }
+}
+
+
+//Vantiv web response
+//2016-11-13 02:41:37.062 NikhilSwrevalslideMenu[58069:8086612] current web string is ; /n https://certtransaction.hostedpayments.com/?TransactionSetupID=15914A3D-5D27-4379-BE22-5A05C0A58F67#TopOfPage
+//2016-11-13 02:41:37.075 NikhilSwrevalslideMenu[58069:8086612] current web string is ; /n https://certtransaction.hostedpayments.com/?TransactionSetupID=15914A3D-5D27-4379-BE22-5A05C0A58F67#TopOfPage
+//2016-11-13 02:41:40.896 NikhilSwrevalslideMenu[58069:8086612] current web string is ; /n https://www.ymoc.com/android_api/ventiv/success.php?HostedPaymentStatus=Complete&TransactionSetupID=15914A3D-5D27-4379-BE22-5A05C0A58F67&TransactionID=2010067101&ExpressResponseCode=0&ExpressResponseMessage=Approved&AVSResponseCode=N&CVVResponseCode=M&ApprovalNumber=000011&LastFour=6781&ValidationCode=D2C56BDB77404B5A&CardLogo=Mastercard&ApprovedAmount=35.45
+//2016-11-13 02:41:40.897 NikhilSwrevalslideMenu[58069:8086612] webViewDidStartLoad web string is ; /n https://certtransaction.hostedpayments.com/?TransactionSetupID=15914A3D-5D27-4379-BE22-5A05C0A58F67#TopOfPage
+//2016-11-13 02:41:44.880 NikhilSwrevalslideMenu[58069:8086612] webViewDidFinishLoad web string is ; /n https://www.ymoc.com/android_api/ventiv/success.php?HostedPaymentStatus=Complete&TransactionSetupID=15914A3D-5D27-4379-BE22-5A05C0A58F67&TransactionID=2010067101&ExpressResponseCode=0&ExpressResponseMessage=Approved&AVSResponseCode=N&CVVResponseCode=M&ApprovalNumber=000011&LastFour=6781&ValidationCode=D2C56BDB77404B5A&CardLogo=Mastercard&ApprovedAmount=35.45
+
+
+
 @end

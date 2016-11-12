@@ -56,6 +56,8 @@ NSString* const kContact_us= @"contact_us.php";
 NSString* const kgps_src_dst_location = @"gps_src_dst_location.php";
 NSString* const kgps_current_location = @"gps_current_location.php";
 
+NSString* const kvantivPayment = @"ventiv/ventiv.php";
+
 NSString* const kFacebookLoginID = @"fb233110650414515";
 NSString* const kGooglePlacesApiKey = @"AIzaSyAwKE2uJR1SJV4RiIdsxl8g4H04aAd_bug";
 NSString* const kPaypalSanboxKey = @"ASGLkX28ypnHeOc26Z9AS2i8ozJyYaEobRW8ZGFjWfcVzK62JHkqgRBYHzP99SRcf7aRhrL459SGVyAX";

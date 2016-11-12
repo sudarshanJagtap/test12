@@ -47,6 +47,8 @@ extern NSString* const kContact_us;
 extern NSString* const kgps_src_dst_location;
 extern NSString* const kgps_current_location;
 
+extern NSString* const kvantivPayment;
+
 extern NSString* const kFacebookLoginID;
 extern NSString* const kGooglePlacesApiKey;
 extern NSString* const kPaypalSanboxKey;

@@ -62,10 +62,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalAmountViewConstraint;
 
-//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addHeightConstraint;
-//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addAddressBtnHeightConstraint;
-//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *deliveryFeeLblHeightConstriant;
-//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *deliveryFeeAmountHeightConstraint;
-//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalAmountTopConstraint;
 
+@property (weak, nonatomic) IBOutlet UIButton *paypalBtn;
+@property (weak, nonatomic) IBOutlet UIButton *vantivBtn;
 @end
