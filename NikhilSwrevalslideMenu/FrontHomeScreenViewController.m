@@ -934,7 +934,7 @@
   DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
 //  obj_clvc.selectedUfrespo = frsp;
   sharedReqUtlty.selectedUfrespo = frsp;
-  
+  sharedReqUtlty.selectedUfrespo.ufp_id = ID;
   [self.navigationController pushViewController:obj_clvc animated:YES];
 }
 

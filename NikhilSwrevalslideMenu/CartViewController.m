@@ -1622,6 +1622,7 @@ NSLog(@"%@",[dateFormatter stringFromDate:yourDate]);
         [appDelegate hideLoadingView];
         obtainedCouponCode = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"coupon_code"];
         obtainedCouponAmount = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"coupon_amount"];
+        [RequestUtility sharedRequestUtility].coupnCode = obtainedCouponCode;
         self.couponTextFld.text = obtainedCouponCode;
 //        self.couponTextFld.enabled = NO;
         if([RequestUtility sharedRequestUtility].isAsap){

@@ -41,7 +41,7 @@
 
 @property(nonatomic,strong)NSString *enteredCityOnLocationScreen;
 
-
+@property(nonatomic,strong)NSString *coupnCode;
 
 //Guest User flow changes
 
@@ -53,7 +53,7 @@
 @property(nonatomic,strong)NSDictionary *bfPaymentDictionary;
 @property(nonatomic,strong)NSString *selectedRestName;
 @property (nonatomic,strong)UserFiltersResponse *selectedUfrespo;
-
+@property(nonatomic,strong)NSString *restID;
 @property(nonatomic,strong)NSDictionary *GuestUserBeforPaymentDict;
 @property(nonatomic,assign)BOOL isThroughGuestUser;
 
