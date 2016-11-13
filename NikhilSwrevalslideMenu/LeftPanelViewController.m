@@ -17,6 +17,7 @@
 #import "DBManager.h"
 #import "AboutUsViewController.h"
 #import "ContactUSViewController.h"
+#import "ContactReactUsContainerViewController.h"
 @interface LeftPanelViewController ()
 @property (strong, nonatomic) NSArray *array;
 @property (strong, nonatomic) NSArray *arrayImage;
@@ -163,12 +164,19 @@
       [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
     }
     if (indexPath.row==4) {
+//      [RequestUtility sharedRequestUtility].isThroughLeftMenu = YES;
+//      UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+//      UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ContactUSViewControllerId"];
+//      UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+//      [navController setViewControllers: @[vc] animated: NO ];
+//      [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
       [RequestUtility sharedRequestUtility].isThroughLeftMenu = YES;
       UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-      UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ContactUSViewControllerId"];
+      UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ContactReactUsContainerViewControllerId"];
       UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
       [navController setViewControllers: @[vc] animated: NO ];
       [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+      
     }
     
     if (indexPath.row==5) {
@@ -191,9 +199,16 @@
       [navController setViewControllers: @[vc] animated: NO ];
       [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
     }else{
+//      [RequestUtility sharedRequestUtility].isThroughLeftMenu = YES;
+//      UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+//      UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ContactUSViewControllerId"];
+//      UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+//      [navController setViewControllers: @[vc] animated: NO ];
+//      [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+      
       [RequestUtility sharedRequestUtility].isThroughLeftMenu = YES;
       UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-      UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ContactUSViewControllerId"];
+      UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ContactReactUsContainerViewControllerId"];
       UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
       [navController setViewControllers: @[vc] animated: NO ];
       [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];

@@ -78,6 +78,8 @@
 		65B608C61D5666C40055EBF2 /* AddDeliveryAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B608C51D5666C40055EBF2 /* AddDeliveryAddressViewController.m */; };
 		65B608E81D5892000055EBF2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65B608E71D5892000055EBF2 /* GoogleService-Info.plist */; };
 		65C238E51DD7B9B1002E2F30 /* VantivPaymentWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C238E41DD7B9B1002E2F30 /* VantivPaymentWebViewController.m */; };
+		65C238E81DD89308002E2F30 /* ReachUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C238E71DD89308002E2F30 /* ReachUSViewController.m */; };
+		65C238EB1DD8945A002E2F30 /* ContactReactUsContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C238EA1DD8945A002E2F30 /* ContactReactUsContainerViewController.m */; };
 		65C5442B1DA8FC3200A2553D /* PostForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C5442A1DA8FC3200A2553D /* PostForgotPasswordViewController.m */; };
 		65C5D1451DB941FB00A6FCD1 /* AppConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C5D1441DB941FB00A6FCD1 /* AppConstant.m */; };
 		65E8E97A1DA67CE1007CD1BF /* ch.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E8E9791DA67CE1007CD1BF /* ch.png */; };
@@ -234,6 +236,10 @@
 		65B608E71D5892000055EBF2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		65C238E31DD7B9B1002E2F30 /* VantivPaymentWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VantivPaymentWebViewController.h; sourceTree = "<group>"; };
 		65C238E41DD7B9B1002E2F30 /* VantivPaymentWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VantivPaymentWebViewController.m; sourceTree = "<group>"; };
+		65C238E61DD89308002E2F30 /* ReachUSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachUSViewController.h; sourceTree = "<group>"; };
+		65C238E71DD89308002E2F30 /* ReachUSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachUSViewController.m; sourceTree = "<group>"; };
+		65C238E91DD8945A002E2F30 /* ContactReactUsContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactReactUsContainerViewController.h; sourceTree = "<group>"; };
+		65C238EA1DD8945A002E2F30 /* ContactReactUsContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactReactUsContainerViewController.m; sourceTree = "<group>"; };
 		65C544291DA8FC3200A2553D /* PostForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostForgotPasswordViewController.h; sourceTree = "<group>"; };
 		65C5442A1DA8FC3200A2553D /* PostForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostForgotPasswordViewController.m; sourceTree = "<group>"; };
 		65C5D1431DB941FB00A6FCD1 /* AppConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstant.h; sourceTree = "<group>"; };
@@ -536,6 +542,10 @@
 				65AC4DDE1DCD22CE00389461 /* MapTrackingViewController.m */,
 				65C238E31DD7B9B1002E2F30 /* VantivPaymentWebViewController.h */,
 				65C238E41DD7B9B1002E2F30 /* VantivPaymentWebViewController.m */,
+				65C238E61DD89308002E2F30 /* ReachUSViewController.h */,
+				65C238E71DD89308002E2F30 /* ReachUSViewController.m */,
+				65C238E91DD8945A002E2F30 /* ContactReactUsContainerViewController.h */,
+				65C238EA1DD8945A002E2F30 /* ContactReactUsContainerViewController.m */,
 			);
 			name = HomeScreen;
 			sourceTree = "<group>";
@@ -798,6 +808,7 @@
 				65753CA31D464E0300069C54 /* SKSTableViewCell.m in Sources */,
 				65753CA21D464E0300069C54 /* SKSTableView.m in Sources */,
 				65103D141DC3D91200B366A6 /* InvestmentViewController.m in Sources */,
+				65C238EB1DD8945A002E2F30 /* ContactReactUsContainerViewController.m in Sources */,
 				65753D131D4CA3B000069C54 /* CartViewController.m in Sources */,
 				657F469D1D6377EF00F6B68A /* YourAccountTableViewCell.m in Sources */,
 				65753D0B1D4A81CE00069C54 /* Utility.m in Sources */,
@@ -838,6 +849,7 @@
 				65753C911D43F53500069C54 /* CuisineDetailOperation.m in Sources */,
 				657DEC641D4E7A8B00A1B512 /* GuestUserDetailsViewController.m in Sources */,
 				8FD104AA1D34F03D0063B46A /* APIClient.m in Sources */,
+				65C238E81DD89308002E2F30 /* ReachUSViewController.m in Sources */,
 				C152530F1DC32FFD008560A3 /* PrivacyOpreationController.m in Sources */,
 				8FC1D0451D36137B002E7AB0 /* ImageDownloadOperation.m in Sources */,
 				657FB6D81D663B67000201C9 /* ChangePasswordViewController.m in Sources */,
