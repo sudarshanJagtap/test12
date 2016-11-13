@@ -41,6 +41,7 @@
   
   NSString *vantivWebString;
   BOOL isVantiv;
+  BOOL isPayTypeSelected;
 }
 @property(nonatomic, strong, readwrite) PayPalConfiguration *payPalConfig;
 @end
@@ -506,6 +507,22 @@
 }
 
 - (IBAction)payBtnClick:(id)sender {
+  
+  if (isPayTypeSelected) {
+    
+    if (isVantiv) {
+      [self doVantivPayment];
+    }else{
+      [self PayPalPaymentcheckBoxBtnClick];
+    }
+  }else{
+//    UIAlertView *alertVw = [[UIAlertView alloc]initWithTitle:@"" message:@"Please select payment type" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//    [alertVw show];
+    [self showMsg:@"Please select payment type"];
+  }
+}
+
+-(void)PayPalPaymentcheckBoxBtnClick{
   [RequestUtility sharedRequestUtility].backFromPaypalScreen = YES;
   // Remove our last completed payment, just for demo purposes.
   self.resultText = nil;
@@ -618,7 +635,10 @@
   
   if ([msgStr isEqualToString:@"Delivery Fee will be changed as per your delivery address"]) {
     tag=1;
-  }else{
+  }else if ([msgStr isEqualToString:@"Please select payment type"]){
+    tag =3;
+  }
+  else{
     tag=0;
   }
   blankScreen.hidden =NO;
@@ -645,7 +665,11 @@
     [RequestUtility sharedRequestUtility].isThroughPaymentScreen = YES;
     AddressListViewController *obj_clvc  = (AddressListViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddressListViewControllerId"];
     [self.navigationController pushViewController:obj_clvc animated:YES];
-  }else{
+  }
+  if (tag==3) {
+  
+  }
+  else{
     NSString * storyboardName = @"Main";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
     UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
@@ -861,25 +885,22 @@
 -(IBAction)paymentCheckBoxSelected:(id)sender{
   UIButton *btn = (UIButton*)sender;
   if (btn.tag ==0) {
-
+    isVantiv = NO;
+    isPayTypeSelected = YES;
     [self.paypalBtn setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
     [self.vantivBtn setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
-    [self payBtnClick:self];
+//    [self payBtnClick:self];
   }else{
-
+    isVantiv = YES;
+    isPayTypeSelected = YES;
     [self.vantivBtn setBackgroundImage:[UIImage imageNamed:@"checkBx"] forState:UIControlStateNormal];
     [self.paypalBtn setBackgroundImage:[UIImage imageNamed:@"uncheckBx"] forState:UIControlStateNormal];
-    [self doVantivPayment];
+//    [self doVantivPayment];
   }
 }
 
 -(void)doVantivPayment{
-//  " {""order_schedule_date"":""0000-00-00"",
-//  ""order_schedule_status"":""0"",
-//  ""user_name"":""pradnya.m@mobisofttech.co.in"",
-//  ""delivery_address_id"":""21"",
-//  ""restaurant_id"":""1"",""order_mode"":""1"",""coupon_code"":""0"",""order_schedule_time"":""00:00:00"",""user_id "":""1"",""full_name"":""Pradnya""}"
-  
+
   NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
   NSString *userId=[userdictionary valueForKey:@"user_id"];
   NSString *userName=[userdictionary valueForKey:@"user_name"];
@@ -949,13 +970,6 @@
   }
 }
 
-
-//Vantiv web response
-//2016-11-13 02:41:37.062 NikhilSwrevalslideMenu[58069:8086612] current web string is ; /n https://certtransaction.hostedpayments.com/?TransactionSetupID=15914A3D-5D27-4379-BE22-5A05C0A58F67#TopOfPage
-//2016-11-13 02:41:37.075 NikhilSwrevalslideMenu[58069:8086612] current web string is ; /n https://certtransaction.hostedpayments.com/?TransactionSetupID=15914A3D-5D27-4379-BE22-5A05C0A58F67#TopOfPage
-//2016-11-13 02:41:40.896 NikhilSwrevalslideMenu[58069:8086612] current web string is ; /n https://www.ymoc.com/android_api/ventiv/success.php?HostedPaymentStatus=Complete&TransactionSetupID=15914A3D-5D27-4379-BE22-5A05C0A58F67&TransactionID=2010067101&ExpressResponseCode=0&ExpressResponseMessage=Approved&AVSResponseCode=N&CVVResponseCode=M&ApprovalNumber=000011&LastFour=6781&ValidationCode=D2C56BDB77404B5A&CardLogo=Mastercard&ApprovedAmount=35.45
-//2016-11-13 02:41:40.897 NikhilSwrevalslideMenu[58069:8086612] webViewDidStartLoad web string is ; /n https://certtransaction.hostedpayments.com/?TransactionSetupID=15914A3D-5D27-4379-BE22-5A05C0A58F67#TopOfPage
-//2016-11-13 02:41:44.880 NikhilSwrevalslideMenu[58069:8086612] webViewDidFinishLoad web string is ; /n https://www.ymoc.com/android_api/ventiv/success.php?HostedPaymentStatus=Complete&TransactionSetupID=15914A3D-5D27-4379-BE22-5A05C0A58F67&TransactionID=2010067101&ExpressResponseCode=0&ExpressResponseMessage=Approved&AVSResponseCode=N&CVVResponseCode=M&ApprovalNumber=000011&LastFour=6781&ValidationCode=D2C56BDB77404B5A&CardLogo=Mastercard&ApprovedAmount=35.45
 
 
 

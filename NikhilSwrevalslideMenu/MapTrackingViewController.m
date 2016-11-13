@@ -10,6 +10,23 @@
 #import "AppDelegate.h"
 #import "AppConstant.h"
 #import "RequestUtility.h"
+
+@interface AddressAnnotation1 : NSObject<MKAnnotation> {
+}
+@property (nonatomic, retain) NSString *mPinColor;
+@end
+
+@implementation AddressAnnotation1
+
+- (NSString *)pincolor{
+  return self.mPinColor;
+}
+
+- (void) setpincolor:(NSString*) String1{
+  self.mPinColor = String1;
+}
+
+@end
 @interface MapTrackingViewController (){
   
   AppDelegate *appDelegate;
@@ -31,8 +48,6 @@
   [super viewDidLoad];
   [self initViews];
   [self Getgps_src_dst_location];
-
-  //  [self initConstraints];
 }
 
 - (IBAction)backNavBtnClick:(id)sender {
@@ -41,19 +56,8 @@
 
 -(void)initViews
 {
-  //  self.mapView = [[MKMapView alloc] init];
   self.mapView.delegate = self;
   self.mapView.showsUserLocation = YES;
-  
-  MKCoordinateRegion region = self.mapView.region;
-  
-  region.center = CLLocationCoordinate2DMake(12.9752297537231, 80.2313079833984);
-  
-  region.span.longitudeDelta /= 1.0; // Bigger the value, closer the map view
-  region.span.latitudeDelta /= 1.0;
-  [self.mapView setRegion:region animated:NO]; // Choose if you want animate or not
-  
-  //  [self.view addSubview:self.mapView];
 }
 
 -(void)initConstraints
@@ -72,25 +76,45 @@
 -(void)addPinWithTitle:(NSString *)title AndCoordinate:(NSString *)strCoordinate
 {
   MKPointAnnotation *mapPin = [[MKPointAnnotation alloc] init];
-  
-  // clear out any white space
   strCoordinate = [strCoordinate stringByReplacingOccurrencesOfString:@" " withString:@""];
-  
-  // convert string into actual latitude and longitude values
   NSArray *components = [strCoordinate componentsSeparatedByString:@","];
-  
   double latitude = [components[0] doubleValue];
   double longitude = [components[1] doubleValue];
-  
-  // setup the map pin with all data and add to map view
   CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-  
   mapPin.title = title;
   mapPin.coordinate = coordinate;
-  
   [self.mapView addAnnotation:mapPin];
+}
+
+#pragma mark annotation delegate
+- (MKAnnotationView *) mapView:(MKMapView *)mapView1 viewForAnnotation:(id <MKAnnotation>) annotation{
   
+  AddressAnnotation1 *annotationInst = (AddressAnnotation1*)annotation;
   
+  MKAnnotationView *pinView = nil;
+  if(annotation != self.mapView.userLocation)
+  {
+    static NSString *defaultPinID = @"pinId";
+    pinView = (MKAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+    
+    if ( pinView == nil ){
+      pinView = [[MKAnnotationView alloc]
+                  initWithAnnotation:annotation reuseIdentifier:defaultPinID];
+    }
+    pinView.canShowCallout = YES;
+    if([annotationInst.title isEqualToString:@"User"]){
+      pinView.image = [UIImage imageNamed:@"User Home Marker.png"];
+    }
+    else if([annotationInst.title isEqualToString:@"Restaurant"]){
+      pinView.image = [UIImage imageNamed:@"Restaurant location Marker.png"];
+    }
+    else if([annotationInst.title isEqualToString:@"Delivery boy "]){
+      pinView.image = [UIImage imageNamed:@"Delivery boy.png"];
+    }
+//    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+//    pinView.rightCalloutAccessoryView = rightButton;
+  }
+  return pinView;    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -208,44 +232,8 @@
   zoomRect.origin.x = zoomRect.origin.x-50;
     zoomRect.origin.y = zoomRect.origin.y-50;
   [self.mapView setVisibleMapRect:zoomRect animated:YES];
-  
+ 
+  [self.mapView showAnnotations:self.mapView.annotations animated:YES];
 }
-
-  
-//  [self zoomToFitMapAnnotations:self.mapView];
-//}
-//
-//  - (void)zoomToFitMapAnnotations:(MKMapView *)mapView {
-//    if ([mapView.annotations count] == 0) return;
-//    
-//    CLLocationCoordinate2D topLeftCoord;
-////    topLeftCoord.latitude = -90;
-////    topLeftCoord.longitude = 180;
-////    CLLocationCoordinate2D bottomRightCoord;
-////    bottomRightCoord.latitude = 90;
-////    bottomRightCoord.longitude = -180;
-//    topLeftCoord.latitude = [user_latitude doubleValue];
-//    topLeftCoord.longitude = [user_longitude doubleValue];
-//    CLLocationCoordinate2D bottomRightCoord;
-//    bottomRightCoord.latitude = [restaurant_latitude doubleValue];
-//    bottomRightCoord.longitude = [restaurant_longitude doubleValue];
-//    
-//    for(id<MKAnnotation> annotation in mapView.annotations) {
-//      topLeftCoord.longitude = fmin(topLeftCoord.longitude, annotation.coordinate.longitude);
-//      topLeftCoord.latitude = fmax(topLeftCoord.latitude, annotation.coordinate.latitude);
-//      bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, annotation.coordinate.longitude);
-//      bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, annotation.coordinate.latitude);
-//    }
-//    
-//    MKCoordinateRegion region;
-//    region.center.latitude = topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5;
-//    region.center.longitude = topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5;
-//    region.span.latitudeDelta = fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.1;
-//    
-//    region.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.1;
-//    
-//    region = [mapView regionThatFits:region];
-//    [mapView setRegion:region animated:YES];
-//  }
 
 @end
