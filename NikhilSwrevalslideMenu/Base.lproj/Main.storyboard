@@ -5614,7 +5614,7 @@
                                         </constraints>
                                     </view>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mFI-uf-UDH">
-                                        <rect key="frame" x="15" y="324" width="297" height="214"/>
+                                        <rect key="frame" x="17" y="324" width="294" height="214"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="214" id="BK8-qO-LMA"/>
                                         </constraints>
@@ -5636,10 +5636,10 @@
                                     <constraint firstItem="Gov-lo-4Ru" firstAttribute="trailing" secondItem="J7O-gf-cQb" secondAttribute="trailing" id="83B-SH-1I4"/>
                                     <constraint firstItem="Gov-lo-4Ru" firstAttribute="centerX" secondItem="pcu-TD-UDt" secondAttribute="centerX" id="9x1-eZ-OnE"/>
                                     <constraint firstItem="Com-7s-hdh" firstAttribute="leading" secondItem="pcu-TD-UDt" secondAttribute="leading" constant="15" id="EJt-db-bqS"/>
-                                    <constraint firstItem="mFI-uf-UDH" firstAttribute="leading" secondItem="pcu-TD-UDt" secondAttribute="leading" constant="15" id="N0Z-QX-9Hg"/>
+                                    <constraint firstItem="mFI-uf-UDH" firstAttribute="leading" secondItem="pcu-TD-UDt" secondAttribute="leading" constant="17" id="N0Z-QX-9Hg"/>
                                     <constraint firstItem="D9o-UG-ror" firstAttribute="top" secondItem="Com-7s-hdh" secondAttribute="bottom" constant="8" id="Q2d-rS-csU"/>
                                     <constraint firstItem="mFI-uf-UDH" firstAttribute="top" secondItem="Com-7s-hdh" secondAttribute="bottom" constant="35" id="SfX-rx-Mq4"/>
-                                    <constraint firstAttribute="trailing" secondItem="mFI-uf-UDH" secondAttribute="trailing" constant="16" id="U3N-Rd-ffp"/>
+                                    <constraint firstAttribute="trailing" secondItem="mFI-uf-UDH" secondAttribute="trailing" constant="17" id="U3N-Rd-ffp"/>
                                     <constraint firstItem="J7O-gf-cQb" firstAttribute="leading" secondItem="Gov-lo-4Ru" secondAttribute="leading" id="ZYI-rv-QAg"/>
                                     <constraint firstItem="Gov-lo-4Ru" firstAttribute="leading" secondItem="pcu-TD-UDt" secondAttribute="leading" constant="14" id="bPa-qW-fML"/>
                                     <constraint firstItem="J7O-gf-cQb" firstAttribute="top" secondItem="Gov-lo-4Ru" secondAttribute="bottom" constant="10" id="c6c-ou-JQY"/>

@@ -17,7 +17,6 @@
 @end
 
 @implementation AddressAnnotation1
-
 - (NSString *)pincolor{
   return self.mPinColor;
 }
@@ -37,6 +36,7 @@
   
   NSString *clatitude;
   NSString *clongitude;
+  NSTimer* myTimer;
   
 }
 
@@ -47,7 +47,18 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   [self initViews];
+  myTimer = [NSTimer scheduledTimerWithTimeInterval: 60.0 target: self
+                                                    selector: @selector(callAfterSixtySecond:) userInfo: nil repeats: YES];
   [self Getgps_src_dst_location];
+}
+
+-(void) callAfterSixtySecond:(NSTimer*) t
+{
+  [self Getgps_src_dst_location];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+  [myTimer invalidate];
 }
 
 - (IBAction)backNavBtnClick:(id)sender {
@@ -57,21 +68,21 @@
 -(void)initViews
 {
   self.mapView.delegate = self;
-  self.mapView.showsUserLocation = YES;
+//  self.mapView.showsUserLocation = YES;
 }
 
--(void)initConstraints
-{
-  self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
-  
-  id views = @{
-               @"mapView": self.mapView
-               };
-  
-  [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[mapView]|" options:0 metrics:nil views:views]];
-  
-  [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[mapView]|" options:0 metrics:nil views:views]];
-}
+//-(void)initConstraints
+//{
+////  self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
+//  
+//  id views = @{
+//               @"mapView": self.mapView
+//               };
+//  
+//  [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[mapView]|" options:0 metrics:nil views:views]];
+//  
+//  [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[mapView]|" options:0 metrics:nil views:views]];
+//}
 
 -(void)addPinWithTitle:(NSString *)title AndCoordinate:(NSString *)strCoordinate
 {
@@ -92,8 +103,8 @@
   AddressAnnotation1 *annotationInst = (AddressAnnotation1*)annotation;
   
   MKAnnotationView *pinView = nil;
-  if(annotation != self.mapView.userLocation)
-  {
+//  if(annotation != self.mapView.userLocation)
+//  {
     static NSString *defaultPinID = @"pinId";
     pinView = (MKAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
     
@@ -111,96 +122,14 @@
     else if([annotationInst.title isEqualToString:@"Delivery boy "]){
       pinView.image = [UIImage imageNamed:@"Delivery boy.png"];
     }
-//    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-//    pinView.rightCalloutAccessoryView = rightButton;
-  }
-  return pinView;    
+//  }
+  return pinView;
 }
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }
-
-
--(void)Getgps_src_dst_location{
-  appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-  [appDelegate showLoadingViewWithString:@"Loading..."];
-  RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-  [params setValue:self.order_id forKey:@"order_id"];
-  [params setValue:@"source_destination" forKey:@"action"];
-  NSError * err;
-  NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
-  NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-  NSLog(@"kgps_src_dst_location info string \n = %@",String);
-  
-  [utility doYMOCStringPostRequest:kgps_src_dst_location withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
-    if (status) {
-      NSLog(@"response:%@",responseDictionary);
-      [appDelegate hideLoadingView];
-      dispatch_async(dispatch_get_main_queue(), ^{
-//          [self Getgps_current_location];
-        [appDelegate hideLoadingView];
-        [self parse_GPRS_SRC_Location:responseDictionary];
-      });
-    }else{
-      [appDelegate hideLoadingView];
-    }
-  }];
-}
-
--(void)parse_GPRS_SRC_Location:(NSDictionary*)ResponseDictionary{
-
-  if (ResponseDictionary) {
-    NSString *code = [ResponseDictionary valueForKey:@"code"];
-    if ([code isEqualToString:@"1"]) {
-    
-      user_latitude = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"user_latitude"];
-      user_longitude = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"user_longitude"];
-      restaurant_latitude = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"restaurant_latitude"];
-      restaurant_longitude = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"restaurant_longitude"];
-               [self addAllPins];
-    }
-  }
-}
-
--(void)Getgps_current_location{
-  appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-  [appDelegate showLoadingViewWithString:@"Loading..."];
-  RequestUtility *utility = [RequestUtility sharedRequestUtility];
-  NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-  [params setValue:self.order_id forKey:@"order_id"];
-  [params setValue:@"current_location" forKey:@"action"];
-  NSError * err;
-  NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
-  NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-  NSLog(@"kgps_current_location info string \n = %@",String);
-  
-  [utility doYMOCStringPostRequest:kgps_current_location withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
-    if (status) {
-      NSLog(@"response:%@",responseDictionary);
-      [appDelegate hideLoadingView];
-      dispatch_async(dispatch_get_main_queue(), ^{
-        [self parse_GPRS_Current_Location:responseDictionary];
-      });
-    }else{
-      [appDelegate hideLoadingView];
-    }
-  }];
-}
-
--(void)parse_GPRS_Current_Location:(NSDictionary*)ResponseDictionary{
-  if (ResponseDictionary) {
-    NSString *code = [ResponseDictionary valueForKey:@"code"];
-    if ([code isEqualToString:@"1"]) {
-      clatitude = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"latitude"];
-      clongitude = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"longitude"];
-      [self addAllPins];
-    }
-  }
-}
-
 
 -(void)addAllPins
 {
@@ -234,6 +163,122 @@
   [self.mapView setVisibleMapRect:zoomRect animated:YES];
  
   [self.mapView showAnnotations:self.mapView.annotations animated:YES];
+  [self showLines];
 }
+
+#pragma mark polyline
+
+- (void)showLines {
+  CLLocationCoordinate2D *pointsCoordinate = (CLLocationCoordinate2D *)malloc(sizeof(CLLocationCoordinate2D) * 3);
+  pointsCoordinate[0] = CLLocationCoordinate2DMake([user_latitude doubleValue], [user_longitude doubleValue]);
+  pointsCoordinate[1] = CLLocationCoordinate2DMake([restaurant_latitude doubleValue], [restaurant_longitude doubleValue]);
+//  pointsCoordinate[2] = CLLocationCoordinate2DMake(43.296482, 5.369779);
+  
+  
+  MKPolyline *polyline = [MKPolyline polylineWithCoordinates:pointsCoordinate count:2];
+  free(pointsCoordinate);
+  
+  [self.mapView addOverlay:polyline];
+}
+
+
+- (MKPolylineRenderer *)mapView:(MKMapView *)mapView viewForOverlay:(id)overlay{
+  
+  // create a polylineView using polyline overlay object
+  MKPolylineRenderer *polylineView = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
+  
+  // Custom polylineView
+  polylineView.strokeColor =  [UIColor blueColor];
+  polylineView.lineWidth = 2.0;
+  polylineView.alpha = 0.5;
+  
+  return polylineView;
+}
+
+#pragma mark webservice request
+
+-(void)Getgps_src_dst_location{
+  appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+  [appDelegate showLoadingViewWithString:@"Loading..."];
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];
+  NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+  [params setValue:self.order_id forKey:@"order_id"];
+  [params setValue:@"source_destination" forKey:@"action"];
+  NSError * err;
+  NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
+  NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+  NSLog(@"kgps_src_dst_location info string \n = %@",String);
+  
+  [utility doYMOCStringPostRequest:kgps_src_dst_location withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+    if (status) {
+      NSLog(@"response:%@",responseDictionary);
+      [appDelegate hideLoadingView];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        //          [self Getgps_current_location];
+        [appDelegate hideLoadingView];
+        [self parse_GPRS_SRC_Location:responseDictionary];
+      });
+    }else{
+      [appDelegate hideLoadingView];
+    }
+  }];
+}
+
+-(void)parse_GPRS_SRC_Location:(NSDictionary*)ResponseDictionary{
+  
+  if (ResponseDictionary) {
+    NSString *code = [ResponseDictionary valueForKey:@"code"];
+    if ([code isEqualToString:@"1"]) {
+      
+      user_latitude = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"user_latitude"];
+      user_longitude = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"user_longitude"];
+      restaurant_latitude = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"restaurant_latitude"];
+      restaurant_longitude = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"restaurant_longitude"];
+      [self.mapView removeAnnotations:self.mapView.annotations];
+      [self addAllPins];
+    }
+  }
+}
+
+-(void)Getgps_current_location{
+  appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+  [appDelegate showLoadingViewWithString:@"Loading..."];
+  RequestUtility *utility = [RequestUtility sharedRequestUtility];
+  NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+  [params setValue:self.order_id forKey:@"order_id"];
+  [params setValue:@"current_location" forKey:@"action"];
+  NSError * err;
+  NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:&err];
+  NSString *String = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+  NSLog(@"kgps_current_location info string \n = %@",String);
+  
+  [utility doYMOCStringPostRequest:kgps_current_location withParameters:String onComplete:^(bool status, NSDictionary *responseDictionary){
+    if (status) {
+      NSLog(@"response:%@",responseDictionary);
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+        [self parse_GPRS_Current_Location:responseDictionary];
+      });
+    }else{
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [appDelegate hideLoadingView];
+      });
+    }
+  }];
+}
+
+-(void)parse_GPRS_Current_Location:(NSDictionary*)ResponseDictionary{
+  if (ResponseDictionary) {
+    NSString *code = [ResponseDictionary valueForKey:@"code"];
+    if ([code isEqualToString:@"1"]) {
+      clatitude = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"latitude"];
+      clongitude = [[ResponseDictionary valueForKey:@"data"]valueForKey:@"longitude"];
+      [self.mapView removeAnnotations:self.mapView.annotations];
+      [self addAllPins];
+    }
+  }
+}
+
+
 
 @end
