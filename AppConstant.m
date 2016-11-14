@@ -58,6 +58,15 @@ NSString* const kgps_current_location = @"gps_current_location.php";
 
 NSString* const kvantivPayment = @"ventiv/ventiv.php";
 
+
+//External URLS
+NSString* const kFacebookUrl = @"https://www.facebook.com/YMOC-737973506341258/";
+NSString* const kgooglePlusUrl = @"https://plus.google.com/116873785636925491753";
+NSString* const kTwitterUrl = @"https://twitter.com/YMOC_NJ";
+NSString* const kPintrestUrl = @"https://www.pinterest.com/ymoc0200/";
+NSString* const kInstagramUrl = @"https://www.instagram.com/nj_ymoc/";
+
+
 NSString* const kFacebookLoginID = @"fb233110650414515";
 NSString* const kGooglePlacesApiKey = @"AIzaSyAwKE2uJR1SJV4RiIdsxl8g4H04aAd_bug";
 NSString* const kPaypalSanboxKey = @"ASGLkX28ypnHeOc26Z9AS2i8ozJyYaEobRW8ZGFjWfcVzK62JHkqgRBYHzP99SRcf7aRhrL459SGVyAX";

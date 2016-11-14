@@ -56,5 +56,15 @@ extern NSString* const kPaypalProductionKey;
 
 
 
+//External URLS
+extern NSString* const kFacebookUrl;
+extern NSString* const kgooglePlusUrl;
+extern NSString* const kTwitterUrl;
+extern NSString* const kPintrestUrl;
+extern NSString* const kInstagramUrl;
+
+
+
+
 @end
 
