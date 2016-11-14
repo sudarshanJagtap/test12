@@ -666,7 +666,7 @@
     AddressListViewController *obj_clvc  = (AddressListViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddressListViewControllerId"];
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }
-  if (tag==3) {
+  else if (tag==3) {
   
   }
   else{
