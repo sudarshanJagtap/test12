@@ -88,16 +88,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PKr-Gq-uzL">
-                        <rect key="frame" x="258" y="6" width="54" height="30"/>
+                        <rect key="frame" x="258" y="6" width="54" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="XLR-fv-gHz"/>
+                            <constraint firstAttribute="height" constant="40" id="XLR-fv-gHz"/>
                         </constraints>
                         <state key="normal" backgroundImage="delBtn2"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0h-8f-c4o">
-                        <rect key="frame" x="201" y="6" width="54" height="30"/>
+                        <rect key="frame" x="201" y="6" width="54" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="xzp-sC-PWL"/>
+                            <constraint firstAttribute="height" constant="40" id="xzp-sC-PWL"/>
                         </constraints>
                         <state key="normal" backgroundImage="editBtn1"/>
                     </button>

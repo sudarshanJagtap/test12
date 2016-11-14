@@ -649,7 +649,8 @@
     if ([self.btnDelivery isEnabled]) {
       
       distanceValue = [@"Distance: " stringByAppendingString:distanceValue];
-      cell.lblFee.text =distanceValue;
+//      cell.lblFee.text =distanceValue;
+      cell.lblFee.text = [NSString stringWithFormat:@"%@ Miles",distanceValue];
       cell.lblOrder.hidden =YES;
       cell.labelOrderHeightConstraint.constant = 4;
     }else{
