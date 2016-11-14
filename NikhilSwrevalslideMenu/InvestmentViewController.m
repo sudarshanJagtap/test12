@@ -797,7 +797,7 @@
 //          [alert show];
 //          UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"Thanks for Contacting us." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 //          [alert show];
-           [self showMsg:@"Thanks for Contacting us."];
+           [self showMsg:@"Thanks for your interest, We will get back to you soon."];
   
         }else{
   

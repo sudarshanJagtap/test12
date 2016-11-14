@@ -235,7 +235,7 @@
     self.orderScheduleDateTimeLabel.hidden = NO;
     //    Utility *utilityObj = [[Utility alloc]init];
     NSString *dateStr = [NSString stringWithFormat:@"%@ : %@", [RequestUtility sharedRequestUtility ].asapSchedule_datePassed,[RequestUtility sharedRequestUtility ].asapSchedule_timePassed];
-    self.orderScheduleDateTimeLabel.text = dateStr;
+//    self.orderScheduleDateTimeLabel.text = dateStr;
     [self getDisplayDate:[NSString stringWithFormat:@"%@ %@", [RequestUtility sharedRequestUtility ].asapSchedule_datePassed,[RequestUtility sharedRequestUtility ].asapSchedule_timePassed]];
     self.constriantOrderScheduleHeight.constant=40;
   }else{
@@ -254,7 +254,8 @@ dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm";
 NSDate *yourDate = [dateFormatter dateFromString:myString];
 dateFormatter.dateFormat = @"MMM dd yyyy HH:mm a";
 NSLog(@"%@",[dateFormatter stringFromDate:yourDate]);
-  self.orderScheduleDateTimeLabel.text = [dateFormatter stringFromDate:yourDate];
+//  self.orderScheduleDateTimeLabel.text = [dateFormatter stringFromDate:yourDate];
+  self.orderScheduleDateTimeLabel.text = [RequestUtility sharedRequestUtility].StoredAsapDisplayStr;
 }
 
 
@@ -327,10 +328,12 @@ NSLog(@"%@",[dateFormatter stringFromDate:yourDate]);
   float amountPending = [selectedUfrespo.min_order_amount floatValue]-subtotalAmountcalculated;
   if (amountPending>0) {
     [self.checkOutBtn setEnabled:NO];
-    [self.checkOutBtn setTitle:[NSString stringWithFormat:@"%.2f Should be Added",amountPending] forState:UIControlStateNormal];
+    [self.checkOutBtn setBackgroundColor:[UIColor colorWithRed:193.0/255.0 green:193.0/255.0 blue:193.0/255.0 alpha:1.0]];
+    [self.checkOutBtn setTitle:[NSString stringWithFormat:@"ADD MORE $%.2f TO PROCEED",amountPending] forState:UIControlStateNormal];
   }else{
     [self.checkOutBtn setEnabled:YES];
-    [self.checkOutBtn setTitle:[NSString stringWithFormat:@"Proceed to CheckOut"] forState:UIControlStateNormal];
+    [self.checkOutBtn setBackgroundColor:[UIColor colorWithRed:52.0/255.0 green:118.0/255.0 blue:190.0/255.0 alpha:1.0]];
+    [self.checkOutBtn setTitle:[NSString stringWithFormat:@"PROCEED TO CHECKOUT"] forState:UIControlStateNormal];
   }
   
   subTotalPassed = [NSString stringWithFormat:@"$ %.02f",subtotalAmountcalculated ];

@@ -485,6 +485,9 @@
    self.asapDisplayLbl.text=displyStr;
   reqUtility.asapFormatedDisplayDate = displyStr;
   reqUtility.asapDisplayLbl = displyStr;
+  
+  NSString *displyStr1 = [NSString stringWithFormat:@"%@ %@ %@ %@",month,cdate,currentYear,timeStr];
+  reqUtility.StoredAsapDisplayStr = displyStr1;
 }
 
 -(NSString*)getWeekDayfromStrResponse:(NSString*)str{

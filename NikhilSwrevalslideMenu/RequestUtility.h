@@ -33,6 +33,8 @@
 @property(nonatomic,strong)NSString *afterPaymentResponseString;
 @property(nonatomic,strong)USerAddressData *selectedAddressDataObj;
 
+@property(nonatomic,strong)NSString *StoredAsapDisplayStr;
+
 
 @property(nonatomic,strong)NSString *asapFormatedDisplayDate;
 
