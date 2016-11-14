@@ -5613,7 +5613,7 @@
                                             <constraint firstAttribute="height" constant="59" id="c7Y-ek-ll7"/>
                                         </constraints>
                                     </view>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mFI-uf-UDH">
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mFI-uf-UDH">
                                         <rect key="frame" x="17" y="324" width="294" height="214"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="214" id="BK8-qO-LMA"/>
