@@ -196,11 +196,12 @@
         BOOL oSstatus = [vwData.order_schedule_status boolValue];
         if (oSstatus) {
           NSString *oschDateTime = [NSString stringWithFormat:@"%@ %@",vwData.order_schedule_date,vwData.order_schedule_time];
+          oschDateTime = [self getDisplayDate:oschDateTime];
           self.aOrderScheduleLbl.text = oschDateTime;
           self.orderScheduleLbl.hidden = NO;
           self.aOrderScheduleLbl.hidden = NO;
-          self.aCpAmtTop.constant = 51;
-          self.cpAmtTop.constant = 51;
+          self.aCpAmtTop.constant = 61;
+          self.cpAmtTop.constant = 61;
         }else{
           self.aCpAmtTop.constant = 15;
           self.cpAmtTop.constant = 15;
@@ -217,6 +218,16 @@
       [self.tableVw reloadData];
     });
   }
+}
+
+-(NSString*)getDisplayDate:(NSString*)myString{
+  //NSString *myString = @"2012-11-22 10:19:04";
+  NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+  dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+  NSDate *yourDate = [dateFormatter dateFromString:myString];
+  dateFormatter.dateFormat = @"MMMM dd yyyy HH:mm:ss a";
+  NSLog(@"%@",[dateFormatter stringFromDate:yourDate]);
+  return [dateFormatter stringFromDate:yourDate];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

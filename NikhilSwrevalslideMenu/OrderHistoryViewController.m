@@ -147,7 +147,7 @@
   cell.orderDateLbl.text= [NSString stringWithFormat:@"Order Date: %@",odatee];
 //    cell.orderDateLbl.text= [NSString stringWithFormat:@"Order Date: %@",oData.order_date];
   NSString *ddatee = [self getDisplayDate:oData.delivery_date];
-  cell.orderDateLbl.text= [NSString stringWithFormat:@"Order Date: %@",ddatee];
+  cell.deliveryDateLbl.text= [NSString stringWithFormat:@"Order Date: %@",ddatee];
 //    cell.deliveryDateLbl.text= [NSString stringWithFormat:@"Delivery Date: %@",oData.delivery_date];
     cell.isDeliverdLbl.text= [NSString stringWithFormat:@"%@",oData.order_status];
     cell.isDeliverdLbl.layer.masksToBounds = YES;
@@ -206,7 +206,7 @@
   NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
   dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
   NSDate *yourDate = [dateFormatter dateFromString:myString];
-  dateFormatter.dateFormat = @"MMM dd yyyy HH:mm:ss";
+  dateFormatter.dateFormat = @"MMMM dd yyyy HH:mm:ss a";
   NSLog(@"%@",[dateFormatter stringFromDate:yourDate]);
   return [dateFormatter stringFromDate:yourDate];
 }
