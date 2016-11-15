@@ -38,6 +38,6 @@
 -(BOOL)deleteRecord:(int)restID andOrderType:(NSString*)orderType;
 
 -(NSString*)getOrderTypeForRestaurantID:(int)rID;
--(BOOL)updateOrderModeIntoDB:(NSString*)restID andOrderMode:(NSString*)orderMode;
+-(BOOL)updateOrderModeIntoDB:(NSString*)restID andOrderMode:(NSString*)orderMode andDistance:(NSString*)dist;
 
 @end

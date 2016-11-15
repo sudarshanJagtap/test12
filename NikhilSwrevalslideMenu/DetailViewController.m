@@ -243,7 +243,11 @@
   }
   self.waitTimeLbl.text = [NSString stringWithFormat:@"Est. Wait: %@ Minutes",selectedUfrespo.delivery_time];
   if ( [[RequestUtility sharedRequestUtility].selectedOrderType  isEqual: @"PickUp"]) {
+    if (selectedUfrespo.pkDistance ==NULL) {
+      self.deliveryLbl.text = [NSString stringWithFormat:@"Distance: %@ Miles",selectedUfrespo.pkDistance];
+    }else{
     self.deliveryLbl.text = [NSString stringWithFormat:@"Distance: %@ Miles",selectedUfrespo.pkDistance];
+    }
   }
   cdOperation = [[CuisineDetailOperation alloc]init];
   cdOperation.selectedId = selectedUfrespo.ufp_id;
@@ -957,6 +961,7 @@
     cart.serverCartID = @"0";
     cart.randomCartID = randStr;
     cart.Logo = selectedUfrespo.logo;
+    cart.distance = selectedUfrespo.pkDistance;
   }else{
     cart.restaurant_Id = [selectedUfrespo.ufp_id integerValue];
     cart.reasturant_Name = selectedUfrespo.name;
@@ -988,6 +993,7 @@
     cart.serverCartID = @"0";
     cart.randomCartID = randStr;
     cart.Logo = selectedUfrespo.logo;
+    cart.distance = selectedUfrespo.pkDistance;
   }
   BOOL isSaved = [manager saveDataIntoCart:cart];
   if (isSaved) {

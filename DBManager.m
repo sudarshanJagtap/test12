@@ -50,7 +50,7 @@ static sqlite3_stmt *statement = nil;
     if (sqlite3_open(dbpath, &database) == SQLITE_OK)
     {
       char *errMsg1;
-       NSString *sql_stmt1 = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS UserSelectedAddToCartInfo (id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE, restaurant_Id INTEGER NOT NULL,subCategory_Id INTEGER NOT NULL,reasturant_Name TEXT, category_Name TEXT, sub_category_Name TEXT, cust_id TEXT, cust_option TEXT,cust_price TEXT,cust_description TEXT, subCategoryPrice FLOAT,MIN_ORDER FLOAT,delivery_fee FLOAT,customizeCuisineString TEXT,customizeCuisinePrice TEXT,customizedCuisineId Text,quantity TEXT, TotalFinalPrice FLOAT,status TEXT, orderType TEXT, userEnteredAddress TEXT,rest_Address TEXT, instructions TEXT,serverCartID TEXT,randomcartID TEXT,LOGO TEXT)"];
+       NSString *sql_stmt1 = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS UserSelectedAddToCartInfo (id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE, restaurant_Id INTEGER NOT NULL,subCategory_Id INTEGER NOT NULL,reasturant_Name TEXT, category_Name TEXT, sub_category_Name TEXT, cust_id TEXT, cust_option TEXT,cust_price TEXT,cust_description TEXT, subCategoryPrice FLOAT,MIN_ORDER FLOAT,delivery_fee FLOAT,customizeCuisineString TEXT,customizeCuisinePrice TEXT,customizedCuisineId Text,quantity TEXT, TotalFinalPrice FLOAT,status TEXT, orderType TEXT, userEnteredAddress TEXT,rest_Address TEXT, instructions TEXT,serverCartID TEXT,randomcartID TEXT,LOGO TEXT,Distance TEXT)"];
       
       if (sqlite3_exec(database, [sql_stmt1 UTF8String], NULL, NULL, &errMsg1)
           != SQLITE_OK)
@@ -106,9 +106,30 @@ static sqlite3_stmt *statement = nil;
           return YES;
         }
         else {
-          return NO;
+          
+          BOOL retu = [self updateUserFilterResponse:filterObject andDistance:filterObject.pkDistance];
+          return retu;
         }
       }
+  return NO;
+}
+
+-(BOOL)updateUserFilterResponse:(UserFiltersResponse*)filterObject andDistance:(NSString*)dist{
+  
+  const char *dbpath = [databasePath UTF8String];
+  if (sqlite3_open(dbpath, &database) == SQLITE_OK)
+  {
+    NSString *queryStr = [NSString stringWithFormat:@"UPDATE UserFilterResponseData SET pkDistance = '%@' WHERE id = %@",dist,filterObject.ufp_id];
+    const char *insert_stmt = [queryStr UTF8String];
+    sqlite3_prepare_v2(database, insert_stmt,-1, &statement, NULL);
+    if (sqlite3_step(statement) == SQLITE_DONE)
+    {
+      return YES;
+    }
+    else {
+      return NO;
+    }
+  }return NO;
   return NO;
 }
 
@@ -117,7 +138,7 @@ static sqlite3_stmt *statement = nil;
   const char *dbpath = [databasePath UTF8String];
   if (sqlite3_open(dbpath, &database) == SQLITE_OK)
   {
-    NSString *insertSQL = [NSString stringWithFormat:@"insert into UserSelectedAddToCartInfo (restaurant_Id,subCategory_Id, reasturant_Name,category_Name, sub_category_Name,cust_id,cust_option,cust_price,cust_description,subCategoryPrice,MIN_ORDER,delivery_fee,customizeCuisineString,customizeCuisinePrice,customizedCuisineId,quantity,TotalFinalPrice,status,ordertype,userEnteredAddress,rest_Address,instructions,serverCartID,randomcartID,LOGO) values (\"%ld\",\"%ld\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%f\",\"%f\",\"%f\",\"%@\",\"%@\",\"%@\",\"%@\",\"%f\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")",cartObject.restaurant_Id,cartObject.subCategory_Id,cartObject.reasturant_Name,cartObject.category_Name,cartObject.sub_category_Name,cartObject.cust_id,cartObject.cust_option,cartObject.cust_price,cartObject.cust_description,cartObject.subCategoryPrice,cartObject.MIN_ORDER,cartObject.delivery_fee,cartObject.customizeCuisineString,cartObject.customizeCuisinePrice,cartObject.customizedCuisineId,cartObject.quantity,cartObject.TotalFinalPrice,cartObject.status,cartObject.ordertype,cartObject.userEnteredAddress,cartObject.rest_Address,cartObject.instructions,cartObject.serverCartID,cartObject.randomCartID,cartObject.Logo];
+    NSString *insertSQL = [NSString stringWithFormat:@"insert into UserSelectedAddToCartInfo (restaurant_Id,subCategory_Id, reasturant_Name,category_Name, sub_category_Name,cust_id,cust_option,cust_price,cust_description,subCategoryPrice,MIN_ORDER,delivery_fee,customizeCuisineString,customizeCuisinePrice,customizedCuisineId,quantity,TotalFinalPrice,status,ordertype,userEnteredAddress,rest_Address,instructions,serverCartID,randomcartID,LOGO,Distance) values (\"%ld\",\"%ld\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%f\",\"%f\",\"%f\",\"%@\",\"%@\",\"%@\",\"%@\",\"%f\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")",cartObject.restaurant_Id,cartObject.subCategory_Id,cartObject.reasturant_Name,cartObject.category_Name,cartObject.sub_category_Name,cartObject.cust_id,cartObject.cust_option,cartObject.cust_price,cartObject.cust_description,cartObject.subCategoryPrice,cartObject.MIN_ORDER,cartObject.delivery_fee,cartObject.customizeCuisineString,cartObject.customizeCuisinePrice,cartObject.customizedCuisineId,cartObject.quantity,cartObject.TotalFinalPrice,cartObject.status,cartObject.ordertype,cartObject.userEnteredAddress,cartObject.rest_Address,cartObject.instructions,cartObject.serverCartID,cartObject.randomCartID,cartObject.Logo,cartObject.distance];
     const char *insert_stmt = [insertSQL UTF8String];
     sqlite3_prepare_v2(database, insert_stmt,-1, &statement, NULL);
     if (sqlite3_step(statement) == SQLITE_DONE)
@@ -418,6 +439,10 @@ static sqlite3_stmt *statement = nil;
         NSString *logostr = [NSString stringWithUTF8String:logo];
         addCart.Logo = logostr;
         
+        char *dist = (char*)sqlite3_column_text(stmt, 26);
+        NSString *diststr = [NSString stringWithUTF8String:dist];
+        addCart.distance = diststr;
+        
         
         [cartDataArray addObject:addCart];
         
@@ -684,6 +709,9 @@ static sqlite3_stmt *statement = nil;
         NSString *logostr = [NSString stringWithUTF8String:logo];
         addCart.Logo = logostr;
         
+        char *dist = (char*)sqlite3_column_text(stmt, 26);
+        NSString *diststr = [NSString stringWithUTF8String:dist];
+        addCart.distance = diststr;
         
       }
     }
@@ -814,6 +842,10 @@ static sqlite3_stmt *statement = nil;
         NSString *logostr = [NSString stringWithUTF8String:logo];
         addCart.Logo = logostr;
         
+        char *dist = (char*)sqlite3_column_text(stmt, 26);
+        NSString *diststr = [NSString stringWithUTF8String:dist];
+        addCart.distance = diststr;
+        
         [cartDataArray addObject:addCart];
         
       }
@@ -894,12 +926,12 @@ static sqlite3_stmt *statement = nil;
 }
 
 
--(BOOL)updateOrderModeIntoDB:(NSString*)restID andOrderMode:(NSString*)orderMode{
+-(BOOL)updateOrderModeIntoDB:(NSString*)restID andOrderMode:(NSString*)orderMode andDistance:(NSString*)dist{
   
   const char *dbpath = [databasePath UTF8String];
   if (sqlite3_open(dbpath, &database) == SQLITE_OK)
   {
-    NSString *queryStr = [NSString stringWithFormat:@"UPDATE UserSelectedAddToCartInfo SET orderType = '%@' WHERE restaurant_Id = %@",orderMode,restID];
+    NSString *queryStr = [NSString stringWithFormat:@"UPDATE UserSelectedAddToCartInfo SET orderType = '%@',Distance= '%@' WHERE restaurant_Id = %@",orderMode,dist,restID];
     const char *insert_stmt = [queryStr UTF8String];
     sqlite3_prepare_v2(database, insert_stmt,-1, &statement, NULL);
     if (sqlite3_step(statement) == SQLITE_DONE)

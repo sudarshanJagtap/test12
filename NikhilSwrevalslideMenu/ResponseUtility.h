@@ -116,6 +116,7 @@
 @property(nonatomic,strong)NSString *serverCartID;
 @property(nonatomic,strong)NSString *randomCartID;
 @property(nonatomic,strong)NSString *Logo;
+@property(nonatomic,strong)NSString *distance;
 @end
 
 

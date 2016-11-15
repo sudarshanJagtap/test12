@@ -873,7 +873,7 @@
   alertView.hidden = YES;
   [fullscreenView removeFromSuperview];
   
-  BOOL retval = [[DBManager getSharedInstance]updateOrderModeIntoDB:didSelectedFilterRespo.ufp_id andOrderMode:@"Delivery"];
+  BOOL retval = [[DBManager getSharedInstance]updateOrderModeIntoDB:didSelectedFilterRespo.ufp_id andOrderMode:@"Delivery"andDistance:didSelectedFilterRespo.pkDistance];
   if (retval) {
     //    [self btndelivery:self];
     DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
@@ -891,7 +891,7 @@
   alertView.hidden = YES;
   [fullscreenView removeFromSuperview];
   
-  BOOL retval = [[DBManager getSharedInstance]updateOrderModeIntoDB:didSelectedFilterRespo.ufp_id andOrderMode:@"PickUp"];
+  BOOL retval = [[DBManager getSharedInstance]updateOrderModeIntoDB:didSelectedFilterRespo.ufp_id andOrderMode:@"PickUp"andDistance:didSelectedFilterRespo.pkDistance];
   if (retval) {
     //    [self btnpickup:self];
     DetailViewController *obj_clvc  = (DetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewControllerId"];
