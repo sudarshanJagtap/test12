@@ -57,7 +57,7 @@
   [twitterBtn addTarget:self
              action:@selector(socialBtnClick:)
    forControlEvents:UIControlEventTouchUpInside];
-  [twitterBtn setBackgroundImage:[UIImage imageNamed:@"twitter.png"] forState:UIControlStateNormal];
+  [twitterBtn setBackgroundImage:[UIImage imageNamed:@"twitter1.png"] forState:UIControlStateNormal];
   twitterBtn.frame = CGRectMake(110.0, 10.0, 30, 30);
   twitterBtn.tag=2;
   [footerView addSubview:twitterBtn];
