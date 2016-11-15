@@ -239,7 +239,7 @@
   self.deliveryLbl.text = [NSString stringWithFormat:@"Delivery Fee: %@",selectedUfrespo.fee];
   self.waitTimeLbl.text = [NSString stringWithFormat:@"Est. Wait: %@ Minutes",selectedUfrespo.delivery_time];
   if ( [[RequestUtility sharedRequestUtility].selectedOrderType  isEqual: @"PickUp"]) {
-    self.deliveryLbl.text = [NSString stringWithFormat:@"Distance: %@",selectedUfrespo.pkDistance];
+    self.deliveryLbl.text = [NSString stringWithFormat:@"Distance: %@ Miles",selectedUfrespo.pkDistance];
   }
   cdOperation = [[CuisineDetailOperation alloc]init];
   cdOperation.selectedId = selectedUfrespo.ufp_id;
