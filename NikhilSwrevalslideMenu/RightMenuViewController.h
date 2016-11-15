@@ -17,6 +17,7 @@
 @end
 
 @interface RightMenuViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UIButton *resetBtn;
 - (IBAction)segmentClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet RateView *ratingsView;
 @property (weak, nonatomic) IBOutlet RateView *dollarView;

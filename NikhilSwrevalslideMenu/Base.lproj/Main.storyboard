@@ -89,13 +89,13 @@
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVg-jn-ZUd">
-                                <rect key="frame" x="177" y="100" width="147" height="20"/>
+                                <rect key="frame" x="166" y="100" width="147" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="147" id="4Ts-ox-oxd"/>
                                     <constraint firstAttribute="height" constant="20" id="Gew-7M-QuL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="Reset all cuisines">
+                                <state key="normal" title="Reset All Cuisines">
                                     <color key="titleColor" red="0.70588235294117641" green="0.0" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -129,7 +129,7 @@
                                 <rect key="frame" x="0.0" y="128" width="320" height="389"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0R-Tv-rhy">
-                                        <rect key="frame" x="8" y="8" width="304" height="20"/>
+                                        <rect key="frame" x="8" y="8" width="304" height="19.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="304" id="799-ml-jj9"/>
                                         </constraints>
@@ -138,7 +138,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LL0-3g-D58">
-                                        <rect key="frame" x="8" y="62" width="304" height="20"/>
+                                        <rect key="frame" x="8" y="62" width="304" height="19.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="304" id="d2y-lA-yyC"/>
                                         </constraints>
@@ -147,7 +147,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z7a-jW-7I8">
-                                        <rect key="frame" x="8" y="118" width="304" height="20"/>
+                                        <rect key="frame" x="8" y="118" width="304" height="19.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="304" id="7j0-AV-AuS"/>
                                         </constraints>
@@ -156,7 +156,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zu8-5N-XUx">
-                                        <rect key="frame" x="48" y="147" width="250" height="20"/>
+                                        <rect key="frame" x="48" y="147" width="250" height="19.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="250" id="JM7-eY-gMs"/>
                                         </constraints>
@@ -175,7 +175,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customize Menu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tx-qx-J0Y">
-                                        <rect key="frame" x="48" y="204" width="250" height="20"/>
+                                        <rect key="frame" x="48" y="204" width="250" height="19.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="250" id="Ycu-Sz-vQm"/>
                                         </constraints>
@@ -334,7 +334,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&amp; below" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lB-mA-rPy">
-                                        <rect key="frame" x="227" y="34" width="85" height="21"/>
+                                        <rect key="frame" x="227" y="33" width="85" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="gea-Wk-CH2"/>
                                             <constraint firstAttribute="width" constant="85" id="jM0-m7-ZjO"/>
@@ -451,7 +451,7 @@
                             <constraint firstItem="iWf-iH-92x" firstAttribute="leading" secondItem="hGw-qn-gPg" secondAttribute="leadingMargin" constant="-24" id="TK1-0W-0st"/>
                             <constraint firstItem="PPl-PS-upj" firstAttribute="centerX" secondItem="evW-VW-xec" secondAttribute="centerX" id="Xu8-XE-0t1"/>
                             <constraint firstItem="Ifa-Ls-vci" firstAttribute="top" secondItem="evW-VW-xec" secondAttribute="bottom" constant="1" id="YgG-l7-Ez2"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="GVg-jn-ZUd" secondAttribute="trailing" constant="-20" id="Z4e-MW-Esw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GVg-jn-ZUd" secondAttribute="trailing" constant="-9" id="Z4e-MW-Esw"/>
                             <constraint firstItem="PPl-PS-upj" firstAttribute="trailing" secondItem="oKj-Pp-uuh" secondAttribute="trailing" id="cWq-38-94Q"/>
                             <constraint firstItem="PPl-PS-upj" firstAttribute="top" secondItem="GVg-jn-ZUd" secondAttribute="bottom" constant="8" symbolic="YES" id="d4b-Xh-7HC"/>
                             <constraint firstItem="F9e-XE-Q4Z" firstAttribute="top" secondItem="PPl-PS-upj" secondAttribute="bottom" constant="51" id="mGt-yC-dDN"/>
@@ -473,6 +473,7 @@
                         <outlet property="pickerMainView" destination="if4-ur-vnn" id="b4k-k9-fH6"/>
                         <outlet property="prevBtn" destination="iXB-bP-tLA" id="rBu-iT-4zY"/>
                         <outlet property="ratingsView" destination="Uvm-G1-H6x" id="Nnc-Ej-5L5"/>
+                        <outlet property="resetBtn" destination="GVg-jn-ZUd" id="wqf-j0-QKb"/>
                         <outlet property="tblViewIteam" destination="evW-VW-xec" id="VAn-3m-rEu"/>
                     </connections>
                 </viewController>

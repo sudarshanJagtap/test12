@@ -36,7 +36,8 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
+  self.resetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+
   NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
   NSString *userId=[userdictionary valueForKey:@"user_id"];
   NSString *userFullName=[userdictionary valueForKey:@"user_name"];
@@ -351,8 +352,11 @@
   
   if (s.selectedSegmentIndex == 1)
   {
+    [self.resetBtn setTitle:@"Reset All" forState:UIControlStateNormal];
+    
     self.moreFiltersView.hidden = NO;
   }else{
+    [self.resetBtn setTitle:@"Reset All Cuisines" forState:UIControlStateNormal];
     self.moreFiltersView.hidden = YES;
   }
 }
