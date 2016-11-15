@@ -33,7 +33,7 @@
 @property(nonatomic,strong)NSString *selectedAddressId;
 @property(nonatomic,strong)NSString *afterPaymentResponseString;
 @property(nonatomic,strong)USerAddressData *selectedAddressDataObj;
-
+@property(nonatomic,assign)BOOL isDeliveryFeeChanged;
 @property(nonatomic,strong)NSString *StoredAsapDisplayStr;
 
 

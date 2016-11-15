@@ -54,6 +54,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   tag=0;
+  
   [RequestUtility sharedRequestUtility].backFromPaypalScreen = NO;
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   CGFloat screenHeight = screenRect.size.height;
@@ -120,6 +121,11 @@
 //}
 
 -(void)viewWillAppear:(BOOL)animated{
+  if ([RequestUtility sharedRequestUtility].isDeliveryFeeChanged) {
+    self.delFeeChangedHeightConstraint.constant = 30;
+  }else{
+  self.delFeeChangedHeightConstraint.constant = 0;
+  }
   sharedReqUtlty = [RequestUtility sharedRequestUtility];
   if ([RequestUtility sharedRequestUtility].isThroughGuestUser){
     [RequestUtility sharedRequestUtility].isThroughGuestUser= NO;
@@ -144,13 +150,11 @@
       self.addressLabel.numberOfLines = 6;
       self.addressLabel.text = addString;
       self.addressConstraint.constant = 110;
-     self.hAddressChangeConstraint.constant = 30;
+//     self.hAddressChangeConstraint.constant = 30;
     if ([RequestUtility sharedRequestUtility].FromCartScreen == NO) {
    [self showMsg:@"Please check selected delivery address"];
     }
-   if ([RequestUtility sharedRequestUtility].backFromPaypalScreen == NO) {
-     [self getDeliveryFee:[RequestUtility sharedRequestUtility].selectedAddressId];
-   }
+  
    
     }else{
       self.paybtn.enabled = NO;
@@ -247,9 +251,11 @@
         [appDelegate hideLoadingView];
         NSString *newfee = [ResponseDictionary valueForKey:@"data" ];
         if ([newfee isEqualToString:[deliveryFeePassed substringFromIndex:2]]) {
+          [RequestUtility sharedRequestUtility].isDeliveryFeeChanged = NO;
           self.delFeeChangedHeightConstraint.constant = 0;
         }else{
         self.delFeeChangedHeightConstraint.constant = 30;
+          [RequestUtility sharedRequestUtility].isDeliveryFeeChanged = YES;
           deliveryFeePassed = [NSString stringWithFormat:@"$ %@",newfee];
           float finalAmount;
           if([RequestUtility sharedRequestUtility].delivery_status == 1){
@@ -267,11 +273,13 @@
       });
       
     }else{
+      [RequestUtility sharedRequestUtility].isDeliveryFeeChanged = NO;
       self.delFeeChangedHeightConstraint.constant = 0;
     }
     
   }else{
     dispatch_async(dispatch_get_main_queue(), ^{
+      [RequestUtility sharedRequestUtility].isDeliveryFeeChanged = NO;
       self.delFeeChangedHeightConstraint.constant = 0;
       appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
       [appDelegate hideLoadingView];
@@ -523,7 +531,7 @@
 }
 
 - (IBAction)payBtnClick:(id)sender {
-  
+  [RequestUtility sharedRequestUtility].FromCartScreen =YES;
   if (isPayTypeSelected) {
     
     if (isVantiv) {
@@ -655,7 +663,7 @@
     tag =3;
   }
   else if([msgStr isEqualToString:@"Please check selected delivery address"]){
-    tag =3;
+    tag =4;
   }
   else{
     tag=0;
@@ -688,6 +696,14 @@
   else if (tag==3) {
   
   }
+  else if (tag==4) {
+    if ([RequestUtility sharedRequestUtility].backFromPaypalScreen == NO) {
+      [self getDeliveryFee:[RequestUtility sharedRequestUtility].selectedAddressId];
+    }else{
+      
+    }
+  }
+  
   else{
     NSString * storyboardName = @"Main";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];

@@ -9,6 +9,7 @@
 #import "VantivPaymentWebViewController.h"
 #import "AppDelegate.h"
 #import "DBManager.h"
+#import "BillSummaryViewController.h"
 #import "SWRevealViewController.h"
 @interface VantivPaymentWebViewController ()<UIWebViewDelegate>{
   
@@ -48,6 +49,8 @@
 }
 - (IBAction)backNavBtnClick:(id)sender {
   [self.navigationController popToRootViewControllerAnimated:YES];
+//  BillSummaryViewController *obj_clvc  = (BillSummaryViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"BillSummaryViewControllerId"];
+//  [self.navigationController pushViewController:obj_clvc animated:YES];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
