@@ -19,6 +19,7 @@ AppDelegate *appDelegate;
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  self.titleLbl.text = [NSString stringWithFormat:@"%@  Info",[RequestUtility sharedRequestUtility].selectedUfrespo.name];
   NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
   [dict setValue:self.restID forKey:@"restaurant_id"];
   [dict setValue:@"additional_info" forKey:@"action"];

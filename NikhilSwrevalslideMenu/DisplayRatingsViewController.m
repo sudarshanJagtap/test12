@@ -184,7 +184,7 @@
   noRestoLabel.backgroundColor=[UIColor clearColor];
   noRestoLabel.textColor=[UIColor redColor];
   noRestoLabel.userInteractionEnabled=NO;
-  noRestoLabel.text= @"No Reviews available";
+  noRestoLabel.text= @"No Reviews Available";
   [self.view addSubview:noRestoLabel];
   [self.view bringSubviewToFront:noRestoLabel];
 }

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface AdditionalInfoViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property(nonatomic,strong)NSString *restID;
 @property (weak, nonatomic) IBOutlet UILabel *timingLbl;
 @property (weak, nonatomic) IBOutlet UILabel *addressLbl;
