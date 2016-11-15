@@ -18,6 +18,7 @@
 #import "AboutUsViewController.h"
 #import "ContactUSViewController.h"
 #import "ContactReactUsContainerViewController.h"
+#import "AppConstant.h"
 @interface LeftPanelViewController ()
 @property (strong, nonatomic) NSArray *array;
 @property (strong, nonatomic) NSArray *arrayImage;
@@ -30,6 +31,88 @@
   self.bgImg.image = [UIImage imageNamed:@"about_us_background.png"];
   self.bgImg.alpha = 0.9;
   
+  UIView* footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+  [footerView setBackgroundColor:[UIColor colorWithRed:(138.0/255.f) green:(203.0/255.f) blue:(49.0/255.f) alpha:1.0f]];
+  
+  
+  UIButton *googleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+  [googleBtn addTarget:self
+             action:@selector(socialBtnClick:)
+   forControlEvents:UIControlEventTouchUpInside];
+  [googleBtn setBackgroundImage:[UIImage imageNamed:@"google_plus12.png"] forState:UIControlStateNormal];
+  googleBtn.frame = CGRectMake(30.0, 10.0, 30, 30);
+  googleBtn.tag=0;
+  [footerView addSubview:googleBtn];
+  
+  UIButton *facebookBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+  [facebookBtn addTarget:self
+             action:@selector(socialBtnClick:)
+   forControlEvents:UIControlEventTouchUpInside];
+  [facebookBtn setBackgroundImage:[UIImage imageNamed:@"fb.png"] forState:UIControlStateNormal];
+  facebookBtn.frame = CGRectMake(70.0, 10.0, 30, 30);
+  facebookBtn.tag=1;
+  [footerView addSubview:facebookBtn];
+
+  UIButton *twitterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+  [twitterBtn addTarget:self
+             action:@selector(socialBtnClick:)
+   forControlEvents:UIControlEventTouchUpInside];
+  [twitterBtn setBackgroundImage:[UIImage imageNamed:@"twitter.png"] forState:UIControlStateNormal];
+  twitterBtn.frame = CGRectMake(110.0, 10.0, 30, 30);
+  twitterBtn.tag=2;
+  [footerView addSubview:twitterBtn];
+
+
+  UIButton *pinBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+  [pinBtn addTarget:self
+             action:@selector(socialBtnClick:)
+   forControlEvents:UIControlEventTouchUpInside];
+  [pinBtn setBackgroundImage:[UIImage imageNamed:@"pininterest.png"] forState:UIControlStateNormal];
+  pinBtn.frame = CGRectMake(150.0, 10.0, 30, 30);
+  pinBtn.tag=3;
+  [footerView addSubview:pinBtn];
+
+  UIButton *instaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+  [instaBtn addTarget:self
+             action:@selector(socialBtnClick:)
+   forControlEvents:UIControlEventTouchUpInside];
+  [instaBtn setBackgroundImage:[UIImage imageNamed:@"instagram.png"] forState:UIControlStateNormal];
+  instaBtn.frame = CGRectMake(190.0, 10.0, 30, 30);
+  instaBtn.tag = 4;
+  [footerView addSubview:instaBtn];
+  
+  footerView.layer.borderWidth = 2;
+  footerView.layer.borderColor = [[UIColor whiteColor] CGColor];
+  
+  self.tableVw.tableFooterView = footerView;
+  
+}
+
+-(IBAction)socialBtnClick:(id)sender{
+  UIButton *btn = (UIButton*)sender;
+   NSLog(@"Button click %ld",(long)btn.tag);
+  NSString *urlStr;
+  switch (btn.tag) {
+    case 0:
+      urlStr = kgooglePlusUrl;
+      break;
+    case 1:
+      urlStr = kFacebookUrl;
+      break;
+    case 2:
+      urlStr = kTwitterUrl;
+      break;
+    case 3:
+      urlStr = kPintrestUrl;
+      break;
+      
+    default:
+      urlStr = kInstagramUrl;
+      break;
+  }
+    NSURL *url = [NSURL URLWithString:urlStr];
+  [[UIApplication sharedApplication] openURL:url];
+ 
 }
 
 -(void)viewWillAppear:(BOOL)animated{

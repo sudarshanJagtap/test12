@@ -16,6 +16,7 @@
   UIView *blankScreen;
   UIView *alertView;
   UILabel *fromLabel;
+  NSString *TransactionID;
 }
 
 @end
@@ -78,8 +79,11 @@
         }
       }
       NSLog(@"response dictionary is \n %@",tempDict);
+      TransactionID = [tempDict valueForKey:@"TransactionID"];
       if (([[tempDict valueForKey:@"ExpressResponseCode"] isEqualToString:@"0"])&&([[tempDict valueForKey:@"ExpressResponseMessage"] isEqualToString:@"Approved"])) {
-        [self showMsg:@"Payment Successful"];
+        NSString *msgStr = [NSString stringWithFormat:@"Payment Successful \nYour TransactionID=%@",TransactionID];
+//        [self showMsg:@"Payment Successful"];
+        [self showMsg:msgStr];
       }
     }
     
