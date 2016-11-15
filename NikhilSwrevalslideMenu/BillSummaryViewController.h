@@ -39,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *paymentOptionNamePayPalLbl;
 @property (weak, nonatomic) IBOutlet UIButton *payPalPaymentOptionBtn;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *delFeeChangedHeightConstraint;
 
 - (IBAction)payPalPaymentOptionBtnClick:(id)sender;
 - (IBAction)payBtnClick:(id)sender;

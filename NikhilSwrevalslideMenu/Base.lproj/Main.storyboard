@@ -2452,6 +2452,7 @@
                         <outlet property="addressLabel" destination="0MT-ZZ-Vid" id="I7c-sW-oYG"/>
                         <outlet property="couponAmount" destination="ojg-VQ-OhN" id="6nB-8m-hhk"/>
                         <outlet property="couponAmountConstraint" destination="S08-Sa-sNg" id="Uag-Aj-4Br"/>
+                        <outlet property="delFeeChangedHeightConstraint" destination="uVm-wI-bKq" id="Uj5-o6-gjK"/>
                         <outlet property="deliveryFeeAmount" destination="K5X-T7-v4T" id="qvQ-eS-Ymq"/>
                         <outlet property="deliveryFeeConstriant" destination="Oi8-eN-eGd" id="0CQ-l5-Gl7"/>
                         <outlet property="hAddressChangeConstraint" destination="uVm-wI-bKq" id="Cj5-td-NAB"/>

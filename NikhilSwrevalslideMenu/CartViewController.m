@@ -897,6 +897,7 @@ NSLog(@"%@",[dateFormatter stringFromDate:yourDate]);
   
 }
 - (IBAction)proceedToCheckoutBtnClick:(id)sender {
+  [RequestUtility sharedRequestUtility].FromCartScreen = YES;
   if (userId.length>0) {
     [self createBeforePayment];
   }else{

@@ -539,6 +539,7 @@
         ufpUtility.start_dist = [dictionary valueForKey:@"start_dist"];
         ufpUtility.pkDistance = [dictionary valueForKey:@"distance"];
         ufpUtility.imageStr = [dictionary valueForKey:@"image"];
+        
         [[DBManager getSharedInstance] saveUserFilterResponse:ufpUtility];
         [respoUtility.UserFiltersResponseArray addObject:ufpUtility];
         
@@ -654,8 +655,12 @@
       cell.lblOrder.hidden =YES;
       cell.labelOrderHeightConstraint.constant = 4;
     }else{
+      if ([feeValue isEqualToString:@"0"]) {
+        cell.lblFee.text =@"Free Delivery";
+      }else{
       feeValue = [@"Delivery Fee $ " stringByAppendingString:feeValue];
       cell.lblFee.text =feeValue;
+      }
       cell.lblOrder.hidden =NO;
       cell.labelOrderHeightConstraint.constant = 16;
       

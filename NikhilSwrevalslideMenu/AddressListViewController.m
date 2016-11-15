@@ -171,6 +171,7 @@
   return 204;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+  [RequestUtility sharedRequestUtility].FromCartScreen = NO;
   AddDeliveryAddressViewController *obj_clvc  = (AddDeliveryAddressViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddDeliveryAddressViewControllerId"];
   USerAddressData *uData = (USerAddressData*)[[ResponseUtility getSharedInstance].UserAddressArray objectAtIndex:indexPath.row];
   obj_clvc.data = uData;

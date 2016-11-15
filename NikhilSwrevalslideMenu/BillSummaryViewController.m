@@ -42,6 +42,7 @@
   NSString *vantivWebString;
   BOOL isVantiv;
   BOOL isPayTypeSelected;
+  BOOL isnewDeliveryFeeObtained;
 }
 @property(nonatomic, strong, readwrite) PayPalConfiguration *payPalConfig;
 @end
@@ -117,6 +118,7 @@
 //                                           self.scrollContent.frame.size.height + 300
 //                                           );
 //}
+
 -(void)viewWillAppear:(BOOL)animated{
   sharedReqUtlty = [RequestUtility sharedRequestUtility];
   if ([RequestUtility sharedRequestUtility].isThroughGuestUser){
@@ -143,6 +145,9 @@
       self.addressLabel.text = addString;
       self.addressConstraint.constant = 110;
      self.hAddressChangeConstraint.constant = 30;
+    if ([RequestUtility sharedRequestUtility].FromCartScreen == NO) {
+   [self showMsg:@"Please check selected delivery address"];
+    }
    if ([RequestUtility sharedRequestUtility].backFromPaypalScreen == NO) {
      [self getDeliveryFee:[RequestUtility sharedRequestUtility].selectedAddressId];
    }
@@ -207,7 +212,7 @@
 
 -(void)getDeliveryFee:(NSString*)AddID{
   
-  
+  isnewDeliveryFeeObtained = NO;
   NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
   [dict setValue:[bfPaymentDictionary valueForKey:@"restaurant_id"] forKey:@"restaurant_id"];
   [dict setValue:@"delivery_fee" forKey:@"action"];
@@ -236,15 +241,15 @@
   if (ResponseDictionary) {
     NSString *code = [ResponseDictionary valueForKey:@"code"];
     if ([code isEqualToString:@"1"]) {
-      
+      isnewDeliveryFeeObtained = YES;
       dispatch_async(dispatch_get_main_queue(), ^{
         appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate hideLoadingView];
         NSString *newfee = [ResponseDictionary valueForKey:@"data" ];
         if ([newfee isEqualToString:[deliveryFeePassed substringFromIndex:2]]) {
-          
+          self.delFeeChangedHeightConstraint.constant = 0;
         }else{
-        
+        self.delFeeChangedHeightConstraint.constant = 30;
           deliveryFeePassed = [NSString stringWithFormat:@"$ %@",newfee];
           float finalAmount;
           if([RequestUtility sharedRequestUtility].delivery_status == 1){
@@ -261,10 +266,13 @@
         
       });
       
+    }else{
+      self.delFeeChangedHeightConstraint.constant = 0;
     }
     
   }else{
     dispatch_async(dispatch_get_main_queue(), ^{
+      self.delFeeChangedHeightConstraint.constant = 0;
       appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
       [appDelegate hideLoadingView];
     });
@@ -500,7 +508,15 @@
   [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)addAddressBtnClick:(id)sender {
+  NSString *delFee = [deliveryFeePassed substringFromIndex:2];
+  if ([delFee isEqualToString:@"0"]) {
+    [RequestUtility sharedRequestUtility].isThroughPaymentScreen = YES;
+    AddressListViewController *obj_clvc  = (AddressListViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"AddressListViewControllerId"];
+    [self.navigationController pushViewController:obj_clvc animated:YES];
+  }
+  else{
   [self showMsg:@"Delivery Fee will be changed as per your delivery address"];
+  }
   
 }
 - (IBAction)payPalPaymentOptionBtnClick:(id)sender {
@@ -636,6 +652,9 @@
   if ([msgStr isEqualToString:@"Delivery Fee will be changed as per your delivery address"]) {
     tag=1;
   }else if ([msgStr isEqualToString:@"Please select payment type"]){
+    tag =3;
+  }
+  else if([msgStr isEqualToString:@"Please check selected delivery address"]){
     tag =3;
   }
   else{

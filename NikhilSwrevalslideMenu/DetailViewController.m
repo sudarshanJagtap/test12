@@ -236,7 +236,11 @@
   self.lbl1.text = selectedUfrespo.cuisine_string;
   self.ratingsView.rating = [selectedUfrespo.rating floatValue];
   self.minOrderLbl.text = [NSString stringWithFormat:@"Min. Order: $ %@",selectedUfrespo.min_order_amount];
+  if ([selectedUfrespo.fee isEqualToString:@"0"]) {
+    self.deliveryLbl.text = @"Free Delivery";
+  }else{
   self.deliveryLbl.text = [NSString stringWithFormat:@"Delivery Fee: %@",selectedUfrespo.fee];
+  }
   self.waitTimeLbl.text = [NSString stringWithFormat:@"Est. Wait: %@ Minutes",selectedUfrespo.delivery_time];
   if ( [[RequestUtility sharedRequestUtility].selectedOrderType  isEqual: @"PickUp"]) {
     self.deliveryLbl.text = [NSString stringWithFormat:@"Distance: %@ Miles",selectedUfrespo.pkDistance];
