@@ -84,9 +84,12 @@
   blankScreen.hidden =YES;
   [self.view addSubview:blankScreen];
   [self.view bringSubviewToFront:blankScreen];
-
+  NSString *imglogo = selectedUfrespo.imageStr;
+  if (imglogo == nil || imglogo == (id)[NSNull null]) {
+    
+  }else{
   dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-  
+    
   NSString *url_Img_FULL = [kBaseRestImagePathUtl stringByAppendingPathComponent:selectedUfrespo.imageStr];
   if (selectedUfrespo.imageStr) {
     NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url_Img_FULL]];
@@ -95,6 +98,7 @@
     });
   }
   });
+  }
   
 //  if (![self checkRestoClosed]) {
   

@@ -620,11 +620,24 @@
     cell.emptyCartBtn.layer.cornerRadius =5.0;
     USerSelectedCartData *cd = (USerSelectedCartData*)[popRestArray objectAtIndex:indexPath.row];
     NSString *imglogo=cd.Logo;
-    NSString *url_Img_FULL = [kBaseImage_pathUrl stringByAppendingPathComponent:imglogo];
-    if (imglogo) {
-      cell.imgVw.showActivityIndicator = YES;
-      cell.imgVw.imageURL = [NSURL URLWithString:url_Img_FULL];
-      cell.imgVw.contentMode = UIViewContentModeScaleAspectFit;
+    NSString *url_Img_FULL;
+//    NSString *url_Img_FULL = [kBaseImage_pathUrl stringByAppendingPathComponent:imglogo];
+//    if (imglogo) {
+//      cell.imgVw.showActivityIndicator = YES;
+//      cell.imgVw.imageURL = [NSURL URLWithString:url_Img_FULL];
+//      cell.imgVw.contentMode = UIViewContentModeScaleAspectFit;
+//    }
+    
+    if (imglogo == nil || imglogo == (id)[NSNull null]) {
+      // nil branch
+    } else {
+      // category name is set
+      url_Img_FULL = [kBaseImage_pathUrl stringByAppendingPathComponent:imglogo];
+      if (imglogo) {
+        cell.imgVw.showActivityIndicator = YES;
+        cell.imgVw.imageURL = [NSURL URLWithString:url_Img_FULL];
+        cell.imgVw.contentMode = UIViewContentModeScaleAspectFit;
+      }
     }
     
     return cell;
@@ -686,12 +699,20 @@
     timeValue = [timeValue stringByAppendingString:@" Minutes"];
     cell.lbldeliveritime.text =timeValue;
     NSString *imglogo=ufpRespo.logo;
-    NSString *url_Img_FULL = [kBaseImage_pathUrl stringByAppendingPathComponent:imglogo];
-    if (imglogo) {
-      cell.imgView.showActivityIndicator = YES;
-      cell.imgView.imageURL = [NSURL URLWithString:url_Img_FULL];
-      cell.imgView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    NSString *url_Img_FULL;
+    if (imglogo == nil || imglogo == (id)[NSNull null]) {
+      // nil branch
+    } else {
+      // category name is set
+      url_Img_FULL = [kBaseImage_pathUrl stringByAppendingPathComponent:imglogo];
+      if (imglogo) {
+        cell.imgView.showActivityIndicator = YES;
+        cell.imgView.imageURL = [NSURL URLWithString:url_Img_FULL];
+        cell.imgView.contentMode = UIViewContentModeScaleAspectFit;
+      }
     }
+   
     UIView *roundedView = [cell.contentView viewWithTag:20];
     if (roundedView == nil) {
       NSInteger spacingBothHorizontal = 20;
