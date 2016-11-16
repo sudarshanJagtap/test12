@@ -16,6 +16,11 @@
 #define kOFFSET_FOR_KEYBOARD 80.0
 @interface SignUpViewController (){
   AppDelegate *appDelegate;
+  UIView *blankScreen;
+  UIView *alertView;
+  UILabel *fromLabel;
+  int tag;
+  RequestUtility *sharedReqUtlty;
 }
 
 @end
@@ -24,6 +29,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+  tag=0;
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  CGFloat screenHeight = screenRect.size.height;
+  CGFloat screenWidth = screenRect.size.width;
+  alertView = [[UIView alloc]init];
+  fromLabel = [[UILabel alloc]init];
+  blankScreen = [[UIView alloc]init];
+  blankScreen.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+  blankScreen.backgroundColor = [UIColor blackColor];
+  blankScreen.alpha = 0.5;
+  blankScreen.hidden =YES;
+  [self.view addSubview:blankScreen];
+  [self.view bringSubviewToFront:blankScreen];
     // Do any additional setup after loading the view.
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -159,25 +177,29 @@
 //      NSString *code = [ResponseDictionary valueForKey:@"code"];
       if ([ResponseDictionary valueForKey:@"code"] == [NSNumber numberWithLong:1]) {
       NSLog(@"login successfull");
-        if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
-          [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
-          [appDelegate hideLoadingView];
-          NSString * storyboardName = @"Main";
-          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-          UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
-          UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
-          [navController setViewControllers: @[vc] animated: NO ];
-          [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
-        }else{
+        
+        [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
         [appDelegate hideLoadingView];
-      [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
-        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-        for (UIViewController *aViewController in allViewControllers) {
-          if ([aViewController isKindOfClass:[CartViewController class]]) {
-            [self.navigationController popToViewController:aViewController animated:NO];
-          }
-        }
-        }
+        [self showMsg:@"Registration Successfull"];
+//        if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
+//          [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+//          [appDelegate hideLoadingView];
+//          NSString * storyboardName = @"Main";
+//          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+//          UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+//          UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+//          [navController setViewControllers: @[vc] animated: NO ];
+//          [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+//        }else{
+//        [appDelegate hideLoadingView];
+//      [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+//        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+//        for (UIViewController *aViewController in allViewControllers) {
+//          if ([aViewController isKindOfClass:[CartViewController class]]) {
+//            [self.navigationController popToViewController:aViewController animated:NO];
+//          }
+//        }
+//        }
       }else{
     
       
@@ -403,6 +425,120 @@
   int length = (int)[mobileNumber length];
   
   return length;
+}
+
+-(void)showMsg:(NSString*)msgStr{
+  
+  
+  
+  float screenWidth = [[UIScreen mainScreen] bounds].size.width;
+  float screenheight = [[UIScreen mainScreen] bounds].size.height;
+  //  fullscreenView.frame = self.view.bounds;
+  //  fullscreenView.backgroundColor = [UIColor blackColor];
+  UITapGestureRecognizer *singleFingerTap =
+  [[UITapGestureRecognizer alloc] initWithTarget:self
+                                          action:@selector(handleSingleTap:)];
+  [blankScreen addGestureRecognizer:singleFingerTap];
+  blankScreen.hidden = NO;
+  alertView.hidden = NO;
+  //  fullscreenView.alpha = 0.5;
+  //  [self.view addSubview:fullscreenView];
+  //  [self.view bringSubviewToFront:fullscreenView];
+  
+  
+  alertView.backgroundColor = [UIColor whiteColor];
+  [alertView setFrame:CGRectMake(20, screenheight, screenWidth-40, 155)];
+  UIImageView *imgView = [[UIImageView alloc]init];
+  [imgView setFrame:CGRectMake(alertView.frame.size.width/2-85, 10, 170, 30)];
+  [imgView setImage: [UIImage imageNamed:@"ymoc_login_logo.png"]];
+  [alertView addSubview:imgView];
+  
+  UILabel *lineLbl = [[UILabel alloc]init];
+  [lineLbl setFrame:CGRectMake(0, 47, alertView.frame.size.width, 1)];
+  lineLbl.backgroundColor = [UIColor lightGrayColor];
+  lineLbl.numberOfLines = 1;
+  [alertView addSubview:lineLbl];
+  
+  [fromLabel setFrame:CGRectMake(0, 50, screenWidth-40, 45)];
+  fromLabel.font = [UIFont fontWithName:@"Sansation-Bold" size:16];
+  fromLabel.text = msgStr;
+  fromLabel.numberOfLines = 4;
+  fromLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
+  fromLabel.adjustsFontSizeToFitWidth = YES;
+  fromLabel.minimumScaleFactor = 10.0f/12.0f;
+  fromLabel.adjustsFontSizeToFitWidth = YES;
+  fromLabel.backgroundColor = [UIColor clearColor];
+  fromLabel.textColor = [UIColor colorWithRed:85.0/255.0 green:150.0/255.0 blue:28.0/255.0 alpha:1.0];;
+  fromLabel.textAlignment = NSTextAlignmentCenter;
+  fromLabel.lineBreakMode = NSLineBreakByWordWrapping;
+  [alertView addSubview:fromLabel];
+  
+  UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+  [okBtn addTarget:self
+            action:@selector(OKBtnClicked:)
+  forControlEvents:UIControlEventTouchUpInside];
+  [okBtn setTitle:@"OK" forState:UIControlStateNormal];
+  okBtn.frame = CGRectMake(alertView.frame.size.width/2-50, 105, 100, 40.0);
+  okBtn.backgroundColor = [UIColor colorWithRed:63/255.0f green:173/255.0f blue:232/255.0f alpha:1.0f];
+  
+  //  if ([msgStr isEqualToString:@"Delivery Fee will be changed as per your delivery address"]) {
+  //    tag=1;
+  //  }else if ([msgStr isEqualToString:@"Please select payment type"]){
+  //    tag =3;
+  //  }
+  //  else if([msgStr isEqualToString:@"Please check selected delivery address"]){
+  //    tag =4;
+  //  }
+  //  else{
+  //    tag=0;
+  //  }
+  blankScreen.hidden =NO;
+  [alertView addSubview:okBtn];
+  [self.view addSubview:alertView];
+  [self.view bringSubviewToFront:alertView];
+  
+  [UIView transitionWithView:alertView
+                    duration:0.5
+                     options:UIViewAnimationOptionTransitionNone
+                  animations:^{
+                    alertView.center = self.view.center;
+                  }
+                  completion:nil];
+  
+}
+
+-(IBAction)OKBtnClicked:(id)sender{
+  //  UIButton *btn = (UIButton*)sender;
+  blankScreen.hidden =YES;
+  alertView.hidden = YES;
+  [alertView removeFromSuperview];
+
+  if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
+//    [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+    [appDelegate hideLoadingView];
+    NSString * storyboardName = @"Main";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
+    UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+    [navController setViewControllers: @[vc] animated: NO ];
+    [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+  }else{
+    [appDelegate hideLoadingView];
+//    [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
+    NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+    for (UIViewController *aViewController in allViewControllers) {
+      if ([aViewController isKindOfClass:[CartViewController class]]) {
+        [self.navigationController popToViewController:aViewController animated:NO];
+      }
+    }
+  }
+  
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+  //  blankScreen.hidden = YES;
+  //  alertView.hidden = YES;
+  //  [alertView removeFromSuperview];
 }
 
 

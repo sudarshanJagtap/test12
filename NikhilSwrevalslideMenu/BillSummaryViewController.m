@@ -152,7 +152,7 @@
       self.addressConstraint.constant = 110;
 //     self.hAddressChangeConstraint.constant = 30;
     if ([RequestUtility sharedRequestUtility].FromCartScreen == NO) {
-   [self showMsg:@"Please check selected delivery address"];
+   [self showMsg:@" Please check selected delivery address "];
     }
   
    
@@ -372,7 +372,7 @@
 //          UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 //          [alert show];
 //          
-          [self showMsg:@"Payment Successful"];
+          [self showMsg:@" Payment Successful "];
 //          NSString * storyboardName = @"Main";
 //          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
 //          UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"FrontHomeScreenViewControllerId"];
@@ -402,7 +402,7 @@
         [appDelegate hideLoadingView];
         int restID = [[bfPaymentDictionary valueForKey:@"restaurant_id"] intValue];
         [[DBManager getSharedInstance] deleteRecordAfterPayment:restID];
-        [self showMsg:@"Payment Successful"];
+        [self showMsg:@" Payment Successful "];
 //        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"Payment successfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 //        [alert show];
 //        
@@ -523,7 +523,7 @@
     [self.navigationController pushViewController:obj_clvc animated:YES];
   }
   else{
-  [self showMsg:@"Delivery Fee will be changed as per your delivery address"];
+  [self showMsg:@" Delivery Fee will be changed as per your delivery address "];
   }
   
 }
@@ -542,7 +542,7 @@
   }else{
 //    UIAlertView *alertVw = [[UIAlertView alloc]initWithTitle:@"" message:@"Please select payment type" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 //    [alertVw show];
-    [self showMsg:@"Please select payment type"];
+    [self showMsg:@" Please select payment type "];
   }
 }
 
@@ -636,7 +636,7 @@
    [alertView addSubview:lineLbl];
   
   [fromLabel setFrame:CGRectMake(0, 50, screenWidth-40, 45)];
-  fromLabel.font = [UIFont fontWithName:@"Sansation-Bold" size:16];
+  fromLabel.font = [UIFont fontWithName:@"Sansation-Bold" size:18];
   fromLabel.text = msgStr;
   fromLabel.numberOfLines = 4;
   fromLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
@@ -657,12 +657,12 @@
   okBtn.frame = CGRectMake(alertView.frame.size.width/2-50, 105, 100, 40.0);
   okBtn.backgroundColor = [UIColor colorWithRed:63/255.0f green:173/255.0f blue:232/255.0f alpha:1.0f];
   
-  if ([msgStr isEqualToString:@"Delivery Fee will be changed as per your delivery address"]) {
+  if ([msgStr isEqualToString:@" Delivery Fee will be changed as per your delivery address "]) {
     tag=1;
-  }else if ([msgStr isEqualToString:@"Please select payment type"]){
+  }else if ([msgStr isEqualToString:@" Please select payment type "]){
     tag =3;
   }
-  else if([msgStr isEqualToString:@"Please check selected delivery address"]){
+  else if([msgStr isEqualToString:@" Please check selected delivery address "]){
     tag =4;
   }
   else{

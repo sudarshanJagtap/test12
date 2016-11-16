@@ -678,7 +678,7 @@
       cell.labelOrderHeightConstraint.constant = 16;
       
     }
-    int rating = [ufpRespo.rating intValue];
+    int rating = (int)[ufpRespo.min_order_amount length];
     if (rating==1) {
       [cell.imgDollarVw setImage:[UIImage imageNamed:@"1d"]];
     }
