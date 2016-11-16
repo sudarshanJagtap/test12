@@ -115,7 +115,8 @@ static sqlite3_stmt *statement = nil;
 }
 
 -(BOOL)updateUserFilterResponse:(UserFiltersResponse*)filterObject andDistance:(NSString*)dist{
-  
+  if ((dist!=Nil)||(dist!=nil)) {
+
   const char *dbpath = [databasePath UTF8String];
   if (sqlite3_open(dbpath, &database) == SQLITE_OK)
   {
@@ -130,6 +131,7 @@ static sqlite3_stmt *statement = nil;
       return NO;
     }
   }return NO;
+  }
   return NO;
 }
 
@@ -927,11 +929,13 @@ static sqlite3_stmt *statement = nil;
 
 
 -(BOOL)updateOrderModeIntoDB:(NSString*)restID andOrderMode:(NSString*)orderMode andDistance:(NSString*)dist{
-  
+
+  if ((dist == nil)||(dist == Nil)) {
+
   const char *dbpath = [databasePath UTF8String];
   if (sqlite3_open(dbpath, &database) == SQLITE_OK)
   {
-    NSString *queryStr = [NSString stringWithFormat:@"UPDATE UserSelectedAddToCartInfo SET orderType = '%@',Distance= '%@' WHERE restaurant_Id = %@",orderMode,dist,restID];
+    NSString *queryStr = [NSString stringWithFormat:@"UPDATE UserSelectedAddToCartInfo SET orderType = '%@' WHERE restaurant_Id = %@",orderMode,restID];
     const char *insert_stmt = [queryStr UTF8String];
     sqlite3_prepare_v2(database, insert_stmt,-1, &statement, NULL);
     if (sqlite3_step(statement) == SQLITE_DONE)
@@ -942,7 +946,48 @@ static sqlite3_stmt *statement = nil;
       return NO;
     }
   }return NO;
+  }else{
+  
+    const char *dbpath = [databasePath UTF8String];
+    if (sqlite3_open(dbpath, &database) == SQLITE_OK)
+    {
+      NSString *queryStr = [NSString stringWithFormat:@"UPDATE UserSelectedAddToCartInfo SET orderType = '%@',Distance= '%@' WHERE restaurant_Id = %@",orderMode,dist,restID];
+      const char *insert_stmt = [queryStr UTF8String];
+      sqlite3_prepare_v2(database, insert_stmt,-1, &statement, NULL);
+      if (sqlite3_step(statement) == SQLITE_DONE)
+      {
+        return YES;
+      }
+      else {
+        return NO;
+      }
+    }return NO;
+  
+  
+  
+  }
   return NO;
+}
+
+- (NSString*)getDistanceOfRestuarants:(NSString*)restID
+{
+  NSString *rDist;
+  const char *dbpath = [databasePath UTF8String];
+//  NSMutableDictionary  *dict  = [[NSMutableDictionary alloc]init];
+  if (sqlite3_open(dbpath, &database) == SQLITE_OK)
+  {
+    sqlite3_stmt *stmt;
+    NSString *queryStr = [NSString stringWithFormat:@"SELECT pkDistance from UserFilterResponseData WHERE ufp_id = %@",restID];
+    if (sqlite3_prepare(database, [queryStr UTF8String], -1, &stmt, nil) == SQLITE_OK)
+    {
+      while (sqlite3_step(stmt) == SQLITE_ROW)
+      {
+        char *dist= (char*)sqlite3_column_text(stmt, 0);
+        rDist = [NSString stringWithUTF8String:dist];
+      }
+    }
+  }
+  return rDist;
 }
 
 @end

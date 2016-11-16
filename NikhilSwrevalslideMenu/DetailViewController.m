@@ -247,12 +247,16 @@
   }
   self.waitTimeLbl.text = [NSString stringWithFormat:@"Est. Wait: %@ Minutes",selectedUfrespo.delivery_time];
   if ( [[RequestUtility sharedRequestUtility].selectedOrderType  isEqual: @"PickUp"]) {
-    if (selectedUfrespo.pkDistance ==NULL) {
-      self.deliveryLbl.text = [NSString stringWithFormat:@"Distance: %@ Miles",selectedUfrespo.pkDistance];
+    if ((selectedUfrespo.pkDistance ==NULL)||(selectedUfrespo.pkDistance == Nil)) {
+//      self.deliveryLbl.text = [NSString stringWithFormat:@"Distance: %@ Miles",selectedUfrespo.pkDistance];
+      NSString *miles = [[DBManager getSharedInstance] getDistanceOfRestuarants:selectedUfrespo.ufp_id];
+      self.deliveryLbl.text = [NSString stringWithFormat:@"Distance: %@ Miles",miles];
     }else{
     self.deliveryLbl.text = [NSString stringWithFormat:@"Distance: %@ Miles",selectedUfrespo.pkDistance];
     }
   }
+  
+  
   cdOperation = [[CuisineDetailOperation alloc]init];
   cdOperation.selectedId = selectedUfrespo.ufp_id;
   sectionArray = [[NSMutableArray alloc]init];

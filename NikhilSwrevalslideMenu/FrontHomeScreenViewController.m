@@ -444,12 +444,12 @@
     reqUtility.selectedOrderType = @"Delivery";
 //    [self.btnPickup setEnabled:YES];
 //    [self.btnDelivery setEnabled:NO];
-    reqUtility.delivery_status = 0;
+    reqUtility.delivery_status = 1;
   }else{
     reqUtility.selectedOrderType = @"PickUp";
 //    [self.btnPickup setEnabled:YES];
 //    [self.btnDelivery setEnabled:NO];
-    reqUtility.delivery_status = 1;
+    reqUtility.delivery_status = 0;
   
   }
 //  reqUtility.delivery_status = 0;
@@ -893,6 +893,10 @@
   fullscreenView.hidden = YES;
   alertView.hidden = YES;
   [fullscreenView removeFromSuperview];
+  reqUtility.selectedOrderType = @"Delivery";
+  //    [self.btnPickup setEnabled:YES];
+  //    [self.btnDelivery setEnabled:NO];
+  reqUtility.delivery_status = 1;
   
   BOOL retval = [[DBManager getSharedInstance]updateOrderModeIntoDB:didSelectedFilterRespo.ufp_id andOrderMode:@"Delivery"andDistance:didSelectedFilterRespo.pkDistance];
   if (retval) {
@@ -910,6 +914,8 @@
 -(void)pickUpBtnClicked{
   fullscreenView.hidden = YES;
   alertView.hidden = YES;
+  reqUtility.delivery_status = 0;
+  reqUtility.selectedOrderType = @"PickUp";
   [fullscreenView removeFromSuperview];
   
   BOOL retval = [[DBManager getSharedInstance]updateOrderModeIntoDB:didSelectedFilterRespo.ufp_id andOrderMode:@"PickUp"andDistance:didSelectedFilterRespo.pkDistance];

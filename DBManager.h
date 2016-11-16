@@ -39,5 +39,6 @@
 
 -(NSString*)getOrderTypeForRestaurantID:(int)rID;
 -(BOOL)updateOrderModeIntoDB:(NSString*)restID andOrderMode:(NSString*)orderMode andDistance:(NSString*)dist;
+- (NSString*)getDistanceOfRestuarants:(NSString*)restID;
 
 @end
