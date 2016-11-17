@@ -12,6 +12,7 @@
 #import "FilterOperations.h"
 #import "RequestUtility.h"
 #import "DBManager.h"
+#import "AppConstant.h"
 @interface RightMenuViewController ()<RateViewDelegate>{
   
   FilterOperations *fOperation;
@@ -37,7 +38,11 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.resetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-
+  if ([RequestUtility sharedRequestUtility].isAsap) {
+    self.openNwLbl.text = kOpenLater;
+  }else{
+  self.openNwLbl.text = kOpenNow;
+  }
   NSDictionary *userdictionary = [[DBManager getSharedInstance]getALlUserData];
   NSString *userId=[userdictionary valueForKey:@"user_id"];
   NSString *userFullName=[userdictionary valueForKey:@"user_name"];
@@ -70,7 +75,11 @@
   self.title =@"Filters";
   fOperation.selectedCusinesArray = [[NSMutableArray alloc]init];
   fOperation.selectedFeaturesArray = [[NSMutableArray alloc]init];
-  featureArray = [[NSArray alloc]initWithObjects:@"Open Now",@"Free Delivery",@"Customized Menu",nil];
+  if ([RequestUtility sharedRequestUtility].isAsap) {
+    featureArray = [[NSArray alloc]initWithObjects:kOpenLater,kFree_Delivery,kCustomized_Menu,nil];
+  }else{
+  featureArray = [[NSArray alloc]initWithObjects:kOpenNow,kFree_Delivery,kCustomized_Menu,nil];
+  }
   AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   [appDelegate showLoadingViewWithString:@"Loading..."];
   arrayName = [[NSMutableArray alloc]init];
@@ -126,19 +135,20 @@
   }else{
    [self.btn1  setBackgroundImage:[UIImage imageNamed: @"uncheckBx.png"] forState:UIControlStateNormal];
   }
-
-//  [reqUtility.selectedFeaturesArray addObject:@"open_now_status"];
   self.navigationController.navigationBarHidden = YES;
 }
 
 -(void)updateCheckBox{
-  if([reqUtility.selectedFeaturesArray containsObject:@"open_now_status"]){
+  if([reqUtility.selectedFeaturesArray containsObject:kopen_later_status]){
+    [self.btn1  setBackgroundImage:[UIImage imageNamed: @"checkBx.png"] forState:UIControlStateNormal];
+  }
+  if([reqUtility.selectedFeaturesArray containsObject:kopen_now_status]){
   [self.btn1  setBackgroundImage:[UIImage imageNamed: @"checkBx.png"] forState:UIControlStateNormal];
   }
-    if([reqUtility.selectedFeaturesArray containsObject:@"free_delivery"]){
+    if([reqUtility.selectedFeaturesArray containsObject:kfree_delivery]){
     [self.btn2  setBackgroundImage:[UIImage imageNamed: @"checkBx.png"] forState:UIControlStateNormal];
     }
-    if([reqUtility.selectedFeaturesArray containsObject:@"customize_food"]){
+    if([reqUtility.selectedFeaturesArray containsObject:kcustomize_food]){
       [self.btn3  setBackgroundImage:[UIImage imageNamed: @"checkBx.png"] forState:UIControlStateNormal];
     }
 }
@@ -308,7 +318,11 @@
   reqUtility.ratings = 0;
   reqUtility.delivery_status = 0;
   reqUtility.sorting = @"no";
-  [reqUtility.selectedFeaturesArray addObject:@"open_now_status"];
+  if (reqUtility.isAsap) {
+    [reqUtility.selectedFeaturesArray addObject:kopen_later_status];
+  }else{
+  [reqUtility.selectedFeaturesArray addObject:kopen_now_status];
+  }
   
  [self updateDollarView];
   [self updateCheckBox];
@@ -329,6 +343,25 @@
     }else{
       [self datePickerBtnAction:self];
             reqUtility.isAsap = YES;
+      if ([RequestUtility sharedRequestUtility].isAsap) {
+        self.openNwLbl.text = kOpenLater;
+        if ([reqUtility.selectedFeaturesArray containsObject:kopen_now_status]) {
+          [reqUtility.selectedFeaturesArray removeObject:kopen_now_status];
+            [reqUtility.selectedFeaturesArray addObject:kopen_later_status];
+        }else{
+        [reqUtility.selectedFeaturesArray addObject:kopen_later_status];
+          [self.btn1  setBackgroundImage:[UIImage imageNamed: @"checkBx.png"] forState:UIControlStateNormal];
+        }
+      }else{
+        self.openNwLbl.text = kOpenNow;
+        if ([reqUtility.selectedFeaturesArray containsObject:kopen_later_status]) {
+          [reqUtility.selectedFeaturesArray removeObject:kopen_later_status];
+          [reqUtility.selectedFeaturesArray addObject:kopen_now_status];
+        }else{
+        [reqUtility.selectedFeaturesArray addObject:kopen_now_status];
+          [self.btn1  setBackgroundImage:[UIImage imageNamed: @"uncheckBx.png"] forState:UIControlStateNormal];
+        }
+      }
     }
   }
   else
@@ -342,6 +375,19 @@
       reqUtility.isAsap = NO;
       reqUtility.asapSchedule_date = @"00:00:00";
       reqUtility.asapSchedule_time = @"00:00";
+      if ([RequestUtility sharedRequestUtility].isAsap) {
+        self.openNwLbl.text = kOpenLater;
+        if ([reqUtility.selectedFeaturesArray containsObject:kopen_now_status]) {
+          [reqUtility.selectedFeaturesArray removeObject:kopen_now_status];
+          [reqUtility.selectedFeaturesArray addObject:kopen_later_status];
+        }
+      }else{
+        self.openNwLbl.text = kOpenNow;
+        if ([reqUtility.selectedFeaturesArray containsObject:kopen_later_status]) {
+          [reqUtility.selectedFeaturesArray removeObject:kopen_later_status];
+          [reqUtility.selectedFeaturesArray addObject:kopen_now_status];
+        }
+      }
     }
   }
   NSLog(@"Selected features array = %@",fOperation.selectedFeaturesArray);

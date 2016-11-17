@@ -73,7 +73,14 @@ NSString* const kPaypalSanboxKey = @"ASGLkX28ypnHeOc26Z9AS2i8ozJyYaEobRW8ZGFjWfc
 NSString* const kPaypalProductionKey = @"YOUR_CLIENT_ID_FOR_PRODUCTION";
 
 
-
+NSString* const kOpenNow = @"Open Now";
+NSString* const kopen_now_status = @"open_now_status";
+NSString* const kOpenLater = @"Open Later";
+NSString* const kopen_later_status = @"open_later_status";
+NSString* const kFree_Delivery = @"Free Delivery";
+NSString* const kfree_delivery = @"free_delivery";
+NSString* const kCustomized_Menu = @"Customize Menu";
+NSString* const kcustomize_food = @"customize_food";
 
 
 

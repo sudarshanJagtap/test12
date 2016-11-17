@@ -13,7 +13,6 @@
 
 -(NSDictionary *) dictionary {
     
-// return @{@"rating":@"no",@"feature":@"open_now_status", @"address":@"",@"all_cuisine":@"andhra",@"sorting":@"no",@"delivery_status":@"no",@"action1":@"search"};
     
     return @{
              kParamNameFilter  : self.AddressCityState,

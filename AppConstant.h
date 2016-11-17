@@ -64,6 +64,16 @@ extern NSString* const kPintrestUrl;
 extern NSString* const kInstagramUrl;
 
 
+extern NSString* const kOpenNow;
+extern NSString* const kopen_now_status;
+extern NSString* const kOpenLater;
+extern NSString* const kopen_later_status;
+extern NSString* const kFree_Delivery;
+extern NSString* const kfree_delivery;
+extern NSString* const kCustomized_Menu;
+extern NSString* const kcustomize_food;
+
+
 
 
 @end

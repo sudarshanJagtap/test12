@@ -470,6 +470,7 @@
                         <outlet property="dollarView" destination="zR8-Hj-du6" id="A1k-qt-mJS"/>
                         <outlet property="moreFiltersView" destination="PPl-PS-upj" id="Mbr-Lh-hyl"/>
                         <outlet property="nextBtn" destination="vDt-h2-0mc" id="Yi9-O4-Dp0"/>
+                        <outlet property="openNwLbl" destination="Zu8-5N-XUx" id="RrY-2o-w1J"/>
                         <outlet property="pickerMainView" destination="if4-ur-vnn" id="b4k-k9-fH6"/>
                         <outlet property="prevBtn" destination="iXB-bP-tLA" id="rBu-iT-4zY"/>
                         <outlet property="ratingsView" destination="Uvm-G1-H6x" id="Nnc-Ej-5L5"/>

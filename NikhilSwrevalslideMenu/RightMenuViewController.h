@@ -41,5 +41,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateDisplayLbl;
 
 @property (weak, nonatomic) IBOutlet UIDatePicker *DatetimePicker;
+@property (weak, nonatomic) IBOutlet UILabel *openNwLbl;
 
 @end

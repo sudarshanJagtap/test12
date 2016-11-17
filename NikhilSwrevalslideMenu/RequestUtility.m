@@ -31,7 +31,12 @@
     self.isAsap = NO;
     self.selectedFeaturesArray = [[NSMutableArray alloc]init];
     self.selectedCusinesArray = [[NSMutableArray alloc]init];
-    [self.selectedFeaturesArray addObject:@"open_now_status"];
+//    if ([RequestUtility sharedRequestUtility].isAsap) {
+//    [self.selectedFeaturesArray addObject:kopen_later_status];
+//    }else{
+//    [self.selectedFeaturesArray addObject:kopen_now_status];
+//    }
+    [self.selectedFeaturesArray addObject:kopen_now_status];
     self.selectedAddressId = @"-1";
     self.isThroughGuestUser = NO;
   }
@@ -163,31 +168,41 @@
 -(NSString*)getFeaturNamefromSelectedTag:(int)SelectedTag{
   switch (SelectedTag) {
     case 0:
-    return @"open_now_status";
+      if ([RequestUtility sharedRequestUtility].isAsap) {
+      return kopen_later_status;
+      }else{
+        return kopen_now_status;
+      }
     break;
     case 1:
-    return @"free_delivery";
+      return kfree_delivery;
     break;
     case 2:
-    return @"customize_food";
+      return kcustomize_food;
     break;
     
     default:
-    return @"open_now_status";
+      return kopen_now_status;
     break;
   }
 }
 
 -(NSString*)getDisplayFeature:(NSString*)key{
   NSString *retval;
-  if ([key isEqualToString:@"open_now_status"]) {
-    retval = @"Open Now";
+  if ([RequestUtility sharedRequestUtility].isAsap) {
+    if ([key isEqualToString:kopen_later_status]) {
+      retval = kOpenLater;
+    }
+  }else{
+  if ([key isEqualToString:kopen_now_status]) {
+    retval = kOpenNow;
   }
-  if ([key isEqualToString:@"free_delivery"]) {
-    retval = @"Free Delivery";
   }
-  if ([key isEqualToString:@"customize_food"]) {
-    retval = @"Customize Menu";
+  if ([key isEqualToString:kfree_delivery]) {
+    retval = kFree_Delivery;
+  }
+  if ([key isEqualToString:kcustomize_food]) {
+    retval = kCustomized_Menu;
   }
   return retval;
 }

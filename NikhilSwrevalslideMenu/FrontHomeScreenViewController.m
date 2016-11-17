@@ -661,8 +661,8 @@
       cell.cuisineStringHeightConstraint.constant = 16;
     }
     if ([self.btnDelivery isEnabled]) {
-      
-      distanceValue = [@"Distance: " stringByAppendingString:distanceValue];
+      if (distanceValue == nil || distanceValue == (id)[NSNull null]) {}else{
+        distanceValue = [@"Distance: " stringByAppendingString:distanceValue];}
 //      cell.lblFee.text =distanceValue;
       cell.lblFee.text = [NSString stringWithFormat:@"%@ Miles",distanceValue];
       cell.lblOrder.hidden =YES;

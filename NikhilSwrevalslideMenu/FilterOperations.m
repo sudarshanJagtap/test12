@@ -39,7 +39,12 @@
     self.sorting = @"no";
     self.selectedFeaturesArray = [[NSMutableArray alloc]init];
     self.selectedCusinesArray = [[NSMutableArray alloc]init];
-    [self.selectedFeaturesArray addObject:@"open_now_status"];
+//    if ([RequestUtility sharedRequestUtility].isAsap) {
+//      [self.selectedFeaturesArray addObject:kopen_later_status];
+//    }else{
+//    [self.selectedFeaturesArray addObject:kopen_now_status];
+//    }
+    [self.selectedFeaturesArray addObject:kopen_now_status];
   }
   return self;
 }
