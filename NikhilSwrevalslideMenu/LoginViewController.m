@@ -411,9 +411,9 @@ dismissViewController:(UIViewController *)viewController {
     dispatch_async(dispatch_get_main_queue(), ^{
       NSString *code = [ResponseDictionary valueForKey:@"code"];
       if ([ResponseDictionary valueForKey:@"code"] == [NSNumber numberWithLong:1]) {
-        NSLog(@"Login Successfull");
+        NSLog(@"Login Successful");
         [appDelegate hideLoadingView];
-        [self showMsg:@"Login Successfull"];
+        [self showMsg:@"Login Successful"];
          [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
 //        if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
 //          [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];

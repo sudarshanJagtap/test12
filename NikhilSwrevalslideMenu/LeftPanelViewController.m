@@ -288,7 +288,7 @@
       BOOL retval = NO;
       retval = [DBManager getSharedInstance].deleteUserData;
       if (retval) {
-        [self showMsg:@"Sign Out Successfull"];
+        [self showMsg:@"Sign Out Successful"];
         [self loadLeftPanel];
       }
     }

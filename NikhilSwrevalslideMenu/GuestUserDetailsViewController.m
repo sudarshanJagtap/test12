@@ -201,7 +201,7 @@
         if ( ud.length>0) {
           [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
           [appDelegate hideLoadingView];
-          [self showMsg:@"Registration Successfull"];
+          [self showMsg:@"Registration Successful"];
           
           
 //          [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];

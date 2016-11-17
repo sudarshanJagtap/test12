@@ -143,7 +143,7 @@
         if ( ud.length>0) {
           [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
           [appDelegate hideLoadingView];
-          [self showMsg:@"Login Successfull"];
+          [self showMsg:@"Login Successful"];
 //          if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
 //            [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
 //            [appDelegate hideLoadingView];

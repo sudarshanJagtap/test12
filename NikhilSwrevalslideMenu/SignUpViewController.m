@@ -180,7 +180,7 @@
         
         [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
         [appDelegate hideLoadingView];
-        [self showMsg:@"Registration Successfull"];
+        [self showMsg:@"Registration Successful"];
 //        if([RequestUtility sharedRequestUtility].isThroughLeftMenu){
 //          [[DBManager getSharedInstance] saveUserData:[ResponseDictionary valueForKey:@"data"]];
 //          [appDelegate hideLoadingView];
