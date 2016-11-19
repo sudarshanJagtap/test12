@@ -93,7 +93,7 @@
   }
   
 }
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error{
+- (void)webView:(UIWebView *)webView didFailLoadWithError:( NSError *)error{
   NSString *urlString = [webView.request URL].absoluteString;
   NSLog(@"didFailLoadWithError web string is ; /n %@",urlString);
   NSLog(@"didFailLoadWithError error string is ; /n %@",error.description);

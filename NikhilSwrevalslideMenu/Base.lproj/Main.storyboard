@@ -746,7 +746,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Astar" translatesAutoresizingMaskIntoConstraints="NO" id="oV0-Nv-u8j">
-                                                    <rect key="frame" x="274" y="70" width="16" height="16"/>
+                                                    <rect key="frame" x="273" y="69" width="16" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="5P2-Na-MOa"/>
                                                         <constraint firstAttribute="width" constant="16" id="npU-OO-PjZ"/>
@@ -771,7 +771,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="cZA-Ep-ljJ" secondAttribute="trailing" constant="10" id="HNH-qd-mUN"/>
                                                 <constraint firstItem="WnH-1a-lBj" firstAttribute="leading" secondItem="t9j-5U-7i8" secondAttribute="trailing" constant="10" id="IVs-Qt-Nn8"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Mr4-U4-UPs" secondAttribute="trailing" id="K4B-8S-SnC"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="oV0-Nv-u8j" secondAttribute="trailing" constant="22" id="Lh9-hi-bl0"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="oV0-Nv-u8j" secondAttribute="trailing" constant="23" id="Lh9-hi-bl0"/>
                                                 <constraint firstItem="Mr4-U4-UPs" firstAttribute="leading" secondItem="WnH-1a-lBj" secondAttribute="leading" id="Mkd-kF-koW"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="WnH-1a-lBj" secondAttribute="trailing" id="OGq-7b-bkh"/>
                                                 <constraint firstItem="tPw-n6-E4c" firstAttribute="top" secondItem="lnB-cW-Tgy" secondAttribute="bottom" id="Oko-bw-Lj2"/>
@@ -784,7 +784,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="3WE-OL-DE9" secondAttribute="trailing" id="iH3-uK-0Mn"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="lnB-cW-Tgy" secondAttribute="trailing" id="p3X-Hd-wxs"/>
                                                 <constraint firstItem="t9j-5U-7i8" firstAttribute="top" secondItem="Mr4-U4-UPs" secondAttribute="bottom" constant="-2.5" id="uvU-NT-O23"/>
-                                                <constraint firstItem="oV0-Nv-u8j" firstAttribute="top" secondItem="lnB-cW-Tgy" secondAttribute="bottom" constant="-16" id="yi0-6K-S5Y"/>
+                                                <constraint firstItem="oV0-Nv-u8j" firstAttribute="top" secondItem="lnB-cW-Tgy" secondAttribute="bottom" constant="-17" id="yi0-6K-S5Y"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
