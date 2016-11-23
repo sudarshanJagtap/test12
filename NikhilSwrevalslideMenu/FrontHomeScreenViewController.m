@@ -436,6 +436,12 @@
    self.tableTopConstraint.constant = -40;
   self.resetFiltersView.hidden = YES;
   self.addedFilterLabel.hidden = NO;
+  
+  reqUtility.sorting = @"";
+  dropDownSelectedString = @"";
+  self.dropdown.text = @"";
+  self.dropdown.placeholder = @"Select Sorting Type";
+  
   [reqUtility.selectedCusinesArray removeAllObjects];
   [reqUtility.selectedFeaturesArray removeAllObjects];
   reqUtility.min_order_amount = @"no";

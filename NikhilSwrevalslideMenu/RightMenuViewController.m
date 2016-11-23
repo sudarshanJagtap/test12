@@ -141,15 +141,23 @@
 -(void)updateCheckBox{
   if([reqUtility.selectedFeaturesArray containsObject:kopen_later_status]){
     [self.btn1  setBackgroundImage:[UIImage imageNamed: @"checkBx.png"] forState:UIControlStateNormal];
+  }else{
+  [self.btn1  setBackgroundImage:[UIImage imageNamed: @"uncheckBx.png"] forState:UIControlStateNormal];
   }
   if([reqUtility.selectedFeaturesArray containsObject:kopen_now_status]){
   [self.btn1  setBackgroundImage:[UIImage imageNamed: @"checkBx.png"] forState:UIControlStateNormal];
+  }else{
+   [self.btn1  setBackgroundImage:[UIImage imageNamed: @"uncheckBx.png"] forState:UIControlStateNormal];
   }
     if([reqUtility.selectedFeaturesArray containsObject:kfree_delivery]){
     [self.btn2  setBackgroundImage:[UIImage imageNamed: @"checkBx.png"] forState:UIControlStateNormal];
+    }else{
+      [self.btn2  setBackgroundImage:[UIImage imageNamed: @"uncheckBx.png"] forState:UIControlStateNormal];
     }
     if([reqUtility.selectedFeaturesArray containsObject:kcustomize_food]){
       [self.btn3  setBackgroundImage:[UIImage imageNamed: @"checkBx.png"] forState:UIControlStateNormal];
+    }else{
+      [self.btn3  setBackgroundImage:[UIImage imageNamed: @"uncheckBx.png"] forState:UIControlStateNormal];
     }
 }
 
@@ -311,24 +319,43 @@
 }
 
 - (IBAction)resetAllCuisine:(id)sender {
-  [selectedRowsArray removeAllObjects];
-  [reqUtility.selectedCusinesArray removeAllObjects];
+
+  if ([self.resetBtn.titleLabel.text isEqualToString:@"Reset All"]) {
+
   [reqUtility.selectedFeaturesArray removeAllObjects];
   reqUtility.min_order_amount = @"no";
   reqUtility.ratings = 0;
   reqUtility.delivery_status = 0;
   reqUtility.sorting = @"no";
-  if (reqUtility.isAsap) {
-    [reqUtility.selectedFeaturesArray addObject:kopen_later_status];
+  self.openNwLbl.text = kOpenNow;
+  self.asapDisplayLbl.text=@"";
+  self.pickerMainView.hidden = YES;
+  reqUtility.isAsap = NO;
+  reqUtility.asapSchedule_date = @"00:00:00";
+  reqUtility.asapSchedule_time = @"00:00";
+  if ([RequestUtility sharedRequestUtility].isAsap) {
+    self.openNwLbl.text = kOpenLater;
+    if ([reqUtility.selectedFeaturesArray containsObject:kopen_now_status]) {
+      [reqUtility.selectedFeaturesArray removeObject:kopen_now_status];
+      [reqUtility.selectedFeaturesArray addObject:kopen_later_status];
+    }
   }else{
-  [reqUtility.selectedFeaturesArray addObject:kopen_now_status];
+    self.openNwLbl.text = kOpenNow;
+    if ([reqUtility.selectedFeaturesArray containsObject:kopen_later_status]) {
+      [reqUtility.selectedFeaturesArray removeObject:kopen_later_status];
+      [reqUtility.selectedFeaturesArray addObject:kopen_now_status];
+    }
   }
+  [self.asapChkBx  setBackgroundImage:[UIImage imageNamed: @"uncheckBx.png"] forState:UIControlStateNormal];
   
  [self updateDollarView];
   [self updateCheckBox];
   self.ratingsView.rating =reqUtility.ratings;
-
+  }else{
+  [selectedRowsArray removeAllObjects];
+  [reqUtility.selectedCusinesArray removeAllObjects];
   [self.tblViewIteam reloadData];
+  }
 }
 
 - (IBAction)moreFiltersCheckBoxClicked:(id)sender {
